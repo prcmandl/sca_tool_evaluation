@@ -1,0 +1,141 @@
+<html>
+<head>
+<title>fossa.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #0037a6;}
+.s5 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+fossa.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">List</span>
+
+<span class="s0">import </span><span class="s1">requests</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;evaluation.adapters.fossa&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">FossaAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    FOSSA adapters (SBOM / License-focused). 
+ 
+    SBOM-based FOSSA projects do NOT expose security issues via API. 
+    This adapters therefore returns ZERO security findings, 
+    but fully conforms to the VulnerabilityToolAdapter contract. 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: dict):</span>
+        <span class="s1">super().__init__(config)</span>
+
+        <span class="s1">env = config.get(</span><span class="s2">&quot;env&quot;</span><span class="s1">, {})</span>
+
+        <span class="s1">self.base_url = (env.get(</span><span class="s2">&quot;FOSSA_BASE_URL&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).rstrip(</span><span class="s2">&quot;/&quot;</span><span class="s1">)</span>
+        <span class="s1">self.api_key = env.get(</span><span class="s2">&quot;FOSSA_API_KEY&quot;</span><span class="s1">)</span>
+        <span class="s1">self.project_id = env.get(</span><span class="s2">&quot;FOSSA_PROJECT_ID&quot;</span><span class="s1">)</span>
+
+        <span class="s0">if not </span><span class="s1">self.base_url </span><span class="s0">or not </span><span class="s1">self.api_key </span><span class="s0">or not </span><span class="s1">self.project_id:</span>
+            <span class="s0">raise </span><span class="s1">SystemExit(</span>
+                <span class="s2">&quot;Missing environment variables for FOSSA:</span><span class="s4">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  FOSSA_BASE_URL</span><span class="s4">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  FOSSA_API_KEY</span><span class="s4">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  FOSSA_PROJECT_ID&quot;</span>
+            <span class="s1">)</span>
+
+        <span class="s1">self._probed = </span><span class="s0">False</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;FOSSA adapters initialized&quot;</span><span class="s1">)</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;FOSSA project locator: %s&quot;</span><span class="s1">, self.project_id)</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Adapter metadata</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;fossa&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># REQUIRED by evaluate.py</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Load and normalize FOSSA findings. 
+ 
+        For SBOM-based projects this ALWAYS returns an empty list. 
+        &quot;&quot;&quot;</span>
+        <span class="s1">self._probe_security_endpoint_once()</span>
+
+        <span class="s1">findings: List[Finding] = []</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;FOSSA: normalized %d findings&quot;</span><span class="s1">, len(findings))</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Component-level API required by wrapper adapters. 
+        Always empty for FOSSA. 
+        &quot;&quot;&quot;</span>
+        <span class="s0">return </span><span class="s1">[]</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Internal helper</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_probe_security_endpoint_once(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Probe the FOSSA /issues endpoint once per run. 
+ 
+        Non-JSON response is EXPECTED for SBOM projects. 
+        &quot;&quot;&quot;</span>
+        <span class="s0">if </span><span class="s1">self._probed:</span>
+            <span class="s0">return</span>
+        <span class="s1">self._probed = </span><span class="s0">True</span>
+
+        <span class="s1">url = </span><span class="s2">f&quot;</span><span class="s4">{</span><span class="s1">self.base_url</span><span class="s4">}</span><span class="s2">/api/projects/</span><span class="s4">{</span><span class="s1">self.project_id</span><span class="s4">}</span><span class="s2">/issues&quot;</span>
+        <span class="s1">headers = {</span>
+            <span class="s2">&quot;Authorization&quot;</span><span class="s1">: </span><span class="s2">f&quot;Bearer </span><span class="s4">{</span><span class="s1">self.api_key</span><span class="s4">}</span><span class="s2">&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;Accept&quot;</span><span class="s1">: </span><span class="s2">&quot;application/json&quot;</span><span class="s1">,</span>
+        <span class="s1">}</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">r = requests.get(url, headers=headers, timeout=</span><span class="s5">30</span><span class="s1">)</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.warning(</span>
+                <span class="s2">&quot;FOSSA request failed for project %s: %s&quot;</span><span class="s1">,</span>
+                <span class="s1">self.project_id,</span>
+                <span class="s1">e,</span>
+            <span class="s1">)</span>
+            <span class="s0">return</span>
+
+        <span class="s1">content_type = r.headers.get(</span><span class="s2">&quot;Content-Type&quot;</span><span class="s1">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+
+        <span class="s0">if not </span><span class="s1">content_type.startswith(</span><span class="s2">&quot;application/json&quot;</span><span class="s1">):</span>
+            <span class="s1">log.info(</span>
+                <span class="s2">&quot;FOSSA project %s exposes no security issues via API &quot;</span>
+                <span class="s2">&quot;(SBOM/license-only project)&quot;</span><span class="s1">,</span>
+                <span class="s1">self.project_id,</span>
+            <span class="s1">)</span>
+</pre>
+</body>
+</html>

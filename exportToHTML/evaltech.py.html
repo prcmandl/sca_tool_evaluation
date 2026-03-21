@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>evaltech.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #8c8c8c; font-style: italic;}
+.s3 { color: #067d17;}
+.s4 { color: #0037a6;}
+.s5 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+evaltech.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">List, Dict, Any, Set, Tuple</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.adapters.dtrack </span><span class="s0">import </span><span class="s1">DependencyTrackAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+<span class="s0">from </span><span class="s1">evaluation.core.ecosystems </span><span class="s0">import </span><span class="s1">ECOSYSTEMS</span>
+<span class="s0">from </span><span class="s1">evaluation.fp_engine.evaltech_vulnerability_false_positive_engine </span><span class="s0">import </span><span class="s1">(</span>
+    <span class="s1">EvaltechFalsePositiveEngine,</span>
+<span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">EvaltechAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s2">&quot;&quot;&quot; 
+    Evaltech adapters. 
+ 
+    - Delegates detection to Dependency-Track 
+    - Applies Evaltech FP heuristics 
+    - Provides unified logging + progress bar 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s1">super().__init__(config)</span>
+        <span class="s1">self.gt = config[</span><span class="s3">&quot;ground_truth&quot;</span><span class="s1">]</span>
+        <span class="s1">self.dt = DependencyTrackAdapter(config)</span>
+        <span class="s1">self.log.info(</span><span class="s3">&quot;Initialized adapters: Evaltech&quot;</span><span class="s1">)</span>
+
+    <span class="s2"># ------------------------------------------------------------</span>
+    <span class="s2"># Adapter metadata</span>
+    <span class="s2"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s3">&quot;evaltech&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return True</span>
+
+    <span class="s2"># ------------------------------------------------------------</span>
+    <span class="s2"># Required by abstract base</span>
+    <span class="s2"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s2">&quot;&quot;&quot; 
+        Single component execution: 
+        - get DT findings 
+        - apply FP heuristics 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">findings = self.dt.load_findings_for_component(</span>
+            <span class="s1">ecosystem=ecosystem,</span>
+            <span class="s1">component=component,</span>
+            <span class="s1">version=version,</span>
+        <span class="s1">)</span>
+
+        <span class="s1">eco_cfg = ECOSYSTEMS.get(ecosystem)</span>
+        <span class="s0">if not </span><span class="s1">eco_cfg:</span>
+            <span class="s0">return </span><span class="s1">findings</span>
+
+        <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">findings:</span>
+            <span class="s0">if not </span><span class="s1">f.cve:</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">purl = </span><span class="s3">f&quot;pkg:</span><span class="s4">{</span><span class="s1">eco_cfg.purl</span><span class="s4">}</span><span class="s3">/</span><span class="s4">{</span><span class="s1">f.component</span><span class="s4">}</span><span class="s3">@</span><span class="s4">{</span><span class="s1">f.version</span><span class="s4">}</span><span class="s3">&quot;</span>
+            <span class="s1">description = (f.description </span><span class="s0">or </span><span class="s3">&quot;&quot;</span><span class="s1">).split(</span><span class="s3">&quot;</span><span class="s4">\n</span><span class="s3">&quot;</span><span class="s1">)[</span><span class="s5">0</span><span class="s1">].strip()</span>
+
+            <span class="s1">result = EvaltechFalsePositiveEngine.detect_fp(</span>
+                <span class="s1">cve_id=f.cve,</span>
+                <span class="s1">component=f.component,</span>
+                <span class="s1">purl=purl,</span>
+                <span class="s1">description=description,</span>
+                <span class="s1">cve_cpes=f.cve_cpes,</span>
+            <span class="s1">)</span>
+
+            <span class="s0">if </span><span class="s1">result.get(</span><span class="s3">&quot;is_fp&quot;</span><span class="s1">):</span>
+                <span class="s1">f.fp_class = result.get(</span><span class="s3">&quot;primary_rule&quot;</span><span class="s1">)</span>
+                <span class="s1">f.fp_score = result.get(</span><span class="s3">&quot;score&quot;</span><span class="s1">)</span>
+                <span class="s1">f.fp_rules = result.get(</span><span class="s3">&quot;rules&quot;</span><span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s2"># ------------------------------------------------------------</span>
+    <span class="s2"># Batch API (like GitHub)</span>
+    <span class="s2"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s2">&quot;&quot;&quot; 
+        Batch execution with progress bar. 
+        Mirrors GitHub adapters behaviour. 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">rows: List[Finding] = []</span>
+
+        <span class="s1">components = sorted({</span>
+            <span class="s1">(f.ecosystem, f.component, f.version)</span>
+            <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self.gt</span>
+        <span class="s1">})</span>
+
+        <span class="s1">self.log.info(</span>
+            <span class="s3">&quot;Evaltech FP analysis for %d unique components&quot;</span><span class="s1">,</span>
+            <span class="s1">len(components),</span>
+        <span class="s1">)</span>
+
+        <span class="s0">for </span><span class="s1">ecosystem, component, version </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+                <span class="s1">components,</span>
+                <span class="s1">desc=</span><span class="s3">&quot;Evaltech FP analysis&quot;</span><span class="s1">,</span>
+                <span class="s1">unit=</span><span class="s3">&quot;component&quot;</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s1">rows.extend(</span>
+                <span class="s1">self.load_findings_for_component(</span>
+                    <span class="s1">ecosystem=ecosystem,</span>
+                    <span class="s1">component=component,</span>
+                    <span class="s1">version=version,</span>
+                <span class="s1">)</span>
+            <span class="s1">)</span>
+
+        <span class="s1">self.log.info(</span>
+            <span class="s3">&quot;Evaltech analysis finished | findings=%d&quot;</span><span class="s1">,</span>
+            <span class="s1">len(rows),</span>
+        <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">rows</span>
+
+</pre>
+</body>
+</html>

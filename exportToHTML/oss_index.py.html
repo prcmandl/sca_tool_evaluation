@@ -1,0 +1,450 @@
+<html>
+<head>
+<title>oss_index.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+oss_index.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">__future__ </span><span class="s0">import </span><span class="s1">annotations</span>
+
+<span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">import </span><span class="s1">time</span>
+<span class="s0">from </span><span class="s1">dataclasses </span><span class="s0">import </span><span class="s1">dataclass</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">Any, Dict, List, Optional, Tuple</span>
+<span class="s0">from </span><span class="s1">urllib.parse </span><span class="s0">import </span><span class="s1">quote</span>
+
+<span class="s0">import </span><span class="s1">requests</span>
+
+<span class="s0">from </span><span class="s1">adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+<span class="s0">from </span><span class="s1">core.normalization </span><span class="s0">import </span><span class="s1">normalize_identifier</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;adapters.ossindex&quot;</span><span class="s1">)</span>
+
+
+<span class="s1">@dataclass(frozen=</span><span class="s0">True</span><span class="s1">)</span>
+<span class="s0">class </span><span class="s1">_CoordKey:</span>
+    <span class="s1">ecosystem: str</span>
+    <span class="s1">component: str</span>
+    <span class="s1">version: str</span>
+
+
+<span class="s0">class </span><span class="s1">OSSIndexAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Sonatype OSS Index Adapter (real OSS Index backend). 
+ 
+    Semantics (RULE-CONFORM): 
+    - project-centric: only GT component+version queried 
+    - no matching logic in adapters 
+    - findings MUST carry at least one identifier (CVE or GHSA) 
+    - advisory duplicates are collapsed to canonical GT granularity 
+    &quot;&quot;&quot;</span>
+
+    <span class="s1">BASE_URL = </span><span class="s2">&quot;https://ossindex.sonatype.org&quot;</span>
+    <span class="s1">COMPONENT_REPORT_PATH = </span><span class="s2">&quot;/api/v3/component-report&quot;</span>
+    <span class="s1">BATCH_SIZE = </span><span class="s4">128</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s1">super().__init__(config)</span>
+
+        <span class="s1">env = config.get(</span><span class="s2">&quot;env&quot;</span><span class="s1">, {})</span>
+
+        <span class="s1">self.username = env.get(</span><span class="s2">&quot;OSSINDEX_USERNAME&quot;</span><span class="s1">)</span>
+        <span class="s1">self.token = env.get(</span><span class="s2">&quot;OSSINDEX_TOKEN&quot;</span><span class="s1">)</span>
+
+        <span class="s1">self.max_retries = int(env.get(</span><span class="s2">&quot;OSSINDEX_MAX_RETRIES&quot;</span><span class="s1">, </span><span class="s4">3</span><span class="s1">))</span>
+        <span class="s1">self.retry_backoff_s = float(env.get(</span><span class="s2">&quot;OSSINDEX_RETRY_BACKOFF_S&quot;</span><span class="s1">, </span><span class="s4">1.5</span><span class="s1">))</span>
+
+        <span class="s1">self.session = requests.Session()</span>
+        <span class="s1">self.session.headers.update(</span>
+            <span class="s1">{</span>
+                <span class="s2">&quot;Accept&quot;</span><span class="s1">: </span><span class="s2">&quot;application/json&quot;</span><span class="s1">,</span>
+                <span class="s2">&quot;Content-Type&quot;</span><span class="s1">: </span><span class="s2">&quot;application/json&quot;</span><span class="s1">,</span>
+                <span class="s2">&quot;User-Agent&quot;</span><span class="s1">: </span><span class="s2">&quot;evaltech-report/ossindex-adapters&quot;</span><span class="s1">,</span>
+            <span class="s1">}</span>
+        <span class="s1">)</span>
+
+        <span class="s0">if </span><span class="s1">self.username </span><span class="s0">and </span><span class="s1">self.token:</span>
+            <span class="s1">self.session.auth = (self.username, self.token)</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;OSS Index adapters initialized (authenticated)&quot;</span><span class="s1">)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;OSS Index adapters initialized (anonymous)&quot;</span><span class="s1">)</span>
+
+        <span class="s1">self._cache_all_findings: Optional[List[Finding]] = </span><span class="s0">None</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Metadata</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;oss-index&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_security_findings(self) -&gt; bool:</span>
+        <span class="s0">return True</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Public API</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s0">if </span><span class="s1">self._cache_all_findings </span><span class="s0">is not None</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s1">self._cache_all_findings</span>
+
+        <span class="s1">gt: List[Finding] = self.config.get(</span><span class="s2">&quot;ground_truth&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s0">if not </span><span class="s1">gt:</span>
+            <span class="s1">log.warning(</span><span class="s2">&quot;OSS Index: no ground truth provided&quot;</span><span class="s1">)</span>
+            <span class="s1">self._cache_all_findings = []</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">coord_map: Dict[str, _CoordKey] = {}</span>
+        <span class="s1">coordinates: List[str] = []</span>
+
+        <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">gt:</span>
+            <span class="s1">coord: Optional[str] = </span><span class="s0">None</span>
+
+            <span class="s1">purl = getattr(f, </span><span class="s2">&quot;purl&quot;</span><span class="s1">, </span><span class="s0">None</span><span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">purl:</span>
+                <span class="s1">coord = purl.strip()</span>
+
+            <span class="s0">if not </span><span class="s1">coord:</span>
+                <span class="s1">coord = self._to_purl_coordinate(</span>
+                    <span class="s1">ecosystem=f.ecosystem,</span>
+                    <span class="s1">component=f.component,</span>
+                    <span class="s1">version=f.version,</span>
+                <span class="s1">)</span>
+
+            <span class="s0">if not </span><span class="s1">coord </span><span class="s0">or </span><span class="s1">coord </span><span class="s0">in </span><span class="s1">coord_map:</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">coord_map[coord] = _CoordKey(</span>
+                <span class="s1">ecosystem=f.ecosystem,</span>
+                <span class="s1">component=f.component,</span>
+                <span class="s1">version=f.version,</span>
+            <span class="s1">)</span>
+            <span class="s1">coordinates.append(coord)</span>
+
+        <span class="s1">findings: List[Finding] = []</span>
+
+        <span class="s0">for </span><span class="s1">batch </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+            <span class="s1">self._chunks(coordinates, self.BATCH_SIZE),</span>
+            <span class="s1">desc=</span><span class="s2">&quot;OSS Index component-report&quot;</span><span class="s1">,</span>
+            <span class="s1">unit=</span><span class="s2">&quot;batch&quot;</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s1">batch_findings = self._query_component_report(</span>
+                <span class="s1">batch,</span>
+                <span class="s1">coord_map=coord_map,</span>
+            <span class="s1">)</span>
+            <span class="s1">findings.extend(batch_findings)</span>
+
+        <span class="s3"># ---------- Canonical deduplication ----------</span>
+        <span class="s1">deduped: Dict[Tuple[str, str, str, str], Finding] = {}</span>
+        <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">findings:</span>
+            <span class="s1">key = (</span>
+                <span class="s1">f.ecosystem,</span>
+                <span class="s1">f.component,</span>
+                <span class="s1">f.version,</span>
+                <span class="s1">f.cve </span><span class="s0">or </span><span class="s1">f.ghsa,</span>
+            <span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">key </span><span class="s0">not in </span><span class="s1">deduped:</span>
+                <span class="s1">deduped[key] = f</span>
+
+        <span class="s1">self._cache_all_findings = list(deduped.values())</span>
+        <span class="s0">return </span><span class="s1">self._cache_all_findings</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s1">all_findings = self.load_findings()</span>
+        <span class="s0">return </span><span class="s1">[</span>
+            <span class="s1">f </span><span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">all_findings</span>
+            <span class="s0">if </span><span class="s1">f.ecosystem == ecosystem </span><span class="s0">and </span><span class="s1">f.component == component </span><span class="s0">and </span><span class="s1">f.version == version</span>
+        <span class="s1">]</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># OSS Index interaction</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_query_component_report(</span>
+        <span class="s1">self,</span>
+        <span class="s1">coordinates: List[str],</span>
+        <span class="s1">*,</span>
+        <span class="s1">coord_map: Dict[str, _CoordKey],</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s1">url = </span><span class="s2">f&quot;</span><span class="s5">{</span><span class="s1">self.BASE_URL</span><span class="s5">}{</span><span class="s1">self.COMPONENT_REPORT_PATH</span><span class="s5">}</span><span class="s2">&quot;</span>
+        <span class="s1">payload = {</span><span class="s2">&quot;coordinates&quot;</span><span class="s1">: coordinates}</span>
+
+        <span class="s0">for </span><span class="s1">attempt </span><span class="s0">in </span><span class="s1">range(</span><span class="s4">1</span><span class="s1">, self.max_retries + </span><span class="s4">1</span><span class="s1">):</span>
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">r = self._api_call(</span>
+                    <span class="s1">session=self.session,</span>
+                    <span class="s1">method=</span><span class="s2">&quot;POST&quot;</span><span class="s1">,</span>
+                    <span class="s1">url=url,</span>
+                    <span class="s1">json_body=payload,</span>
+                    <span class="s1">timeout=</span><span class="s4">45</span><span class="s1">,</span>
+                <span class="s1">)</span>
+            <span class="s0">except </span><span class="s1">requests.RequestException:</span>
+                <span class="s1">self._sleep_backoff(attempt)</span>
+                <span class="s0">continue</span>
+
+            <span class="s0">if </span><span class="s1">r.status_code == </span><span class="s4">200</span><span class="s1">:</span>
+                <span class="s0">try</span><span class="s1">:</span>
+                    <span class="s1">data = r.json()</span>
+                <span class="s0">except </span><span class="s1">Exception:</span>
+                    <span class="s0">return </span><span class="s1">[]</span>
+                <span class="s0">return </span><span class="s1">self._parse_component_report(data, coord_map=coord_map)</span>
+
+            <span class="s0">if </span><span class="s1">r.status_code == </span><span class="s4">429</span><span class="s1">:</span>
+                <span class="s1">self._sleep_backoff(attempt, honor_retry_after=r)</span>
+                <span class="s0">continue</span>
+
+            <span class="s0">if </span><span class="s1">r.status_code </span><span class="s0">in </span><span class="s1">(</span><span class="s4">401</span><span class="s1">, </span><span class="s4">403</span><span class="s1">):</span>
+                <span class="s0">return </span><span class="s1">[]</span>
+
+            <span class="s1">self._sleep_backoff(attempt)</span>
+
+        <span class="s0">return </span><span class="s1">[]</span>
+
+    <span class="s0">def </span><span class="s1">_parse_component_report(</span>
+        <span class="s1">self,</span>
+        <span class="s1">data: Any,</span>
+        <span class="s1">*,</span>
+        <span class="s1">coord_map: Dict[str, _CoordKey],</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s0">if not </span><span class="s1">isinstance(data, list):</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">out: List[Finding] = []</span>
+
+        <span class="s0">for </span><span class="s1">comp_report </span><span class="s0">in </span><span class="s1">data:</span>
+            <span class="s0">if not </span><span class="s1">isinstance(comp_report, dict):</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">coord = str(</span>
+                <span class="s1">comp_report.get(</span><span class="s2">&quot;coordinates&quot;</span><span class="s1">)</span>
+                <span class="s0">or </span><span class="s1">comp_report.get(</span><span class="s2">&quot;coordinate&quot;</span><span class="s1">)</span>
+                <span class="s0">or </span><span class="s2">&quot;&quot;</span>
+            <span class="s1">).strip()</span>
+
+            <span class="s1">key = coord_map.get(coord) </span><span class="s0">or </span><span class="s1">self._best_effort_key_from_purl(coord)</span>
+            <span class="s0">if </span><span class="s1">key </span><span class="s0">is None</span><span class="s1">:</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">vulns = comp_report.get(</span><span class="s2">&quot;vulnerabilities&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+            <span class="s0">if not </span><span class="s1">isinstance(vulns, list):</span>
+                <span class="s0">continue</span>
+
+            <span class="s0">for </span><span class="s1">v </span><span class="s0">in </span><span class="s1">vulns:</span>
+                <span class="s0">if not </span><span class="s1">isinstance(v, dict):</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">vid = (v.get(</span><span class="s2">&quot;id&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+                <span class="s1">title = (v.get(</span><span class="s2">&quot;title&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+                <span class="s1">description = (v.get(</span><span class="s2">&quot;description&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+
+                <span class="s1">text = </span><span class="s2">&quot; &quot;</span><span class="s1">.join([vid, title, description])</span>
+
+                <span class="s1">cve = self._extract_cve(v, fallback_text=text)</span>
+                <span class="s1">ghsa = self._extract_ghsa(v, fallback_text=text)</span>
+
+                <span class="s3"># ---------- RULE: require identifier ----------</span>
+                <span class="s0">if not </span><span class="s1">cve </span><span class="s0">and not </span><span class="s1">ghsa:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">desc_line = (title </span><span class="s0">or </span><span class="s1">description </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).split(</span><span class="s2">&quot;</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">].strip()</span>
+                <span class="s0">if </span><span class="s1">vid:</span>
+                    <span class="s1">desc_line = </span><span class="s2">f&quot;[OSSINDEX:</span><span class="s5">{</span><span class="s1">vid</span><span class="s5">}</span><span class="s2">] </span><span class="s5">{</span><span class="s1">desc_line</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">.strip()</span>
+
+                <span class="s1">out.append(</span>
+                    <span class="s1">Finding(</span>
+                        <span class="s1">ecosystem=key.ecosystem,</span>
+                        <span class="s1">component=key.component,</span>
+                        <span class="s1">version=key.version,</span>
+                        <span class="s1">cve=cve,</span>
+                        <span class="s1">ghsa=ghsa,</span>
+                        <span class="s1">osv_id=</span><span class="s0">None</span><span class="s1">,</span>
+                        <span class="s1">description=desc_line,</span>
+                        <span class="s1">source=</span><span class="s2">&quot;ossindex&quot;</span><span class="s1">,</span>
+                        <span class="s1">affected_version_range=</span><span class="s0">None</span><span class="s1">,</span>
+                    <span class="s1">)</span>
+                <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">out</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Coordinate building</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_to_purl_coordinate(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; Optional[str]:</span>
+        <span class="s0">if not </span><span class="s1">ecosystem </span><span class="s0">or not </span><span class="s1">component </span><span class="s0">or not </span><span class="s1">version:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">eco = ecosystem.strip().lower()</span>
+        <span class="s1">comp = component.strip()</span>
+        <span class="s1">ver = version.strip()</span>
+
+        <span class="s0">if </span><span class="s1">eco == </span><span class="s2">&quot;maven&quot;</span><span class="s1">:</span>
+            <span class="s0">if </span><span class="s2">&quot;:&quot; </span><span class="s0">in </span><span class="s1">comp:</span>
+                <span class="s1">group, artifact = comp.split(</span><span class="s2">&quot;:&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+            <span class="s0">elif </span><span class="s2">&quot;/&quot; </span><span class="s0">in </span><span class="s1">comp:</span>
+                <span class="s1">group, artifact = comp.split(</span><span class="s2">&quot;/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+            <span class="s0">else</span><span class="s1">:</span>
+                <span class="s0">return None</span>
+
+            <span class="s0">return </span><span class="s2">f&quot;pkg:maven/</span><span class="s5">{</span><span class="s1">quote(group)</span><span class="s5">}</span><span class="s2">/</span><span class="s5">{</span><span class="s1">quote(artifact)</span><span class="s5">}</span><span class="s2">@</span><span class="s5">{</span><span class="s1">quote(ver)</span><span class="s5">}</span><span class="s2">&quot;</span>
+
+        <span class="s0">if </span><span class="s1">eco == </span><span class="s2">&quot;nuget&quot;</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s2">f&quot;pkg:nuget/</span><span class="s5">{</span><span class="s1">quote(comp)</span><span class="s5">}</span><span class="s2">@</span><span class="s5">{</span><span class="s1">quote(ver)</span><span class="s5">}</span><span class="s2">&quot;</span>
+
+        <span class="s0">if </span><span class="s1">eco == </span><span class="s2">&quot;npm&quot;</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s2">f&quot;pkg:npm/</span><span class="s5">{</span><span class="s1">quote(comp, safe=</span><span class="s2">'/'</span><span class="s1">)</span><span class="s5">}</span><span class="s2">@</span><span class="s5">{</span><span class="s1">quote(ver)</span><span class="s5">}</span><span class="s2">&quot;</span>
+
+        <span class="s0">if </span><span class="s1">eco == </span><span class="s2">&quot;pypi&quot;</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s2">f&quot;pkg:pypi/</span><span class="s5">{</span><span class="s1">quote(comp)</span><span class="s5">}</span><span class="s2">@</span><span class="s5">{</span><span class="s1">quote(ver)</span><span class="s5">}</span><span class="s2">&quot;</span>
+
+        <span class="s0">return None</span>
+
+    <span class="s0">def </span><span class="s1">_best_effort_key_from_purl(self, coord: str) -&gt; Optional[_CoordKey]:</span>
+        <span class="s0">if not </span><span class="s1">coord </span><span class="s0">or </span><span class="s2">&quot;@&quot; </span><span class="s0">not in </span><span class="s1">coord:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">c = coord.strip()</span>
+        <span class="s0">if </span><span class="s1">c.startswith(</span><span class="s2">&quot;pkg:&quot;</span><span class="s1">):</span>
+            <span class="s1">c = c[</span><span class="s4">4</span><span class="s1">:]</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">left, version = c.split(</span><span class="s2">&quot;@&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+        <span class="s0">except </span><span class="s1">ValueError:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">version = version.split(</span><span class="s2">&quot;?&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">].split(</span><span class="s2">&quot;#&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">].strip()</span>
+        <span class="s0">if not </span><span class="s1">version:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">parts = left.split(</span><span class="s2">&quot;/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+        <span class="s0">if </span><span class="s1">len(parts) &lt; </span><span class="s4">2</span><span class="s1">:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">ptype = parts[</span><span class="s4">0</span><span class="s1">].lower()</span>
+        <span class="s1">rest = parts[</span><span class="s4">1</span><span class="s1">]</span>
+
+        <span class="s1">eco_map = {</span>
+            <span class="s2">&quot;maven&quot;</span><span class="s1">: </span><span class="s2">&quot;maven&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;npm&quot;</span><span class="s1">: </span><span class="s2">&quot;npm&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;pypi&quot;</span><span class="s1">: </span><span class="s2">&quot;pypi&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;nuget&quot;</span><span class="s1">: </span><span class="s2">&quot;nuget&quot;</span><span class="s1">,</span>
+        <span class="s1">}</span>
+        <span class="s1">eco = eco_map.get(ptype)</span>
+        <span class="s0">if not </span><span class="s1">eco:</span>
+            <span class="s0">return None</span>
+
+        <span class="s0">if </span><span class="s1">eco == </span><span class="s2">&quot;maven&quot;</span><span class="s1">:</span>
+            <span class="s0">if </span><span class="s2">&quot;/&quot; </span><span class="s0">not in </span><span class="s1">rest:</span>
+                <span class="s0">return None</span>
+            <span class="s1">group, artifact = rest.split(</span><span class="s2">&quot;/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">_CoordKey(eco, </span><span class="s2">f&quot;</span><span class="s5">{</span><span class="s1">group</span><span class="s5">}</span><span class="s2">:</span><span class="s5">{</span><span class="s1">artifact</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">, version)</span>
+
+        <span class="s0">return </span><span class="s1">_CoordKey(eco, rest, version)</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Identifier extraction helpers</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_extract_cve(self, vuln: Dict[str, Any], *, fallback_text: str) -&gt; Optional[str]:</span>
+        <span class="s0">for </span><span class="s1">k </span><span class="s0">in </span><span class="s1">(</span><span class="s2">&quot;cve&quot;</span><span class="s1">, </span><span class="s2">&quot;cveId&quot;</span><span class="s1">, </span><span class="s2">&quot;cve_id&quot;</span><span class="s1">):</span>
+            <span class="s1">v = vuln.get(k)</span>
+            <span class="s0">if </span><span class="s1">isinstance(v, str) </span><span class="s0">and </span><span class="s1">v.upper().startswith(</span><span class="s2">&quot;CVE-&quot;</span><span class="s1">):</span>
+                <span class="s0">return </span><span class="s1">normalize_identifier(v)</span>
+
+        <span class="s1">refs = vuln.get(</span><span class="s2">&quot;references&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s0">if </span><span class="s1">isinstance(refs, str):</span>
+            <span class="s1">refs = [refs]</span>
+        <span class="s0">for </span><span class="s1">r </span><span class="s0">in </span><span class="s1">refs:</span>
+            <span class="s0">if </span><span class="s1">isinstance(r, str) </span><span class="s0">and </span><span class="s2">&quot;CVE-&quot; </span><span class="s0">in </span><span class="s1">r:</span>
+                <span class="s1">c = self._find_token_with_prefix(r, </span><span class="s2">&quot;CVE-&quot;</span><span class="s1">)</span>
+                <span class="s0">if </span><span class="s1">c:</span>
+                    <span class="s0">return </span><span class="s1">normalize_identifier(c)</span>
+
+        <span class="s0">if </span><span class="s2">&quot;CVE-&quot; </span><span class="s0">in </span><span class="s1">fallback_text:</span>
+            <span class="s1">c = self._find_token_with_prefix(fallback_text, </span><span class="s2">&quot;CVE-&quot;</span><span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">c:</span>
+                <span class="s0">return </span><span class="s1">normalize_identifier(c)</span>
+
+        <span class="s0">return None</span>
+
+    <span class="s0">def </span><span class="s1">_extract_ghsa(self, vuln: Dict[str, Any], *, fallback_text: str) -&gt; Optional[str]:</span>
+        <span class="s1">refs = vuln.get(</span><span class="s2">&quot;references&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s0">if </span><span class="s1">isinstance(refs, str):</span>
+            <span class="s1">refs = [refs]</span>
+        <span class="s0">for </span><span class="s1">r </span><span class="s0">in </span><span class="s1">refs:</span>
+            <span class="s0">if </span><span class="s1">isinstance(r, str) </span><span class="s0">and </span><span class="s2">&quot;GHSA-&quot; </span><span class="s0">in </span><span class="s1">r:</span>
+                <span class="s1">g = self._find_token_with_prefix(r, </span><span class="s2">&quot;GHSA-&quot;</span><span class="s1">)</span>
+                <span class="s0">if </span><span class="s1">g:</span>
+                    <span class="s0">return </span><span class="s1">normalize_identifier(g)</span>
+
+        <span class="s0">if </span><span class="s2">&quot;GHSA-&quot; </span><span class="s0">in </span><span class="s1">fallback_text:</span>
+            <span class="s1">g = self._find_token_with_prefix(fallback_text, </span><span class="s2">&quot;GHSA-&quot;</span><span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">g:</span>
+                <span class="s0">return </span><span class="s1">normalize_identifier(g)</span>
+
+        <span class="s0">return None</span>
+
+    <span class="s0">def </span><span class="s1">_find_token_with_prefix(self, text: str, prefix: str) -&gt; Optional[str]:</span>
+        <span class="s0">if not </span><span class="s1">text:</span>
+            <span class="s0">return None</span>
+        <span class="s1">i = text.find(prefix)</span>
+        <span class="s0">if </span><span class="s1">i &lt; </span><span class="s4">0</span><span class="s1">:</span>
+            <span class="s0">return None</span>
+        <span class="s1">j = i</span>
+        <span class="s0">while </span><span class="s1">j &lt; len(text) </span><span class="s0">and </span><span class="s1">(text[j].isalnum() </span><span class="s0">or </span><span class="s1">text[j] </span><span class="s0">in </span><span class="s2">&quot;-&quot;</span><span class="s1">):</span>
+            <span class="s1">j += </span><span class="s4">1</span>
+        <span class="s1">token = text[i:j]</span>
+        <span class="s0">return </span><span class="s1">token </span><span class="s0">if </span><span class="s1">token.startswith(prefix) </span><span class="s0">else None</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Small utilities</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_chunks(self, xs: List[str], n: int) -&gt; List[List[str]]:</span>
+        <span class="s0">return </span><span class="s1">[xs[i:i + n] </span><span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range(</span><span class="s4">0</span><span class="s1">, len(xs), n)]</span>
+
+    <span class="s0">def </span><span class="s1">_sleep_backoff(self, attempt: int, honor_retry_after: Optional[requests.Response] = </span><span class="s0">None</span><span class="s1">) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s0">if </span><span class="s1">honor_retry_after </span><span class="s0">is not None</span><span class="s1">:</span>
+            <span class="s1">ra = honor_retry_after.headers.get(</span><span class="s2">&quot;Retry-After&quot;</span><span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">ra:</span>
+                <span class="s0">try</span><span class="s1">:</span>
+                    <span class="s1">sec = float(ra)</span>
+                    <span class="s1">time.sleep(min(sec, </span><span class="s4">60.0</span><span class="s1">))</span>
+                    <span class="s0">return</span>
+                <span class="s0">except </span><span class="s1">Exception:</span>
+                    <span class="s0">pass</span>
+
+        <span class="s1">delay = self.retry_backoff_s * attempt</span>
+        <span class="s1">time.sleep(min(delay, </span><span class="s4">30.0</span><span class="s1">))</span>
+</pre>
+</body>
+</html>

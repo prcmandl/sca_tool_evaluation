@@ -1,0 +1,268 @@
+<html>
+<head>
+<title>dtrack.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #0037a6;}
+.s5 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+dtrack.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">List, Dict, Any, Optional, Tuple, Set</span>
+<span class="s0">from </span><span class="s1">urllib.parse </span><span class="s0">import </span><span class="s1">unquote</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+<span class="s0">from </span><span class="s1">evaluation.core.ecosystems </span><span class="s0">import </span><span class="s1">ECOSYSTEMS</span>
+<span class="s0">from </span><span class="s1">evaluation.core.normalization </span><span class="s0">import </span><span class="s1">(</span>
+    <span class="s1">normalize_component,</span>
+    <span class="s1">normalize_version,</span>
+    <span class="s1">normalize_identifier,</span>
+<span class="s1">)</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;&quot;</span>
+                        <span class="s2">&quot;adapters.dtrack&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">DependencyTrackAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Adapter for OWASP Dependency-Track. 
+ 
+    RULE-CONFORM SEMANTICS: 
+    - project-centric (Dependency-Track project) 
+    - identifier-based findings only (CVE / GHSA) 
+    - canonical vulnerability deduplication 
+    - no matching logic in adapters 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s1">super().__init__(config)</span>
+
+        <span class="s1">env = config[</span><span class="s2">&quot;env&quot;</span><span class="s1">]</span>
+        <span class="s1">self.base_url = (env.get(</span><span class="s2">&quot;DTRACK_URL&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).rstrip(</span><span class="s2">&quot;/&quot;</span><span class="s1">)</span>
+        <span class="s1">self.api_key = env.get(</span><span class="s2">&quot;DTRACK_API_KEY&quot;</span><span class="s1">)</span>
+        <span class="s1">self.project_name = env.get(</span><span class="s2">&quot;DTRACK_PROJECT_NAME&quot;</span><span class="s1">)</span>
+
+        <span class="s0">if not </span><span class="s1">self.base_url </span><span class="s0">or not </span><span class="s1">self.api_key </span><span class="s0">or not </span><span class="s1">self.project_name:</span>
+            <span class="s0">raise </span><span class="s1">SystemExit(</span>
+                <span class="s2">&quot;Missing environment variables for Dependency-Track:</span><span class="s4">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  DTRACK_API_KEY</span><span class="s4">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  DTRACK_URL</span><span class="s4">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  DTRACK_PROJECT_NAME&quot;</span>
+            <span class="s1">)</span>
+
+        <span class="s1">self.s = requests.Session()</span>
+        <span class="s1">self.s.headers[</span><span class="s2">&quot;X-Api-Key&quot;</span><span class="s1">] = self.api_key</span>
+
+        <span class="s1">self._cache_all_findings: Optional[List[Finding]] = </span><span class="s0">None</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;Dependency-Track adapters initialized&quot;</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;dtrack&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_security_findings(self) -&gt; bool:</span>
+        <span class="s0">return True</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s3"># =========================================================</span>
+    <span class="s3"># PUBLIC API</span>
+    <span class="s3"># =========================================================</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s0">if </span><span class="s1">self._cache_all_findings </span><span class="s0">is not None</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s1">self._cache_all_findings</span>
+
+        <span class="s1">project_uuid = self._get_project_uuid(self.project_name)</span>
+        <span class="s1">raw = self._get_findings(project_uuid)</span>
+        <span class="s1">findings = self._extract_findings(raw)</span>
+
+        <span class="s1">self._cache_all_findings = findings</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s0">return </span><span class="s1">[</span>
+            <span class="s1">f </span><span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self.load_findings()</span>
+            <span class="s0">if </span><span class="s1">f.ecosystem == ecosystem</span>
+            <span class="s0">and </span><span class="s1">f.component == component</span>
+            <span class="s0">and </span><span class="s1">f.version == version</span>
+        <span class="s1">]</span>
+
+    <span class="s3"># =========================================================</span>
+    <span class="s3"># INTERNAL API</span>
+    <span class="s3"># =========================================================</span>
+
+    <span class="s0">def </span><span class="s1">_get_project_uuid(self, name: str) -&gt; str:</span>
+        <span class="s1">r = self._api_call(</span>
+            <span class="s1">session=self.s,</span>
+            <span class="s1">method=</span><span class="s2">&quot;GET&quot;</span><span class="s1">,</span>
+            <span class="s1">url=</span><span class="s2">f&quot;</span><span class="s4">{</span><span class="s1">self.base_url</span><span class="s4">}</span><span class="s2">/api/v1/project&quot;</span><span class="s1">,</span>
+            <span class="s1">params={</span><span class="s2">&quot;name&quot;</span><span class="s1">: name},</span>
+            <span class="s1">timeout=</span><span class="s5">30</span><span class="s1">,</span>
+        <span class="s1">)</span>
+        <span class="s1">r.raise_for_status()</span>
+
+        <span class="s1">data = r.json()</span>
+        <span class="s0">if not </span><span class="s1">data:</span>
+            <span class="s0">raise </span><span class="s1">RuntimeError(</span>
+                <span class="s2">f&quot;Dependency-Track project not found or not accessible: </span><span class="s4">{</span><span class="s1">name</span><span class="s4">}</span><span class="s2">&quot;</span>
+            <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">data[</span><span class="s5">0</span><span class="s1">][</span><span class="s2">&quot;uuid&quot;</span><span class="s1">]</span>
+
+    <span class="s0">def </span><span class="s1">_get_findings(self, project_uuid: str) -&gt; List[dict]:</span>
+        <span class="s1">r = self._api_call(</span>
+            <span class="s1">session=self.s,</span>
+            <span class="s1">method=</span><span class="s2">&quot;GET&quot;</span><span class="s1">,</span>
+            <span class="s1">url=</span><span class="s2">f&quot;</span><span class="s4">{</span><span class="s1">self.base_url</span><span class="s4">}</span><span class="s2">/api/v1/finding/project/</span><span class="s4">{</span><span class="s1">project_uuid</span><span class="s4">}</span><span class="s2">&quot;</span><span class="s1">,</span>
+            <span class="s1">timeout=</span><span class="s5">60</span><span class="s1">,</span>
+        <span class="s1">)</span>
+        <span class="s1">r.raise_for_status()</span>
+        <span class="s0">return </span><span class="s1">r.json()</span>
+
+    <span class="s3"># =========================================================</span>
+    <span class="s3"># NORMALIZATION HELPERS</span>
+    <span class="s3"># =========================================================</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">_strip_qualifiers_and_subpath(version: str) -&gt; str:</span>
+        <span class="s3"># purl version may include qualifiers (?...) or subpath (#...)</span>
+        <span class="s1">v = version.split(</span><span class="s2">&quot;?&quot;</span><span class="s1">, </span><span class="s5">1</span><span class="s1">)[</span><span class="s5">0</span><span class="s1">]</span>
+        <span class="s1">v = v.split(</span><span class="s2">&quot;#&quot;</span><span class="s1">, </span><span class="s5">1</span><span class="s1">)[</span><span class="s5">0</span><span class="s1">]</span>
+        <span class="s0">return </span><span class="s1">v.strip()</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">_maven_name_from_purl_name(raw_name: str) -&gt; str:</span>
+        <span class="s3"># raw_name from purl is typically &quot;group/artifact&quot;</span>
+        <span class="s3"># Must preserve group for component-identity with ground truth.</span>
+        <span class="s0">if </span><span class="s2">&quot;/&quot; </span><span class="s0">in </span><span class="s1">raw_name:</span>
+            <span class="s1">group, artifact = raw_name.split(</span><span class="s2">&quot;/&quot;</span><span class="s1">, </span><span class="s5">1</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s2">f&quot;</span><span class="s4">{</span><span class="s1">group</span><span class="s4">}</span><span class="s2">:</span><span class="s4">{</span><span class="s1">artifact</span><span class="s4">}</span><span class="s2">&quot;</span>
+        <span class="s0">return </span><span class="s1">raw_name</span>
+
+    <span class="s3"># =========================================================</span>
+    <span class="s3"># NORMALIZATION</span>
+    <span class="s3"># =========================================================</span>
+
+    <span class="s0">def </span><span class="s1">_extract_findings(self, findings: List[dict]) -&gt; List[Finding]:</span>
+        <span class="s1">rows: List[Finding] = []</span>
+        <span class="s1">seen: Set[Tuple[str, str, str, str]] = set()</span>
+
+        <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+            <span class="s1">findings,</span>
+            <span class="s1">desc=</span><span class="s2">&quot;Dependency-Track normalization&quot;</span><span class="s1">,</span>
+            <span class="s1">unit=</span><span class="s2">&quot;finding&quot;</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s1">comp = f.get(</span><span class="s2">&quot;component&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">{}</span>
+            <span class="s1">vuln = f.get(</span><span class="s2">&quot;vulnerability&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">{}</span>
+
+            <span class="s1">purl = (comp.get(</span><span class="s2">&quot;purl&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+            <span class="s0">if not </span><span class="s1">purl:</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">purl_l = purl.lower()</span>
+            <span class="s1">matched = </span><span class="s0">False</span>
+
+            <span class="s0">for </span><span class="s1">eco, eco_cfg </span><span class="s0">in </span><span class="s1">ECOSYSTEMS.items():</span>
+                <span class="s1">prefix = </span><span class="s2">f&quot;pkg:</span><span class="s4">{</span><span class="s1">eco_cfg.purl</span><span class="s4">}</span><span class="s2">/&quot;</span>
+                <span class="s0">if not </span><span class="s1">purl_l.startswith(prefix):</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">nv = purl[len(prefix):]</span>
+                <span class="s0">if </span><span class="s2">&quot;@&quot; </span><span class="s0">not in </span><span class="s1">nv:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">raw_name, raw_version = nv.split(</span><span class="s2">&quot;@&quot;</span><span class="s1">, </span><span class="s5">1</span><span class="s1">)</span>
+
+                <span class="s3"># decode url-encoding (e.g., %40scope for npm)</span>
+                <span class="s1">raw_name = unquote(raw_name).strip()</span>
+                <span class="s1">raw_version = unquote(raw_version).strip()</span>
+
+                <span class="s3"># strip qualifiers/subpath from version (common in DTrack purls)</span>
+                <span class="s1">raw_version = self._strip_qualifiers_and_subpath(raw_version)</span>
+
+                <span class="s3"># IMPORTANT: Maven needs group:artifact (not just artifact)</span>
+                <span class="s0">if </span><span class="s1">eco == </span><span class="s2">&quot;maven&quot;</span><span class="s1">:</span>
+                    <span class="s1">raw_name = self._maven_name_from_purl_name(raw_name)</span>
+
+                <span class="s1">name = normalize_component(eco, raw_name)</span>
+                <span class="s1">version = normalize_version(raw_version)</span>
+
+                <span class="s1">raw_id = (vuln.get(</span><span class="s2">&quot;vulnId&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+                <span class="s1">cve = </span><span class="s0">None</span>
+                <span class="s1">ghsa = </span><span class="s0">None</span>
+
+                <span class="s0">if </span><span class="s1">raw_id.upper().startswith(</span><span class="s2">&quot;CVE-&quot;</span><span class="s1">):</span>
+                    <span class="s1">cve = normalize_identifier(raw_id)</span>
+                <span class="s0">elif </span><span class="s1">raw_id.upper().startswith(</span><span class="s2">&quot;GHSA-&quot;</span><span class="s1">):</span>
+                    <span class="s1">ghsa = normalize_identifier(raw_id)</span>
+
+                <span class="s3"># RULE: require identifier</span>
+                <span class="s0">if not </span><span class="s1">cve </span><span class="s0">and not </span><span class="s1">ghsa:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">canonical_id = cve </span><span class="s0">or </span><span class="s1">ghsa</span>
+                <span class="s1">key = (eco, name, version, canonical_id)</span>
+
+                <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">seen:</span>
+                    <span class="s0">continue</span>
+                <span class="s1">seen.add(key)</span>
+
+                <span class="s1">affected_range = (</span>
+                    <span class="s1">vuln.get(</span><span class="s2">&quot;vulnerableVersions&quot;</span><span class="s1">)</span>
+                    <span class="s0">or </span><span class="s1">vuln.get(</span><span class="s2">&quot;affectedVersionRange&quot;</span><span class="s1">)</span>
+                <span class="s1">)</span>
+
+                <span class="s1">description = (</span>
+                    <span class="s1">vuln.get(</span><span class="s2">&quot;description&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span>
+                <span class="s1">).split(</span><span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s1">)[</span><span class="s5">0</span><span class="s1">].strip()</span>
+
+                <span class="s1">rows.append(</span>
+                    <span class="s1">Finding(</span>
+                        <span class="s1">ecosystem=eco,</span>
+                        <span class="s1">component=name,</span>
+                        <span class="s1">version=version,</span>
+                        <span class="s1">cve=cve,</span>
+                        <span class="s1">ghsa=ghsa,</span>
+                        <span class="s1">osv_id=</span><span class="s0">None</span><span class="s1">,</span>
+                        <span class="s1">description=description,</span>
+                        <span class="s1">source=</span><span class="s2">&quot;dependency-track&quot;</span><span class="s1">,</span>
+                        <span class="s1">cve_cpes=vuln.get(</span><span class="s2">&quot;cwes&quot;</span><span class="s1">),</span>
+                        <span class="s1">affected_version_range=affected_range,</span>
+                    <span class="s1">)</span>
+                <span class="s1">)</span>
+
+                <span class="s1">matched = </span><span class="s0">True</span>
+                <span class="s0">break</span>
+
+            <span class="s0">if not </span><span class="s1">matched:</span>
+                <span class="s0">continue</span>
+
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;Dependency-Track normalization complete | kept=%d&quot;</span><span class="s1">,</span>
+            <span class="s1">len(rows),</span>
+        <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">rows</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<html>
+<head>
+<title>github_advisory.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+github_advisory.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">__future__ </span><span class="s0">import </span><span class="s1">annotations</span>
+
+<span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">import </span><span class="s1">os</span>
+<span class="s0">import </span><span class="s1">re</span>
+<span class="s0">from </span><span class="s1">enum </span><span class="s0">import </span><span class="s1">Enum</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">Any, Dict, List, Optional, Set, Tuple</span>
+
+<span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">import </span><span class="s1">semantic_version </span><span class="s0">as </span><span class="s1">sv</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.ecosystems </span><span class="s0">import </span><span class="s1">ECOSYSTEMS</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+<span class="s0">from </span><span class="s1">evaluation.core.normalization </span><span class="s0">import </span><span class="s1">normalize_identifier</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;evaluation.adapters.github&quot;</span><span class="s1">)</span>
+
+<span class="s1">GITHUB_GRAPHQL_URL = </span><span class="s2">&quot;https://api.github.com/graphql&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">RangeResult(Enum):</span>
+    <span class="s1">IN_RANGE = </span><span class="s2">&quot;in_range&quot;</span>
+    <span class="s1">OUT_OF_RANGE = </span><span class="s2">&quot;out_of_range&quot;</span>
+    <span class="s1">UNDECIDABLE = </span><span class="s2">&quot;undecidable&quot;</span>
+
+
+<span class="s3"># ------------------------------------------------------------</span>
+<span class="s3"># GitHub ecosystem mapping (GraphQL enum)</span>
+<span class="s3"># ------------------------------------------------------------</span>
+
+<span class="s0">def </span><span class="s1">_map_github_ecosystem(gt_ecosystem: str) -&gt; Optional[str]:</span>
+    <span class="s3">&quot;&quot;&quot; 
+    GitHub GraphQL enum values for SecurityAdvisoryEcosystem are uppercase. 
+    We keep your ECOSYSTEMS mapping as primary, but fall back safely. 
+    &quot;&quot;&quot;</span>
+    <span class="s1">e = (gt_ecosystem </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip().lower()</span>
+    <span class="s0">return </span><span class="s1">{</span>
+        <span class="s2">&quot;maven&quot;</span><span class="s1">: </span><span class="s2">&quot;MAVEN&quot;</span><span class="s1">,</span>
+        <span class="s2">&quot;npm&quot;</span><span class="s1">: </span><span class="s2">&quot;NPM&quot;</span><span class="s1">,</span>
+        <span class="s2">&quot;pypi&quot;</span><span class="s1">: </span><span class="s2">&quot;PIP&quot;</span><span class="s1">,</span>
+        <span class="s2">&quot;nuget&quot;</span><span class="s1">: </span><span class="s2">&quot;NUGET&quot;</span><span class="s1">,</span>
+        <span class="s3"># add more if needed:</span>
+        <span class="s3"># &quot;rubygems&quot;: &quot;RUBYGEMS&quot;,</span>
+        <span class="s3"># &quot;go&quot;: &quot;GO&quot;,</span>
+    <span class="s1">}.get(e)</span>
+
+
+<span class="s3"># ------------------------------------------------------------</span>
+<span class="s3"># Range normalization &amp; evaluation (NO fuzzy matching)</span>
+<span class="s3"># ------------------------------------------------------------</span>
+
+<span class="s0">def </span><span class="s1">_normalize_range_expr(expr: str) -&gt; str:</span>
+    <span class="s1">s = (expr </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+    <span class="s0">if not </span><span class="s1">s:</span>
+        <span class="s0">return </span><span class="s2">&quot;&quot;</span>
+    <span class="s3"># GitHub often uses commas. NpmSpec prefers whitespace.</span>
+    <span class="s1">s = s.replace(</span><span class="s2">&quot;,&quot;</span><span class="s1">, </span><span class="s2">&quot; &quot;</span><span class="s1">)</span>
+    <span class="s1">s = re.sub(</span><span class="s2">r&quot;\s+&quot;</span><span class="s1">, </span><span class="s2">&quot; &quot;</span><span class="s1">, s).strip()</span>
+    <span class="s0">return </span><span class="s1">s</span>
+
+
+<span class="s1">_MAVEN_RANGE_RE = re.compile(</span><span class="s2">r&quot;^\s*([\[\(])\s*([^,]*)\s*,\s*([^\]\)]*)\s*([\]\)])\s*$&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">def </span><span class="s1">_try_parse_maven_style_range(range_expr: str) -&gt; Optional[Tuple[Optional[str], bool, Optional[str], bool]]:</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Parse Maven/NuGet style: [1.0,2.0) / (,1.2.3] / [1.0,) 
+    Returns: (lower, lower_inclusive, upper, upper_inclusive) or None if not matched. 
+    &quot;&quot;&quot;</span>
+    <span class="s1">m = _MAVEN_RANGE_RE.match(range_expr </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+    <span class="s0">if not </span><span class="s1">m:</span>
+        <span class="s0">return None</span>
+
+    <span class="s1">l_br, lower, upper, r_br = m.group(</span><span class="s4">1</span><span class="s1">), m.group(</span><span class="s4">2</span><span class="s1">).strip(), m.group(</span><span class="s4">3</span><span class="s1">).strip(), m.group(</span><span class="s4">4</span><span class="s1">)</span>
+    <span class="s1">lower_v = lower </span><span class="s0">if </span><span class="s1">lower </span><span class="s0">else None</span>
+    <span class="s1">upper_v = upper </span><span class="s0">if </span><span class="s1">upper </span><span class="s0">else None</span>
+    <span class="s1">lower_inc = (l_br == </span><span class="s2">&quot;[&quot;</span><span class="s1">)</span>
+    <span class="s1">upper_inc = (r_br == </span><span class="s2">&quot;]&quot;</span><span class="s1">)</span>
+    <span class="s0">return </span><span class="s1">lower_v, lower_inc, upper_v, upper_inc</span>
+
+
+<span class="s0">def </span><span class="s1">_coerce_semver(v: str) -&gt; Optional[sv.Version]:</span>
+    <span class="s0">try</span><span class="s1">:</span>
+        <span class="s0">return </span><span class="s1">sv.Version.coerce(v)</span>
+    <span class="s0">except </span><span class="s1">Exception:</span>
+        <span class="s0">return None</span>
+
+
+<span class="s0">def </span><span class="s1">version_in_range(ecosystem: str, version: str, range_expr: Optional[str]) -&gt; RangeResult:</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Strict decision: 
+    - If range missing/unparseable =&gt; UNDECIDABLE 
+    - Only IN_RANGE is treated as affected 
+    &quot;&quot;&quot;</span>
+    <span class="s0">if not </span><span class="s1">range_expr </span><span class="s0">or not </span><span class="s1">str(range_expr).strip():</span>
+        <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+
+    <span class="s1">raw = str(range_expr).strip()</span>
+
+    <span class="s3"># 1) Maven/NuGet style ranges: [a,b), (,b], [a,)</span>
+    <span class="s1">maven_parsed = _try_parse_maven_style_range(raw)</span>
+    <span class="s0">if </span><span class="s1">maven_parsed </span><span class="s0">is not None</span><span class="s1">:</span>
+        <span class="s1">lower_s, lower_inc, upper_s, upper_inc = maven_parsed</span>
+        <span class="s1">v = _coerce_semver(version)</span>
+        <span class="s0">if </span><span class="s1">v </span><span class="s0">is None</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+
+        <span class="s0">if </span><span class="s1">lower_s:</span>
+            <span class="s1">lv = _coerce_semver(lower_s)</span>
+            <span class="s0">if </span><span class="s1">lv </span><span class="s0">is None</span><span class="s1">:</span>
+                <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+            <span class="s0">if </span><span class="s1">v &lt; lv </span><span class="s0">or </span><span class="s1">(v == lv </span><span class="s0">and not </span><span class="s1">lower_inc):</span>
+                <span class="s0">return </span><span class="s1">RangeResult.OUT_OF_RANGE</span>
+
+        <span class="s0">if </span><span class="s1">upper_s:</span>
+            <span class="s1">uv = _coerce_semver(upper_s)</span>
+            <span class="s0">if </span><span class="s1">uv </span><span class="s0">is None</span><span class="s1">:</span>
+                <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+            <span class="s0">if </span><span class="s1">v &gt; uv </span><span class="s0">or </span><span class="s1">(v == uv </span><span class="s0">and not </span><span class="s1">upper_inc):</span>
+                <span class="s0">return </span><span class="s1">RangeResult.OUT_OF_RANGE</span>
+
+        <span class="s0">return </span><span class="s1">RangeResult.IN_RANGE</span>
+
+    <span class="s3"># 2) npm-ish semver ranges (GitHub commonly uses this)</span>
+    <span class="s1">norm = _normalize_range_expr(raw)</span>
+    <span class="s0">if not </span><span class="s1">norm:</span>
+        <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+
+    <span class="s0">try</span><span class="s1">:</span>
+        <span class="s1">v = sv.Version.coerce(version)</span>
+    <span class="s0">except </span><span class="s1">Exception:</span>
+        <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+
+    <span class="s0">try</span><span class="s1">:</span>
+        <span class="s1">spec = sv.NpmSpec(norm)</span>
+    <span class="s0">except </span><span class="s1">Exception:</span>
+        <span class="s1">spec = </span><span class="s0">None</span>
+
+    <span class="s0">if </span><span class="s1">spec </span><span class="s0">is not None</span><span class="s1">:</span>
+        <span class="s0">return </span><span class="s1">RangeResult.IN_RANGE </span><span class="s0">if </span><span class="s1">v </span><span class="s0">in </span><span class="s1">spec </span><span class="s0">else </span><span class="s1">RangeResult.OUT_OF_RANGE</span>
+
+    <span class="s3"># 3) PyPI fallback: PEP440</span>
+    <span class="s0">if </span><span class="s1">(ecosystem </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip().lower() == </span><span class="s2">&quot;pypi&quot;</span><span class="s1">:</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s0">from </span><span class="s1">packaging.specifiers </span><span class="s0">import </span><span class="s1">SpecifierSet</span>
+            <span class="s0">from </span><span class="s1">packaging.version </span><span class="s0">import </span><span class="s1">Version</span>
+
+            <span class="s1">pv = Version(version)</span>
+            <span class="s1">ps = SpecifierSet(norm)</span>
+            <span class="s0">if </span><span class="s1">pv.is_prerelease:</span>
+                <span class="s1">ps.prereleases = </span><span class="s0">True</span>
+            <span class="s0">return </span><span class="s1">RangeResult.IN_RANGE </span><span class="s0">if </span><span class="s1">pv </span><span class="s0">in </span><span class="s1">ps </span><span class="s0">else </span><span class="s1">RangeResult.OUT_OF_RANGE</span>
+        <span class="s0">except </span><span class="s1">Exception:</span>
+            <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+
+    <span class="s0">return </span><span class="s1">RangeResult.UNDECIDABLE</span>
+
+
+<span class="s3"># ------------------------------------------------------------</span>
+<span class="s3"># Adapter</span>
+<span class="s3"># ------------------------------------------------------------</span>
+
+<span class="s0">class </span><span class="s1">GitHubAdvisoryAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    GitHub Advisory Database Adapter. 
+ 
+    RULE-CONFORM SEMANTICS: 
+    - project-centric (GT-driven) 
+    - NO fuzzy matching 
+    - Finding is emitted ONLY if affectedness is confirmed by range 
+    - identifier-based (CVE / GHSA), no GT-aware filtering 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s1">super().__init__(config)</span>
+        <span class="s1">self.gt = config[</span><span class="s2">&quot;ground_truth&quot;</span><span class="s1">]</span>
+
+        <span class="s1">self._token = os.environ.get(</span><span class="s2">&quot;GITHUB_TOKEN&quot;</span><span class="s1">)</span>
+        <span class="s0">if not </span><span class="s1">self._token:</span>
+            <span class="s0">raise </span><span class="s1">SystemExit(</span>
+                <span class="s2">&quot;Missing environment variable GITHUB_TOKEN &quot;</span>
+                <span class="s2">&quot;(required for GitHub Advisory Database access)&quot;</span>
+            <span class="s1">)</span>
+
+        <span class="s1">self._session = requests.Session()</span>
+        <span class="s1">self._session.headers.update({</span>
+            <span class="s2">&quot;Authorization&quot;</span><span class="s1">: </span><span class="s2">f&quot;Bearer </span><span class="s5">{</span><span class="s1">self._token</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;Accept&quot;</span><span class="s1">: </span><span class="s2">&quot;application/vnd.github+json&quot;</span><span class="s1">,</span>
+        <span class="s1">})</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;Initialized adapters: GitHub Advisory Database&quot;</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;github&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s0">def </span><span class="s1">supports_security_findings(self) -&gt; bool:</span>
+        <span class="s0">return True</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Main loading logic</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s1">rows: List[Finding] = []</span>
+
+        <span class="s1">components = sorted({</span>
+            <span class="s1">(f.ecosystem, f.component, f.version)</span>
+            <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self.gt</span>
+        <span class="s1">})</span>
+
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;Querying GitHub Advisory DB for %d unique components&quot;</span><span class="s1">,</span>
+            <span class="s1">len(components),</span>
+        <span class="s1">)</span>
+
+        <span class="s0">for </span><span class="s1">ecosystem, component, version </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+            <span class="s1">components,</span>
+            <span class="s1">desc=</span><span class="s2">&quot;GitHub Advisory lookup&quot;</span><span class="s1">,</span>
+            <span class="s1">unit=</span><span class="s2">&quot;component&quot;</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s1">rows.extend(</span>
+                <span class="s1">self.load_findings_for_component(</span>
+                    <span class="s1">ecosystem=ecosystem,</span>
+                    <span class="s1">component=component,</span>
+                    <span class="s1">version=version,</span>
+                <span class="s1">)</span>
+            <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">rows</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># Per-component lookup (STRICT but robust)</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+            <span class="s1">self,</span>
+            <span class="s1">*,</span>
+            <span class="s1">ecosystem: str,</span>
+            <span class="s1">component: str,</span>
+            <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+
+        <span class="s1">eco_cfg = ECOSYSTEMS.get(ecosystem)</span>
+        <span class="s0">if not </span><span class="s1">eco_cfg </span><span class="s0">or not </span><span class="s1">eco_cfg.github:</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">advisories = self._query_advisories(</span>
+            <span class="s1">ecosystem=eco_cfg.github,</span>
+            <span class="s1">package=component,</span>
+        <span class="s1">)</span>
+
+        <span class="s1">rows: List[Finding] = []</span>
+        <span class="s1">seen: Set[Tuple[str, str, str, str]] = set()</span>
+
+        <span class="s0">for </span><span class="s1">adv </span><span class="s0">in </span><span class="s1">advisories:</span>
+            <span class="s1">vuln_range = adv.get(</span><span class="s2">&quot;vulnerableVersionRange&quot;</span><span class="s1">)</span>
+
+            <span class="s3"># -------------------------------</span>
+            <span class="s3"># VERSION HANDLING (RULE-CONFORM)</span>
+            <span class="s3"># -------------------------------</span>
+            <span class="s0">if </span><span class="s1">vuln_range:</span>
+                <span class="s1">rr = version_in_range(ecosystem, version, vuln_range)</span>
+                <span class="s0">if </span><span class="s1">rr == RangeResult.OUT_OF_RANGE:</span>
+                    <span class="s0">continue</span>
+                <span class="s3"># IN_RANGE or UNDECIDABLE → keep</span>
+            <span class="s3"># no range → keep (advisory-level)</span>
+
+            <span class="s1">ghsa_id = adv.get(</span><span class="s2">&quot;ghsaId&quot;</span><span class="s1">)</span>
+            <span class="s0">if not </span><span class="s1">ghsa_id:</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">ghsa_id = normalize_identifier(ghsa_id)</span>
+            <span class="s1">cve = self._extract_cve(adv)</span>
+
+            <span class="s0">if not </span><span class="s1">cve </span><span class="s0">and not </span><span class="s1">ghsa_id:</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">canonical_id = cve </span><span class="s0">or </span><span class="s1">ghsa_id</span>
+            <span class="s1">key = (ecosystem, component, version, canonical_id)</span>
+
+            <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">seen:</span>
+                <span class="s0">continue</span>
+            <span class="s1">seen.add(key)</span>
+
+            <span class="s1">description = (adv.get(</span><span class="s2">&quot;summary&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).split(</span><span class="s2">&quot;</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">].strip()</span>
+
+            <span class="s1">rows.append(</span>
+                <span class="s1">Finding(</span>
+                    <span class="s1">ecosystem=ecosystem,</span>
+                    <span class="s1">component=component,</span>
+                    <span class="s1">version=version,</span>
+                    <span class="s1">cve=cve,</span>
+                    <span class="s1">ghsa=ghsa_id,</span>
+                    <span class="s1">osv_id=</span><span class="s0">None</span><span class="s1">,</span>
+                    <span class="s1">description=description,</span>
+                    <span class="s1">source=</span><span class="s2">&quot;github-advisory-db&quot;</span><span class="s1">,</span>
+                    <span class="s1">affected_version_range=vuln_range,</span>
+                <span class="s1">)</span>
+            <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">rows</span>
+
+    <span class="s3"># ------------------------------------------------------------</span>
+    <span class="s3"># GitHub GraphQL</span>
+    <span class="s3"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_query_advisories(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">package: str,</span>
+    <span class="s1">) -&gt; List[Dict[str, Any]]:</span>
+        <span class="s1">query = </span><span class="s2">&quot;&quot;&quot; 
+        query($ecosystem: SecurityAdvisoryEcosystem!, $package: String!) { 
+          securityVulnerabilities( 
+            first: 100, 
+            ecosystem: $ecosystem, 
+            package: $package 
+          ) { 
+            nodes { 
+              vulnerableVersionRange 
+              advisory { 
+                ghsaId 
+                summary 
+                identifiers { 
+                  type 
+                  value 
+                } 
+              } 
+            } 
+          } 
+        } 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">variables = {</span><span class="s2">&quot;ecosystem&quot;</span><span class="s1">: ecosystem, </span><span class="s2">&quot;package&quot;</span><span class="s1">: package}</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">r = self._api_call(</span>
+                <span class="s1">session=self._session,</span>
+                <span class="s1">method=</span><span class="s2">&quot;POST&quot;</span><span class="s1">,</span>
+                <span class="s1">url=GITHUB_GRAPHQL_URL,</span>
+                <span class="s1">json_body={</span><span class="s2">&quot;query&quot;</span><span class="s1">: query, </span><span class="s2">&quot;variables&quot;</span><span class="s1">: variables},</span>
+                <span class="s1">timeout=</span><span class="s4">30</span><span class="s1">,</span>
+            <span class="s1">)</span>
+            <span class="s1">r.raise_for_status()</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.warning(</span>
+                <span class="s2">&quot;GitHub advisory query failed | ecosystem=%s | package=%s | error=%s&quot;</span><span class="s1">,</span>
+                <span class="s1">ecosystem,</span>
+                <span class="s1">package,</span>
+                <span class="s1">e,</span>
+            <span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">data = r.json()</span>
+        <span class="s0">except </span><span class="s1">Exception:</span>
+            <span class="s1">log.warning(</span>
+                <span class="s2">&quot;GitHub advisory JSON parse failed (first 500 chars): %r&quot;</span><span class="s1">,</span>
+                <span class="s1">(r.text </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">)[:</span><span class="s4">500</span><span class="s1">],</span>
+            <span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">nodes = (</span>
+            <span class="s1">data.get(</span><span class="s2">&quot;data&quot;</span><span class="s1">, {})</span>
+            <span class="s1">.get(</span><span class="s2">&quot;securityVulnerabilities&quot;</span><span class="s1">, {})</span>
+            <span class="s1">.get(</span><span class="s2">&quot;nodes&quot;</span><span class="s1">, [])</span>
+        <span class="s1">)</span>
+
+        <span class="s1">result: List[Dict[str, Any]] = []</span>
+        <span class="s0">for </span><span class="s1">n </span><span class="s0">in </span><span class="s1">nodes:</span>
+            <span class="s0">if not </span><span class="s1">isinstance(n, dict):</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">adv = n.get(</span><span class="s2">&quot;advisory&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">{}</span>
+            <span class="s0">if not </span><span class="s1">isinstance(adv, dict):</span>
+                <span class="s0">continue</span>
+
+            <span class="s1">adv_out = dict(adv)</span>
+            <span class="s1">adv_out[</span><span class="s2">&quot;vulnerableVersionRange&quot;</span><span class="s1">] = n.get(</span><span class="s2">&quot;vulnerableVersionRange&quot;</span><span class="s1">)</span>
+            <span class="s1">result.append(adv_out)</span>
+
+        <span class="s0">return </span><span class="s1">result</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">_extract_cve(advisory: Dict[str, Any]) -&gt; Optional[str]:</span>
+        <span class="s0">for </span><span class="s1">ident </span><span class="s0">in </span><span class="s1">advisory.get(</span><span class="s2">&quot;identifiers&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[]:</span>
+            <span class="s0">if </span><span class="s1">ident.get(</span><span class="s2">&quot;type&quot;</span><span class="s1">) == </span><span class="s2">&quot;CVE&quot;</span><span class="s1">:</span>
+                <span class="s0">return </span><span class="s1">normalize_identifier(ident.get(</span><span class="s2">&quot;value&quot;</span><span class="s1">))</span>
+        <span class="s0">return None</span>
+</pre>
+</body>
+</html>

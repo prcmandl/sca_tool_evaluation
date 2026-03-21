@@ -1,0 +1,316 @@
+<html>
+<head>
+<title>nvd.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+nvd.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">import </span><span class="s1">time</span>
+<span class="s0">import </span><span class="s1">re</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">Dict, List, Optional, Set, Tuple</span>
+
+<span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">from </span><span class="s1">packaging.version </span><span class="s0">import </span><span class="s1">Version, InvalidVersion</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;evaluation.adapters.nvd&quot;</span><span class="s1">)</span>
+
+<span class="s1">NVD_API_URL = </span><span class="s2">&quot;https://services.nvd.nist.gov/rest/json/cves/2.0&quot;</span>
+<span class="s1">RESULTS_PER_PAGE = </span><span class="s3">2000</span>
+<span class="s1">REQUEST_DELAY = </span><span class="s3">0.6  </span><span class="s4"># seconds, rate-limit friendly</span>
+
+
+<span class="s0">class </span><span class="s1">NVDAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s4">&quot;&quot;&quot; 
+    NVD Adapter (keyword-based, conservative) 
+ 
+    RULE-CONFORM SEMANTICS: 
+    - CVE-only 
+    - project-centric (GT-driven) 
+    - explicit FP control via product tokens 
+    - canonical vulnerability deduplication 
+    - TP_RANGE supported via explicit upper-bound detection 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: dict):</span>
+        <span class="s1">super().__init__(config)</span>
+
+        <span class="s1">self.env = config.get(</span><span class="s2">&quot;env&quot;</span><span class="s1">, {})</span>
+        <span class="s1">self.ground_truth = config.get(</span><span class="s2">&quot;ground_truth&quot;</span><span class="s1">, [])</span>
+
+        <span class="s1">self.api_key: Optional[str] = self.env.get(</span><span class="s2">&quot;NVD_API_KEY&quot;</span><span class="s1">)</span>
+
+        <span class="s1">self.session = requests.Session()</span>
+        <span class="s0">if </span><span class="s1">self.api_key:</span>
+            <span class="s1">self.session.headers[</span><span class="s2">&quot;apiKey&quot;</span><span class="s1">] = self.api_key</span>
+
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;Initialized NVD adapters | api_key=%s&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;yes&quot; </span><span class="s0">if </span><span class="s1">self.api_key </span><span class="s0">else </span><span class="s2">&quot;no&quot;</span><span class="s1">,</span>
+        <span class="s1">)</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Metadata</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;nvd&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s0">def </span><span class="s1">supports_security_findings(self) -&gt; bool:</span>
+        <span class="s0">return True</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Public API</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s1">findings: List[Finding] = []</span>
+
+        <span class="s1">components = sorted({</span>
+            <span class="s1">(f.ecosystem, f.component, f.version)</span>
+            <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self.ground_truth</span>
+        <span class="s1">})</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;NVD: resolving %d unique components&quot;</span><span class="s1">, len(components))</span>
+
+        <span class="s1">seen: Set[Tuple[str, str, str, str]] = set()</span>
+
+        <span class="s0">for </span><span class="s1">ecosystem, component, version </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+            <span class="s1">components,</span>
+            <span class="s1">desc=</span><span class="s2">&quot;NVD keyword analysis&quot;</span><span class="s1">,</span>
+            <span class="s1">unit=</span><span class="s2">&quot;component&quot;</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s1">rows = self.load_findings_for_component(</span>
+                <span class="s1">ecosystem=ecosystem,</span>
+                <span class="s1">component=component,</span>
+                <span class="s1">version=version,</span>
+            <span class="s1">)</span>
+
+            <span class="s0">for </span><span class="s1">r </span><span class="s0">in </span><span class="s1">rows:</span>
+                <span class="s1">key = (r.ecosystem, r.component, r.version, r.cve)</span>
+                <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">seen:</span>
+                    <span class="s0">continue</span>
+                <span class="s1">seen.add(key)</span>
+                <span class="s1">findings.append(r)</span>
+
+            <span class="s1">time.sleep(REQUEST_DELAY)</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;NVD findings loaded (normalized): %d&quot;</span><span class="s1">, len(findings))</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Required abstract method</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+
+        <span class="s1">findings: List[Finding] = []</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">cves = self._query_nvd_keyword(component, version)</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.error(</span><span class="s2">&quot;NVD keyword lookup failed: %s&quot;</span><span class="s1">, e)</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s0">for </span><span class="s1">cve </span><span class="s0">in </span><span class="s1">cves:</span>
+            <span class="s1">findings.append(</span>
+                <span class="s1">Finding(</span>
+                    <span class="s1">ecosystem=ecosystem,</span>
+                    <span class="s1">component=component,</span>
+                    <span class="s1">version=version,</span>
+                    <span class="s1">cve=cve[</span><span class="s2">&quot;cve_id&quot;</span><span class="s1">],</span>
+                    <span class="s1">osv_id=</span><span class="s0">None</span><span class="s1">,</span>
+                    <span class="s1">description=cve.get(</span><span class="s2">&quot;description&quot;</span><span class="s1">, </span><span class="s2">&quot;&quot;</span><span class="s1">),</span>
+                    <span class="s1">source=</span><span class="s2">&quot;nvd-keyword&quot;</span><span class="s1">,</span>
+                    <span class="s1">affected_version_range=cve.get(</span><span class="s2">&quot;affected_range&quot;</span><span class="s1">),</span>
+                <span class="s1">)</span>
+            <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Keyword fallback with FP control</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_query_nvd_keyword(</span>
+        <span class="s1">self,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Dict[str, str]]:</span>
+        <span class="s1">raw = self._query_nvd({</span><span class="s2">&quot;keywordSearch&quot;</span><span class="s1">: component})</span>
+
+        <span class="s1">tokens = self._normalized_product_tokens(component)</span>
+        <span class="s1">filtered: List[Dict[str, str]] = []</span>
+
+        <span class="s0">for </span><span class="s1">cve </span><span class="s0">in </span><span class="s1">raw:</span>
+            <span class="s1">desc = (cve.get(</span><span class="s2">&quot;description&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).lower()</span>
+
+            <span class="s4"># 1) Exact version mention</span>
+            <span class="s0">if </span><span class="s1">version.lower() </span><span class="s0">in </span><span class="s1">desc:</span>
+                <span class="s1">filtered.append({</span>
+                    <span class="s1">**cve,</span>
+                    <span class="s2">&quot;affected_range&quot;</span><span class="s1">: </span><span class="s0">None</span><span class="s1">,</span>
+                <span class="s1">})</span>
+                <span class="s0">continue</span>
+
+            <span class="s4"># 2) Conservative upper-bound detection</span>
+            <span class="s0">if </span><span class="s1">(</span>
+                <span class="s1">self._version_mentioned_as_affected(</span>
+                    <span class="s1">version=version,</span>
+                    <span class="s1">description=desc,</span>
+                <span class="s1">)</span>
+                <span class="s0">and </span><span class="s1">any(t </span><span class="s0">in </span><span class="s1">desc </span><span class="s0">for </span><span class="s1">t </span><span class="s0">in </span><span class="s1">tokens)</span>
+            <span class="s1">):</span>
+                <span class="s1">filtered.append({</span>
+                    <span class="s1">**cve,</span>
+                    <span class="s2">&quot;affected_range&quot;</span><span class="s1">: </span><span class="s2">f&quot;&lt; </span><span class="s5">{</span><span class="s1">version</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">,</span>
+                <span class="s1">})</span>
+
+        <span class="s1">log.debug(</span>
+            <span class="s2">&quot;NVD keyword fallback: %d raw → %d filtered&quot;</span><span class="s1">,</span>
+            <span class="s1">len(raw),</span>
+            <span class="s1">len(filtered),</span>
+        <span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">filtered</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Product-token extraction (FP control)</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_normalized_product_tokens(self, component: str) -&gt; Set[str]:</span>
+        <span class="s1">name = component.split(</span><span class="s2">&quot;:&quot;</span><span class="s1">)[-</span><span class="s3">1</span><span class="s1">].lower()</span>
+        <span class="s1">parts = re.split(</span><span class="s2">r&quot;[\-_.]+&quot;</span><span class="s1">, name)</span>
+        <span class="s0">return </span><span class="s1">{p </span><span class="s0">for </span><span class="s1">p </span><span class="s0">in </span><span class="s1">parts </span><span class="s0">if </span><span class="s1">len(p) &gt;= </span><span class="s3">4</span><span class="s1">}</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Conservative version-range detection</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_version_mentioned_as_affected(self, *, version: str, description: str) -&gt; bool:</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">v = Version(version)</span>
+        <span class="s0">except </span><span class="s1">InvalidVersion:</span>
+            <span class="s0">return False</span>
+
+        <span class="s1">patterns = [</span>
+            <span class="s2">r&quot;before\s+([0-9][0-9a-zA-Z\.\-_]+)&quot;</span><span class="s1">,</span>
+            <span class="s2">r&quot;prior to\s+([0-9][0-9a-zA-Z\.\-_]+)&quot;</span><span class="s1">,</span>
+            <span class="s2">r&quot;earlier than\s+([0-9][0-9a-zA-Z\.\-_]+)&quot;</span><span class="s1">,</span>
+            <span class="s2">r&quot;up to\s+([0-9][0-9a-zA-Z\.\-_]+)&quot;</span><span class="s1">,</span>
+            <span class="s2">r&quot;through\s+([0-9][0-9a-zA-Z\.\-_]+)&quot;</span><span class="s1">,</span>
+            <span class="s2">r&quot;&lt;\s*([0-9][0-9a-zA-Z\.\-_]+)&quot;</span><span class="s1">,</span>
+        <span class="s1">]</span>
+
+        <span class="s0">for </span><span class="s1">p </span><span class="s0">in </span><span class="s1">patterns:</span>
+            <span class="s0">for </span><span class="s1">m </span><span class="s0">in </span><span class="s1">re.finditer(p, description):</span>
+                <span class="s0">try</span><span class="s1">:</span>
+                    <span class="s1">upper = Version(m.group(</span><span class="s3">1</span><span class="s1">))</span>
+                <span class="s0">except </span><span class="s1">InvalidVersion:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s0">if </span><span class="s1">v &lt; upper:</span>
+                    <span class="s0">return True</span>
+
+        <span class="s0">return False</span>
+
+    <span class="s4"># ------------------------------------------------------------</span>
+    <span class="s4"># Low-level NVD API</span>
+    <span class="s4"># ------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_query_nvd(self, base_params: Dict[str, str]) -&gt; List[Dict[str, str]]:</span>
+        <span class="s1">results: List[Dict[str, str]] = []</span>
+        <span class="s1">start_index = </span><span class="s3">0</span>
+        <span class="s1">retries = </span><span class="s3">0</span>
+        <span class="s1">max_retries = </span><span class="s3">5</span>
+        <span class="s1">backoff = </span><span class="s3">5.0</span>
+
+        <span class="s0">while True</span><span class="s1">:</span>
+            <span class="s1">params = dict(base_params)</span>
+            <span class="s1">params.update({</span>
+                <span class="s2">&quot;startIndex&quot;</span><span class="s1">: start_index,</span>
+                <span class="s2">&quot;resultsPerPage&quot;</span><span class="s1">: RESULTS_PER_PAGE,</span>
+            <span class="s1">})</span>
+
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">r = self._api_call(</span>
+                    <span class="s1">session=self.session,</span>
+                    <span class="s1">method=</span><span class="s2">&quot;GET&quot;</span><span class="s1">,</span>
+                    <span class="s1">url=NVD_API_URL,</span>
+                    <span class="s1">params=params,</span>
+                    <span class="s1">timeout=</span><span class="s3">60</span><span class="s1">,</span>
+                <span class="s1">)</span>
+
+                <span class="s0">if </span><span class="s1">r.status_code == </span><span class="s3">429</span><span class="s1">:</span>
+                    <span class="s0">if </span><span class="s1">retries &gt;= max_retries:</span>
+                        <span class="s1">log.error(</span><span class="s2">&quot;NVD rate limit exceeded – aborting&quot;</span><span class="s1">)</span>
+                        <span class="s0">return </span><span class="s1">results</span>
+
+                    <span class="s1">wait = backoff * (</span><span class="s3">2 </span><span class="s1">** retries)</span>
+                    <span class="s1">time.sleep(wait)</span>
+                    <span class="s1">retries += </span><span class="s3">1</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">r.raise_for_status()</span>
+
+            <span class="s0">except </span><span class="s1">requests.RequestException </span><span class="s0">as </span><span class="s1">e:</span>
+                <span class="s1">log.error(</span><span class="s2">&quot;NVD request failed: %s&quot;</span><span class="s1">, e)</span>
+                <span class="s0">return </span><span class="s1">results</span>
+
+            <span class="s1">data = r.json()</span>
+            <span class="s1">vulns = data.get(</span><span class="s2">&quot;vulnerabilities&quot;</span><span class="s1">, [])</span>
+
+            <span class="s0">for </span><span class="s1">item </span><span class="s0">in </span><span class="s1">vulns:</span>
+                <span class="s1">cve = item.get(</span><span class="s2">&quot;cve&quot;</span><span class="s1">, {})</span>
+                <span class="s1">cve_id = cve.get(</span><span class="s2">&quot;id&quot;</span><span class="s1">)</span>
+                <span class="s0">if not </span><span class="s1">cve_id:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">description = </span><span class="s2">&quot;&quot;</span>
+                <span class="s0">for </span><span class="s1">d </span><span class="s0">in </span><span class="s1">cve.get(</span><span class="s2">&quot;descriptions&quot;</span><span class="s1">, []):</span>
+                    <span class="s0">if </span><span class="s1">d.get(</span><span class="s2">&quot;lang&quot;</span><span class="s1">) == </span><span class="s2">&quot;en&quot;</span><span class="s1">:</span>
+                        <span class="s1">description = d.get(</span><span class="s2">&quot;value&quot;</span><span class="s1">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+                        <span class="s0">break</span>
+
+                <span class="s1">results.append({</span>
+                    <span class="s2">&quot;cve_id&quot;</span><span class="s1">: cve_id,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="s1">: description,</span>
+                <span class="s1">})</span>
+
+            <span class="s1">total = data.get(</span><span class="s2">&quot;totalResults&quot;</span><span class="s1">, </span><span class="s3">0</span><span class="s1">)</span>
+            <span class="s1">start_index += RESULTS_PER_PAGE</span>
+            <span class="s1">retries = </span><span class="s3">0</span>
+
+            <span class="s0">if </span><span class="s1">start_index &gt;= total:</span>
+                <span class="s0">break</span>
+
+            <span class="s1">time.sleep(REQUEST_DELAY)</span>
+
+        <span class="s0">return </span><span class="s1">results</span>
+</pre>
+</body>
+</html>

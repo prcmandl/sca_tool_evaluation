@@ -1,0 +1,296 @@
+<html>
+<head>
+<title>trivy.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+trivy.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">json</span>
+<span class="s0">import </span><span class="s1">os</span>
+<span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">import </span><span class="s1">subprocess</span>
+<span class="s0">from </span><span class="s1">pathlib </span><span class="s0">import </span><span class="s1">Path</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">Any, Dict, List, Optional, Set, Tuple</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+<span class="s0">from </span><span class="s1">evaluation.core.ecosystems </span><span class="s0">import </span><span class="s1">ECOSYSTEMS</span>
+<span class="s0">from </span><span class="s1">evaluation.core.normalization </span><span class="s0">import </span><span class="s1">normalize_identifier</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;evaluation.adapters.trivy&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">TrivyAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Trivy adapter using SBOM-based scanning. 
+ 
+    Semantics aligned with SnykAdapter: 
+    - project-centric 
+    - PURL-based ecosystem inference 
+    - identifier-based (CVE / GHSA) 
+    - canonical deduplication 
+    - no matching logic in adapter 
+    &quot;&quot;&quot;</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># Initialization</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s1">super().__init__(config)</span>
+
+        <span class="s1">env = config.get(</span><span class="s2">&quot;env&quot;</span><span class="s1">, {})</span>
+        <span class="s1">self.enabled = </span><span class="s0">True</span>
+
+        <span class="s1">self.trivy_bin = (</span>
+            <span class="s1">env.get(</span><span class="s2">&quot;TRIVY_BIN&quot;</span><span class="s1">)</span>
+            <span class="s0">or </span><span class="s1">os.environ.get(</span><span class="s2">&quot;TRIVY_BIN&quot;</span><span class="s1">)</span>
+            <span class="s0">or </span><span class="s2">&quot;/usr/local/bin/trivy&quot;</span>
+        <span class="s1">)</span>
+
+        <span class="s1">self.sbom_file = (</span>
+            <span class="s1">env.get(</span><span class="s2">&quot;TRIVY_SBOM_FILE&quot;</span><span class="s1">)</span>
+            <span class="s0">or </span><span class="s1">os.environ.get(</span><span class="s2">&quot;TRIVY_SBOM_FILE&quot;</span><span class="s1">)</span>
+        <span class="s1">)</span>
+
+        <span class="s0">if not </span><span class="s1">self.sbom_file </span><span class="s0">or not </span><span class="s1">Path(self.sbom_file).exists():</span>
+            <span class="s1">log.warning(</span><span class="s2">&quot;Trivy adapter disabled: SBOM file missing&quot;</span><span class="s1">)</span>
+            <span class="s1">self.enabled = </span><span class="s0">False</span>
+            <span class="s0">return</span>
+
+        <span class="s0">if not </span><span class="s1">Path(self.trivy_bin).exists():</span>
+            <span class="s1">log.warning(</span><span class="s2">&quot;Trivy adapter disabled: TRIVY_BIN invalid&quot;</span><span class="s1">)</span>
+            <span class="s1">self.enabled = </span><span class="s0">False</span>
+            <span class="s0">return</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;Initialized Trivy adapter (SBOM-based)&quot;</span><span class="s1">)</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;  sbom_file : %s&quot;</span><span class="s1">, self.sbom_file)</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;  trivy_bin : %s&quot;</span><span class="s1">, self.trivy_bin)</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># Metadata</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;trivy&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_security_findings(self) -&gt; bool:</span>
+        <span class="s0">return </span><span class="s1">self.enabled</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># Public API</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s0">if not </span><span class="s1">self.enabled:</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;Trivy adapter disabled – returning no findings&quot;</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">data = self._run_trivy_sbom()</span>
+        <span class="s0">if not </span><span class="s1">data:</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s0">return </span><span class="s1">self._extract_findings(data)</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s0">return </span><span class="s1">[]</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># CLI Execution</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_run_trivy_sbom(self) -&gt; Dict[str, Any]:</span>
+        <span class="s1">sbom_path = str(Path(self.sbom_file).resolve())</span>
+
+        <span class="s1">cmd = [</span>
+            <span class="s1">self.trivy_bin,</span>
+            <span class="s2">&quot;sbom&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;--format&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;json&quot;</span><span class="s1">,</span>
+            <span class="s1">sbom_path,</span>
+        <span class="s1">]</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;Running Trivy SBOM scan&quot;</span><span class="s1">)</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;Command: %s&quot;</span><span class="s1">, </span><span class="s2">&quot; &quot;</span><span class="s1">.join(cmd))</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">p = subprocess.run(</span>
+                <span class="s1">cmd,</span>
+                <span class="s1">check=</span><span class="s0">False</span><span class="s1">,</span>
+                <span class="s1">capture_output=</span><span class="s0">True</span><span class="s1">,</span>
+                <span class="s1">text=</span><span class="s0">True</span><span class="s1">,</span>
+            <span class="s1">)</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.error(</span><span class="s2">&quot;Failed to execute Trivy: %s&quot;</span><span class="s1">, e)</span>
+            <span class="s0">return </span><span class="s1">{}</span>
+
+        <span class="s1">stdout = (p.stdout </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+        <span class="s1">stderr = (p.stderr </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+
+        <span class="s1">self._log_cli_call(</span>
+            <span class="s1">tool=</span><span class="s2">&quot;trivy&quot;</span><span class="s1">,</span>
+            <span class="s1">command=cmd,</span>
+            <span class="s1">exit_code=p.returncode,</span>
+            <span class="s1">stdout=stdout,</span>
+            <span class="s1">stderr=stderr,</span>
+        <span class="s1">)</span>
+
+        <span class="s0">if not </span><span class="s1">stdout:</span>
+            <span class="s0">return </span><span class="s1">{}</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s1">json.loads(stdout)</span>
+        <span class="s0">except </span><span class="s1">Exception:</span>
+            <span class="s1">log.error(</span><span class="s2">&quot;Invalid JSON from Trivy&quot;</span><span class="s1">)</span>
+            <span class="s0">return </span><span class="s1">{}</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># Normalization (Snyk-equivalent logic)</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_extract_findings(self, data: Dict[str, Any]) -&gt; List[Finding]:</span>
+        <span class="s1">findings: List[Finding] = []</span>
+        <span class="s1">seen: Set[Tuple[str, str, str, str]] = set()</span>
+
+        <span class="s1">results = data.get(</span><span class="s2">&quot;Results&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s0">if not </span><span class="s1">isinstance(results, list):</span>
+            <span class="s0">return </span><span class="s1">findings</span>
+
+        <span class="s0">for </span><span class="s1">result </span><span class="s0">in </span><span class="s1">results:</span>
+            <span class="s1">vulns = result.get(</span><span class="s2">&quot;Vulnerabilities&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+            <span class="s0">if not </span><span class="s1">isinstance(vulns, list):</span>
+                <span class="s0">continue</span>
+
+            <span class="s0">for </span><span class="s1">v </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+                <span class="s1">vulns,</span>
+                <span class="s1">desc=</span><span class="s2">&quot;Trivy normalization&quot;</span><span class="s1">,</span>
+                <span class="s1">unit=</span><span class="s2">&quot;vulnerability&quot;</span><span class="s1">,</span>
+            <span class="s1">):</span>
+                <span class="s1">pkg_name = v.get(</span><span class="s2">&quot;PkgName&quot;</span><span class="s1">)</span>
+                <span class="s1">version = v.get(</span><span class="s2">&quot;InstalledVersion&quot;</span><span class="s1">)</span>
+                <span class="s1">purl = (</span>
+                    <span class="s1">v.get(</span><span class="s2">&quot;PkgIdentifier&quot;</span><span class="s1">, {})</span>
+                    <span class="s1">.get(</span><span class="s2">&quot;PURL&quot;</span><span class="s1">)</span>
+                <span class="s1">)</span>
+
+                <span class="s0">if not </span><span class="s1">pkg_name </span><span class="s0">or not </span><span class="s1">version </span><span class="s0">or not </span><span class="s1">purl:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">ecosystem = self._infer_ecosystem_from_purl(purl)</span>
+                <span class="s0">if not </span><span class="s1">ecosystem:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s3"># Maven normalization like Snyk</span>
+                <span class="s0">if </span><span class="s1">ecosystem == </span><span class="s2">&quot;maven&quot; </span><span class="s0">and </span><span class="s2">&quot;/&quot; </span><span class="s0">in </span><span class="s1">pkg_name:</span>
+                    <span class="s1">pkg_name = pkg_name.replace(</span><span class="s2">&quot;/&quot;</span><span class="s1">, </span><span class="s2">&quot;:&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+
+                <span class="s1">cve, ghsa = self._extract_identifiers(v)</span>
+
+                <span class="s0">if not </span><span class="s1">cve </span><span class="s0">and not </span><span class="s1">ghsa:</span>
+                    <span class="s0">continue</span>
+
+                <span class="s1">canonical_id = cve </span><span class="s0">or </span><span class="s1">ghsa</span>
+                <span class="s1">key = (ecosystem, pkg_name, version, canonical_id)</span>
+
+                <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">seen:</span>
+                    <span class="s0">continue</span>
+                <span class="s1">seen.add(key)</span>
+
+                <span class="s1">affected_range = self._extract_affected_range(v)</span>
+
+                <span class="s1">description = (v.get(</span><span class="s2">&quot;Title&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).split(</span><span class="s2">&quot;</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">].strip()</span>
+
+                <span class="s1">findings.append(</span>
+                    <span class="s1">Finding(</span>
+                        <span class="s1">ecosystem=ecosystem,</span>
+                        <span class="s1">component=pkg_name,</span>
+                        <span class="s1">version=version,</span>
+                        <span class="s1">cve=cve,</span>
+                        <span class="s1">ghsa=ghsa,</span>
+                        <span class="s1">osv_id=</span><span class="s0">None</span><span class="s1">,</span>
+                        <span class="s1">description=description,</span>
+                        <span class="s1">source=</span><span class="s2">&quot;trivy&quot;</span><span class="s1">,</span>
+                        <span class="s1">affected_version_range=affected_range,</span>
+                    <span class="s1">)</span>
+                <span class="s1">)</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;Trivy: normalized %d findings&quot;</span><span class="s1">, len(findings))</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># Identifier extraction (like Snyk)</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_extract_identifiers(</span>
+        <span class="s1">self,</span>
+        <span class="s1">vuln: Dict[str, Any],</span>
+    <span class="s1">) -&gt; Tuple[Optional[str], Optional[str]]:</span>
+
+        <span class="s1">vuln_id = vuln.get(</span><span class="s2">&quot;VulnerabilityID&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span>
+
+        <span class="s1">cve = </span><span class="s0">None</span>
+        <span class="s1">ghsa = </span><span class="s0">None</span>
+
+        <span class="s0">if </span><span class="s1">vuln_id.startswith(</span><span class="s2">&quot;CVE-&quot;</span><span class="s1">):</span>
+            <span class="s1">cve = normalize_identifier(vuln_id)</span>
+        <span class="s0">elif </span><span class="s1">vuln_id.startswith(</span><span class="s2">&quot;GHSA-&quot;</span><span class="s1">):</span>
+            <span class="s1">ghsa = normalize_identifier(vuln_id)</span>
+
+        <span class="s3"># Fallback: search GHSA in references</span>
+        <span class="s0">if not </span><span class="s1">ghsa:</span>
+            <span class="s0">for </span><span class="s1">ref </span><span class="s0">in </span><span class="s1">vuln.get(</span><span class="s2">&quot;References&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[]:</span>
+                <span class="s0">if </span><span class="s1">isinstance(ref, str) </span><span class="s0">and </span><span class="s2">&quot;GHSA-&quot; </span><span class="s0">in </span><span class="s1">ref:</span>
+                    <span class="s1">ghsa = normalize_identifier(ref.split(</span><span class="s2">&quot;/&quot;</span><span class="s1">)[-</span><span class="s4">1</span><span class="s1">])</span>
+                    <span class="s0">break</span>
+
+        <span class="s0">return </span><span class="s1">cve, ghsa</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># Range extraction</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_extract_affected_range(</span>
+        <span class="s1">self,</span>
+        <span class="s1">vuln: Dict[str, Any],</span>
+    <span class="s1">) -&gt; Optional[str]:</span>
+
+        <span class="s1">fixed = vuln.get(</span><span class="s2">&quot;FixedVersion&quot;</span><span class="s1">)</span>
+        <span class="s0">if </span><span class="s1">fixed:</span>
+            <span class="s0">return </span><span class="s2">f&quot;&lt; </span><span class="s5">{</span><span class="s1">fixed</span><span class="s5">}</span><span class="s2">&quot;</span>
+
+        <span class="s0">return None</span>
+
+    <span class="s3"># ------------------------------------------------------------------</span>
+    <span class="s3"># PURL-based ecosystem inference (identical strategy as Snyk)</span>
+    <span class="s3"># ------------------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_infer_ecosystem_from_purl(self, purl: str) -&gt; Optional[str]:</span>
+        <span class="s1">purl = (purl </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).lower()</span>
+
+        <span class="s0">for </span><span class="s1">eco, cfg </span><span class="s0">in </span><span class="s1">ECOSYSTEMS.items():</span>
+            <span class="s0">if </span><span class="s1">purl.startswith(</span><span class="s2">f&quot;pkg:</span><span class="s5">{</span><span class="s1">cfg.purl</span><span class="s5">}</span><span class="s2">/&quot;</span><span class="s1">):</span>
+                <span class="s0">return </span><span class="s1">eco</span>
+
+        <span class="s0">return None</span></pre>
+</body>
+</html>

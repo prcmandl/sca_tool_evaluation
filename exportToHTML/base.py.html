@@ -1,0 +1,355 @@
+<html>
+<head>
+<title>base.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #0037a6;}
+.s5 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+base.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">abc </span><span class="s0">import </span><span class="s1">ABC, abstractmethod</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">List, Dict, Any, Iterable, Iterator, Optional, TypeVar</span>
+<span class="s0">import </span><span class="s1">os</span>
+<span class="s0">import </span><span class="s1">sys</span>
+<span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">import </span><span class="s1">json</span>
+<span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">import </span><span class="s1">time</span>
+<span class="s0">from </span><span class="s1">pathlib </span><span class="s0">import </span><span class="s1">Path</span>
+
+<span class="s0">from </span><span class="s1">tqdm </span><span class="s0">import </span><span class="s1">tqdm</span>
+
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+
+<span class="s1">T = TypeVar(</span><span class="s2">&quot;T&quot;</span><span class="s1">)</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;adapters.base&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">VulnerabilityToolAdapter(ABC):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Unified adapters interface for all vulnerability tools. 
+    Provides generic API call tracing to a dedicated per-tool log file. 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s1">self.config = config</span>
+        <span class="s1">self.log = log</span>
+
+        <span class="s1">self._init_api_logger()</span>
+        <span class="s1">self._init_api_stats()</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># API LOGGER SETUP</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s0">def </span><span class="s1">_init_api_logger(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Initialize file-based API logger. 
+ 
+        File name: 
+          &lt;GROUND_TRUTH&gt;_&lt;tool&gt;_api.log 
+ 
+        Directory: 
+          $GROUND_TRUTH_BUILD_PATH (fallback: current working directory) 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">logger_name = </span><span class="s2">f&quot;evaluation.api.</span><span class="s4">{</span><span class="s1">self.name()</span><span class="s4">}</span><span class="s2">&quot;</span>
+        <span class="s1">api_logger = logging.getLogger(logger_name)</span>
+
+        <span class="s0">if </span><span class="s1">api_logger.handlers:</span>
+            <span class="s1">self._api_logger = api_logger</span>
+            <span class="s0">return</span>
+
+        <span class="s3"># ---------- ground truth name ----------</span>
+        <span class="s1">gt_raw = os.environ.get(</span><span class="s2">&quot;GROUND_TRUTH&quot;</span><span class="s1">, </span><span class="s2">&quot;groundtruth&quot;</span><span class="s1">)</span>
+        <span class="s1">gt_name = os.path.basename(gt_raw)</span>
+        <span class="s0">if </span><span class="s1">gt_name.lower().endswith(</span><span class="s2">&quot;.csv&quot;</span><span class="s1">):</span>
+            <span class="s1">gt_name = gt_name[:-</span><span class="s5">4</span><span class="s1">]</span>
+
+        <span class="s3"># ---------- output directory ----------</span>
+        <span class="s1">build_path = os.environ.get(</span><span class="s2">&quot;GROUND_TRUTH_BUILD_PATH&quot;</span><span class="s1">, </span><span class="s2">&quot;&quot;</span><span class="s1">)</span>
+        <span class="s1">out_dir = Path(build_path)</span>
+        <span class="s1">out_dir.mkdir(parents=</span><span class="s0">True</span><span class="s1">, exist_ok=</span><span class="s0">True</span><span class="s1">)</span>
+
+        <span class="s1">tool = self.name()</span>
+        <span class="s1">filename = </span><span class="s2">f&quot;</span><span class="s4">{</span><span class="s1">gt_name</span><span class="s4">}</span><span class="s2">_</span><span class="s4">{</span><span class="s1">tool</span><span class="s4">}</span><span class="s2">_api.log&quot;</span>
+        <span class="s1">path = out_dir / filename</span>
+
+        <span class="s1">handler = logging.FileHandler(path, mode=</span><span class="s2">&quot;w&quot;</span><span class="s1">, encoding=</span><span class="s2">&quot;utf-8&quot;</span><span class="s1">)</span>
+        <span class="s1">handler.setLevel(logging.INFO)</span>
+
+        <span class="s1">formatter = logging.Formatter(</span>
+            <span class="s2">&quot;%(asctime)s | %(levelname)s | %(message)s&quot;</span><span class="s1">,</span>
+            <span class="s1">datefmt=</span><span class="s2">&quot;%Y-%m-%d %H:%M:%S&quot;</span><span class="s1">,</span>
+        <span class="s1">)</span>
+        <span class="s1">handler.setFormatter(formatter)</span>
+
+        <span class="s1">api_logger.setLevel(logging.INFO)</span>
+        <span class="s1">api_logger.addHandler(handler)</span>
+        <span class="s1">api_logger.propagate = </span><span class="s0">False</span>
+
+        <span class="s1">self._api_logger = api_logger</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;API trace log initialized: %s&quot;</span><span class="s1">, path.resolve())</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># REQUIRED ADAPTER INTERFACE</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s1">@abstractmethod</span>
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s1">...</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s1">@abstractmethod</span>
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s1">...</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># GENERIC API CALL WRAPPER</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s0">def </span><span class="s1">_api_call(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">session: requests.Session,</span>
+        <span class="s1">method: str,</span>
+        <span class="s1">url: str,</span>
+        <span class="s1">params: Optional[Dict[str, Any]] = </span><span class="s0">None</span><span class="s1">,</span>
+        <span class="s1">json_body: Optional[Any] = </span><span class="s0">None</span><span class="s1">,</span>
+        <span class="s1">headers: Optional[Dict[str, str]] = </span><span class="s0">None</span><span class="s1">,</span>
+        <span class="s1">timeout: Optional[int] = </span><span class="s0">None</span><span class="s1">,</span>
+    <span class="s1">) -&gt; requests.Response:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Execute an HTTP API call with full request/response tracing 
+        into the dedicated per-tool API log file. 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">self._api_logger.info(</span>
+            <span class="s2">&quot;REQUEST %s %s</span><span class="s4">\n</span><span class="s2">params=%s</span><span class="s4">\n</span><span class="s2">json=%s</span><span class="s4">\n</span><span class="s2">headers=%s</span><span class="s4">\n</span><span class="s2">timeout=%s&quot;</span><span class="s1">,</span>
+            <span class="s1">method,</span>
+            <span class="s1">url,</span>
+            <span class="s1">params,</span>
+            <span class="s1">json.dumps(json_body, ensure_ascii=</span><span class="s0">False</span><span class="s1">, indent=</span><span class="s5">2</span><span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">json_body </span><span class="s0">is not None</span>
+            <span class="s0">else None</span><span class="s1">,</span>
+            <span class="s1">headers,</span>
+            <span class="s1">timeout,</span>
+        <span class="s1">)</span>
+
+        <span class="s1">start = time.perf_counter()</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">r = session.request(</span>
+                <span class="s1">method=method,</span>
+                <span class="s1">url=url,</span>
+                <span class="s1">params=params,</span>
+                <span class="s1">json=json_body,</span>
+                <span class="s1">headers=headers,</span>
+                <span class="s1">timeout=timeout,</span>
+            <span class="s1">)</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">self._api_logger.error(</span>
+                <span class="s2">&quot;REQUEST FAILED %s %s | exception=%s&quot;</span><span class="s1">,</span>
+                <span class="s1">method,</span>
+                <span class="s1">url,</span>
+                <span class="s1">e,</span>
+            <span class="s1">)</span>
+            <span class="s0">raise</span>
+        <span class="s0">finally</span><span class="s1">:</span>
+            <span class="s1">duration_ms = (time.perf_counter() - start) * </span><span class="s5">1000.0</span>
+            <span class="s1">self._record_api_stat(</span>
+                <span class="s1">api=self.api_label(),</span>
+                <span class="s1">duration_ms=duration_ms,</span>
+            <span class="s1">)</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">body = r.json()</span>
+            <span class="s1">self._api_logger.info(</span>
+                <span class="s2">&quot;RESPONSE BODY (json)</span><span class="s4">\n</span><span class="s2">%s&quot;</span><span class="s1">,</span>
+                <span class="s1">json.dumps(body, indent=</span><span class="s5">2</span><span class="s1">, ensure_ascii=</span><span class="s0">False</span><span class="s1">),</span>
+            <span class="s1">)</span>
+        <span class="s0">except </span><span class="s1">Exception:</span>
+            <span class="s1">self._api_logger.info(</span>
+                <span class="s2">&quot;RESPONSE BODY (text)</span><span class="s4">\n</span><span class="s2">%s&quot;</span><span class="s1">,</span>
+                <span class="s1">r.text,</span>
+            <span class="s1">)</span>
+
+        <span class="s1">self._api_logger.info(</span><span class="s2">&quot;-&quot; </span><span class="s1">* </span><span class="s5">80</span><span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">r</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># CLI / EXTERNAL TOOL CALL LOGGING</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s0">def </span><span class="s1">_log_cli_call(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">tool: str,</span>
+        <span class="s1">command: List[str],</span>
+        <span class="s1">exit_code: int,</span>
+        <span class="s1">stdout: Optional[str] = </span><span class="s0">None</span><span class="s1">,</span>
+        <span class="s1">stderr: Optional[str] = </span><span class="s0">None</span><span class="s1">,</span>
+        <span class="s1">truncate_stdout: int = </span><span class="s5">5000</span><span class="s1">,</span>
+        <span class="s1">truncate_stderr: int = </span><span class="s5">2000</span><span class="s1">,</span>
+    <span class="s1">) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Log a non-HTTP external tool invocation (CLI). 
+ 
+        This is intentionally separate from _api_call(). 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">self._api_logger.info(</span>
+            <span class="s2">&quot;CLI REQUEST %s</span><span class="s4">\n</span><span class="s2">command=%s&quot;</span><span class="s1">,</span>
+            <span class="s1">tool,</span>
+            <span class="s2">&quot; &quot;</span><span class="s1">.join(command),</span>
+        <span class="s1">)</span>
+
+        <span class="s1">self._api_logger.info(</span>
+            <span class="s2">&quot;CLI RESPONSE %s | exit_code=%s&quot;</span><span class="s1">,</span>
+            <span class="s1">tool,</span>
+            <span class="s1">exit_code,</span>
+        <span class="s1">)</span>
+
+        <span class="s0">if </span><span class="s1">stdout:</span>
+            <span class="s1">self._api_logger.info(</span>
+                <span class="s2">&quot;CLI STDOUT (truncated)</span><span class="s4">\n</span><span class="s2">%s&quot;</span><span class="s1">,</span>
+                <span class="s1">stdout[:truncate_stdout],</span>
+            <span class="s1">)</span>
+
+        <span class="s0">if </span><span class="s1">stderr:</span>
+            <span class="s1">self._api_logger.info(</span>
+                <span class="s2">&quot;CLI STDERR (truncated)</span><span class="s4">\n</span><span class="s2">%s&quot;</span><span class="s1">,</span>
+                <span class="s1">stderr[:truncate_stderr],</span>
+            <span class="s1">)</span>
+
+        <span class="s1">self._api_logger.info(</span><span class="s2">&quot;-&quot; </span><span class="s1">* </span><span class="s5">80</span><span class="s1">)</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># EVALUATION LOGGING</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">log_evaluation_sample(</span>
+        <span class="s1">*,</span>
+        <span class="s1">idx: int,</span>
+        <span class="s1">total: int,</span>
+        <span class="s1">result: str,</span>
+        <span class="s1">finding: Finding,</span>
+    <span class="s1">) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;[%d/%d] Evaluation %s | ecosystem=%s | component=%s | version=%s | cve=%s | osv_id=%s&quot;</span><span class="s1">,</span>
+            <span class="s1">idx,</span>
+            <span class="s1">total,</span>
+            <span class="s1">result,</span>
+            <span class="s1">finding.ecosystem,</span>
+            <span class="s1">finding.component,</span>
+            <span class="s1">finding.version,</span>
+            <span class="s1">finding.cve </span><span class="s0">or </span><span class="s2">&quot;-&quot;</span><span class="s1">,</span>
+            <span class="s1">finding.osv_id </span><span class="s0">or </span><span class="s2">&quot;-&quot;</span><span class="s1">,</span>
+        <span class="s1">)</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># PROGRESS ITERATORS</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s0">def </span><span class="s1">iter_components(</span>
+        <span class="s1">self,</span>
+        <span class="s1">items: Iterable[T],</span>
+        <span class="s1">*,</span>
+        <span class="s1">desc: str,</span>
+        <span class="s1">unit: str = </span><span class="s2">&quot;item&quot;</span><span class="s1">,</span>
+        <span class="s1">total: Optional[int] = </span><span class="s0">None</span><span class="s1">,</span>
+    <span class="s1">) -&gt; Iterator[T]:</span>
+
+        <span class="s1">env = os.environ.get(</span><span class="s2">&quot;EVAL_PROGRESS&quot;</span><span class="s1">, </span><span class="s2">&quot;1&quot;</span><span class="s1">).strip().lower()</span>
+        <span class="s1">enabled = env </span><span class="s0">not in </span><span class="s1">{</span><span class="s2">&quot;0&quot;</span><span class="s1">, </span><span class="s2">&quot;false&quot;</span><span class="s1">, </span><span class="s2">&quot;no&quot;</span><span class="s1">, </span><span class="s2">&quot;off&quot;</span><span class="s1">}</span>
+        <span class="s1">use_tqdm = enabled </span><span class="s0">and </span><span class="s1">sys.stderr.isatty()</span>
+
+        <span class="s0">if not </span><span class="s1">use_tqdm:</span>
+            <span class="s0">for </span><span class="s1">x </span><span class="s0">in </span><span class="s1">items:</span>
+                <span class="s0">yield </span><span class="s1">x</span>
+            <span class="s0">return</span>
+
+        <span class="s0">if </span><span class="s1">total </span><span class="s0">is None</span><span class="s1">:</span>
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">total = len(items)</span>
+            <span class="s0">except </span><span class="s1">Exception:</span>
+                <span class="s1">total = </span><span class="s0">None</span>
+
+        <span class="s0">for </span><span class="s1">x </span><span class="s0">in </span><span class="s1">tqdm(</span>
+            <span class="s1">items,</span>
+            <span class="s1">desc=desc,</span>
+            <span class="s1">unit=unit,</span>
+            <span class="s1">total=total,</span>
+            <span class="s1">dynamic_ncols=</span><span class="s0">True</span><span class="s1">,</span>
+            <span class="s1">mininterval=</span><span class="s5">0.2</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s0">yield </span><span class="s1">x</span>
+
+    <span class="s0">def </span><span class="s1">iter_with_progress(</span>
+        <span class="s1">self,</span>
+        <span class="s1">items: Iterable[T],</span>
+        <span class="s1">*,</span>
+        <span class="s1">desc: str,</span>
+        <span class="s1">unit: str = </span><span class="s2">&quot;item&quot;</span><span class="s1">,</span>
+        <span class="s1">total: Optional[int] = </span><span class="s0">None</span><span class="s1">,</span>
+    <span class="s1">) -&gt; Iterator[T]:</span>
+        <span class="s0">return </span><span class="s1">self.iter_components(</span>
+            <span class="s1">items,</span>
+            <span class="s1">desc=desc,</span>
+            <span class="s1">unit=unit,</span>
+            <span class="s1">total=total,</span>
+        <span class="s1">)</span>
+
+    <span class="s3"># ============================================================</span>
+    <span class="s3"># Helpers to record API Call Statistics</span>
+    <span class="s3"># ============================================================</span>
+
+    <span class="s0">def </span><span class="s1">_init_api_stats(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">self._api_stats: Dict[str, Dict[str, float]] = {}</span>
+
+    <span class="s0">def </span><span class="s1">_record_api_stat(self, *, api: str, duration_ms: float) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">s = self._api_stats.setdefault(</span>
+            <span class="s1">api,</span>
+            <span class="s1">{</span><span class="s2">&quot;calls&quot;</span><span class="s1">: </span><span class="s5">0</span><span class="s1">, </span><span class="s2">&quot;total_ms&quot;</span><span class="s1">: </span><span class="s5">0.0</span><span class="s1">},</span>
+        <span class="s1">)</span>
+        <span class="s1">s[</span><span class="s2">&quot;calls&quot;</span><span class="s1">] += </span><span class="s5">1</span>
+        <span class="s1">s[</span><span class="s2">&quot;total_ms&quot;</span><span class="s1">] += duration_ms</span>
+
+    <span class="s0">def </span><span class="s1">api_label(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s1">self.name()</span>
+
+    <span class="s0">def </span><span class="s1">get_api_statistics(self) -&gt; Dict[str, Dict[str, float]]:</span>
+        <span class="s1">out = {}</span>
+        <span class="s0">for </span><span class="s1">api, s </span><span class="s0">in </span><span class="s1">self._api_stats.items():</span>
+            <span class="s1">calls = int(s[</span><span class="s2">&quot;calls&quot;</span><span class="s1">])</span>
+            <span class="s1">total = float(s[</span><span class="s2">&quot;total_ms&quot;</span><span class="s1">])</span>
+            <span class="s1">out[api] = {</span>
+                <span class="s2">&quot;calls&quot;</span><span class="s1">: calls,</span>
+                <span class="s2">&quot;total_ms&quot;</span><span class="s1">: total,</span>
+                <span class="s2">&quot;avg_ms&quot;</span><span class="s1">: (total / calls) </span><span class="s0">if </span><span class="s1">calls </span><span class="s0">else </span><span class="s5">0.0</span><span class="s1">,</span>
+            <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">out</span>
+</pre>
+</body>
+</html>

@@ -5,12 +5,21 @@ description = "Evaluation of SCA Tools and Services with an OSV Ground Truth"
 authors = [
     {name = "Peter Mandl",email = "peter.mandl@hm.edu"}
 ]
-readme = "README.md"
-requires-python = ">=3.12"
+
+requires-python = ">=3.12,<4.0"
+
 dependencies = [
+    "semantic-version (>=2.10.0,<3.0.0)",
+    "tqdm (>=4.67.3,<5.0.0)",
+    "cyclonedx-python-lib[json-validation] (>=11.7.0,<12.0.0)",
+    "requests (>=2.32.5,<3.0.0)",
+    "packaging (>=26.0,<27.0)"
 ]
-
-
+[tool.poetry]
+packages = [
+  { include = "evaluation", from = "src" },
+  { include = "new_ground_truth_generation", from = "src" }
+]
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

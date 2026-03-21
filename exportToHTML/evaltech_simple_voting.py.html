@@ -1,0 +1,342 @@
+<html>
+<head>
+<title>evaltech_simple_voting.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+evaltech_simple_voting.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">Dict, List, Optional, Tuple, Set</span>
+
+<span class="s0">import </span><span class="s1">requests</span>
+
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+<span class="s0">from </span><span class="s1">evaluation.adapters.github_advisory </span><span class="s0">import </span><span class="s1">GitHubAdvisoryAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.adapters.dtrack </span><span class="s0">import </span><span class="s1">DependencyTrackAdapter</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;evaluation.adapters.evaltech_simple_voting&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">EvalTechSimpleVotingAdapter:</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Online voting adapters. 
+ 
+    Für jede eindeutige (ecosystem, component, version): 
+      - OSV online (/v1/query) 
+      - GitHub Advisory (keyword-basierter Komponenten-Call) 
+      - Dependency-Track (keyword-basierter Komponenten-Call, optional) 
+ 
+    Entscheidung pro Datensatz-Zeile (Vulnerability): 
+      - mindestens 2 von 3 müssen zustimmen 
+    &quot;&quot;&quot;</span>
+
+    <span class="s1">OSV_QUERY_URL = </span><span class="s2">&quot;https://api.osv.dev/v1/query&quot;</span>
+
+    <span class="s0">def </span><span class="s1">__init__(self, config: Dict):</span>
+        <span class="s1">self.ground_truth: List[Finding] = config.get(</span><span class="s2">&quot;ground_truth&quot;</span><span class="s1">, [])</span>
+        <span class="s1">self.decisions: List[Dict] = []</span>
+
+        <span class="s3"># Adapter</span>
+        <span class="s1">self.github = GitHubAdvisoryAdapter(config)</span>
+
+        <span class="s1">self.dtrack: Optional[DependencyTrackAdapter] = </span><span class="s0">None</span>
+        <span class="s0">if </span><span class="s2">&quot;env&quot; </span><span class="s0">in </span><span class="s1">config:</span>
+            <span class="s1">self.dtrack = DependencyTrackAdapter(config)</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;Dependency-Track enabled&quot;</span><span class="s1">)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;Dependency-Track disabled (no 'env' in config)&quot;</span><span class="s1">)</span>
+
+        <span class="s3"># Caches pro Komponente</span>
+        <span class="s1">self._osv_cache: Dict[Tuple[str, str, str], List[Finding]] = {}</span>
+        <span class="s1">self._gh_cache: Dict[Tuple[str, str, str], List[Finding]] = {}</span>
+        <span class="s1">self._dt_cache: Dict[Tuple[str, str, str], List[Finding]] = {}</span>
+
+        <span class="s3"># Indizes für schnelles Matching</span>
+        <span class="s1">self._osv_index: Set[Tuple[str, str, str, str]] = set()</span>
+        <span class="s1">self._gh_index: Set[Tuple[str, str, str, str]] = set()</span>
+        <span class="s1">self._dt_index: Set[Tuple[str, str, str, str]] = set()</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;EvalTechSimpleVoting (2-of-3)&quot;</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Public API</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;Starting voting over %d ground truth entries&quot;</span><span class="s1">,</span>
+            <span class="s1">len(self.ground_truth),</span>
+        <span class="s1">)</span>
+
+        <span class="s1">components = self._unique_components(self.ground_truth)</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;Unique components to query: %d&quot;</span><span class="s1">, len(components))</span>
+
+        <span class="s1">self._build_indices(components)</span>
+
+        <span class="s1">positives: List[Finding] = []</span>
+        <span class="s0">for </span><span class="s1">g </span><span class="s0">in </span><span class="s1">self.ground_truth:</span>
+            <span class="s1">out = self._decide_for_row(g)</span>
+            <span class="s0">if </span><span class="s1">out </span><span class="s0">is not None</span><span class="s1">:</span>
+                <span class="s1">positives.append(out)</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;Voting produced %d positive findings&quot;</span><span class="s1">, len(positives))</span>
+        <span class="s0">return </span><span class="s1">positives</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Helpers</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">_unique_components(gt: List[Finding]) -&gt; List[Tuple[str, str, str]]:</span>
+        <span class="s1">seen = set()</span>
+        <span class="s1">out = []</span>
+        <span class="s0">for </span><span class="s1">g </span><span class="s0">in </span><span class="s1">gt:</span>
+            <span class="s1">key = (g.ecosystem, g.component, g.version)</span>
+            <span class="s0">if </span><span class="s1">key </span><span class="s0">not in </span><span class="s1">seen:</span>
+                <span class="s1">seen.add(key)</span>
+                <span class="s1">out.append(key)</span>
+        <span class="s0">return </span><span class="s1">out</span>
+
+    <span class="s0">def </span><span class="s1">_build_indices(self, comps: List[Tuple[str, str, str]]) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s3"># OSV</span>
+        <span class="s0">for </span><span class="s1">eco, comp, ver </span><span class="s0">in </span><span class="s1">comps:</span>
+            <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self._osv_findings_for_component(eco, comp, ver):</span>
+                <span class="s1">vuln = f.cve </span><span class="s0">or </span><span class="s1">f.osv_id</span>
+                <span class="s0">if </span><span class="s1">vuln:</span>
+                    <span class="s1">self._osv_index.add((eco, comp, ver, vuln))</span>
+
+        <span class="s3"># GitHub</span>
+        <span class="s0">for </span><span class="s1">eco, comp, ver </span><span class="s0">in </span><span class="s1">comps:</span>
+            <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self._github_findings_for_component(eco, comp, ver):</span>
+                <span class="s1">vuln = f.cve </span><span class="s0">or </span><span class="s1">f.osv_id</span>
+                <span class="s0">if </span><span class="s1">vuln:</span>
+                    <span class="s1">self._gh_index.add((eco, comp, ver, vuln))</span>
+
+        <span class="s3"># DTrack</span>
+        <span class="s0">if </span><span class="s1">self.dtrack:</span>
+            <span class="s0">for </span><span class="s1">eco, comp, ver </span><span class="s0">in </span><span class="s1">comps:</span>
+                <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">self._dtrack_findings_for_component(eco, comp, ver):</span>
+                    <span class="s1">vuln = f.cve </span><span class="s0">or </span><span class="s1">f.osv_id</span>
+                    <span class="s0">if </span><span class="s1">vuln:</span>
+                        <span class="s1">self._dt_index.add((eco, comp, ver, vuln))</span>
+
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;Built indices: OSV=%d | GitHub=%d | DTrack=%d&quot;</span><span class="s1">,</span>
+            <span class="s1">len(self._osv_index),</span>
+            <span class="s1">len(self._gh_index),</span>
+            <span class="s1">len(self._dt_index),</span>
+        <span class="s1">)</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Decision per row</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_decide_for_row(self, g: Finding) -&gt; Optional[Finding]:</span>
+        <span class="s1">eco, comp, ver = g.ecosystem, g.component, g.version</span>
+        <span class="s1">vuln_id = g.cve </span><span class="s0">or </span><span class="s1">g.osv_id</span>
+
+        <span class="s0">if not </span><span class="s1">vuln_id:</span>
+            <span class="s1">self.decisions.append(</span>
+                <span class="s1">{</span>
+                    <span class="s2">&quot;ecosystem&quot;</span><span class="s1">: eco,</span>
+                    <span class="s2">&quot;component&quot;</span><span class="s1">: comp,</span>
+                    <span class="s2">&quot;version&quot;</span><span class="s1">: ver,</span>
+                    <span class="s2">&quot;vulnerability&quot;</span><span class="s1">: </span><span class="s2">&quot;&quot;</span><span class="s1">,</span>
+                    <span class="s2">&quot;osv&quot;</span><span class="s1">: </span><span class="s0">False</span><span class="s1">,</span>
+                    <span class="s2">&quot;github&quot;</span><span class="s1">: </span><span class="s0">False</span><span class="s1">,</span>
+                    <span class="s2">&quot;dtrack&quot;</span><span class="s1">: (</span><span class="s0">False if </span><span class="s1">self.dtrack </span><span class="s0">else None</span><span class="s1">),</span>
+                    <span class="s2">&quot;positive_votes&quot;</span><span class="s1">: </span><span class="s4">0</span><span class="s1">,</span>
+                    <span class="s2">&quot;rule&quot;</span><span class="s1">: </span><span class="s2">&quot;&gt;=2 of 3&quot;</span><span class="s1">,</span>
+                    <span class="s2">&quot;decision&quot;</span><span class="s1">: </span><span class="s0">False</span><span class="s1">,</span>
+                    <span class="s2">&quot;reason&quot;</span><span class="s1">: </span><span class="s2">&quot;missing vulnerability identifier&quot;</span><span class="s1">,</span>
+                <span class="s1">}</span>
+            <span class="s1">)</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">osv_hit = (eco, comp, ver, vuln_id) </span><span class="s0">in </span><span class="s1">self._osv_index</span>
+        <span class="s1">gh_hit = (eco, comp, ver, vuln_id) </span><span class="s0">in </span><span class="s1">self._gh_index</span>
+        <span class="s1">dt_hit = (eco, comp, ver, vuln_id) </span><span class="s0">in </span><span class="s1">self._dt_index </span><span class="s0">if </span><span class="s1">self.dtrack </span><span class="s0">else False</span>
+
+        <span class="s1">positive_votes = sum(</span><span class="s4">1 </span><span class="s0">for </span><span class="s1">v </span><span class="s0">in </span><span class="s1">(osv_hit, gh_hit, dt_hit) </span><span class="s0">if </span><span class="s1">v)</span>
+        <span class="s1">decision = positive_votes &gt;= </span><span class="s4">2</span>
+
+        <span class="s1">log.info(</span>
+            <span class="s2">&quot;[VOTING] %s %s@%s %s | OSV=%s GH=%s DT=%s | votes=%d -&gt; decision=%s&quot;</span><span class="s1">,</span>
+            <span class="s1">eco,</span>
+            <span class="s1">comp,</span>
+            <span class="s1">ver,</span>
+            <span class="s1">vuln_id,</span>
+            <span class="s2">&quot;T&quot; </span><span class="s0">if </span><span class="s1">osv_hit </span><span class="s0">else </span><span class="s2">&quot;F&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;T&quot; </span><span class="s0">if </span><span class="s1">gh_hit </span><span class="s0">else </span><span class="s2">&quot;F&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;T&quot; </span><span class="s0">if </span><span class="s1">dt_hit </span><span class="s0">else </span><span class="s2">&quot;F&quot;</span><span class="s1">,</span>
+            <span class="s1">positive_votes,</span>
+            <span class="s1">decision,</span>
+        <span class="s1">)</span>
+
+        <span class="s1">self.decisions.append(</span>
+            <span class="s1">{</span>
+                <span class="s2">&quot;ecosystem&quot;</span><span class="s1">: eco,</span>
+                <span class="s2">&quot;component&quot;</span><span class="s1">: comp,</span>
+                <span class="s2">&quot;version&quot;</span><span class="s1">: ver,</span>
+                <span class="s2">&quot;vulnerability&quot;</span><span class="s1">: vuln_id,</span>
+                <span class="s2">&quot;osv&quot;</span><span class="s1">: osv_hit,</span>
+                <span class="s2">&quot;github&quot;</span><span class="s1">: gh_hit,</span>
+                <span class="s2">&quot;dtrack&quot;</span><span class="s1">: (dt_hit </span><span class="s0">if </span><span class="s1">self.dtrack </span><span class="s0">else None</span><span class="s1">),</span>
+                <span class="s2">&quot;positive_votes&quot;</span><span class="s1">: positive_votes,</span>
+                <span class="s2">&quot;rule&quot;</span><span class="s1">: </span><span class="s2">&quot;&gt;=2 of 3&quot;</span><span class="s1">,</span>
+                <span class="s2">&quot;decision&quot;</span><span class="s1">: decision,</span>
+            <span class="s1">}</span>
+        <span class="s1">)</span>
+
+        <span class="s0">if not </span><span class="s1">decision:</span>
+            <span class="s0">return None</span>
+
+        <span class="s0">return </span><span class="s1">Finding(</span>
+            <span class="s1">ecosystem=eco,</span>
+            <span class="s1">component=comp,</span>
+            <span class="s1">version=ver,</span>
+            <span class="s1">cve=g.cve,</span>
+            <span class="s1">osv_id=g.osv_id,</span>
+            <span class="s1">description=g.description,</span>
+            <span class="s1">source=self.name(),</span>
+        <span class="s1">)</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># OSV (online)</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">_osv_ecosystem_name(eco: str) -&gt; str:</span>
+        <span class="s0">return </span><span class="s1">{</span>
+            <span class="s2">&quot;pypi&quot;</span><span class="s1">: </span><span class="s2">&quot;PyPI&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;npm&quot;</span><span class="s1">: </span><span class="s2">&quot;npm&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;maven&quot;</span><span class="s1">: </span><span class="s2">&quot;Maven&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;nuget&quot;</span><span class="s1">: </span><span class="s2">&quot;NuGet&quot;</span><span class="s1">,</span>
+        <span class="s1">}.get(eco.lower(), eco)</span>
+
+    <span class="s1">@staticmethod</span>
+    <span class="s0">def </span><span class="s1">_extract_cves(v: dict) -&gt; List[str]:</span>
+        <span class="s0">return </span><span class="s1">[a </span><span class="s0">for </span><span class="s1">a </span><span class="s0">in </span><span class="s1">(v.get(</span><span class="s2">&quot;aliases&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]) </span><span class="s0">if </span><span class="s1">a.startswith(</span><span class="s2">&quot;CVE-&quot;</span><span class="s1">)]</span>
+
+    <span class="s0">def </span><span class="s1">_osv_findings_for_component(self, eco: str, comp: str, ver: str) -&gt; List[Finding]:</span>
+        <span class="s1">key = (eco, comp, ver)</span>
+        <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">self._osv_cache:</span>
+            <span class="s0">return </span><span class="s1">self._osv_cache[key]</span>
+
+        <span class="s1">payload = {</span>
+            <span class="s2">&quot;package&quot;</span><span class="s1">: {</span>
+                <span class="s2">&quot;ecosystem&quot;</span><span class="s1">: self._osv_ecosystem_name(eco),</span>
+                <span class="s2">&quot;name&quot;</span><span class="s1">: comp,</span>
+            <span class="s1">},</span>
+            <span class="s2">&quot;version&quot;</span><span class="s1">: ver,</span>
+        <span class="s1">}</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;[OSV] query %s %s@%s&quot;</span><span class="s1">, eco, comp, ver)</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">r = requests.post(self.OSV_QUERY_URL, json=payload, timeout=</span><span class="s4">60</span><span class="s1">)</span>
+            <span class="s1">r.raise_for_status()</span>
+            <span class="s1">data = r.json() </span><span class="s0">or </span><span class="s1">{}</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;[OSV] ERROR %s %s@%s -&gt; %s&quot;</span><span class="s1">, eco, comp, ver, e)</span>
+            <span class="s1">self._osv_cache[key] = []</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">vulns = data.get(</span><span class="s2">&quot;vulns&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s1">log.info(</span><span class="s2">&quot;[OSV] result %s %s@%s -&gt; %d vulns&quot;</span><span class="s1">, eco, comp, ver, len(vulns))</span>
+
+        <span class="s1">findings: List[Finding] = []</span>
+        <span class="s0">for </span><span class="s1">v </span><span class="s0">in </span><span class="s1">vulns:</span>
+            <span class="s1">osv_id = v.get(</span><span class="s2">&quot;id&quot;</span><span class="s1">)</span>
+            <span class="s1">desc = (v.get(</span><span class="s2">&quot;summary&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">v.get(</span><span class="s2">&quot;details&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s2">&quot;&quot;</span><span class="s1">).strip()</span>
+            <span class="s1">cves = self._extract_cves(v)</span>
+            <span class="s0">if </span><span class="s1">cves:</span>
+                <span class="s0">for </span><span class="s1">cve </span><span class="s0">in </span><span class="s1">cves:</span>
+                    <span class="s1">findings.append(</span>
+                        <span class="s1">Finding(</span>
+                            <span class="s1">ecosystem=eco,</span>
+                            <span class="s1">component=comp,</span>
+                            <span class="s1">version=ver,</span>
+                            <span class="s1">cve=cve,</span>
+                            <span class="s1">osv_id=osv_id,</span>
+                            <span class="s1">description=desc,</span>
+                            <span class="s1">source=</span><span class="s2">&quot;OSV&quot;</span><span class="s1">,</span>
+                        <span class="s1">)</span>
+                    <span class="s1">)</span>
+            <span class="s0">else</span><span class="s1">:</span>
+                <span class="s1">findings.append(</span>
+                    <span class="s1">Finding(</span>
+                        <span class="s1">ecosystem=eco,</span>
+                        <span class="s1">component=comp,</span>
+                        <span class="s1">version=ver,</span>
+                        <span class="s1">cve=</span><span class="s0">None</span><span class="s1">,</span>
+                        <span class="s1">osv_id=osv_id,</span>
+                        <span class="s1">description=desc,</span>
+                        <span class="s1">source=</span><span class="s2">&quot;OSV&quot;</span><span class="s1">,</span>
+                    <span class="s1">)</span>
+                <span class="s1">)</span>
+
+        <span class="s1">self._osv_cache[key] = findings</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># GitHub / DTrack (keyword-only!)</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_github_findings_for_component(self, eco: str, comp: str, ver: str) -&gt; List[Finding]:</span>
+        <span class="s1">key = (eco, comp, ver)</span>
+        <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">self._gh_cache:</span>
+            <span class="s0">return </span><span class="s1">self._gh_cache[key]</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;[GITHUB] query %s %s@%s&quot;</span><span class="s1">, eco, comp, ver)</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">findings = self.github.load_findings_for_component(</span>
+                <span class="s1">ecosystem=eco,</span>
+                <span class="s1">component=comp,</span>
+                <span class="s1">version=ver,</span>
+            <span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;[GITHUB] ERROR %s %s@%s -&gt; %s&quot;</span><span class="s1">, eco, comp, ver, e)</span>
+            <span class="s1">findings = []</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;[GITHUB] result %s %s@%s -&gt; %d findings&quot;</span><span class="s1">, eco, comp, ver, len(findings))</span>
+        <span class="s1">self._gh_cache[key] = findings</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+
+    <span class="s0">def </span><span class="s1">_dtrack_findings_for_component(self, eco: str, comp: str, ver: str) -&gt; List[Finding]:</span>
+        <span class="s1">key = (eco, comp, ver)</span>
+        <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">self._dt_cache:</span>
+            <span class="s0">return </span><span class="s1">self._dt_cache[key]</span>
+
+        <span class="s0">if not </span><span class="s1">self.dtrack:</span>
+            <span class="s1">self._dt_cache[key] = []</span>
+            <span class="s0">return </span><span class="s1">[]</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;[DTRACK] query %s %s@%s&quot;</span><span class="s1">, eco, comp, ver)</span>
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">findings = self.dtrack.load_findings_for_component(</span>
+                <span class="s1">ecosystem=eco,</span>
+                <span class="s1">component=comp,</span>
+                <span class="s1">version=ver,</span>
+            <span class="s1">) </span><span class="s0">or </span><span class="s1">[]</span>
+        <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+            <span class="s1">log.info(</span><span class="s2">&quot;[DTRACK] ERROR %s %s@%s -&gt; %s&quot;</span><span class="s1">, eco, comp, ver, e)</span>
+            <span class="s1">findings = []</span>
+
+        <span class="s1">log.info(</span><span class="s2">&quot;[DTRACK] result %s %s@%s -&gt; %d findings&quot;</span><span class="s1">, eco, comp, ver, len(findings))</span>
+        <span class="s1">self._dt_cache[key] = findings</span>
+        <span class="s0">return </span><span class="s1">findings</span>
+</pre>
+</body>
+</html>

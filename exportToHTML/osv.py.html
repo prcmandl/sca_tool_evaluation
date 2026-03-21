@@ -1,0 +1,379 @@
+<html>
+<head>
+<title>osv.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+.s4 { color: #1750eb;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+osv.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">__future__ </span><span class="s0">import </span><span class="s1">annotations</span>
+
+<span class="s0">import </span><span class="s1">logging</span>
+<span class="s0">from </span><span class="s1">typing </span><span class="s0">import </span><span class="s1">List, Optional</span>
+<span class="s0">from </span><span class="s1">urllib.parse </span><span class="s0">import </span><span class="s1">unquote</span>
+
+<span class="s0">import </span><span class="s1">requests</span>
+
+<span class="s0">from </span><span class="s1">evaluation.adapters.base </span><span class="s0">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s0">from </span><span class="s1">evaluation.core.model </span><span class="s0">import </span><span class="s1">Finding</span>
+
+<span class="s1">OSV_QUERY_URL = </span><span class="s2">&quot;https://api.osv.dev/v1/query&quot;</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s2">&quot;evaluation.adapters.osv&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">class </span><span class="s1">OSVAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    OSV validation adapters (GROUND TRUTH CONFIRMATION MODE). 
+ 
+    Rule-accurate semantics (per methodology): 
+    - Ground Truth is authoritative 
+    - OSV is queried per PACKAGE (not per version) 
+    - Version checks are done locally 
+    - Identifier match uses set intersection: I ∩ I' ≠ ∅ 
+      where I  = {gt.cve, gt.ghsa, gt.osv_id} \ {None} 
+            I' = {osv.id} ∪ osv.aliases 
+    &quot;&quot;&quot;</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Adapter capabilities</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">return </span><span class="s2">&quot;osv&quot;</span>
+
+    <span class="s0">def </span><span class="s1">supports_security_findings(self) -&gt; bool:</span>
+        <span class="s0">return True</span>
+
+    <span class="s0">def </span><span class="s1">supports_fp_heuristic(self) -&gt; bool:</span>
+        <span class="s0">return False</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Required abstract API (MUST exist)</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings_for_component(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">ecosystem: str,</span>
+        <span class="s1">component: str,</span>
+        <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Not used: OSV is evaluated GT-row-wise via load_findings(). 
+        &quot;&quot;&quot;</span>
+        <span class="s0">return </span><span class="s1">[]</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Public entry point</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s1">findings: List[Finding] = []</span>
+        <span class="s1">errors = </span><span class="s4">0</span>
+
+        <span class="s0">for </span><span class="s1">gt </span><span class="s0">in </span><span class="s1">self.iter_with_progress(</span>
+            <span class="s1">self.config[</span><span class="s2">&quot;ground_truth&quot;</span><span class="s1">],</span>
+            <span class="s1">desc=</span><span class="s2">&quot;OSV ground-truth validation&quot;</span><span class="s1">,</span>
+            <span class="s1">unit=</span><span class="s2">&quot;vulnerability&quot;</span><span class="s1">,</span>
+        <span class="s1">):</span>
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">f = self._check_ground_truth_row(gt)</span>
+                <span class="s0">if </span><span class="s1">f </span><span class="s0">is not None</span><span class="s1">:</span>
+                    <span class="s1">findings.append(f)</span>
+            <span class="s0">except </span><span class="s1">Exception </span><span class="s0">as </span><span class="s1">e:</span>
+                <span class="s1">errors += </span><span class="s4">1</span>
+                <span class="s1">log.error(</span>
+                    <span class="s2">&quot;OSV check failed | %s:%s:%s | %s&quot;</span><span class="s1">,</span>
+                    <span class="s1">gt.ecosystem,</span>
+                    <span class="s1">gt.component,</span>
+                    <span class="s1">gt.version,</span>
+                    <span class="s1">e,</span>
+                <span class="s1">)</span>
+
+        <span class="s3"># OSV is a reference adapters: silent total failure is not acceptable</span>
+        <span class="s0">if </span><span class="s1">errors &gt; </span><span class="s4">0 </span><span class="s0">and not </span><span class="s1">findings:</span>
+            <span class="s0">raise </span><span class="s1">RuntimeError(</span><span class="s2">&quot;OSV adapters failed completely; no findings produced&quot;</span><span class="s1">)</span>
+
+        <span class="s0">return </span><span class="s1">self._dedup_to_gt_granularity(findings)</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Core logic</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_check_ground_truth_row(self, gt: Finding) -&gt; Optional[Finding]:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Returns: 
+          - Finding with match_type=&quot;EXACT&quot; or &quot;RANGE&quot; 
+          - None if OSV does not confirm the GT entry 
+        &quot;&quot;&quot;</span>
+
+        <span class="s1">pkg_name = self._osv_package_name(gt)</span>
+        <span class="s0">if not </span><span class="s1">pkg_name:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">payload = {</span>
+            <span class="s2">&quot;package&quot;</span><span class="s1">: {</span>
+                <span class="s2">&quot;ecosystem&quot;</span><span class="s1">: self._map_ecosystem(gt.ecosystem),</span>
+                <span class="s2">&quot;name&quot;</span><span class="s1">: pkg_name,</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">r = self._api_call(</span>
+            <span class="s1">session=requests.Session(),</span>
+            <span class="s1">method=</span><span class="s2">&quot;POST&quot;</span><span class="s1">,</span>
+            <span class="s1">url=OSV_QUERY_URL,</span>
+            <span class="s1">json_body=payload,</span>
+            <span class="s1">timeout=</span><span class="s4">30</span><span class="s1">,</span>
+        <span class="s1">)</span>
+
+        <span class="s0">if </span><span class="s1">r.status_code != </span><span class="s4">200</span><span class="s1">:</span>
+            <span class="s0">return None</span>
+
+        <span class="s1">vulns = (r.json() </span><span class="s0">or </span><span class="s1">{}).get(</span><span class="s2">&quot;vulns&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[]</span>
+
+        <span class="s3"># Ground-truth identifier set (I)</span>
+        <span class="s1">gt_ids = {x </span><span class="s0">for </span><span class="s1">x </span><span class="s0">in </span><span class="s1">(gt.cve, gt.ghsa, gt.osv_id) </span><span class="s0">if </span><span class="s1">x}</span>
+
+        <span class="s0">for </span><span class="s1">v </span><span class="s0">in </span><span class="s1">vulns:</span>
+            <span class="s1">osv_id = v.get(</span><span class="s2">&quot;id&quot;</span><span class="s1">)</span>
+            <span class="s1">aliases = set(v.get(</span><span class="s2">&quot;aliases&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[])</span>
+
+            <span class="s3"># Tool identifier set (I')</span>
+            <span class="s1">tool_ids = set()</span>
+            <span class="s0">if </span><span class="s1">osv_id:</span>
+                <span class="s1">tool_ids.add(osv_id)</span>
+            <span class="s1">tool_ids |= aliases</span>
+
+            <span class="s3"># -------------------------------------------------</span>
+            <span class="s3"># Identifier match (Rule-accurate): I ∩ I' ≠ ∅</span>
+            <span class="s3"># If GT has no IDs (shouldn't happen), do not confirm.</span>
+            <span class="s3"># -------------------------------------------------</span>
+            <span class="s0">if not </span><span class="s1">gt_ids:</span>
+                <span class="s0">continue</span>
+            <span class="s0">if </span><span class="s1">gt_ids.isdisjoint(tool_ids):</span>
+                <span class="s0">continue</span>
+
+            <span class="s3"># -------------------------------------------------</span>
+            <span class="s3"># Version evaluation (Exact or Range)</span>
+            <span class="s3"># -------------------------------------------------</span>
+            <span class="s0">for </span><span class="s1">aff </span><span class="s0">in </span><span class="s1">v.get(</span><span class="s2">&quot;affected&quot;</span><span class="s1">, []):</span>
+                <span class="s1">versions = set(aff.get(</span><span class="s2">&quot;versions&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[])</span>
+                <span class="s1">ranges = aff.get(</span><span class="s2">&quot;ranges&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[]</span>
+
+                <span class="s3"># EXACT: v' == v (explicit listing)</span>
+                <span class="s0">if </span><span class="s1">gt.version </span><span class="s0">in </span><span class="s1">versions:</span>
+                    <span class="s0">return </span><span class="s1">self._build_finding(</span>
+                        <span class="s1">gt=gt,</span>
+                        <span class="s1">osv=v,</span>
+                        <span class="s1">match_type=</span><span class="s2">&quot;EXACT&quot;</span><span class="s1">,</span>
+                        <span class="s1">affected_range=</span><span class="s0">None</span><span class="s1">,</span>
+                    <span class="s1">)</span>
+
+                <span class="s3"># RANGE: v ∈ range(v')</span>
+                <span class="s0">for </span><span class="s1">rr </span><span class="s0">in </span><span class="s1">ranges:</span>
+                    <span class="s1">spec = self._events_to_spec(rr.get(</span><span class="s2">&quot;events&quot;</span><span class="s1">, []))</span>
+                    <span class="s0">if </span><span class="s1">spec </span><span class="s0">and </span><span class="s1">self._version_in_spec(gt.version, spec):</span>
+                        <span class="s0">return </span><span class="s1">self._build_finding(</span>
+                            <span class="s1">gt=gt,</span>
+                            <span class="s1">osv=v,</span>
+                            <span class="s1">match_type=</span><span class="s2">&quot;RANGE&quot;</span><span class="s1">,</span>
+                            <span class="s1">affected_range=spec,</span>
+                        <span class="s1">)</span>
+
+        <span class="s0">return None</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Deduplication</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_dedup_to_gt_granularity(self, findings: List[Finding]) -&gt; List[Finding]:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Collapse multiple OSV advisories that represent the same GT vulnerability. 
+        Dedup key uses (ecosystem, component, version, canonical id). 
+        &quot;&quot;&quot;</span>
+        <span class="s1">seen = set()</span>
+        <span class="s1">out: List[Finding] = []</span>
+
+        <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">findings:</span>
+            <span class="s1">key = (</span>
+                <span class="s1">f.ecosystem,</span>
+                <span class="s1">f.component,</span>
+                <span class="s1">f.version,</span>
+                <span class="s1">f.cve </span><span class="s0">or </span><span class="s1">f.ghsa </span><span class="s0">or </span><span class="s1">f.osv_id,  </span><span class="s3"># prefer stable canonical ids</span>
+            <span class="s1">)</span>
+            <span class="s0">if </span><span class="s1">key </span><span class="s0">in </span><span class="s1">seen:</span>
+                <span class="s0">continue</span>
+            <span class="s1">seen.add(key)</span>
+            <span class="s1">out.append(f)</span>
+
+        <span class="s0">return </span><span class="s1">out</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Finding builder</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_build_finding(</span>
+        <span class="s1">self,</span>
+        <span class="s1">*,</span>
+        <span class="s1">gt: Finding,</span>
+        <span class="s1">osv: dict,</span>
+        <span class="s1">match_type: str,</span>
+        <span class="s1">affected_range: Optional[str],</span>
+    <span class="s1">) -&gt; Finding:</span>
+        <span class="s1">aliases = set(osv.get(</span><span class="s2">&quot;aliases&quot;</span><span class="s1">, []) </span><span class="s0">or </span><span class="s1">[])</span>
+        <span class="s1">osv_id = osv.get(</span><span class="s2">&quot;id&quot;</span><span class="s1">)</span>
+
+        <span class="s3"># Keep GT identifiers if present (GT-authoritative)</span>
+        <span class="s1">cve = gt.cve</span>
+        <span class="s1">ghsa = gt.ghsa</span>
+
+        <span class="s3"># Fill missing ids from OSV aliases (optional)</span>
+        <span class="s0">if not </span><span class="s1">cve:</span>
+            <span class="s0">for </span><span class="s1">a </span><span class="s0">in </span><span class="s1">aliases:</span>
+                <span class="s0">if </span><span class="s1">a.startswith(</span><span class="s2">&quot;CVE-&quot;</span><span class="s1">):</span>
+                    <span class="s1">cve = a</span>
+                    <span class="s0">break</span>
+        <span class="s0">if not </span><span class="s1">ghsa:</span>
+            <span class="s0">for </span><span class="s1">a </span><span class="s0">in </span><span class="s1">aliases:</span>
+                <span class="s0">if </span><span class="s1">a.startswith(</span><span class="s2">&quot;GHSA-&quot;</span><span class="s1">):</span>
+                    <span class="s1">ghsa = a</span>
+                    <span class="s0">break</span>
+
+        <span class="s0">return </span><span class="s1">Finding(</span>
+            <span class="s1">ecosystem=gt.ecosystem,</span>
+            <span class="s1">component=gt.component,</span>
+            <span class="s1">version=gt.version,</span>
+            <span class="s1">purl=gt.purl,</span>
+            <span class="s1">cve=cve,</span>
+            <span class="s1">ghsa=ghsa,</span>
+            <span class="s1">osv_id=osv_id,</span>
+            <span class="s1">description=osv.get(</span><span class="s2">&quot;summary&quot;</span><span class="s1">) </span><span class="s0">or </span><span class="s1">osv.get(</span><span class="s2">&quot;details&quot;</span><span class="s1">, </span><span class="s2">&quot;&quot;</span><span class="s1">),</span>
+            <span class="s1">affected_version_range=affected_range,</span>
+            <span class="s1">source=</span><span class="s2">&quot;osv&quot;</span><span class="s1">,</span>
+            <span class="s1">match_type=match_type,</span>
+        <span class="s1">)</span>
+
+    <span class="s3"># ---------------------------------------------------------</span>
+    <span class="s3"># Helpers</span>
+    <span class="s3"># ---------------------------------------------------------</span>
+
+    <span class="s0">def </span><span class="s1">_map_ecosystem(self, eco: str) -&gt; str:</span>
+        <span class="s0">return </span><span class="s1">{</span>
+            <span class="s2">&quot;maven&quot;</span><span class="s1">: </span><span class="s2">&quot;Maven&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;npm&quot;</span><span class="s1">: </span><span class="s2">&quot;npm&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;pypi&quot;</span><span class="s1">: </span><span class="s2">&quot;PyPI&quot;</span><span class="s1">,</span>
+            <span class="s2">&quot;nuget&quot;</span><span class="s1">: </span><span class="s2">&quot;NuGet&quot;</span><span class="s1">,</span>
+        <span class="s1">}.get(eco.lower(), eco)</span>
+
+    <span class="s0">def </span><span class="s1">_osv_package_name(self, gt: Finding) -&gt; Optional[str]:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Derive canonical OSV package name. 
+ 
+        IMPORTANT: 
+        - Prefer PURL when available 
+        - Decode percent-encoding (e.g., npm scopes %40 -&gt; @) 
+        &quot;&quot;&quot;</span>
+
+        <span class="s3"># Maven: pkg:maven/group/artifact@version  -&gt; group:artifact</span>
+        <span class="s0">if </span><span class="s1">gt.ecosystem == </span><span class="s2">&quot;maven&quot; </span><span class="s0">and </span><span class="s1">gt.purl:</span>
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">p = gt.purl.split(</span><span class="s2">&quot;pkg:maven/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">1</span><span class="s1">]</span>
+                <span class="s1">p = unquote(p)</span>
+                <span class="s1">group, rest = p.split(</span><span class="s2">&quot;/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)</span>
+                <span class="s1">artifact = rest.split(</span><span class="s2">&quot;@&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">]</span>
+                <span class="s0">return </span><span class="s2">f&quot;</span><span class="s5">{</span><span class="s1">group</span><span class="s5">}</span><span class="s2">:</span><span class="s5">{</span><span class="s1">artifact</span><span class="s5">}</span><span class="s2">&quot;</span>
+            <span class="s0">except </span><span class="s1">Exception:</span>
+                <span class="s0">return None</span>
+
+        <span class="s3"># npm: pkg:npm/name@version OR pkg:npm/%40scope/name@version -&gt; @scope/name</span>
+        <span class="s0">if </span><span class="s1">gt.ecosystem == </span><span class="s2">&quot;npm&quot; </span><span class="s0">and </span><span class="s1">gt.purl:</span>
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">p = gt.purl.split(</span><span class="s2">&quot;pkg:npm/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">1</span><span class="s1">]</span>
+                <span class="s1">p = unquote(p)</span>
+                <span class="s0">return </span><span class="s1">p.split(</span><span class="s2">&quot;@&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">]</span>
+            <span class="s0">except </span><span class="s1">Exception:</span>
+                <span class="s0">return None</span>
+
+        <span class="s3"># NuGet: pkg:nuget/Name@version</span>
+        <span class="s0">if </span><span class="s1">gt.ecosystem == </span><span class="s2">&quot;nuget&quot; </span><span class="s0">and </span><span class="s1">gt.purl:</span>
+            <span class="s0">try</span><span class="s1">:</span>
+                <span class="s1">p = gt.purl.split(</span><span class="s2">&quot;pkg:nuget/&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">1</span><span class="s1">]</span>
+                <span class="s1">p = unquote(p)</span>
+                <span class="s0">return </span><span class="s1">p.split(</span><span class="s2">&quot;@&quot;</span><span class="s1">, </span><span class="s4">1</span><span class="s1">)[</span><span class="s4">0</span><span class="s1">]</span>
+            <span class="s0">except </span><span class="s1">Exception:</span>
+                <span class="s0">return None</span>
+
+        <span class="s3"># PyPI: OSV expects package name as-is</span>
+        <span class="s0">if </span><span class="s1">gt.ecosystem == </span><span class="s2">&quot;pypi&quot;</span><span class="s1">:</span>
+            <span class="s0">return </span><span class="s1">gt.component</span>
+
+        <span class="s3"># Fallback (if GT already stores OSV-canonical package name)</span>
+        <span class="s0">if </span><span class="s1">gt.component:</span>
+            <span class="s0">return </span><span class="s1">gt.component</span>
+
+        <span class="s0">return None</span>
+
+    <span class="s0">def </span><span class="s1">_events_to_spec(self, events: list[dict]) -&gt; Optional[str]:</span>
+        <span class="s1">introduced = </span><span class="s0">None</span>
+        <span class="s1">fixed = </span><span class="s0">None</span>
+        <span class="s1">last_affected = </span><span class="s0">None</span>
+
+        <span class="s0">for </span><span class="s1">e </span><span class="s0">in </span><span class="s1">events:</span>
+            <span class="s0">if </span><span class="s2">&quot;introduced&quot; </span><span class="s0">in </span><span class="s1">e:</span>
+                <span class="s1">introduced = e[</span><span class="s2">&quot;introduced&quot;</span><span class="s1">]</span>
+            <span class="s0">if </span><span class="s2">&quot;fixed&quot; </span><span class="s0">in </span><span class="s1">e:</span>
+                <span class="s1">fixed = e[</span><span class="s2">&quot;fixed&quot;</span><span class="s1">]</span>
+            <span class="s0">if </span><span class="s2">&quot;last_affected&quot; </span><span class="s0">in </span><span class="s1">e:</span>
+                <span class="s1">last_affected = e[</span><span class="s2">&quot;last_affected&quot;</span><span class="s1">]</span>
+
+        <span class="s1">parts = []</span>
+
+        <span class="s3"># introduced</span>
+        <span class="s0">if </span><span class="s1">introduced </span><span class="s0">and </span><span class="s1">introduced != </span><span class="s2">&quot;0&quot;</span><span class="s1">:</span>
+            <span class="s1">parts.append(</span><span class="s2">f&quot;&gt;=</span><span class="s5">{</span><span class="s1">introduced</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">)</span>
+
+        <span class="s3"># upper bound</span>
+        <span class="s0">if </span><span class="s1">fixed:</span>
+            <span class="s1">parts.append(</span><span class="s2">f&quot;&lt;</span><span class="s5">{</span><span class="s1">fixed</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">)</span>
+        <span class="s0">elif </span><span class="s1">last_affected:</span>
+            <span class="s1">parts.append(</span><span class="s2">f&quot;&lt;=</span><span class="s5">{</span><span class="s1">last_affected</span><span class="s5">}</span><span class="s2">&quot;</span><span class="s1">)</span>
+
+        <span class="s3"># Special case: introduced == &quot;0&quot; and upper bound exists</span>
+        <span class="s0">if </span><span class="s1">introduced == </span><span class="s2">&quot;0&quot; </span><span class="s0">and </span><span class="s1">(fixed </span><span class="s0">or </span><span class="s1">last_affected):</span>
+            <span class="s0">pass  </span><span class="s3"># upper bound already handled</span>
+
+        <span class="s0">return </span><span class="s2">&quot;,&quot;</span><span class="s1">.join(parts) </span><span class="s0">if </span><span class="s1">parts </span><span class="s0">else None</span>
+
+    <span class="s0">def </span><span class="s1">_version_in_spec(self, version: str, spec: str) -&gt; bool:</span>
+        <span class="s3">&quot;&quot;&quot; 
+        Conservative evaluation: returns False on any parsing error. 
+        &quot;&quot;&quot;</span>
+        <span class="s0">from </span><span class="s1">packaging.version </span><span class="s0">import </span><span class="s1">Version, InvalidVersion</span>
+        <span class="s0">from </span><span class="s1">packaging.specifiers </span><span class="s0">import </span><span class="s1">SpecifierSet, InvalidSpecifier</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">v = Version(version)</span>
+        <span class="s0">except </span><span class="s1">InvalidVersion:</span>
+            <span class="s0">return False</span>
+
+        <span class="s0">try</span><span class="s1">:</span>
+            <span class="s1">s = SpecifierSet(spec)</span>
+        <span class="s0">except </span><span class="s1">InvalidSpecifier:</span>
+            <span class="s0">return False</span>
+
+        <span class="s0">return </span><span class="s1">v </span><span class="s0">in </span><span class="s1">s</span>
+</pre>
+</body>
+</html>

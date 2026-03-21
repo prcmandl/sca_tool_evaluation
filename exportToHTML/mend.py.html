@@ -1,0 +1,374 @@
+<html>
+<head>
+<title>mend.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #080808;}
+.s2 { color: #0033b3;}
+.s3 { color: #067d17;}
+.s4 { color: #0037a6;}
+.s5 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+mend.py</font>
+</center></td></tr></table>
+<pre><span class="s0">#</span>
+<span class="s0"># Mend Adapter is not working becuase we have no access to it</span>
+<span class="s0">#</span>
+
+<span class="s0">&quot;&quot;&quot; 
+Mend (ehemals WhiteSource) Adapter 
+================================= 
+ 
+Zweck 
+----- 
+Dieser Adapter bindet die Mend SCA API (v2.0) in die bestehende 
+Evaluation-Pipeline ein – analog zu vorhandenen Adaptern für 
+Snyk und Dependency-Track. 
+ 
+Ziel ist: 
+- Abruf von Vulnerability-Daten auf Projekt-Ebene 
+- Normalisierung auf das interne Finding-Modell 
+- Komponentenbasierte Filterung (ecosystem, component, version) 
+ 
+Wichtige Randbedingungen 
+----------------------- 
+- Mend liefert Security Alerts projektweit, nicht komponentenspezifisch 
+- JWT-basierte Authentifizierung mit kurzer Lebensdauer 
+- Feature- / Rollenprüfung erfolgt serverseitig (403 möglich) 
+- API liefert Mend-native IDs, CVEs sind optional 
+ 
+Erforderliche ENV-Variablen 
+--------------------------- 
+MEND_EMAIL           : Benutzer-E-Mail 
+MEND_USER_KEY        : User Key (API Key) 
+MEND_ORG_TOKEN       : Organisationstoken 
+MEND_PROJECT_TOKEN   : Projekt-Token 
+MEND_BASE_URL        : optional, Default https://api-saas.mend.io 
+&quot;&quot;&quot;</span>
+
+<span class="s2">import </span><span class="s1">logging</span>
+<span class="s2">import </span><span class="s1">time</span>
+<span class="s2">import </span><span class="s1">requests</span>
+<span class="s2">from </span><span class="s1">typing </span><span class="s2">import </span><span class="s1">List, Dict, Any, Optional</span>
+
+<span class="s2">from </span><span class="s1">evaluation.adapters.base </span><span class="s2">import </span><span class="s1">VulnerabilityToolAdapter</span>
+<span class="s2">from </span><span class="s1">evaluation.core.model </span><span class="s2">import </span><span class="s1">Finding</span>
+<span class="s2">from </span><span class="s1">evaluation.core.ecosystems </span><span class="s2">import </span><span class="s1">ECOSYSTEMS</span>
+
+<span class="s1">log = logging.getLogger(</span><span class="s3">&quot;evaluation.adapters.mend&quot;</span><span class="s1">)</span>
+
+
+<span class="s2">class </span><span class="s1">MendAdapter(VulnerabilityToolAdapter):</span>
+    <span class="s0">&quot;&quot;&quot; 
+    MendAdapter 
+    ----------- 
+ 
+    Implementiert einen projektbasierten Mend-Adapter. 
+ 
+    Architektur: 
+    - einmaliger Projekt-Download aller Security Alerts 
+    - In-Memory-Cache 
+    - komponentenbasierte Filterung auf Client-Seite 
+ 
+    Warum so? 
+    --------- 
+    Mend bietet keine API, um gezielt *eine* Komponente abzufragen. 
+    Deshalb: 
+      1. einmal alles laden 
+      2. lokal filtern 
+    &quot;&quot;&quot;</span>
+
+    <span class="s2">def </span><span class="s1">__init__(self, config: Dict[str, Any]):</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Initialisiert den Adapter. 
+ 
+        - liest ENV-Variablen 
+        - bereitet HTTP-Session vor 
+        - validiert Mindestkonfiguration 
+        &quot;&quot;&quot;</span>
+        <span class="s1">super().__init__(config)</span>
+
+        <span class="s1">env = config.get(</span><span class="s3">&quot;env&quot;</span><span class="s1">, {})</span>
+
+        <span class="s0"># Basis-URL der Mend API</span>
+        <span class="s1">self.base_url = (env.get(</span><span class="s3">&quot;MEND_BASE_URL&quot;</span><span class="s1">) </span><span class="s2">or </span><span class="s3">&quot;https://api-saas.mend.io&quot;</span><span class="s1">).rstrip(</span><span class="s3">&quot;/&quot;</span><span class="s1">)</span>
+
+        <span class="s0"># Authentifizierungsdaten</span>
+        <span class="s1">self.email = env.get(</span><span class="s3">&quot;MEND_EMAIL&quot;</span><span class="s1">)</span>
+        <span class="s1">self.user_key = env.get(</span><span class="s3">&quot;MEND_USER_KEY&quot;</span><span class="s1">)</span>
+        <span class="s1">self.org_token = env.get(</span><span class="s3">&quot;MEND_ORG_TOKEN&quot;</span><span class="s1">)</span>
+
+        <span class="s0"># Projekt-Kontext (zwingend!)</span>
+        <span class="s1">self.project_token = env.get(</span><span class="s3">&quot;MEND_PROJECT_TOKEN&quot;</span><span class="s1">)</span>
+
+        <span class="s0"># Wenn etwas fehlt → Adapter deaktivieren</span>
+        <span class="s2">if not </span><span class="s1">all([self.email, self.user_key, self.org_token, self.project_token]):</span>
+            <span class="s1">log.warning(</span>
+                <span class="s3">&quot;Mend adapters disabled: missing env vars &quot;</span>
+                <span class="s3">&quot;(MEND_EMAIL, MEND_USER_KEY, MEND_ORG_TOKEN, MEND_PROJECT_TOKEN)&quot;</span>
+            <span class="s1">)</span>
+            <span class="s1">self.enabled = </span><span class="s2">False</span>
+            <span class="s2">return</span>
+
+        <span class="s1">self.enabled = </span><span class="s2">True</span>
+
+        <span class="s0"># Wiederverwendbare HTTP-Session</span>
+        <span class="s1">self.session = requests.Session()</span>
+        <span class="s1">self.session.headers.update(</span>
+            <span class="s1">{</span>
+                <span class="s3">&quot;Accept&quot;</span><span class="s1">: </span><span class="s3">&quot;application/json&quot;</span><span class="s1">,</span>
+                <span class="s3">&quot;Content-Type&quot;</span><span class="s1">: </span><span class="s3">&quot;application/json&quot;</span><span class="s1">,</span>
+            <span class="s1">}</span>
+        <span class="s1">)</span>
+
+        <span class="s0"># JWT-Handling (kurzlebig)</span>
+        <span class="s1">self._jwt: Optional[str] = </span><span class="s2">None</span>
+        <span class="s1">self._jwt_timestamp: Optional[float] = </span><span class="s2">None</span>
+
+        <span class="s0"># Cache für normalisierte Findings</span>
+        <span class="s1">self._cached_findings: Optional[List[Finding]] = </span><span class="s2">None</span>
+
+        <span class="s1">log.info(</span><span class="s3">&quot;Mend adapters initialized (project-scoped)&quot;</span><span class="s1">)</span>
+
+    <span class="s0"># ------------------------------------------------------------------</span>
+    <span class="s0"># Metadaten</span>
+    <span class="s0"># ------------------------------------------------------------------</span>
+
+    <span class="s2">def </span><span class="s1">name(self) -&gt; str:</span>
+        <span class="s0">&quot;&quot;&quot;Name des Tools (für Reporting / Vergleich).&quot;&quot;&quot;</span>
+        <span class="s2">return </span><span class="s3">&quot;mend&quot;</span>
+
+    <span class="s0"># ------------------------------------------------------------------</span>
+    <span class="s0"># Öffentliche API</span>
+    <span class="s0"># ------------------------------------------------------------------</span>
+
+    <span class="s2">def </span><span class="s1">load_findings(self) -&gt; List[Finding]:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Lädt alle Findings für das konfigurierte Projekt. 
+ 
+        Ablauf: 
+        - Falls Cache vorhanden → zurückgeben 
+        - Sonst: 
+            * API-Abfrage 
+            * Normalisierung 
+            * Caching 
+        &quot;&quot;&quot;</span>
+        <span class="s2">if not </span><span class="s1">self.enabled:</span>
+            <span class="s2">return </span><span class="s1">[]</span>
+
+        <span class="s2">if </span><span class="s1">self._cached_findings </span><span class="s2">is not None</span><span class="s1">:</span>
+            <span class="s2">return </span><span class="s1">self._cached_findings</span>
+
+        <span class="s1">raw = self._fetch_security_alerts()</span>
+        <span class="s1">findings = self._normalize_findings(raw)</span>
+
+        <span class="s1">self._cached_findings = findings</span>
+        <span class="s2">return </span><span class="s1">findings</span>
+
+    <span class="s2">def </span><span class="s1">load_findings_for_component(</span>
+            <span class="s1">self,</span>
+            <span class="s1">*,</span>
+            <span class="s1">ecosystem: str,</span>
+            <span class="s1">component: str,</span>
+            <span class="s1">version: str,</span>
+    <span class="s1">) -&gt; List[Finding]:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Required by VulnerabilityToolAdapter. 
+ 
+        Returns all findings matching exactly 
+        ecosystem + component + version. 
+        &quot;&quot;&quot;</span>
+        <span class="s1">all_findings = self.load_findings()</span>
+
+        <span class="s2">return </span><span class="s1">[</span>
+            <span class="s1">f </span><span class="s2">for </span><span class="s1">f </span><span class="s2">in </span><span class="s1">all_findings</span>
+            <span class="s2">if </span><span class="s1">f.ecosystem == ecosystem</span>
+               <span class="s2">and </span><span class="s1">f.component == component</span>
+               <span class="s2">and </span><span class="s1">f.version == version</span>
+        <span class="s1">]</span>
+
+    <span class="s0"># ------------------------------------------------------------------</span>
+    <span class="s0"># Authentifizierung</span>
+    <span class="s0"># ------------------------------------------------------------------</span>
+
+    <span class="s2">def </span><span class="s1">_login(self) -&gt; str:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Führt ein Login gegen die Mend API aus. 
+ 
+        Endpoint: 
+            POST /api/v2.0/login 
+ 
+        Rückgabe: 
+            JWT Token (Bearer) 
+        &quot;&quot;&quot;</span>
+        <span class="s1">url = </span><span class="s3">f&quot;</span><span class="s4">{</span><span class="s1">self.base_url</span><span class="s4">}</span><span class="s3">/api/v2.0/login&quot;</span>
+
+        <span class="s1">payload = {</span>
+            <span class="s3">&quot;email&quot;</span><span class="s1">: self.email,</span>
+            <span class="s3">&quot;orgToken&quot;</span><span class="s1">: self.org_token,</span>
+            <span class="s3">&quot;userKey&quot;</span><span class="s1">: self.user_key,</span>
+        <span class="s1">}</span>
+
+        <span class="s1">log.info(</span><span class="s3">&quot;Mend login request&quot;</span><span class="s1">)</span>
+
+        <span class="s1">r = self.session.post(url, json=payload, timeout=</span><span class="s5">30</span><span class="s1">)</span>
+
+        <span class="s2">if </span><span class="s1">r.status_code != </span><span class="s5">200</span><span class="s1">:</span>
+            <span class="s2">raise </span><span class="s1">RuntimeError(</span><span class="s3">f&quot;Mend login failed (HTTP </span><span class="s4">{</span><span class="s1">r.status_code</span><span class="s4">}</span><span class="s3">)&quot;</span><span class="s1">)</span>
+
+        <span class="s1">data = r.json()</span>
+
+        <span class="s1">token = (</span>
+            <span class="s1">data.get(</span><span class="s3">&quot;jwt&quot;</span><span class="s1">)</span>
+            <span class="s2">or </span><span class="s1">data.get(</span><span class="s3">&quot;token&quot;</span><span class="s1">)</span>
+            <span class="s2">or </span><span class="s1">data.get(</span><span class="s3">&quot;accessToken&quot;</span><span class="s1">)</span>
+            <span class="s2">or </span><span class="s1">data.get(</span><span class="s3">&quot;access_token&quot;</span><span class="s1">)</span>
+        <span class="s1">)</span>
+
+        <span class="s2">if not </span><span class="s1">token:</span>
+            <span class="s2">raise </span><span class="s1">RuntimeError(</span><span class="s3">&quot;Mend login response did not contain a JWT token&quot;</span><span class="s1">)</span>
+
+        <span class="s1">self._jwt = token</span>
+        <span class="s1">self._jwt_timestamp = time.time()</span>
+        <span class="s2">return </span><span class="s1">token</span>
+
+    <span class="s2">def </span><span class="s1">_auth_headers(self) -&gt; Dict[str, str]:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Liefert HTTP-Header mit gültigem JWT. 
+        &quot;&quot;&quot;</span>
+        <span class="s2">if not </span><span class="s1">self._jwt:</span>
+            <span class="s1">self._login()</span>
+        <span class="s2">return </span><span class="s1">{</span><span class="s3">&quot;Authorization&quot;</span><span class="s1">: </span><span class="s3">f&quot;Bearer </span><span class="s4">{</span><span class="s1">self._jwt</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s1">}</span>
+
+    <span class="s0"># ------------------------------------------------------------------</span>
+    <span class="s0"># API-Zugriff</span>
+    <span class="s0"># ------------------------------------------------------------------</span>
+
+    <span class="s2">def </span><span class="s1">_fetch_security_alerts(self) -&gt; Dict[str, Any]:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Ruft alle Security Alerts gruppiert nach Komponente ab. 
+ 
+        Endpoint: 
+            GET /api/v2.0/projects/{projectToken}/alerts/security/groupBy/component 
+        &quot;&quot;&quot;</span>
+        <span class="s1">url = (</span>
+            <span class="s3">f&quot;</span><span class="s4">{</span><span class="s1">self.base_url</span><span class="s4">}</span><span class="s3">/api/v2.0/projects/&quot;</span>
+            <span class="s3">f&quot;</span><span class="s4">{</span><span class="s1">self.project_token</span><span class="s4">}</span><span class="s3">/alerts/security/groupBy/component&quot;</span>
+        <span class="s1">)</span>
+
+        <span class="s1">r = self.session.get(url, headers=self._auth_headers(), timeout=</span><span class="s5">60</span><span class="s1">)</span>
+
+        <span class="s0"># JWT abgelaufen → neu anmelden und einmal retry</span>
+        <span class="s2">if </span><span class="s1">r.status_code == </span><span class="s5">401</span><span class="s1">:</span>
+            <span class="s1">self._jwt = </span><span class="s2">None</span>
+            <span class="s1">self._login()</span>
+            <span class="s1">r = self.session.get(url, headers=self._auth_headers(), timeout=</span><span class="s5">60</span><span class="s1">)</span>
+
+        <span class="s2">if </span><span class="s1">r.status_code != </span><span class="s5">200</span><span class="s1">:</span>
+            <span class="s1">log.error(</span><span class="s3">&quot;Mend API error %s: %s&quot;</span><span class="s1">, r.status_code, r.text[:</span><span class="s5">300</span><span class="s1">])</span>
+            <span class="s2">return </span><span class="s1">{}</span>
+
+        <span class="s2">return </span><span class="s1">r.json()</span>
+
+    <span class="s0"># ------------------------------------------------------------------</span>
+    <span class="s0"># Normalisierung</span>
+    <span class="s0"># ------------------------------------------------------------------</span>
+
+    <span class="s2">def </span><span class="s1">_normalize_findings(self, data: Dict[str, Any]) -&gt; List[Finding]:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Wandelt Mend-Alerts in interne Finding-Objekte um. 
+ 
+        Erwartete Struktur: 
+        { 
+            &quot;retVal&quot;: [ 
+                { 
+                    &quot;componentName&quot;: &quot;...&quot;, 
+                    &quot;componentVersion&quot;: &quot;...&quot;, 
+                    &quot;vulnerabilityName&quot;: &quot;CVE-....&quot;, 
+                    ... 
+                } 
+            ] 
+        } 
+        &quot;&quot;&quot;</span>
+        <span class="s1">findings: List[Finding] = []</span>
+
+        <span class="s1">rows = data.get(</span><span class="s3">&quot;retVal&quot;</span><span class="s1">) </span><span class="s2">or </span><span class="s1">[]</span>
+        <span class="s2">if not </span><span class="s1">isinstance(rows, list):</span>
+            <span class="s2">return </span><span class="s1">[]</span>
+
+        <span class="s2">for </span><span class="s1">item </span><span class="s2">in </span><span class="s1">rows:</span>
+            <span class="s1">component = item.get(</span><span class="s3">&quot;componentName&quot;</span><span class="s1">) </span><span class="s2">or </span><span class="s1">item.get(</span><span class="s3">&quot;libraryName&quot;</span><span class="s1">)</span>
+            <span class="s1">version = item.get(</span><span class="s3">&quot;componentVersion&quot;</span><span class="s1">) </span><span class="s2">or </span><span class="s1">item.get(</span><span class="s3">&quot;libraryVersion&quot;</span><span class="s1">)</span>
+
+            <span class="s2">if not </span><span class="s1">component </span><span class="s2">or not </span><span class="s1">version:</span>
+                <span class="s2">continue</span>
+
+            <span class="s1">ecosystem = self._infer_ecosystem(item)</span>
+            <span class="s2">if not </span><span class="s1">ecosystem:</span>
+                <span class="s2">continue</span>
+
+            <span class="s1">vuln = item.get(</span><span class="s3">&quot;vulnerabilityName&quot;</span><span class="s1">) </span><span class="s2">or </span><span class="s1">item.get(</span><span class="s3">&quot;cve&quot;</span><span class="s1">)</span>
+
+            <span class="s1">cve = vuln </span><span class="s2">if </span><span class="s1">isinstance(vuln, str) </span><span class="s2">and </span><span class="s1">vuln.startswith(</span><span class="s3">&quot;CVE-&quot;</span><span class="s1">) </span><span class="s2">else None</span>
+
+            <span class="s1">description = (</span>
+                <span class="s1">item.get(</span><span class="s3">&quot;vulnerabilityDescription&quot;</span><span class="s1">)</span>
+                <span class="s2">or </span><span class="s1">item.get(</span><span class="s3">&quot;description&quot;</span><span class="s1">)</span>
+                <span class="s2">or </span><span class="s1">vuln</span>
+                <span class="s2">or </span><span class="s3">&quot;&quot;</span>
+            <span class="s1">)</span>
+
+            <span class="s1">findings.append(</span>
+                <span class="s1">Finding(</span>
+                    <span class="s1">ecosystem=ecosystem,</span>
+                    <span class="s1">component=str(component),</span>
+                    <span class="s1">version=str(version),</span>
+                    <span class="s1">cve=cve,</span>
+                    <span class="s1">osv_id=</span><span class="s2">None</span><span class="s1">,</span>
+                    <span class="s1">description=str(description).split(</span><span class="s3">&quot;</span><span class="s4">\n</span><span class="s3">&quot;</span><span class="s1">)[</span><span class="s5">0</span><span class="s1">],</span>
+                    <span class="s1">source=</span><span class="s3">&quot;mend&quot;</span><span class="s1">,</span>
+                    <span class="s1">cve_cpes=</span><span class="s2">None</span><span class="s1">,</span>
+                <span class="s1">)</span>
+            <span class="s1">)</span>
+
+        <span class="s2">return </span><span class="s1">findings</span>
+
+    <span class="s0"># ------------------------------------------------------------------</span>
+    <span class="s0"># Ecosystem-Erkennung</span>
+    <span class="s0"># ------------------------------------------------------------------</span>
+
+    <span class="s2">def </span><span class="s1">_infer_ecosystem(self, item: Dict[str, Any]) -&gt; Optional[str]:</span>
+        <span class="s0">&quot;&quot;&quot; 
+        Leitet das Ecosystem (npm, maven, pypi, nuget, …) ab. 
+ 
+        Priorität: 
+        1. PURL-Feld 
+        2. componentType / packageManager 
+        &quot;&quot;&quot;</span>
+        <span class="s1">purl = item.get(</span><span class="s3">&quot;purl&quot;</span><span class="s1">) </span><span class="s2">or </span><span class="s1">item.get(</span><span class="s3">&quot;componentPurl&quot;</span><span class="s1">)</span>
+        <span class="s2">if </span><span class="s1">isinstance(purl, str) </span><span class="s2">and </span><span class="s1">purl.startswith(</span><span class="s3">&quot;pkg:&quot;</span><span class="s1">):</span>
+            <span class="s1">purl_l = purl.lower()</span>
+            <span class="s2">for </span><span class="s1">eco, cfg </span><span class="s2">in </span><span class="s1">ECOSYSTEMS.items():</span>
+                <span class="s2">if </span><span class="s1">purl_l.startswith(</span><span class="s3">f&quot;pkg:</span><span class="s4">{</span><span class="s1">cfg.purl.lower()</span><span class="s4">}</span><span class="s3">/&quot;</span><span class="s1">):</span>
+                    <span class="s2">return </span><span class="s1">eco</span>
+
+        <span class="s1">hint = (</span>
+            <span class="s1">item.get(</span><span class="s3">&quot;packageManager&quot;</span><span class="s1">)</span>
+            <span class="s2">or </span><span class="s1">item.get(</span><span class="s3">&quot;componentType&quot;</span><span class="s1">)</span>
+            <span class="s2">or </span><span class="s3">&quot;&quot;</span>
+        <span class="s1">).lower()</span>
+
+        <span class="s2">for </span><span class="s1">eco, cfg </span><span class="s2">in </span><span class="s1">ECOSYSTEMS.items():</span>
+            <span class="s2">if </span><span class="s1">cfg.purl.lower() </span><span class="s2">in </span><span class="s1">hint:</span>
+                <span class="s2">return </span><span class="s1">eco</span>
+
+        <span class="s2">return None</span>
+</pre>
+</body>
+</html>
