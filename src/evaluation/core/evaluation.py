@@ -2,7 +2,7 @@ import logging
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
-from model import Finding
+from evaluation.core.model import Finding
 
 log = logging.getLogger("evaluation.core.evaluation")
 

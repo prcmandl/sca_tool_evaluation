@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
+ ------------------------------------------------------------
+# Paths
 # ------------------------------------------------------------
-# Load .env (optional, lokal)
-# ------------------------------------------------------------
-if [ -f ".env" ]; then
-  export $(grep -v '^#' .env | xargs)
+export CODEBASE=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation
+export CODEBASE_BUILD_PATH="${CODEBASE}/build"
+export GROUND_TRUTH_BUILD_PATH="${CODEBASE}/build/ground_truth"
+
+# ---------------
+
+if [ -f "$CODEBASE/.env" ]; then
+  set -a
+  . "$CODEBASE/.env"
+  set +a
 fi
 
 # ------------------------------------------------------------
@@ -26,14 +35,7 @@ require_env NVD_API_KEY
 # require_env FOSSA_API_KEY
 # require_env OSSINDEX_TOKEN
 
-# ------------------------------------------------------------
-# Paths
-# ------------------------------------------------------------
-export CODEBASE=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation
-export CODEBASE_BUILD_PATH="${CODEBASE}/build"
-export GROUND_TRUTH_BUILD_PATH="${CODEBASE}/build/ground_truth"
-
-# ------------------------------------------------------------
+#---------------------------------------------
 # APIs (nur Referenz, KEINE Werte!)
 # ------------------------------------------------------------
 export OSV_ROOT_PATH=/Users/petermandl/Documents/OSV/OSV/vulnfeeds

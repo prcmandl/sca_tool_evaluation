@@ -1,7 +1,7 @@
 import logging
-import time
 import re
-from typing import Dict, List, Optional, Set, Tuple
+import time
+from typing import List, Dict, Optional, Set, Tuple
 
 import requests
 from packaging.version import Version, InvalidVersion
@@ -9,24 +9,15 @@ from packaging.version import Version, InvalidVersion
 from evaluation.adapters.base import VulnerabilityToolAdapter
 from evaluation.core.model import Finding
 
+
 log = logging.getLogger("evaluation.adapters.nvd")
 
 NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 RESULTS_PER_PAGE = 2000
-REQUEST_DELAY = 0.6  # seconds, rate-limit friendly
+REQUEST_DELAY = 0.6
 
 
 class NVDAdapter(VulnerabilityToolAdapter):
-    """
-    NVD Adapter (keyword-based, conservative)
-
-    RULE-CONFORM SEMANTICS:
-    - CVE-only
-    - project-centric (GT-driven)
-    - explicit FP control via product tokens
-    - canonical vulnerability deduplication
-    - TP_RANGE supported via explicit upper-bound detection
-    """
 
     def __init__(self, config: dict):
         super().__init__(config)
@@ -41,7 +32,7 @@ class NVDAdapter(VulnerabilityToolAdapter):
             self.session.headers["apiKey"] = self.api_key
 
         log.info(
-            "Initialized NVD adapters | api_key=%s",
+            "Initialized NVD adapter | api_key=%s",
             "yes" if self.api_key else "no",
         )
 
@@ -53,13 +44,13 @@ class NVDAdapter(VulnerabilityToolAdapter):
         return "nvd"
 
     def supports_fp_heuristic(self) -> bool:
-        return False
+        return True
 
     def supports_security_findings(self) -> bool:
         return True
 
     # ------------------------------------------------------------
-    # Public API
+    # Main
     # ------------------------------------------------------------
 
     def load_findings(self) -> List[Finding]:
@@ -70,13 +61,13 @@ class NVDAdapter(VulnerabilityToolAdapter):
             for f in self.ground_truth
         })
 
-        log.info("NVD: resolving %d unique components", len(components))
+        log.info("NVD: resolving %d components", len(components))
 
         seen: Set[Tuple[str, str, str, str]] = set()
 
         for ecosystem, component, version in self.iter_with_progress(
             components,
-            desc="NVD keyword analysis",
+            desc="NVD analysis",
             unit="component",
         ):
             rows = self.load_findings_for_component(
@@ -94,11 +85,11 @@ class NVDAdapter(VulnerabilityToolAdapter):
 
             time.sleep(REQUEST_DELAY)
 
-        log.info("NVD findings loaded (normalized): %d", len(findings))
+        log.info("NVD findings loaded: %d", len(findings))
         return findings
 
     # ------------------------------------------------------------
-    # Required abstract method
+    # Core logic
     # ------------------------------------------------------------
 
     def load_findings_for_component(
@@ -109,90 +100,117 @@ class NVDAdapter(VulnerabilityToolAdapter):
         version: str,
     ) -> List[Finding]:
 
-        findings: List[Finding] = []
+        raw = self._query_candidates(component)
 
-        try:
-            cves = self._query_nvd_keyword(component, version)
-        except Exception as e:
-            log.error("NVD keyword lookup failed: %s", e)
+        if not raw:
             return []
 
-        for cve in cves:
-            findings.append(
-                Finding(
-                    ecosystem=ecosystem,
-                    component=component,
-                    version=version,
-                    cve=cve["cve_id"],
-                    osv_id=None,
-                    description=cve.get("description", ""),
-                    source="nvd-keyword",
-                    affected_version_range=cve.get("affected_range"),
-                )
-            )
+        tokens = self._tokens(component)
 
-        return findings
-
-    # ------------------------------------------------------------
-    # Keyword fallback with FP control
-    # ------------------------------------------------------------
-
-    def _query_nvd_keyword(
-        self,
-        component: str,
-        version: str,
-    ) -> List[Dict[str, str]]:
-        raw = self._query_nvd({"keywordSearch": component})
-
-        tokens = self._normalized_product_tokens(component)
-        filtered: List[Dict[str, str]] = []
+        findings: List[Finding] = []
 
         for cve in raw:
             desc = (cve.get("description") or "").lower()
 
-            # 1) Exact version mention
+            score = 0
+
+            # --------------------------------------------------
+            # PRODUCT MATCH
+            # --------------------------------------------------
+            if any(t in desc for t in tokens):
+                score += 2
+
+            # --------------------------------------------------
+            # VERSION SIGNALS
+            # --------------------------------------------------
             if version.lower() in desc:
-                filtered.append({
-                    **cve,
-                    "affected_range": None,
-                })
-                continue
+                score += 3
 
-            # 2) Conservative upper-bound detection
-            if (
-                self._version_mentioned_as_affected(
-                    version=version,
-                    description=desc,
+            if self._version_range_match(version, desc):
+                score += 2
+
+            # --------------------------------------------------
+            # STRONG SIGNALS (keywords)
+            # --------------------------------------------------
+            if "apache" in desc:
+                score += 1
+
+            if "library" in desc:
+                score += 1
+
+            # --------------------------------------------------
+            # DECISION
+            # --------------------------------------------------
+            if score >= 2:
+                findings.append(
+                    Finding(
+                        ecosystem=ecosystem,
+                        component=component,
+                        version=version,
+                        cve=cve["cve_id"],
+                        osv_id=None,
+                        description=desc,
+                        source="nvd",
+                        affected_version_range=None,
+                    )
                 )
-                and any(t in desc for t in tokens)
-            ):
-                filtered.append({
-                    **cve,
-                    "affected_range": f"< {version}",
-                })
 
-        log.debug(
-            "NVD keyword fallback: %d raw → %d filtered",
-            len(raw),
-            len(filtered),
-        )
-
-        return filtered
+        return findings
 
     # ------------------------------------------------------------
-    # Product-token extraction (FP control)
+    # Query (robust)
     # ------------------------------------------------------------
 
-    def _normalized_product_tokens(self, component: str) -> Set[str]:
+    def _query_candidates(self, component: str) -> List[Dict[str, str]]:
+        queries = self._build_queries(component)
+
+        for q in queries:
+            try:
+                results = self._query_nvd({"keywordSearch": q})
+                if results:
+                    return results
+            except Exception as e:
+                log.debug("Query failed: %s", e)
+
+        return []
+
+    def _build_queries(self, component: str) -> List[str]:
+        if ":" in component:
+            group, artifact = component.split(":", 1)
+        else:
+            group, artifact = "", component
+
+        artifact = artifact.lower()
+
+        queries = [
+            artifact,
+            artifact.replace("-", " "),
+        ]
+
+        if group:
+            vendor = group.split(".")[-1]
+            queries.append(f"{artifact} {vendor}")
+
+        return queries
+
+    # ------------------------------------------------------------
+    # Token extraction
+    # ------------------------------------------------------------
+
+    def _tokens(self, component: str) -> Set[str]:
         name = component.split(":")[-1].lower()
         parts = re.split(r"[\-_.]+", name)
-        return {p for p in parts if len(p) >= 4}
+
+        tokens = {name}
+        tokens.update(parts)
+
+        return {t for t in tokens if len(t) >= 3}
 
     # ------------------------------------------------------------
-    # Conservative version-range detection
+    # Version range detection
     # ------------------------------------------------------------
 
-    def _version_mentioned_as_affected(self, *, version: str, description: str) -> bool:
+    def _version_range_match(self, version: str, desc: str) -> bool:
         try:
             v = Version(version)
         except InvalidVersion:
@@ -200,95 +218,60 @@ class NVDAdapter(VulnerabilityToolAdapter):
 
         patterns = [
             r"before\s+([0-9][0-9a-zA-Z\.\-_]+)",
+            r"before version\s+([0-9][0-9a-zA-Z\.\-_]+)",
             r"prior to\s+([0-9][0-9a-zA-Z\.\-_]+)",
-            r"earlier than\s+([0-9][0-9a-zA-Z\.\-_]+)",
-            r"up to\s+([0-9][0-9a-zA-Z\.\-_]+)",
-            r"through\s+([0-9][0-9a-zA-Z\.\-_]+)",
             r"<\s*([0-9][0-9a-zA-Z\.\-_]+)",
         ]
 
         for p in patterns:
-            for m in re.finditer(p, description):
+            for m in re.finditer(p, desc):
                 try:
                     upper = Version(m.group(1))
+                    if v < upper:
+                        return True
                 except InvalidVersion:
                     continue
-
-                if v < upper:
-                    return True
 
         return False
 
     # ------------------------------------------------------------
-    # Low-level NVD API
+    # NVD API
     # ------------------------------------------------------------
 
-    def _query_nvd(self, base_params: Dict[str, str]) -> List[Dict[str, str]]:
+    def _query_nvd(self, params: Dict[str, str]) -> List[Dict[str, str]]:
         results: List[Dict[str, str]] = []
-        start_index = 0
-        retries = 0
-        max_retries = 5
-        backoff = 5.0
 
-        while True:
-            params = dict(base_params)
-            params.update({
-                "startIndex": start_index,
-                "resultsPerPage": RESULTS_PER_PAGE,
+        params.update({
+            "resultsPerPage": RESULTS_PER_PAGE,
+            "startIndex": 0,
+        })
+
+        r = self.session.get(NVD_API_URL, params=params, timeout=60)
+
+        if r.status_code == 404:
+            return []
+
+        r.raise_for_status()
+
+        data = r.json()
+        vulns = data.get("vulnerabilities", [])
+
+        for item in vulns:
+            cve = item.get("cve", {})
+            cve_id = cve.get("id")
+
+            if not cve_id:
+                continue
+
+            desc = ""
+            for d in cve.get("descriptions", []):
+                if d.get("lang") == "en":
+                    desc = d.get("value", "")
+                    break
+
+            results.append({
+                "cve_id": cve_id,
+                "description": desc,
             })
-
-            try:
-                r = self._api_call(
-                    session=self.session,
-                    method="GET",
-                    url=NVD_API_URL,
-                    params=params,
-                    timeout=60,
-                )
-
-                if r.status_code == 429:
-                    if retries >= max_retries:
-                        log.error("NVD rate limit exceeded – aborting")
-                        return results
-
-                    wait = backoff * (2 ** retries)
-                    time.sleep(wait)
-                    retries += 1
-                    continue
-
-                r.raise_for_status()
-
-            except requests.RequestException as e:
-                log.error("NVD request failed: %s", e)
-                return results
-
-            data = r.json()
-            vulns = data.get("vulnerabilities", [])
-
-            for item in vulns:
-                cve = item.get("cve", {})
-                cve_id = cve.get("id")
-                if not cve_id:
-                    continue
-
-                description = ""
-                for d in cve.get("descriptions", []):
-                    if d.get("lang") == "en":
-                        description = d.get("value", "")
-                        break
-
-                results.append({
-                    "cve_id": cve_id,
-                    "description": description,
-                })
-
-            total = data.get("totalResults", 0)
-            start_index += RESULTS_PER_PAGE
-            retries = 0
-
-            if start_index >= total:
-                break
-
-            time.sleep(REQUEST_DELAY)
 
         return results

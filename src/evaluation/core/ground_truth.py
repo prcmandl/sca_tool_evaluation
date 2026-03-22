@@ -3,8 +3,8 @@ import csv
 from pathlib import Path
 from typing import List
 
-from model import Finding
-from normalization import (
+from evaluation.core.model import Finding
+from evaluation.core.normalization import (
     normalize_component,
     normalize_identifier,
     normalize_version,

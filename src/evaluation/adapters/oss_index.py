@@ -8,9 +8,9 @@ from urllib.parse import quote
 
 import requests
 
-from adapters.base import VulnerabilityToolAdapter
-from core.model import Finding
-from core.normalization import normalize_identifier
+from evaluation.adapters.base import VulnerabilityToolAdapter
+from evaluation.core.model import Finding
+from evaluation.core.normalization import normalize_identifier
 
 log = logging.getLogger("adapters.ossindex")
 

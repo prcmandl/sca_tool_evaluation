@@ -16,6 +16,7 @@ TOOL_FILE_IDS = {
     "GitHub": "github",
     "NVD": "nvd",
     "Snyk": "snyk",
+    "Trivy": "trivy",
     "OSS Index": "ossindex",
     "FOSSA": "fossa",
     "Mend": "mend",
