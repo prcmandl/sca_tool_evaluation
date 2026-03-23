@@ -1,22 +1,30 @@
-import os
+from __future__ import annotations
+
 import json
 import statistics
 from pathlib import Path
-from typing import List, Dict
-from scipy.stats import ttest_rel
+from typing import Dict, List
 
 
 # ------------------------------------------------------------
-# Load run data
+# Load run results
 # ------------------------------------------------------------
-def load_runs(run_dirs: List[str]):
+def load_runs(run_dirs: List[str]) -> List[Dict]:
     data = []
 
     for rd in run_dirs:
-        p = Path(rd) / "results.json"
-        if p.exists():
-            with open(p) as f:
-                data.append(json.load(f))
+        f = Path(rd) / "results.json"
+
+        if not f.exists():
+            continue
+
+        try:
+            with f.open("r", encoding="utf-8") as fp:
+                d = json.load(fp)
+                if d:
+                    data.append(d)
+        except Exception:
+            continue
 
     return data
 
@@ -24,231 +32,217 @@ def load_runs(run_dirs: List[str]):
 # ------------------------------------------------------------
 # Aggregate metrics
 # ------------------------------------------------------------
-def aggregate(data):
+def aggregate(data: List[Dict]) -> Dict:
     agg = {}
 
-    tools = data[0].keys()
+    if not data:
+        return agg
+
+    tools = set()
+    ecosystems = set()
+
+    # discover structure
+    for run in data:
+        tools.update(run.keys())
+        for tool in run:
+            ecosystems.update(run[tool].keys())
 
     for tool in tools:
         agg[tool] = {}
-
-        ecosystems = data[0][tool].keys()
 
         for eco in ecosystems:
             agg[tool][eco] = {}
 
             for metric in ["TP", "FP", "FN", "Recall", "Overlap"]:
-                values = [run[tool][eco][metric] for run in data]
+                values = [
+                    run.get(tool, {}).get(eco, {}).get(metric, 0)
+                    for run in data
+                ]
+
+                if not values:
+                    values = [0]
 
                 agg[tool][eco][metric] = {
-                    "values": values,
                     "mean": statistics.mean(values),
                     "std": statistics.pstdev(values) if len(values) > 1 else 0.0,
+                    "values": values,
                 }
 
     return agg
 
 
 # ------------------------------------------------------------
-# Confidence intervals
+# Confidence intervals (95%)
 # ------------------------------------------------------------
-def add_confidence_intervals(agg):
-    import math
+def add_confidence_intervals(agg: Dict) -> Dict:
+    for tool, ecos in agg.items():
+        for eco, metrics in ecos.items():
+            for m in ["Recall", "Overlap"]:
+                values = metrics[m]["values"]
 
-    for tool in agg:
-        for eco in agg[tool]:
-            for metric, d in agg[tool][eco].items():
-                n = len(d["values"])
-                if n <= 1:
-                    d["ci95"] = 0.0
-                    continue
+                if len(values) <= 1:
+                    ci = 0.0
+                else:
+                    std = statistics.stdev(values)
+                    ci = 1.96 * std / (len(values) ** 0.5)
 
-                d["ci95"] = 1.96 * d["std"] / math.sqrt(n)
+                metrics[m]["ci95"] = ci
 
     return agg
 
 
 # ------------------------------------------------------------
-# Significance (paired t-test)
+# GT summary
 # ------------------------------------------------------------
-def compute_significance(agg):
-    tools = list(agg.keys())
-    significance = {}
-
-    for i, t1 in enumerate(tools):
-        for t2 in tools[i+1:]:
-            key = f"{t1}_vs_{t2}"
-            significance[key] = {}
-
-            for eco in agg[t1]:
-                r1 = agg[t1][eco]["Recall"]["values"]
-                r2 = agg[t2][eco]["Recall"]["values"]
-
-                if len(r1) > 1:
-                    _, p = ttest_rel(r1, r2)
-                    significance[key][eco] = p
-                else:
-                    significance[key][eco] = None
-
-    return significance
-
-
-# ------------------------------------------------------------
-# Ground truth summary
-# ------------------------------------------------------------
-def build_gt_summary(gt):
+def build_gt_summary(gt) -> Dict:
     summary = {}
 
-    ecosystems = sorted({g.ecosystem for g in gt})
+    for g in gt:
+        eco = g.ecosystem
 
-    for eco in ecosystems:
-        subset = [g for g in gt if g.ecosystem == eco]
+        if eco not in summary:
+            summary[eco] = {
+                "Components": set(),
+                "Vulnerabilities": 0,
+                "CVEs": set(),
+            }
 
-        components = {(g.component, g.version) for g in subset}
-        cves = {g.cve for g in subset if g.cve}
+        summary[eco]["Components"].add((g.component, g.version))
+        summary[eco]["Vulnerabilities"] += 1
 
-        summary[eco] = {
-            "Components": len(components),
-            "Vulnerabilities": len(subset),
-            "CVEs": len(cves),
-        }
+        if g.cve:
+            summary[eco]["CVEs"].add(g.cve)
+
+    # convert sets to counts
+    for eco in summary:
+        summary[eco]["Components"] = len(summary[eco]["Components"])
+        summary[eco]["CVEs"] = len(summary[eco]["CVEs"])
 
     return summary
 
 
 # ------------------------------------------------------------
-# Per-tool LaTeX (mean ± CI)
+# LaTeX: main results table
 # ------------------------------------------------------------
-def write_latex_stats(agg, gt_summary, output_file):
-
-    def fmt(x, is_float=True):
-        if is_float:
-            return f"{x['mean']:.2f} $\\pm$ {x['ci95']:.2f}"
-        else:
-            return f"{int(round(x['mean']))}"
-
-    ecosystems = sorted(gt_summary.keys())
+def write_latex_stats(agg: Dict, gt_summary: Dict, output_file: str):
 
     with open(output_file, "w") as f:
-        f.write("\\begin{table*}[!t]\n\\centering\n\\small\n")
+        f.write("\\begin{table*}[!t]\n")
+        f.write("\\centering\n")
+        f.write("\\small\n")
         f.write("\\setlength{\\tabcolsep}{4pt}\n")
         f.write("\\renewcommand{\\arraystretch}{1.1}\n\n")
 
-        f.write("\\begin{tabular}{lrrrrrrrr}\n\\toprule\n")
-        f.write(
-            "Ecosystem & Components & Vulnerabilities & CVEs "
-            "& TP & FP & FN & Recall & Overlap \\\\\n"
-        )
+        f.write("\\begin{tabular}{lrrrrrrrr}\n")
+        f.write("\\toprule\n")
+        f.write("Ecosystem & Components & Vulnerabilities & CVEs & TP & FP & FN & Recall & Overlap \\\\\n")
         f.write("\\midrule\n\n")
 
         for tool, ecos in agg.items():
+
             f.write(f"\\multicolumn{{9}}{{c}}{{\\textbf{{{tool}}}}} \\\\\n")
             f.write("\\midrule\n")
 
-            total_tp = total_fp = total_fn = 0
+            total = {"TP": 0, "FP": 0, "FN": 0}
 
-            for eco in ecosystems:
-                row = ecos[eco]
-                gt = gt_summary[eco]
+            for eco, row in sorted(ecos.items()):
+                gt = gt_summary.get(eco, {})
 
-                tp = row["TP"]
-                fp = row["FP"]
-                fn = row["FN"]
-                r = row["Recall"]
-                o = row["Overlap"]
+                TP = int(row["TP"]["mean"])
+                FP = int(row["FP"]["mean"])
+                FN = int(row["FN"]["mean"])
 
-                total_tp += tp["mean"]
-                total_fp += fp["mean"]
-                total_fn += fn["mean"]
+                total["TP"] += TP
+                total["FP"] += FP
+                total["FN"] += FN
+
+                recall = row["Recall"]["mean"]
+                overlap = row["Overlap"]["mean"]
 
                 f.write(
-                    f"{eco} & {gt['Components']} & {gt['Vulnerabilities']} & {gt['CVEs']} & "
-                    f"{fmt(tp, False)} & {fmt(fp, False)} & {fmt(fn, False)} & "
-                    f"{fmt(r)} & {fmt(o)} \\\\\n"
+                    f"{eco} & "
+                    f"{gt.get('Components', 0)} & "
+                    f"{gt.get('Vulnerabilities', 0)} & "
+                    f"{gt.get('CVEs', 0)} & "
+                    f"{TP} & {FP} & {FN} & "
+                    f"{recall:.2f} & {overlap:.2f} \\\\\n"
                 )
 
-            recall = total_tp / (total_tp + total_fn) if total_tp + total_fn else 0
-            overlap = total_tp / (total_tp + total_fp) if total_tp + total_fp else 0
-
-            total_gt = {
-                "Components": sum(v["Components"] for v in gt_summary.values()),
-                "Vulnerabilities": sum(v["Vulnerabilities"] for v in gt_summary.values()),
-                "CVEs": sum(v["CVEs"] for v in gt_summary.values()),
-            }
+            # totals
+            recall_total = total["TP"] / (total["TP"] + total["FN"]) if (total["TP"] + total["FN"]) else 0
+            overlap_total = total["TP"] / (total["TP"] + total["FP"]) if (total["TP"] + total["FP"]) else 0
 
             f.write(
-                f"TOTAL & {total_gt['Components']} & {total_gt['Vulnerabilities']} & {total_gt['CVEs']} & "
-                f"{int(round(total_tp))} & {int(round(total_fp))} & {int(round(total_fn))} & "
-                f"{recall:.2f} & {overlap:.2f} \\\\\n"
+                f"TOTAL & - & - & - & "
+                f"{total['TP']} & {total['FP']} & {total['FN']} & "
+                f"{recall_total:.2f} & {overlap_total:.2f} \\\\\n"
             )
 
             f.write("\\midrule\n\n")
 
-        f.write("\\bottomrule\n\\end{tabular}\n\\end{table*}\n")
+        f.write("\\bottomrule\n")
+        f.write("\\end{tabular}\n")
+        f.write("\\end{table*}\n")
 
 
 # ------------------------------------------------------------
-# Ecosystem summary (weighted!)
+# LaTeX: ecosystem summary
 # ------------------------------------------------------------
-def write_ecosystem_summary_table(agg, gt_summary, output_file):
+def write_ecosystem_summary_table(agg: Dict, gt_summary: Dict, output_file: str):
 
-    allowed_tools = set(os.environ.get("EVAL_TOOLS", "").split())
-    ecosystems = sorted(gt_summary.keys())
+    ecosystems = gt_summary.keys()
+
+    sums = {eco: {"TP": 0, "FP": 0, "FN": 0} for eco in ecosystems}
+
+    for tool in agg:
+        for eco in ecosystems:
+            row = agg.get(tool, {}).get(eco, {})
+
+            sums[eco]["TP"] += int(row.get("TP", {}).get("mean", 0))
+            sums[eco]["FP"] += int(row.get("FP", {}).get("mean", 0))
+            sums[eco]["FN"] += int(row.get("FN", {}).get("mean", 0))
 
     with open(output_file, "w") as f:
-        f.write("\\begin{table*}[!t]\n\\centering\n\\small\n")
-        f.write("\\setlength{\\tabcolsep}{4pt}\n")
-        f.write("\\renewcommand{\\arraystretch}{1.12}\n\n")
+        f.write("\\begin{table*}[!t]\n")
+        f.write("\\centering\n")
+        f.write("\\small\n\n")
 
-        f.write("\\begin{tabular}{lrrrrrrr}\n\\toprule\n")
-        f.write(
-            "Ecosystem & Components & Vulnerabilities "
-            "& $\\sum TP$ & $\\sum FP$ & $\\sum FN$ "
-            "& Mean Recall & Mean Overlap \\\\\n"
-        )
+        f.write("\\begin{tabular}{lrrrrrrr}\n")
+        f.write("\\toprule\n")
+        f.write("Ecosystem & Components & Vulnerabilities & $\\sum TP$ & $\\sum FP$ & $\\sum FN$ & Mean Recall & Mean Overlap \\\\\n")
         f.write("\\midrule\n")
 
-        total_tp = total_fp = total_fn = 0
-        total_components = total_vulns = 0
+        total = {"TP": 0, "FP": 0, "FN": 0}
 
         for eco in ecosystems:
             gt = gt_summary[eco]
 
-            tp_sum = fp_sum = fn_sum = 0
+            TP = sums[eco]["TP"]
+            FP = sums[eco]["FP"]
+            FN = sums[eco]["FN"]
 
-            for tool in agg:
-                if allowed_tools and tool not in allowed_tools:
-                    continue
+            total["TP"] += TP
+            total["FP"] += FP
+            total["FN"] += FN
 
-                row = agg[tool][eco]
-
-                tp_sum += row["TP"]["mean"]
-                fp_sum += row["FP"]["mean"]
-                fn_sum += row["FN"]["mean"]
-
-            recall = tp_sum / (tp_sum + fn_sum) if tp_sum + fn_sum else 0
-            overlap = tp_sum / (tp_sum + fp_sum) if tp_sum + fp_sum else 0
+            recall = TP / (TP + FN) if (TP + FN) else 0
+            overlap = TP / (TP + FP) if (TP + FP) else 0
 
             f.write(
                 f"{eco} & {gt['Components']} & {gt['Vulnerabilities']} & "
-                f"{int(round(tp_sum))} & {int(round(fp_sum))} & {int(round(fn_sum))} & "
+                f"{TP} & {FP} & {FN} & "
                 f"{recall:.2f} & {overlap:.2f} \\\\\n"
             )
 
-            total_tp += tp_sum
-            total_fp += fp_sum
-            total_fn += fn_sum
-            total_components += gt["Components"]
-            total_vulns += gt["Vulnerabilities"]
-
-        total_recall = total_tp / (total_tp + total_fn) if total_tp + total_fn else 0
-        total_overlap = total_tp / (total_tp + total_fp) if total_tp + total_fp else 0
+        recall_total = total["TP"] / (total["TP"] + total["FN"]) if (total["TP"] + total["FN"]) else 0
+        overlap_total = total["TP"] / (total["TP"] + total["FP"]) if (total["TP"] + total["FP"]) else 0
 
         f.write("\\midrule\n")
         f.write(
-            f"TOTAL & {total_components} & {total_vulns} & "
-            f"{int(round(total_tp))} & {int(round(total_fp))} & {int(round(total_fn))} & "
-            f"{total_recall:.2f} & {total_overlap:.2f} \\\\\n"
+            f"TOTAL & - & - & {total['TP']} & {total['FP']} & {total['FN']} & "
+            f"{recall_total:.2f} & {overlap_total:.2f} \\\\\n"
         )
 
-        f.write("\\bottomrule\n\\end{tabular}\n\\end{table*}\n")
+        f.write("\\bottomrule\n")
+        f.write("\\end{tabular}\n")
+        f.write("\\end{table*}\n")

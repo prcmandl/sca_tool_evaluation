@@ -1,19 +1,38 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Deaktiviert "fail fast":
-# Das Skript bricht nicht automatisch bei Fehlern ab.
-# Wichtig, wenn der Exit-Code später bewusst ausgewertet wird.
-set +e
+SBOM_FILE="$1"
 
-# $1 = Pfad zur SBOM-Datei
-# Dieser Parameter wird typischerweise von einem übergeordneten Adapter übergeben.
+# ------------------------------------------------------------
+# Logging → STDERR (!)
+# ------------------------------------------------------------
+echo "[SNYK] ===== START =====" >&2
+echo "[SNYK] File: $SBOM_FILE" >&2
+date >&2
 
-# Aufruf der Snyk CLI:
-# - sbom test: führt einen Vulnerability-Scan auf Basis einer SBOM durch
-# - --experimental: Feature ist (noch) experimentell
-# - --file="$1": Übergabe des SBOM-Pfads
-# - --json: Ausgabe im JSON-Format für Weiterverarbeitung
-/usr/local/bin/snyk sbom test \
+# ------------------------------------------------------------
+# Validate input
+# ------------------------------------------------------------
+if [ ! -f "$SBOM_FILE" ]; then
+  echo "[SNYK] ERROR: SBOM file not found" >&2
+  exit 1
+fi
+
+# ------------------------------------------------------------
+# Run Snyk (JSON → STDOUT!)
+# ------------------------------------------------------------
+timeout 120s /usr/local/bin/snyk sbom test \
   --experimental \
-  --file="$1" \
+  --file="$SBOM_FILE" \
   --json
+
+RC=$?
+
+# ------------------------------------------------------------
+# Logging → STDERR
+# ------------------------------------------------------------
+echo "[SNYK] Exit code: $RC" >&2
+date >&2
+echo "[SNYK] ===== END =====" >&2
+
+exit $RC

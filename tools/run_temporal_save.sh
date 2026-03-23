@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ============================================================
-# EXPERIMENT RUNNER (FULL PIPELINE WITH TEMPORAL CONSISTENCY)
+# EXPERIMENT RUNNER (FULL PIPELINE WITH STATISTICS)
 # ============================================================
 #
 # DESCRIPTION
@@ -10,75 +10,40 @@ set -euo pipefail
 # End-to-end experimental pipeline for evaluating SCA tools
 # under temporal consistency constraints.
 #
-# Current pipeline:
+# Pipeline:
 #   1. Load configuration from .env
-#   2. Check local tool prerequisites (currently: Snyk CLI)
-#   3. Generate a fresh ground-truth dataset
-#   4. Select the latest generated dataset (CSV + SBOM)
-#   5. Execute the temporal runner NUM_RUNS times
-#      - each temporal run performs:
-#          * GT snapshot 0
-#          * 3 repeated tool evaluations
-#          * GT snapshot 1
-#          * consistency check:
-#              - identical findings across repetitions
-#              - unchanged ground truth
-#          * if consistent:
-#              - results.json
-#              - recall significance analysis
-#              - run.log
-#   6. Aggregate all successful temporal runs
-#   7. Compute summary statistics:
+#   2. Generate fresh ground truth dataset
+#   3. Run evaluation multiple times (NUM_RUNS)
+#   4. Perform temporal consistency validation
+#   5. Aggregate results across runs
+#   6. Compute statistics:
 #        - mean
 #        - standard deviation
 #        - confidence intervals (95%)
-#   8. Generate outputs:
-#        - LaTeX tables
-#        - JSON statistics
-#        - comparison plot (PNG)
-#
-# SIGNIFICANCE TESTING
-# ------------------------------------------------------------
-# Pairwise recall significance is generated inside the temporal
-# runner from stable per-instance detection outcomes using:
-#   - Cochran's Q test (global)
-#   - exact McNemar tests (pairwise)
-#   - Holm correction
-#
-# The aggregation step below consumes the stable JSON results
-# from each temporal run and produces cross-run summaries.
+#        - paired t-tests
+#   7. Generate outputs:
+#        - LaTeX (paper-ready)
+#        - JSON (analysis)
+#        - plots (PNG)
 #
 # OUTPUT STRUCTURE
 # ------------------------------------------------------------
-# ${EXPERIMENT_PATH}/${RUN_ID}/
-#   ├── mixed_ground_truth_....csv
-#   ├── mixed_ground_truth_....sbom.json
+# build/experiments/<RUN_ID>/
+#   ├── ground_truth.csv
+#   ├── sbom.json
 #   ├── run_1/
-#   │   └── <TEMPORAL_RUN_ID>/
-#   │       ├── run.log
-#   │       ├── results.json
-#   │       ├── recall_significance.tex
-#   │       └── recall_significance.json
 #   ├── run_2/
-#   │   └── <TEMPORAL_RUN_ID>/...
 #   ├── run_3/
-#   │   └── <TEMPORAL_RUN_ID>/...
-#   ├── stats.json
 #   ├── aggregated_results.tex
-#   ├── ecosystem_summary.tex
-#   └── tool_comparison.png
+#   ├── stats.json
+#   ├── recall_*.png
 #
 # USAGE
 # ------------------------------------------------------------
 # ./run_experiment.sh
 #
-# REQUIREMENTS
-# ------------------------------------------------------------
-# - .env in project root
-# - poetry environment configured
-# - Snyk CLI installed if Snyk is part of EVAL_TOOLS
-#
 # ============================================================
+
 
 # ------------------------------------------------------------
 # Logging
@@ -93,7 +58,7 @@ section() {
 }
 
 # ------------------------------------------------------------
-# Resolve project paths
+# Load ENV
 # ------------------------------------------------------------
 section "Loading environment"
 
@@ -101,7 +66,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 ENV_FILE="${PROJECT_ROOT}/.env"
-log "Looking for .env at: $ENV_FILE"
+echo "Looking for .env at: $ENV_FILE"
 
 if [ ! -f "$ENV_FILE" ]; then
   echo "ERROR: .env file not found at $ENV_FILE"
@@ -113,6 +78,20 @@ source "$ENV_FILE"
 set +a
 
 log "Environment loaded"
+
+# ------------------------------------------------------------
+# Check snyk authentication
+# ------------------------------------------------------------
+echo "[INIT] Checking Snyk authentication..."
+
+echo "[INIT] Snyk setup (no enforced auth)"
+
+if ! command -v snyk >/dev/null 2>&1; then
+  echo "ERROR: snyk CLI not installed"
+  exit 1
+fi
+
+echo "[INIT] Using local Snyk configuration (no token required)"
 
 # ------------------------------------------------------------
 # Validate ENV
@@ -132,30 +111,13 @@ require_env GITHUB_TOKEN
 require_env NVD_API_KEY
 require_env EXPERIMENT_PATH
 require_env GROUND_TRUTH_BUILD_PATH
-require_env NUM_RUNS
 
 log "Environment OK"
 
 # ------------------------------------------------------------
-# Check Snyk CLI (no enforced token auth)
-# ------------------------------------------------------------
-section "Checking Snyk setup"
-
-if [[ " ${EVAL_TOOLS:-} " == *" snyk "* ]]; then
-  if ! command -v snyk >/dev/null 2>&1; then
-    echo "ERROR: snyk CLI not installed"
-    exit 1
-  fi
-  log "Snyk CLI available"
-  log "Using local Snyk configuration (no token enforced)"
-else
-  log "Snyk not selected in EVAL_TOOLS"
-fi
-
-# ------------------------------------------------------------
 # Run ID + dirs
 # ------------------------------------------------------------
-RUN_ID="$(date -u +"%Y%m%dT%H%M%SZ")"
+RUN_ID=$(date -u +"%Y%m%dT%H%M%SZ")
 EXPERIMENT_DIR="${EXPERIMENT_PATH}/${RUN_ID}"
 
 mkdir -p "$EXPERIMENT_DIR"
@@ -168,11 +130,9 @@ log "Experiment dir: $EXPERIMENT_DIR"
 # ------------------------------------------------------------
 section "Configuration"
 
-log "CODEBASE=$CODEBASE"
 log "ECOSYSTEMS=$ECOSYSTEMS"
-log "EVAL_TOOLS=${EVAL_TOOLS:-<default>}"
 log "SAMPLES=$SAMPLES"
-log "DATE RANGE=$START_DATE -> $END_DATE"
+log "DATE RANGE=$START_DATE → $END_DATE"
 log "TARGET_VULNS_PER_ECOSYSTEM=$TARGET_VULNS_PER_ECOSYSTEM"
 log "BALANCE=$BALANCE ($BALANCE_STRATEGY)"
 log "NUM_RUNS=$NUM_RUNS"
@@ -195,18 +155,8 @@ log "Ground truth generated in $((END_GT - START_GT))s"
 # ------------------------------------------------------------
 section "Selecting dataset"
 
-GROUND_TRUTH="$(ls -t "${GROUND_TRUTH_BUILD_PATH}"/*.csv | head -n1)"
+GROUND_TRUTH=$(ls -t "${GROUND_TRUTH_BUILD_PATH}"/*.csv | head -n1)
 SBOM_PATH="${GROUND_TRUTH%.csv}.sbom.json"
-
-if [ ! -f "$GROUND_TRUTH" ]; then
-  echo "ERROR: No ground truth CSV found in ${GROUND_TRUTH_BUILD_PATH}"
-  exit 1
-fi
-
-if [ ! -f "$SBOM_PATH" ]; then
-  echo "ERROR: Matching SBOM not found: $SBOM_PATH"
-  exit 1
-fi
 
 export GROUND_TRUTH
 export SBOM_PATH
@@ -216,8 +166,9 @@ export TRIVY_SBOM_FILE="$SBOM_PATH"
 log "GT:   $GROUND_TRUTH"
 log "SBOM: $SBOM_PATH"
 
+# Archive input data
 cp "$GROUND_TRUTH" "$EXPERIMENT_DIR/"
-cp "$SBOM_PATH" "$EXPERIMENT_DIR/"
+[ -f "$SBOM_PATH" ] && cp "$SBOM_PATH" "$EXPERIMENT_DIR/"
 
 # ------------------------------------------------------------
 # Run experiments
@@ -232,7 +183,8 @@ for i in $(seq 1 "$NUM_RUNS"); do
 
   poetry run python -m evaluation.temporal_runner \
     --ground-truth "$GROUND_TRUTH" \
-    --output "$RUN_DIR"
+    --output "${RUN_DIR}/results.tex"
+
 done
 
 # ------------------------------------------------------------
@@ -259,15 +211,15 @@ from evaluation.analysis.plots import plot_tool_comparison
 from evaluation.core.ground_truth import load_ground_truth
 
 # ------------------------------------------------------------
-# Load stable temporal run results
+# Load run results
 # ------------------------------------------------------------
-run_dirs = sorted(glob.glob("${EXPERIMENT_DIR}/run_*/*"))
+run_dirs = glob.glob("${EXPERIMENT_DIR}/run_*")
 
 data = load_runs(run_dirs)
 
 if not data:
     print("ERROR: No run data found")
-    raise SystemExit(1)
+    exit(1)
 
 # ------------------------------------------------------------
 # Aggregate statistics
@@ -287,15 +239,11 @@ gt_summary = build_gt_summary(gt)
 # ------------------------------------------------------------
 stats_path = Path("${EXPERIMENT_DIR}") / "stats.json"
 
-with stats_path.open("w", encoding="utf-8") as f:
-    json.dump(
-        {
-            "metrics": agg,
-            "significance": sig,
-        },
-        f,
-        indent=2,
-    )
+with open(stats_path, "w") as f:
+    json.dump({
+        "metrics": agg,
+        "significance": sig,
+    }, f, indent=2)
 
 print(f"[STATS] Written: {stats_path}")
 
@@ -337,6 +285,4 @@ echo
 echo "============================================================"
 echo "Use in paper:"
 echo "  ${EXPERIMENT_DIR}/aggregated_results.tex"
-echo "  ${EXPERIMENT_DIR}/ecosystem_summary.tex"
-echo "  ${EXPERIMENT_DIR}/run_1/*/recall_significance.tex"
 echo "============================================================"
