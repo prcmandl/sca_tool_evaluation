@@ -1,53 +1,91 @@
 import matplotlib.pyplot as plt
-
-import matplotlib.pyplot as plt
 import numpy as np
-from pathlib import Path
 
 
-def plot_tool_comparison(agg, output_dir: str):
+def plot_significance_matrix(rows, tools, output_dir):
     """
-    Plot Recall and Overlap per tool (aggregated over ecosystems)
-
-    agg: output of aggregate() + add_confidence_intervals()
+    Creates a significance heatmap from McNemar results
+    in grayscale.
     """
+    n = len(tools)
+    matrix = np.zeros((n, n))
 
-    tools = sorted(agg.keys())
+    tool_index = {t: i for i, t in enumerate(tools)}
+
+    for r in rows:
+        i = tool_index[r["tool_a"]]
+        j = tool_index[r["tool_b"]]
+
+        val = 1 if r["p_adj"] < 0.05 else 0
+        matrix[i, j] = val
+        matrix[j, i] = val
+
+    fig, ax = plt.subplots()
+
+    # grayscale colormap, fixed range for stable rendering
+    im = ax.imshow(matrix, cmap="Greys", vmin=0, vmax=1)
+
+    ax.set_xticks(range(n))
+    ax.set_yticks(range(n))
+    ax.set_xticklabels(tools, rotation=45, ha="right")
+    ax.set_yticklabels(tools)
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                text = "-"
+            else:
+                text = "*" if matrix[i, j] == 1 else "ns"
+
+            # darker cell -> use white text, lighter cell -> black text
+            text_color = "white" if matrix[i, j] == 1 and i != j else "black"
+            ax.text(j, i, text, ha="center", va="center", color=text_color)
+
+    ax.set_title("Recall Significance (McNemar + Holm)")
+    plt.tight_layout()
+
+    out = f"{output_dir}/recall_significance_matrix.png"
+    plt.savefig(out, dpi=300, bbox_inches="tight")
+    plt.close()
+
+    print(f"[PLOT] Significance matrix: {out}")
+
+
+def plot_tool_comparison(agg, output_dir):
+    """
+    Creates a grouped bar chart:
+    - X: tools
+    - bars: Recall and Overlap side by side
+    - grayscale styling
+    """
+    tools = list(agg.keys())
 
     recall_vals = []
     overlap_vals = []
 
     for tool in tools:
-        tp_sum = fp_sum = fn_sum = 0
+        ecos = agg[tool]
 
-        for eco in agg[tool]:
-            row = agg[tool][eco]
+        recalls = [v["Recall"]["mean"] for v in ecos.values()]
+        overlaps = [v["Overlap"]["mean"] for v in ecos.values()]
 
-            tp_sum += row["TP"]["mean"]
-            fp_sum += row["FP"]["mean"]
-            fn_sum += row["FN"]["mean"]
-
-        recall = tp_sum / (tp_sum + fn_sum) if (tp_sum + fn_sum) else 0
-        overlap = tp_sum / (tp_sum + fp_sum) if (tp_sum + fp_sum) else 0
-
-        recall_vals.append(recall)
-        overlap_vals.append(overlap)
+        recall_vals.append(sum(recalls) / len(recalls))
+        overlap_vals.append(sum(overlaps) / len(overlaps))
 
     x = np.arange(len(tools))
-    width = 0.35
+    width = 0.38
 
-    plt.figure()
+    fig, ax = plt.subplots()
 
-    plt.bar(x - width/2, recall_vals, width, label="Recall")
-    plt.bar(x + width/2, overlap_vals, width, label="Overlap")
+    ax.bar(x - width / 2, recall_vals, width=width, color="0.35", label="Recall")
+    ax.bar(x + width / 2, overlap_vals, width=width, color="0.70", label="Overlap")
 
-    plt.xticks(x, tools)
-    plt.ylabel("Score")
-    plt.title("Tool Comparison (Recall vs Overlap)")
-    plt.legend()
+    ax.set_xticks(x)
+    ax.set_xticklabels(tools, rotation=30)
+    ax.set_ylabel("Score")
+    ax.set_title("Tool Comparison (Recall vs Overlap)")
+    ax.legend()
 
-    out_path = Path(output_dir) / "tool_comparison.png"
-    plt.savefig(out_path)
+    plt.tight_layout()
+    plt.savefig(f"{output_dir}/tool_comparison.png", dpi=300, bbox_inches="tight")
     plt.close()
-
-    print(f"[PLOT] Written: {out_path}")

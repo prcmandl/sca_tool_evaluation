@@ -60,13 +60,23 @@ section() {
 # ------------------------------------------------------------
 # Load ENV
 # ------------------------------------------------------------
+# ------------------------------------------------------------
+# Locate project root + .env
+# ------------------------------------------------------------
 section "Loading environment"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Script directory (robust)
+if [ -n "${BASH_SOURCE[0]:-}" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+  SCRIPT_DIR="$(pwd)"
+fi
+
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 ENV_FILE="${PROJECT_ROOT}/.env"
-echo "Looking for .env at: $ENV_FILE"
+
+log "Looking for .env at: $ENV_FILE"
 
 if [ ! -f "$ENV_FILE" ]; then
   echo "ERROR: .env file not found at $ENV_FILE"
