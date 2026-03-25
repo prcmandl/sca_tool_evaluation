@@ -18,13 +18,13 @@ set -euo pipefail
 #   2) Evaluate all tools once   (repeat_1)
 #   3) Evaluate all tools again  (repeat_2)
 #   4) Build GT1 + SBOM
-#   5) Always write GT comparison artifacts
+#   5) Compare GT0 vs GT1 and write comparison artifacts
 #   6) Success only if:
 #        - tool findings are identical across repeat_1/repeat_2
 #        - GT0 == GT1
 #   7) If tool findings differ, repeat the complete workflow
-#      at most one additional time
-#   8) If GT0 != GT1, stop with clear GT_MISMATCH status
+#      starting from GT creation at most one additional time
+#   8) If GT0 != GT1, stop with a clear GT_MISMATCH status
 #
 # RETRY POLICY
 # ------------------------------------------------------------
@@ -34,25 +34,24 @@ set -euo pipefail
 # OUTPUT STRUCTURE
 # ------------------------------------------------------------
 # <EXPERIMENT_DIR>/
-#   <RUN_ID>.log
+#   experiment.log
 #   experiment_status.txt
 #   ground_truth.csv
 #   sbom.json
-#   stats.json
 #   aggregated_results.tex
 #   ecosystem_summary.tex
+#   stats.json
 #   tool_comparison.png
-#   tool_comparison_summary.json
-#   tool_comparison_summary.txt
 #
 #   ground_truth_build/
 #     run_<i>/
-#       gt0/
-#         ground_truth_gt0.csv
-#         ground_truth_gt0.sbom.json
-#       gt1/
-#         ground_truth_gt1.csv
-#         ground_truth_gt1.sbom.json
+#       attempt_<j>/
+#         gt0/
+#           ground_truth_gt0.csv
+#           ground_truth_gt0.sbom.json
+#         gt1/
+#           ground_truth_gt1.csv
+#           ground_truth_gt1.sbom.json
 #
 #   run_<i>/
 #     run.log
@@ -64,10 +63,6 @@ set -euo pipefail
 #     aggregated_results.tex
 #     ecosystem_summary.tex
 #     tool_comparison.png
-#     tool_comparison_summary.json
-#     tool_comparison_summary.txt
-#     tool_repeat_comparison.json
-#     tool_repeat_comparison.txt
 #     gt_comparison/
 #       gt_diff_summary.json
 #       gt_diff_report.txt
@@ -78,14 +73,22 @@ set -euo pipefail
 #       repeat_1/<tool>/...
 #       repeat_2/<tool>/...
 #
-# LOGGING
+# DESIGN NOTES
 # ------------------------------------------------------------
-# All console output of the entire run is mirrored into:
+# - Tool-specific artifacts must be written directly into the
+#   per-tool artifact directories. This is achieved inside the
+#   Python temporal runner by:
+#     * creating a tool-local working directory
+#     * copying GT/SBOM into that directory
+#     * setting output-related environment variables immediately
+#       before each tool invocation
+# - This shell script remains responsible for experiment-level
+#   orchestration, GT generation, GT comparison, and final
+#   aggregation.
 #
-#   <EXPERIMENT_DIR>/<RUN_ID>.log
-#
-# This includes bash output, Python output, and child-process output
-# that uses inherited stdout/stderr. There are no ruleid logs.
+# USAGE
+# ------------------------------------------------------------
+# bash tools/run_experiment_save3.sh
 # ============================================================
 
 if [ -z "${BASH_VERSION:-}" ]; then
@@ -93,8 +96,14 @@ if [ -z "${BASH_VERSION:-}" ]; then
   exit 1
 fi
 
+EXPERIMENT_LOG=""
+
 log() {
-  echo "[$(date '+%H:%M:%S %Z')] $*"
+  local msg="[$(date '+%H:%M:%S %Z')] $*"
+  echo "$msg"
+  if [ -n "${EXPERIMENT_LOG:-}" ]; then
+    echo "$msg" >> "$EXPERIMENT_LOG"
+  fi
 }
 
 section() {
@@ -103,6 +112,15 @@ section() {
   echo "$line"
   echo "$*"
   echo "$line"
+
+  if [ -n "${EXPERIMENT_LOG:-}" ]; then
+    {
+      echo
+      echo "$line"
+      echo "$*"
+      echo "$line"
+    } >> "$EXPERIMENT_LOG"
+  fi
 }
 
 require_env() {
@@ -128,10 +146,6 @@ reset_run_dir() {
     "$run_dir/aggregated_results.tex" \
     "$run_dir/ecosystem_summary.tex" \
     "$run_dir/tool_comparison.png" \
-    "$run_dir/tool_comparison_summary.json" \
-    "$run_dir/tool_comparison_summary.txt" \
-    "$run_dir/tool_repeat_comparison.json" \
-    "$run_dir/tool_repeat_comparison.txt" \
     "$run_dir/run_status.json"
 
   rm -rf "$run_dir/artifacts"
@@ -287,7 +301,6 @@ summary = {
     "removed_rows": len(removed),
     "net_row_delta": len(rows1) - len(rows0),
     "jaccard_unique_findings": (len(shared) / len(union) if union else 1.0),
-    "equal": rows0 == rows1,
     "added_by_ecosystem": summarize(added),
     "removed_by_ecosystem": summarize(removed),
     "top_added_examples": [list(x) for x in added[:25]],
@@ -303,7 +316,6 @@ with (out_dir / "gt_diff_report.txt").open("w", encoding="utf-8") as f:
     f.write("========================================\n\n")
     f.write(f"GT0: {gt0_path}\n")
     f.write(f"GT1: {gt1_path}\n\n")
-    f.write(f"Equal:                  {summary['equal']}\n")
     f.write(f"GT0 total rows:         {summary['gt0_total_rows']}\n")
     f.write(f"GT1 total rows:         {summary['gt1_total_rows']}\n")
     f.write(f"GT0 unique findings:    {summary['gt0_unique_findings']}\n")
@@ -345,13 +357,13 @@ write_run_status() {
 EOFJSON
 }
 
-# ------------------------------------------------------------
-# Resolve paths and load .env
-# ------------------------------------------------------------
+section "Loading environment"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 ENV_FILE="${PROJECT_ROOT}/.env"
 
+log "Looking for .env at: $ENV_FILE"
 if [ ! -f "$ENV_FILE" ]; then
   echo "ERROR: .env file not found at $ENV_FILE"
   exit 1
@@ -362,40 +374,11 @@ set -a
 source "$ENV_FILE"
 set +a
 
-if [ -z "${EXPERIMENT_PATH:-}" ]; then
-  echo "ERROR: Missing env variable: EXPERIMENT_PATH"
-  exit 1
-fi
-
-RUN_ID="$(date -u +"%Y%m%dT%H%M%SZ")"
-EXPERIMENT_DIR="${EXPERIMENT_PATH}/${RUN_ID}"
-GROUND_TRUTH_ROOT="${EXPERIMENT_DIR}/ground_truth_build"
-TMP_GT_BUILD_ROOT="${EXPERIMENT_DIR}/.tmp_ground_truth_build"
-RUN_CONSOLE_LOG="${EXPERIMENT_DIR}/${RUN_ID}.log"
-
-export RUN_ID
-export EXPERIMENT_DIR
-export GROUND_TRUTH_ROOT
-export TMP_GT_BUILD_ROOT
-
-mkdir -p "$EXPERIMENT_DIR"
-mkdir -p "$GROUND_TRUTH_ROOT"
-mkdir -p "$TMP_GT_BUILD_ROOT"
-
-touch "$RUN_CONSOLE_LOG"
-exec > >(tee -a "$RUN_CONSOLE_LOG") 2>&1
-
-section "Loading environment"
-log "RUN_ID=$RUN_ID"
-log "RUN_CONSOLE_LOG=$RUN_CONSOLE_LOG"
-log "PROJECT_ROOT=$PROJECT_ROOT"
-log "CODEBASE=${CODEBASE:-<unset>}"
-log "Experiment dir: $EXPERIMENT_DIR"
-log "GROUND_TRUTH_ROOT=$GROUND_TRUTH_ROOT"
 log "Environment loaded"
 
 section "Validating environment"
 require_env CODEBASE
+require_env EXPERIMENT_PATH
 require_env NUM_RUNS
 require_env GITHUB_TOKEN
 require_env NVD_API_KEY
@@ -409,6 +392,30 @@ case " ${EVAL_TOOLS_EFFECTIVE} " in
 esac
 
 log "Environment OK"
+
+RUN_ID="$(date -u +"%Y%m%dT%H%M%SZ")"
+export RUN_ID
+
+EXPERIMENT_DIR="${EXPERIMENT_PATH}/${RUN_ID}"
+GROUND_TRUTH_ROOT="${EXPERIMENT_DIR}/ground_truth_build"
+TMP_GT_BUILD_ROOT="${EXPERIMENT_DIR}/.tmp_ground_truth_build"
+
+export EXPERIMENT_DIR
+export GROUND_TRUTH_ROOT
+export TMP_GT_BUILD_ROOT
+
+mkdir -p "$EXPERIMENT_DIR"
+mkdir -p "$GROUND_TRUTH_ROOT"
+mkdir -p "$TMP_GT_BUILD_ROOT"
+
+EXPERIMENT_LOG="${EXPERIMENT_DIR}/experiment.log"
+touch "$EXPERIMENT_LOG"
+
+log "RUN_ID=$RUN_ID"
+log "PROJECT_ROOT=$PROJECT_ROOT"
+log "CODEBASE=$CODEBASE"
+log "Experiment dir: $EXPERIMENT_DIR"
+log "GROUND_TRUTH_ROOT=$GROUND_TRUTH_ROOT"
 
 export DTRACK_PROJECT_NAME="eval_${RUN_ID}"
 export DTRACK_PROJECT_VERSION="1.0"
@@ -450,11 +457,7 @@ section "Running temporal evaluation"
 
 for i in $(seq 1 "$NUM_RUNS"); do
   RUN_DIR="${EXPERIMENT_DIR}/run_${i}"
-  GT_RUN_ROOT="${GROUND_TRUTH_ROOT}/run_${i}"
   RUN_ACCEPTED=0
-
-  rm -rf "$GT_RUN_ROOT"
-  mkdir -p "$GT_RUN_ROOT"
 
   for ATTEMPT in $(seq 1 "$TOTAL_ATTEMPTS"); do
     reset_run_dir "$RUN_DIR"
@@ -462,12 +465,11 @@ for i in $(seq 1 "$NUM_RUNS"); do
     ATTEMPT_START_TS="$(date +%s)"
     log "Starting temporal run ${i}/${NUM_RUNS} (attempt ${ATTEMPT}/${TOTAL_ATTEMPTS})"
 
-    GT0_OUT_DIR="${GT_RUN_ROOT}/gt0"
-    GT1_OUT_DIR="${GT_RUN_ROOT}/gt1"
-    GT0_TMP_BUILD_DIR="${TMP_GT_BUILD_ROOT}/run_${i}/gt0"
-    GT1_TMP_BUILD_DIR="${TMP_GT_BUILD_ROOT}/run_${i}/gt1"
-
-    rm -rf "$GT0_OUT_DIR" "$GT1_OUT_DIR"
+    GT_ATTEMPT_ROOT="${GROUND_TRUTH_ROOT}/run_${i}/attempt_${ATTEMPT}"
+    GT0_OUT_DIR="${GT_ATTEMPT_ROOT}/gt0"
+    GT1_OUT_DIR="${GT_ATTEMPT_ROOT}/gt1"
+    GT0_TMP_BUILD_DIR="${TMP_GT_BUILD_ROOT}/run_${i}/attempt_${ATTEMPT}/gt0"
+    GT1_TMP_BUILD_DIR="${TMP_GT_BUILD_ROOT}/run_${i}/attempt_${ATTEMPT}/gt1"
 
     build_ground_truth_snapshot "$GT0_TMP_BUILD_DIR" "$GT0_OUT_DIR" "ground_truth_gt0"
 
@@ -629,83 +631,20 @@ write_ecosystem_summary_table(
 
 if plot_tool_comparison is not None:
     plot_tool_comparison(agg, str(experiment_dir))
-
-def summarize_tool_metrics(metrics):
-    summary = {}
-    for tool, ecos in metrics.items():
-        recalls = [v["Recall"]["mean"] for v in ecos.values()]
-        overlaps = [v["Overlap"]["mean"] for v in ecos.values()]
-        tps = [v["TP"]["mean"] for v in ecos.values()]
-        fps = [v["FP"]["mean"] for v in ecos.values()]
-        fns = [v["FN"]["mean"] for v in ecos.values()]
-        summary[tool] = {
-            "avg_recall": float(sum(recalls) / len(recalls)) if recalls else 0.0,
-            "avg_overlap": float(sum(overlaps) / len(overlaps)) if overlaps else 0.0,
-            "sum_tp": float(sum(tps)),
-            "sum_fp": float(sum(fps)),
-            "sum_fn": float(sum(fns)),
-        }
-    return summary
-
-tool_summary = summarize_tool_metrics(agg)
-ranked = sorted(tool_summary.items(), key=lambda kv: (-kv[1]["avg_recall"], -kv[1]["avg_overlap"], kv[0]))
-
-pairwise = []
-tools = list(tool_summary.keys())
-for i, tool_a in enumerate(tools):
-    for tool_b in tools[i + 1:]:
-        a = tool_summary[tool_a]
-        b = tool_summary[tool_b]
-        pairwise.append({
-            "tool_a": tool_a,
-            "tool_b": tool_b,
-            "delta_avg_recall": float(a["avg_recall"] - b["avg_recall"]),
-            "delta_avg_overlap": float(a["avg_overlap"] - b["avg_overlap"]),
-            "delta_sum_tp": float(a["sum_tp"] - b["sum_tp"]),
-            "delta_sum_fp": float(a["sum_fp"] - b["sum_fp"]),
-            "delta_sum_fn": float(a["sum_fn"] - b["sum_fn"]),
-        })
-
-summary_payload = {
-    "per_tool": tool_summary,
-    "ranking_by_avg_recall": [{"tool": tool, **vals} for tool, vals in ranked],
-    "pairwise_deltas": pairwise,
-}
-
-(experiment_dir / "tool_comparison_summary.json").write_text(
-    json.dumps(summary_payload, indent=2),
-    encoding="utf-8",
-)
-
-with (experiment_dir / "tool_comparison_summary.txt").open("w", encoding="utf-8") as f:
-    f.write("TOOL COMPARISON SUMMARY\n")
-    f.write("========================================\n\n")
-    f.write("RANKING BY AVERAGE RECALL\n")
-    f.write("----------------------------------------\n")
-    for idx, (tool, vals) in enumerate(ranked, start=1):
-        f.write(
-            f"{idx}. {tool}: avg_recall={vals['avg_recall']:.4f}, "
-            f"avg_overlap={vals['avg_overlap']:.4f}, "
-            f"sum_tp={vals['sum_tp']:.2f}, sum_fp={vals['sum_fp']:.2f}, sum_fn={vals['sum_fn']:.2f}\n"
-        )
-
-    f.write("\nPAIRWISE DELTAS\n")
-    f.write("----------------------------------------\n")
-    for row in pairwise:
-        f.write(
-            f"{row['tool_a']} vs {row['tool_b']}: "
-            f"d_recall={row['delta_avg_recall']:.4f}, "
-            f"d_overlap={row['delta_avg_overlap']:.4f}, "
-            f"d_tp={row['delta_sum_tp']:.2f}, "
-            f"d_fp={row['delta_sum_fp']:.2f}, "
-            f"d_fn={row['delta_sum_fn']:.2f}\n"
-        )
 PY
 
 echo "SUCCESS" > "${EXPERIMENT_DIR}/experiment_status.txt"
 
+if plot_tool_comparison is not None:
+    plot_tool_comparison(agg, str(experiment_dir))
+PY
+
+echo "SUCCESS" > "${EXPERIMENT_DIR}/experiment_status.txt"
+
+# temporäres GT-Build-Verzeichnis entfernen
 log "Removing temporary ground-truth build directory: ${TMP_GT_BUILD_ROOT}"
 rm -rf "${TMP_GT_BUILD_ROOT}"
+
 
 section "Finished"
 log "Experiment completed"

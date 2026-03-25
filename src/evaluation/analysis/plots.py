@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+import logging
+log = logging.getLogger("evaluation.analysis.plots")
 
 def plot_significance_matrix(rows, tools, output_dir):
     """
@@ -48,7 +50,7 @@ def plot_significance_matrix(rows, tools, output_dir):
     plt.savefig(out, dpi=300, bbox_inches="tight")
     plt.close()
 
-    print(f"[PLOT] Significance matrix: {out}")
+    log.info(f"[PLOT] Significance matrix: {out}")
 
 
 def plot_tool_comparison(agg, output_dir):
