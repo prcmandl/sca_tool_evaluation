@@ -11,7 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
-from evaluation.analysis.plots import (
+from evaluation.analysis.plots_save import (
     plot_significance_matrix,
     plot_tool_comparison,
 )

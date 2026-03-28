@@ -1,9 +1,11 @@
-#
-# Mend Adapter is not working becuase we have no access to it
-#
+# ---------------------------------------------------------------------------
+# Experimental / work in progress
+# This module is under active development.
+# It is not yet considered stable and may contain incomplete functionality.
+# ---------------------------------------------------------------------------
 
 """
-Mend (ehemals WhiteSource) Adapter
+Mend (WhiteSource) Adapter
 =================================
 
 Zweck

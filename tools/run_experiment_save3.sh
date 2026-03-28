@@ -2,94 +2,61 @@
 set -euo pipefail
 
 # ============================================================
-# EXPERIMENT ORCHESTRATOR
+# EXPERIMENT RUNNER (SIMPLIFIED TEMPORAL WORKFLOW)
 # ============================================================
 #
-# PURPOSE
-# ------------------------------------------------------------
-# End-to-end orchestration for the simplified temporal SCA
-# evaluation workflow.
+# Ablauf pro unabhängigen Run:
+#   1) GT0 erzeugen
+#   2) Alle Tools einmal evaluieren
+#   3) Alle Tools ein zweites Mal evaluieren
+#   4) GT1 erzeugen
+#   5) GT0 und GT1 vergleichen und Vergleichsdaten ausgeben
+#   6) Wenn GT0 == GT1 und die Tool-Ergebnisse konsistent sind -> Erfolg
+#   7) Wenn die Tool-Evaluationen nicht konsistent sind -> gesamten Vorgang
+#      genau einmal wiederholen
+#   8) Am Ende klare Statusmeldung: SUCCESS oder Fehlerursache
 #
-# SIMPLIFIED WORKFLOW
-# ------------------------------------------------------------
-# For each independent run_i:
+# Ausgabe:
+#   <EXPERIMENT_DIR>/
+#   ├── experiment.log
+#   ├── experiment_status.txt
+#   ├── ground_truth_build/
+#   │   └── run_<i>/
+#   │       └── attempt_<j>/
+#   │           ├── gt0/
+#   │           │   ├── ground_truth_gt0.csv
+#   │           │   └── ground_truth_gt0.sbom.json
+#   │           └── gt1/
+#   │               ├── ground_truth_gt1.csv
+#   │               └── ground_truth_gt1.sbom.json
+#   ├── run_1/
+#   │   ├── run.log
+#   │   ├── temporal_consistency.json
+#   │   ├── gt_comparison/
+#   │   │   ├── gt_comparison_summary.json
+#   │   │   ├── gt_only_in_gt0.csv
+#   │   │   ├── gt_only_in_gt1.csv
+#   │   │   └── gt_comparison_report.txt
+#   │   ├── results.json
+#   │   ├── recall_significance.tex
+#   │   ├── recall_significance.json
+#   │   ├── recall_significance_matrix.png
+#   │   ├── aggregated_results.tex
+#   │   ├── ecosystem_summary.tex
+#   │   ├── tool_comparison.png
+#   │   └── artifacts/
+#   │       ├── repeat_1/<tool>/
+#   │       └── repeat_2/<tool>/
+#   └── ...
 #
-#   1) Build GT0 + SBOM
-#   2) Evaluate all tools once   (repeat_1)
-#   3) Evaluate all tools again  (repeat_2)
-#   4) Build GT1 + SBOM
-#   5) Compare GT0 vs GT1 and write comparison artifacts
-#   6) Success only if:
-#        - tool findings are identical across repeat_1/repeat_2
-#        - GT0 == GT1
-#   7) If tool findings differ, repeat the complete workflow
-#      starting from GT creation at most one additional time
-#   8) If GT0 != GT1, stop with a clear GT_MISMATCH status
+# Wichtige Architektur:
+#   - Bash orchestriert nur den Gesamtfluss.
+#   - Die Tool-Läufe erfolgen im temporal_runner_save5.py.
+#   - Vor jedem Toolaufruf setzt temporal_runner_save5.py die Ausgabepfade auf
+#     run_<x>/artifacts/repeat_<n>/<tool>/.
 #
-# RETRY POLICY
-# ------------------------------------------------------------
-# Only TOOL_MISMATCH triggers a full retry.
-# GT_MISMATCH does NOT trigger another retry.
-#
-# OUTPUT STRUCTURE
-# ------------------------------------------------------------
-# <EXPERIMENT_DIR>/
-#   experiment.log
-#   experiment_status.txt
-#   ground_truth.csv
-#   sbom.json
-#   aggregated_results.tex
-#   ecosystem_summary.tex
-#   stats.json
-#   tool_comparison.png
-#
-#   ground_truth_build/
-#     run_<i>/
-#       attempt_<j>/
-#         gt0/
-#           ground_truth_gt0.csv
-#           ground_truth_gt0.sbom.json
-#         gt1/
-#           ground_truth_gt1.csv
-#           ground_truth_gt1.sbom.json
-#
-#   run_<i>/
-#     run.log
-#     run_status.json
-#     results.json
-#     recall_significance.tex
-#     recall_significance.json
-#     recall_significance_matrix.png
-#     aggregated_results.tex
-#     ecosystem_summary.tex
-#     tool_comparison.png
-#     gt_comparison/
-#       gt_diff_summary.json
-#       gt_diff_report.txt
-#       gt_diff_added.csv
-#       gt_diff_removed.csv
-#       gt_comparison_stdout.json
-#     artifacts/
-#       repeat_1/<tool>/...
-#       repeat_2/<tool>/...
-#
-# DESIGN NOTES
-# ------------------------------------------------------------
-# - Tool-specific artifacts must be written directly into the
-#   per-tool artifact directories. This is achieved inside the
-#   Python temporal runner by:
-#     * creating a tool-local working directory
-#     * copying GT/SBOM into that directory
-#     * setting output-related environment variables immediately
-#       before each tool invocation
-# - This shell script remains responsible for experiment-level
-#   orchestration, GT generation, GT comparison, and final
-#   aggregation.
-#
-# USAGE
-# ------------------------------------------------------------
-# bash tools/run_experiment_save3.sh
 # ============================================================
+
 
 if [ -z "${BASH_VERSION:-}" ]; then
   echo "ERROR: This script must be run with bash"
@@ -143,13 +110,13 @@ reset_run_dir() {
     "$run_dir/recall_significance.tex" \
     "$run_dir/recall_significance.json" \
     "$run_dir/recall_significance_matrix.png" \
+    "$run_dir/significance_matrix.png" \
     "$run_dir/aggregated_results.tex" \
     "$run_dir/ecosystem_summary.tex" \
     "$run_dir/tool_comparison.png" \
     "$run_dir/run_status.json"
 
   rm -rf "$run_dir/artifacts"
-  rm -rf "$run_dir/gt_comparison"
   mkdir -p "$run_dir/artifacts"
 }
 
@@ -166,7 +133,7 @@ build_ground_truth_snapshot() {
 
   local gt_start_ts
   gt_start_ts="$(date +%s)"
-  poetry run python -m new_ground_truth_generation.build_multi_ground_truth_dataset
+  poetry run python -m ground_truth_generation.build_multi_ground_truth_dataset
   local gt_end_ts
   gt_end_ts="$(date +%s)"
 
@@ -206,155 +173,6 @@ gt = load_ground_truth(Path(sys.argv[1]))
 payload = sorted((g.ecosystem, g.component, g.version, g.cve or g.osv_id or "") for g in gt)
 print(hashlib.sha256(str(payload).encode()).hexdigest())
 PY
-}
-
-write_gt_comparison_artifacts() {
-  local gt0_path="$1"
-  local gt1_path="$2"
-  local output_dir="$3"
-
-  mkdir -p "$output_dir"
-
-  poetry run python - "$gt0_path" "$gt1_path" "$output_dir" > "${output_dir}/gt_comparison_stdout.json" <<'PY'
-from __future__ import annotations
-
-import csv
-import json
-import sys
-from collections import Counter, defaultdict
-from pathlib import Path
-
-from evaluation.core.ground_truth import load_ground_truth
-
-
-def row_key(f):
-    vuln_id = f.cve or f.osv_id or ""
-    return (f.ecosystem, f.component, f.version, vuln_id)
-
-
-def expand_difference(a: Counter, b: Counter):
-    out = []
-    for key, count_a in a.items():
-        count_b = b.get(key, 0)
-        if count_a > count_b:
-            out.extend([key] * (count_a - count_b))
-    return out
-
-
-def summarize(keys):
-    stats = defaultdict(lambda: {"rows": 0, "components": set(), "vuln_ids": set()})
-    for eco, comp, ver, vuln_id in keys:
-        stats[eco]["rows"] += 1
-        stats[eco]["components"].add((comp, ver))
-        if vuln_id:
-            stats[eco]["vuln_ids"].add(vuln_id)
-
-    result = {}
-    for eco, data in sorted(stats.items()):
-        result[eco] = {
-            "rows": data["rows"],
-            "unique_components": len(data["components"]),
-            "unique_vuln_ids": len(data["vuln_ids"]),
-        }
-    return result
-
-
-def write_csv(path: Path, rows):
-    with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["ecosystem", "component", "version", "vuln_id"])
-        for row in rows:
-            writer.writerow(row)
-
-
-gt0_path = Path(sys.argv[1])
-gt1_path = Path(sys.argv[2])
-out_dir = Path(sys.argv[3])
-out_dir.mkdir(parents=True, exist_ok=True)
-
-gt0 = load_ground_truth(gt0_path)
-gt1 = load_ground_truth(gt1_path)
-
-rows0 = [row_key(x) for x in gt0]
-rows1 = [row_key(x) for x in gt1]
-
-c0 = Counter(rows0)
-c1 = Counter(rows1)
-
-added = expand_difference(c1, c0)
-removed = expand_difference(c0, c1)
-
-s0 = set(c0.keys())
-s1 = set(c1.keys())
-shared = s0 & s1
-union = s0 | s1
-
-summary = {
-    "gt0_path": str(gt0_path),
-    "gt1_path": str(gt1_path),
-    "gt0_total_rows": len(rows0),
-    "gt1_total_rows": len(rows1),
-    "gt0_unique_findings": len(s0),
-    "gt1_unique_findings": len(s1),
-    "shared_unique_findings": len(shared),
-    "added_rows": len(added),
-    "removed_rows": len(removed),
-    "net_row_delta": len(rows1) - len(rows0),
-    "jaccard_unique_findings": (len(shared) / len(union) if union else 1.0),
-    "added_by_ecosystem": summarize(added),
-    "removed_by_ecosystem": summarize(removed),
-    "top_added_examples": [list(x) for x in added[:25]],
-    "top_removed_examples": [list(x) for x in removed[:25]],
-}
-
-(out_dir / "gt_diff_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-write_csv(out_dir / "gt_diff_added.csv", added)
-write_csv(out_dir / "gt_diff_removed.csv", removed)
-
-with (out_dir / "gt_diff_report.txt").open("w", encoding="utf-8") as f:
-    f.write("GROUND TRUTH DIFFERENCE REPORT\n")
-    f.write("========================================\n\n")
-    f.write(f"GT0: {gt0_path}\n")
-    f.write(f"GT1: {gt1_path}\n\n")
-    f.write(f"GT0 total rows:         {summary['gt0_total_rows']}\n")
-    f.write(f"GT1 total rows:         {summary['gt1_total_rows']}\n")
-    f.write(f"GT0 unique findings:    {summary['gt0_unique_findings']}\n")
-    f.write(f"GT1 unique findings:    {summary['gt1_unique_findings']}\n")
-    f.write(f"Shared unique findings: {summary['shared_unique_findings']}\n")
-    f.write(f"Added rows:             {summary['added_rows']}\n")
-    f.write(f"Removed rows:           {summary['removed_rows']}\n")
-    f.write(f"Net row delta:          {summary['net_row_delta']}\n")
-    f.write(f"Jaccard(unique):        {summary['jaccard_unique_findings']:.4f}\n\n")
-
-    f.write("ADDED BY ECOSYSTEM\n")
-    f.write("----------------------------------------\n")
-    for eco, vals in summary["added_by_ecosystem"].items():
-        f.write(
-            f"{eco}: rows={vals['rows']}, components={vals['unique_components']}, vuln_ids={vals['unique_vuln_ids']}\n"
-        )
-
-    f.write("\nREMOVED BY ECOSYSTEM\n")
-    f.write("----------------------------------------\n")
-    for eco, vals in summary["removed_by_ecosystem"].items():
-        f.write(
-            f"{eco}: rows={vals['rows']}, components={vals['unique_components']}, vuln_ids={vals['unique_vuln_ids']}\n"
-        )
-
-print(json.dumps(summary, indent=2))
-PY
-}
-
-write_run_status() {
-  local path="$1"
-  local status="$2"
-  local message="$3"
-
-  cat > "$path" <<EOFJSON
-{
-  "status": "${status}",
-  "message": "${message}"
-}
-EOFJSON
 }
 
 section "Loading environment"
@@ -421,10 +239,8 @@ export DTRACK_PROJECT_NAME="eval_${RUN_ID}"
 export DTRACK_PROJECT_VERSION="1.0"
 log "[DTRACK] Project name: $DTRACK_PROJECT_NAME"
 
-MAX_TOOL_RETRIES="${MAX_TOOL_RETRIES:-1}"
-TOTAL_ATTEMPTS=$((MAX_TOOL_RETRIES + 1))
-log "MAX_TOOL_RETRIES=${MAX_TOOL_RETRIES}"
-log "TOTAL_ATTEMPTS_PER_RUN=${TOTAL_ATTEMPTS}"
+MAX_FULL_ATTEMPTS="${MAX_FULL_ATTEMPTS:-2}"
+log "MAX_FULL_ATTEMPTS=${MAX_FULL_ATTEMPTS}"
 
 section "Configuration"
 log "EVAL_TOOLS=${EVAL_TOOLS_EFFECTIVE}"
@@ -457,17 +273,21 @@ section "Running temporal evaluation"
 
 for i in $(seq 1 "$NUM_RUNS"); do
   RUN_DIR="${EXPERIMENT_DIR}/run_${i}"
+  ATTEMPT=0
   RUN_ACCEPTED=0
 
-  for ATTEMPT in $(seq 1 "$TOTAL_ATTEMPTS"); do
+  while [ "$ATTEMPT" -lt "$MAX_FULL_ATTEMPTS" ]; do
+    ATTEMPT=$((ATTEMPT + 1))
     reset_run_dir "$RUN_DIR"
 
     ATTEMPT_START_TS="$(date +%s)"
-    log "Starting temporal run ${i}/${NUM_RUNS} (attempt ${ATTEMPT}/${TOTAL_ATTEMPTS})"
+    log "Starting temporal run ${i}/${NUM_RUNS} (attempt ${ATTEMPT})"
 
     GT_ATTEMPT_ROOT="${GROUND_TRUTH_ROOT}/run_${i}/attempt_${ATTEMPT}"
+
     GT0_OUT_DIR="${GT_ATTEMPT_ROOT}/gt0"
     GT1_OUT_DIR="${GT_ATTEMPT_ROOT}/gt1"
+
     GT0_TMP_BUILD_DIR="${TMP_GT_BUILD_ROOT}/run_${i}/attempt_${ATTEMPT}/gt0"
     GT1_TMP_BUILD_DIR="${TMP_GT_BUILD_ROOT}/run_${i}/attempt_${ATTEMPT}/gt1"
 
@@ -495,57 +315,38 @@ for i in $(seq 1 "$NUM_RUNS"); do
         ;;
     esac
 
-    set +e
-    poetry run python -m evaluation.temporal_runner \
+    if ! poetry run python -m evaluation.temporal_runner \
       --ground-truth "$GT0_PATH" \
       --sbom "$SBOM_PATH" \
-      --output "$RUN_DIR"
-    RUNNER_RC=$?
-    set -e
-
-    if [ "$RUNNER_RC" -eq 2 ]; then
+      --output "$RUN_DIR"; then
       ATTEMPT_END_TS="$(date +%s)"
-      log "Temporal run ${i}: TOOL_MISMATCH on attempt ${ATTEMPT}"
+      log "Temporal run ${i} failed during tool execution on attempt ${ATTEMPT}"
       log "RUN_${i}_ATTEMPT_${ATTEMPT}_DURATION_SECONDS=$((ATTEMPT_END_TS - ATTEMPT_START_TS))"
-
-      if [ "$ATTEMPT" -lt "$TOTAL_ATTEMPTS" ]; then
-        log "Retrying full workflow for run_${i} because tool findings differ"
-        continue
-      fi
-
-      write_run_status "${RUN_DIR}/run_status.json" \
-        "TOOL_MISMATCH" \
-        "Tool findings differ between repeat_1 and repeat_2 after all allowed attempts."
-      echo "FAILED: TOOL_MISMATCH in run_${i}" > "${EXPERIMENT_DIR}/experiment_status.txt"
-      exit 1
-    elif [ "$RUNNER_RC" -ne 0 ]; then
-      ATTEMPT_END_TS="$(date +%s)"
-      log "Temporal run ${i}: TEMPORAL_RUNNER_ERROR on attempt ${ATTEMPT} (rc=${RUNNER_RC})"
-      log "RUN_${i}_ATTEMPT_${ATTEMPT}_DURATION_SECONDS=$((ATTEMPT_END_TS - ATTEMPT_START_TS))"
-      write_run_status "${RUN_DIR}/run_status.json" \
-        "TEMPORAL_RUNNER_ERROR" \
-        "Temporal runner failed with exit code ${RUNNER_RC}."
-      echo "FAILED: TEMPORAL_RUNNER_ERROR in run_${i}" > "${EXPERIMENT_DIR}/experiment_status.txt"
-      exit 1
+      continue
     fi
 
     build_ground_truth_snapshot "$GT1_TMP_BUILD_DIR" "$GT1_OUT_DIR" "ground_truth_gt1"
     GT1_PATH="$GT1_OUT_DIR/ground_truth_gt1.csv"
     GT1_HASH="$(gt_hash "$GT1_PATH")"
 
-    GT_COMPARE_DIR="${RUN_DIR}/gt_comparison"
-    write_gt_comparison_artifacts "$GT0_PATH" "$GT1_PATH" "$GT_COMPARE_DIR"
-    log "GT comparison artifacts written to: $GT_COMPARE_DIR"
-
     if [ "$GT0_HASH" != "$GT1_HASH" ]; then
+      GT_COMPARE_DIR="${RUN_DIR}/gt_comparison"
+      mkdir -p "$GT_COMPARE_DIR"
+
+      if poetry run python -m evaluation.orchestration.ground_truth_diff \
+        --gt0 "$GT0_PATH" \
+        --gt1 "$GT1_PATH" \
+        --output-dir "$GT_COMPARE_DIR" \
+        > "${GT_COMPARE_DIR}/gt_comparison_stdout.json"; then
+        log "GT comparison artifacts written to: $GT_COMPARE_DIR"
+      else
+        log "WARNING: GT comparison generation failed"
+      fi
+
       ATTEMPT_END_TS="$(date +%s)"
-      log "Temporal run ${i}: GT_MISMATCH on attempt ${ATTEMPT}"
+      log "Temporal run ${i} failed GT stability on attempt ${ATTEMPT} -> GT0 != GT1"
       log "RUN_${i}_ATTEMPT_${ATTEMPT}_DURATION_SECONDS=$((ATTEMPT_END_TS - ATTEMPT_START_TS))"
-      write_run_status "${RUN_DIR}/run_status.json" \
-        "GT_MISMATCH" \
-        "GT0 and GT1 differ. See gt_comparison for details."
-      echo "FAILED: GT_MISMATCH in run_${i}" > "${EXPERIMENT_DIR}/experiment_status.txt"
-      exit 1
+      continue
     fi
 
     cp "$GT0_PATH" "${EXPERIMENT_DIR}/ground_truth.csv"
@@ -558,15 +359,12 @@ for i in $(seq 1 "$NUM_RUNS"); do
     log "Temporal run ${i} accepted on attempt ${ATTEMPT}"
     log "RUN_${i}_ATTEMPT_${ATTEMPT}_DURATION_SECONDS=$((ATTEMPT_END_TS - ATTEMPT_START_TS))"
 
-    write_run_status "${RUN_DIR}/run_status.json" \
-      "SUCCESS" \
-      "Tool findings are stable across both repeats and GT0 equals GT1."
-
     RUN_ACCEPTED=1
     break
   done
 
   if [ "$RUN_ACCEPTED" -ne 1 ]; then
+    echo "ERROR: Temporal run ${i} failed after ${MAX_FULL_ATTEMPTS} full attempts"
     echo "FAILED: run_${i}" > "${EXPERIMENT_DIR}/experiment_status.txt"
     exit 1
   fi
@@ -574,7 +372,7 @@ done
 
 section "Statistical analysis"
 
-poetry run python - <<PY
+poetry run python - <<EOF
 import json
 from pathlib import Path
 
@@ -631,20 +429,9 @@ write_ecosystem_summary_table(
 
 if plot_tool_comparison is not None:
     plot_tool_comparison(agg, str(experiment_dir))
-PY
+EOF
 
 echo "SUCCESS" > "${EXPERIMENT_DIR}/experiment_status.txt"
-
-if plot_tool_comparison is not None:
-    plot_tool_comparison(agg, str(experiment_dir))
-PY
-
-echo "SUCCESS" > "${EXPERIMENT_DIR}/experiment_status.txt"
-
-# temporäres GT-Build-Verzeichnis entfernen
-log "Removing temporary ground-truth build directory: ${TMP_GT_BUILD_ROOT}"
-rm -rf "${TMP_GT_BUILD_ROOT}"
-
 
 section "Finished"
 log "Experiment completed"

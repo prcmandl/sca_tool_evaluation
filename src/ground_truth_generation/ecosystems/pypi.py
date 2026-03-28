@@ -1,106 +1,137 @@
 import logging
 import requests
-from datetime import datetime, timezone
-from typing import Optional, List, Dict, Any, Tuple
 
-from ..osv_common import request_json_with_retry
-from ..osv_common import within_date_window
-from ..osv_common import API_CALL_TRACKER
-
-
-log = logging.getLogger(__name__)
-
-
-# --------------------------------------------------
-# Version cutoff (orthogonal zu samples)
-# --------------------------------------------------
-
-from ground_truth_generation.osv_common import env_int
-
-PYPI_MAX_VERSIONS_PER_PACKAGE = env_int(
-    "PYPI_MAX_VERSIONS_PER_PACKAGE",
-    5,
+from ground_truth_generation.osv_common import (
+    request_json_with_retry,
+    parse_iso_date,
+    env_int
 )
 
 
-# ------------------------------------------------------------------
-# Explicit PyPI package universe for ground truth construction
-# ------------------------------------------------------------------
+TARGET_VULNS_PER_ECOSYSTEM = env_int(
+    "TARGET_VULNS_PER_ECOSYSTEM",
+    None,
+)
 
+PYPI_MAX_VERSIONS_PER_PACKAGE = env_int("PYPI_MAX_VERSIONS_PER_PACKAGE", 5)
+MAX_OSV_ENTRIES_PER_COMPONENT = env_int("MAX_OSV_ENTRIES_PER_COMPONENT", 10)
+
+log = logging.getLogger(__name__)
+
+OSV_QUERY_URL = "https://api.osv.dev/v1/query"
+
+
+# -----------------------------
+# Kuratierte Komponentenliste
+# -----------------------------
 PYPI_GROUND_TRUTH_PACKAGES = [
-    # Core networking / utils
-    "requests", "urllib3", "idna", "certifi", "charset-normalizer",
-    "six", "setuptools", "wheel", "packaging", "pip",
 
-    # Web frameworks
-    "flask", "django", "fastapi", "starlette", "uvicorn",
-    "gunicorn", "jinja2", "werkzeug", "itsdangerous", "markupsafe",
+# ----------------------------
+# Networking / HTTP (10)
+# ----------------------------
+"requests","urllib3","httpx","aiohttp","httpcore","h11","h2","wsproto","websockets","anyio",
 
-    # Data / ORM
-    "sqlalchemy", "alembic", "psycopg2", "psycopg2-binary",
-    "pymysql", "redis", "mongoengine", "peewee", "dataset", "pony",
+# ----------------------------
+# Web frameworks (10)
+# ----------------------------
+"flask","django","fastapi","starlette","werkzeug","quart","falcon","bottle","tornado","sanic",
 
-    # Task queues
-    "celery", "kombu", "billiard", "rq", "dramatiq",
+# ----------------------------
+# Security / crypto (10)
+# ----------------------------
+"cryptography","pyopenssl","bcrypt","passlib","paramiko","pynacl","itsdangerous","python-jose","jwcrypto","hashids",
 
-    # Scientific stack
-    "numpy", "scipy", "pandas", "matplotlib", "seaborn",
-    "scikit-learn", "statsmodels", "sympy", "numba", "xarray",
+# ----------------------------
+# Parsing / formats (10)
+# ----------------------------
+"pyyaml","ruamel.yaml","lxml","beautifulsoup4","html5lib","markdown","mistune","docutils","xmltodict","defusedxml",
 
-# "tensorflow" ausgewechseltdurch "transformers", weil es so oft vorkommt
+# ----------------------------
+# JSON / serialization (10)
+# ----------------------------
+"orjson","ujson","jsonschema","pydantic","msgpack","cbor2","marshmallow","dataclasses-json","jsonpickle","simplejson",
 
-    # ML / AI
-    "transformers", "keras", "torch", "torchvision", "torchaudio",
-    "onnx", "onnxruntime", "lightgbm", "xgboost", "catboost",
+# ----------------------------
+# Data / ML (10)
+# ----------------------------
+"numpy","pandas","scipy","scikit-learn","xgboost","lightgbm","catboost","statsmodels","sympy","networkx",
 
-    # Parsing / formats
-    "pyyaml", "toml", "tomli", "configparser", "click",
-    "typer", "rich", "colorama", "tqdm",
+# ----------------------------
+# Deep learning (10)
+# ----------------------------
+"torch","torchvision","torchaudio","tensorflow","keras","jax","flax","transformers","datasets","accelerate",
 
-    # HTML / parsing
-    "lxml", "beautifulsoup4", "soupsieve", "bleach", "markdown",
-    "mistune", "docutils", "html5lib", "feedparser", "readme-renderer",
+# ----------------------------
+# Packaging (10)
+# ----------------------------
+"pip","setuptools","wheel","build","twine","virtualenv","pipenv","poetry","installer","distlib",
 
-    # Images / media
-    "pillow", "opencv-python", "imageio", "moviepy", "wand",
+# ----------------------------
+# CLI / tooling (10)
+# ----------------------------
+"click","typer","rich","loguru","argcomplete","colorama","tqdm","fire","cement","docopt",
 
-    # Security / crypto
-    "cryptography", "pyopenssl", "paramiko", "bcrypt", "passlib",
-    "python-jwt", "jwt", "pycryptodome", "argon2-cffi", "itsdangerous",
+# ----------------------------
+# Async / concurrency (10)
+# ----------------------------
+"trio","curio","gevent","eventlet","asyncio","aiomysql","aiosqlite","uvloop","janus","sniffio",
 
-    # Testing
-    "pytest", "hypothesis", "coverage", "tox", "virtualenv",
-    "nose", "nose2", "pytest-cov", "pytest-mock", "freezegun",
+# ----------------------------
+# DB / storage (10)
+# ----------------------------
+"sqlalchemy","psycopg2","psycopg2-binary","pymysql","mysqlclient","redis","mongoengine","pymongo","tinydb","dataset",
 
-    # Async / IO
-    "aiohttp", "asyncio", "trio", "curio", "httpx",
+# ----------------------------
+# Testing (10)
+# ----------------------------
+"pytest","pytest-cov","pytest-asyncio","tox","hypothesis","nose2","coverage","unittest2","pytest-mock","pytest-xdist",
 
-    # CLI / tooling
-    "invoke", "fabric", "cliff", "cement", "docopt",
+# ----------------------------
+# Images / files (10)
+# ----------------------------
+"pillow","opencv-python","imageio","python-magic","filetype","wand","pdfminer.six","PyPDF2","reportlab","python-docx",
 
-    # Serialization
-    "pickle5", "msgpack", "ujson", "orjson", "simplejson",
+# ----------------------------
+# Logging / monitoring (10)
+# ----------------------------
+"structlog","logbook","sentry-sdk","prometheus-client","elastic-apm","opentelemetry-api","opentelemetry-sdk","watchdog","psutil","statsd",
 
-    # Misc
-    "python-dateutil", "pytz", "tzdata", "attrs", "dataclasses",
-    "importlib-metadata", "importlib-resources", "typing-extensions",
-    "pathlib2", "filelock",
+# ----------------------------
+# Dev / utilities (10)
+# ----------------------------
+"attrs","boltons","toolz","funcy","more-itertools","sortedcontainers","zipp","importlib-metadata","pluggy","packaging",
 
-    # Cloud / APIs
-    "boto3", "botocore", "s3transfer", "google-cloud-storage",
-    "google-api-python-client",
+# ----------------------------
+# Misc high CVE relevance (10)
+# ----------------------------
+"jinja2","markupsafe","bleach","python-dateutil","pytz","pendulum","dateparser","croniter","tzlocal","arrow",
 
-    # Monitoring
-    "prometheus-client", "sentry-sdk", "opencensus", "elastic-apm",
+# ----------------------------
+# Networking / protocols (10)
+# ----------------------------
+"dnspython","netaddr","ifaddr","scapy","pyroute2","fabric","asyncssh","pysftp","ftplib3","async-timeout",
 
-    # Config / env
-    "python-dotenv", "dynaconf", "envparse", "configobj",
+# ----------------------------
+# Compression / archive (10)
+# ----------------------------
+"zipfile36","rarfile","py7zr","lz4","zstandard","brotli","python-snappy","patool","gzipstream","tarfile",
 
-    # Final padding to reach 200
-    "tabulate", "humanize", "watchdog", "psutil", "setproctitle",
-    "retrying", "tenacity", "backoff", "cachetools", "diskcache",
+# ----------------------------
+# Cloud / SDKs (10)
+# ----------------------------
+"boto3","botocore","google-cloud-storage","google-cloud-core","azure-storage-blob","azure-identity","minio","s3fs","gcsfs","adlfs",
+
+# ----------------------------
+# Config / env (10)
+# ----------------------------
+"python-dotenv","dynaconf","omegaconf","configparser","envparse","decouple","yacs","hydra-core","confuse","configobj",
+
+# ----------------------------
+# Validation / schema (10)
+# ----------------------------
+"cerberus","voluptuous","trafaret","schema","pydantic-settings","validators","email-validator","phonenumbers","rfc3987","jsonschema-rs",
+
 ]
-
 
 
 # --------------------------------------------------
@@ -111,159 +142,74 @@ OSV_QUERY_URL = "https://api.osv.dev/v1/query"
 
 
 
-# --------------------------------------------------
-# Helpers
-# --------------------------------------------------
-
-def _parse_iso_date(date_str: Optional[str]) -> Optional[datetime]:
-    """
-    Parse YYYY-MM-DD into a timezone-aware UTC datetime.
-    """
-    if date_str is None:
-        return None
-    return datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-
-
-# --------------------------------------------------
-# PyPI Ground Truth Collector
-# --------------------------------------------------
-
 def collect_pypi(
-    samples: Optional[int],
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
-    osv_cache: Dict[Tuple[str, str, str], Dict[str, Any]] = None,
-) -> List[Dict]:
+    samples,
+    start_date=None,
+    end_date=None,
+    osv_cache=None,
+):
+    start_dt = parse_iso_date(start_date)
+    end_dt = parse_iso_date(end_date)
 
-    start_dt = _parse_iso_date(start_date)
-    end_dt = _parse_iso_date(end_date)
+    TARGET = env_int("TARGET_VULNS_PER_ECOSYSTEM", None)
 
-    # --------------------------------------------------
-    # APPLY SAMPLES (EXACTLY like Maven)
-    # --------------------------------------------------
-    packages = PYPI_GROUND_TRUTH_PACKAGES
-    if samples is not None:
-        packages = packages[:samples]
+    packages = PYPI_GROUND_TRUTH_PACKAGES[:samples] if samples else PYPI_GROUND_TRUTH_PACKAGES
 
-    log.info(
-        "PyPI scope: using %d/%d packages",
-        len(packages),
-        len(PYPI_GROUND_TRUTH_PACKAGES),
-    )
+    rows = []
+    total_vulns = 0
+    total_packages = len(packages)
 
-    rows: List[Dict] = []
+    for i, pkg in enumerate(packages, 1):
+        component_vulns = 0
 
-    for pkg in packages:
-        log.info("PyPI package selected: %s", pkg)
-
-        # --------------------------------------------------
-        # PyPI METADATA API CALL (TRACKED)
-        # --------------------------------------------------
-        pypi_token = API_CALL_TRACKER.start("PyPI")
         try:
-            meta = requests.get(
-                f"https://pypi.org/pypi/{pkg}/json",
-                timeout=30,
-            ).json()
+            meta = requests.get(f"https://pypi.org/pypi/{pkg}/json", timeout=30).json()
         except Exception:
+            log.info("[%d/%d] Processing package %s; 0 vulnerabilities", i, total_packages, pkg)
             continue
-        finally:
-            API_CALL_TRACKER.end("PyPI", pypi_token)
 
-        releases = meta.get("releases", {})
-        versions = sorted(releases.keys(), reverse=True)
+        versions = sorted(meta.get("releases", {}).keys(), reverse=True)
 
-        if PYPI_MAX_VERSIONS_PER_PACKAGE is not None:
+        if PYPI_MAX_VERSIONS_PER_PACKAGE:
             versions = versions[:PYPI_MAX_VERSIONS_PER_PACKAGE]
 
-        log.info(
-            "PyPI %s: processing %d versions",
-            pkg,
-            len(versions),
-        )
-
         for version in versions:
-            files = releases.get(version, [])
-            if not files:
-                continue
+            payload = {"package": {"ecosystem": "PyPI", "name": pkg}, "version": version}
 
-            # PyPI: multiple files per version → take earliest upload timestamp
-            upload_times = [
-                f.get("upload_time_iso_8601")
-                for f in files
-                if f.get("upload_time_iso_8601")
-            ]
-            if not upload_times:
-                continue
-
-            published = datetime.fromisoformat(
-                min(upload_times).replace("Z", "+00:00")
-            )
-
-            # --------------------------------------------------
-            # DATE WINDOW FILTER
-            # --------------------------------------------------
-            if not within_date_window(published, start_dt, end_dt):
-                log.info(
-                    "Skipping PyPI version due to date window | "
-                    "pkg=%s | version=%s | published=%s",
-                    pkg,
-                    version,
-                    published.date(),
-                )
-                continue
-
-            log.info(
-                "Examining component: ecosystem=pypi | name=%s | version=%s",
-                pkg,
-                version,
-            )
-
-            payload = {
-                "package": {"ecosystem": "PyPI", "name": pkg},
-                "version": version,
-            }
-
-            # --------------------------------------------------
-            # OSV QUERY API CALL (TRACKED)
-            # --------------------------------------------------
-            osv_token = API_CALL_TRACKER.start("OSV")
-            try:
-                res = request_json_with_retry(OSV_QUERY_URL, payload)
-            finally:
-                API_CALL_TRACKER.end("OSV", osv_token)
-
+            res = request_json_with_retry(OSV_QUERY_URL, payload)
             if not isinstance(res, dict):
                 continue
 
-            cache_key = ("pypi", pkg, version)
             if osv_cache is not None:
-                osv_cache[cache_key] = res
+                osv_cache[("pypi", pkg, version)] = res
 
-            for vuln in res.get("vulns", []):
-                osv_id = vuln.get("id")
-                if not osv_id:
+            vulns = res.get("vulns", [])[:MAX_OSV_ENTRIES_PER_COMPONENT]
+            seen = set()
+
+            for v in vulns:
+                vid = v.get("id")
+                if not vid or vid in seen:
                     continue
-
-                aliases = vuln.get("aliases") or []
-                cve = next((a for a in aliases if a.startswith("CVE-")), None)
-
-                purl = f"pkg:pypi/{pkg}@{version}"
+                seen.add(vid)
 
                 rows.append({
                     "ecosystem": "pypi",
                     "component_name": pkg,
                     "component_version": version,
-                    "purl": purl,
-                    "vulnerability_id": osv_id,
-                    "cve": cve,
+                    "purl": f"pkg:pypi/{pkg}@{version}",
+                    "vulnerability_id": vid,
+                    "cve": next((a for a in (v.get("aliases") or []) if a.startswith("CVE-")), None),
                     "is_vulnerable": True,
                 })
 
-    log.info(
-        "PyPI finished | packages=%d | rows=%d",
-        len(packages),
-        len(rows),
-    )
+                component_vulns += 1
+                total_vulns += 1
+
+                if TARGET and total_vulns >= TARGET:
+                    log.info("[%d/%d] Processing package %s; %d vulnerabilities", i, total_packages, pkg, component_vulns)
+                    log.info("Stopping early at %d vulnerabilities", total_vulns)
+                    return rows
+
+        log.info("[%d/%d] Processing package %s; %d vulnerabilities", i, total_packages, pkg, component_vulns)
 
     return rows

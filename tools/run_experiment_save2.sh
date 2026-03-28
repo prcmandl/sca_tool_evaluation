@@ -51,8 +51,8 @@ set -euo pipefail
 #
 # Wichtige Architektur:
 #   - Bash orchestriert nur den Gesamtfluss.
-#   - Die Tool-Läufe erfolgen im temporal_runner.py.
-#   - Vor jedem Toolaufruf setzt temporal_runner.py die Ausgabepfade auf
+#   - Die Tool-Läufe erfolgen im temporal_runner_save5.py.
+#   - Vor jedem Toolaufruf setzt temporal_runner_save5.py die Ausgabepfade auf
 #     run_<x>/artifacts/repeat_<n>/<tool>/.
 #
 # ============================================================
@@ -133,7 +133,7 @@ build_ground_truth_snapshot() {
 
   local gt_start_ts
   gt_start_ts="$(date +%s)"
-  poetry run python -m new_ground_truth_generation.build_multi_ground_truth_dataset
+  poetry run python -m ground_truth_generation.build_multi_ground_truth_dataset
   local gt_end_ts
   gt_end_ts="$(date +%s)"
 

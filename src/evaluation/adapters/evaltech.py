@@ -8,6 +8,11 @@ from evaluation.fp_engine.evaltech_vulnerability_false_positive_engine import (
     EvaltechFalsePositiveEngine,
 )
 
+# ---------------------------------------------------------------------------
+# Experimental / work in progress
+# This module is under active development.
+# It is not yet considered stable and may contain incomplete functionality.
+# ---------------------------------------------------------------------------
 
 class EvaltechAdapter(VulnerabilityToolAdapter):
     """

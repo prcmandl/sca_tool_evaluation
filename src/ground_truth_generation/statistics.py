@@ -138,7 +138,7 @@ def write_statistics(
     from collections import defaultdict, Counter
     from datetime import datetime
     from statistics import mean, median
-    from evaluation.ground_truth.osv_common import API_CALL_TRACKER
+    from ground_truth_generation.osv_common import API_CALL_TRACKER
 
     # --------------------------------------------------------
     # helpers

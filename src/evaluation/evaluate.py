@@ -4,9 +4,10 @@ from __future__ import annotations
 import argparse
 import logging
 import os
+from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Deque, Dict, Iterable, List, Optional, Tuple
 
 # ------------------------------------------------------------
 # Adapters to tool and database APIs
@@ -77,6 +78,77 @@ def iter_with_progress(items, *, desc: str, unit: str):
 
 def _get_identifier(x: Finding) -> str:
     return x.cve or x.osv_id or ""
+
+
+def _gt_key(x: Finding) -> Tuple[str, str, str, str]:
+    """
+    Key used only on the ground-truth side.
+
+    Important:
+    We do NOT use this to reconstruct matching from raw tool findings.
+    We only use it to map the already-evaluated TP list back onto the original
+    ground-truth order. This keeps the significance input aligned with the
+    evaluation result.
+    """
+    return (
+        x.ecosystem,
+        x.component,
+        x.version,
+        _get_identifier(x),
+    )
+
+
+def _build_gt_detection_vector(
+    ground_truth: List[Finding],
+    tp: List[Finding],
+) -> List[int]:
+    """
+    Build a binary detection vector in the original ground-truth order.
+
+    This function intentionally uses the TP list returned by
+    evaluate_project_centric() as the single source of truth.
+
+    Why this is correct:
+    - Recall / TP / FN are already computed by evaluate_project_centric().
+    - We do not try to re-match raw tool findings against ground truth.
+    - We only map the confirmed TP findings back to GT indices.
+
+    Multiplicity is preserved:
+    - If the same GT key occurs multiple times, we keep a queue of GT indices.
+    - Each TP occurrence consumes exactly one GT index.
+    """
+    gt_indices_by_key: Dict[Tuple[str, str, str, str], Deque[int]] = defaultdict(deque)
+
+    for idx, gt in enumerate(ground_truth):
+        gt_indices_by_key[_gt_key(gt)].append(idx)
+
+    detected = [0] * len(ground_truth)
+    unmatched_tp = 0
+
+    for hit in tp:
+        key = _gt_key(hit)
+        queue = gt_indices_by_key.get(key)
+
+        if queue:
+            gt_idx = queue.popleft()
+            detected[gt_idx] = 1
+        else:
+            unmatched_tp += 1
+
+    if unmatched_tp:
+        log.warning(
+            "Could not map %d TP entries back to GT indices while building gt_detection_vector",
+            unmatched_tp,
+        )
+
+    if sum(detected) != len(tp):
+        log.warning(
+            "gt_detection_vector sum (%d) differs from TP count (%d)",
+            sum(detected),
+            len(tp),
+        )
+
+    return detected
 
 
 def _compute_gt_summary(ground_truth: List[Finding]) -> Dict[str, Dict[str, int]]:
@@ -292,6 +364,20 @@ def run_evaluation(
         )
 
     # --------------------------------------------------------
+    # Detection vector for significance analysis
+    # --------------------------------------------------------
+    gt_detection_vector = _build_gt_detection_vector(
+        ground_truth=ground_truth,
+        tp=tp,
+    )
+
+    log.info(
+        "GT detection vector built | detected=%d | gt_size=%d",
+        sum(gt_detection_vector),
+        len(gt_detection_vector),
+    )
+
+    # --------------------------------------------------------
     # Further analysis
     # --------------------------------------------------------
     from evaluation.analysis.tool_findings import analyze_tool_findings
@@ -351,6 +437,10 @@ def run_evaluation(
             "fn_stats": fn_stats,
             "api_stats": api_stats,
         }
+
+    # Always expose the GT detection vector to structured callers.
+    if return_findings or return_metrics:
+        result["gt_detection_vector"] = gt_detection_vector
 
     if result:
         return result

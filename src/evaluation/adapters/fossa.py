@@ -6,6 +6,12 @@ import requests
 from evaluation.adapters.base import VulnerabilityToolAdapter
 from evaluation.core.model import Finding
 
+# ---------------------------------------------------------------------------
+# Experimental / work in progress
+# This module is under active development.
+# It is not yet considered stable and may contain incomplete functionality.
+# ---------------------------------------------------------------------------
+
 log = logging.getLogger("evaluation.adapters.fossa")
 
 

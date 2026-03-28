@@ -9,7 +9,7 @@ This module performs exactly one temporal evaluation attempt for a
 single run_<i> directory.
 
 It does NOT build ground truth snapshots and it does NOT retry the
-full workflow. Those responsibilities remain in run_experiment_save3.sh.
+full workflow. Those responsibilities remain in run_experiment_save_long.sh.
 
 SIMPLIFIED PROTOCOL INSIDE THIS MODULE
 ----------------------------------------------------------------
@@ -57,7 +57,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import List
 
-from evaluation.analysis.plots import (
+from evaluation.analysis.plots_save import (
     plot_significance_matrix,
     plot_tool_comparison,
 )

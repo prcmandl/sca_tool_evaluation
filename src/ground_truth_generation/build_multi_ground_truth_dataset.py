@@ -4,12 +4,8 @@ import logging
 import os
 import re
 from datetime import datetime, timezone
-from statistics import median
 
-from cyclonedx.schema import SchemaVersion
-from cyclonedx.validation.json import JsonStrictValidator
-
-from .statistics import write_statistics
+from ground_truth_generation.statistics import write_statistics
 
 # ------------------------------------------------------------
 # Logging
@@ -22,16 +18,16 @@ logging.basicConfig(
 )
 log = logging.getLogger("build_multi_ground_truth")
 
-from .osv_common import request_json, env_int
+from ground_truth_generation.osv_common import request_json, env_int
 
 # ------------------------------------------------------------
 # Imports from ecosystem collectors
 # ------------------------------------------------------------
 
-from .ecosystems.pypi import collect_pypi
-from .ecosystems.npm import collect_npm
-from .ecosystems.maven import collect_maven
-from .ecosystems.nuget import collect_nuget
+from ground_truth_generation.ecosystems.pypi import collect_pypi
+from ground_truth_generation.ecosystems.npm import collect_npm
+from ground_truth_generation.ecosystems.maven import collect_maven
+from ground_truth_generation.ecosystems.nuget import collect_nuget
 
 # ------------------------------------------------------------
 # Constants
@@ -200,106 +196,8 @@ def _component_key(r):
         str(r.get("component_version") or "").strip(),
     )
 
-import math
-import random
-from collections import defaultdict
 
 from collections import defaultdict
-import random
-
-
-def balance_rows_posthoc_by_component_version(
-    rows,
-    ecosystems,
-    min_unique_component_ratio,
-    seed,
-    strategy: str = "min",
-):
-    rnd = random.Random(seed)
-
-    # group rows by ecosystem -> component-version key -> list[rows]
-    by_eco = defaultdict(lambda: defaultdict(list))
-    for r in rows:
-        eco = r["ecosystem"].lower()
-        if eco not in ecosystems:
-            continue
-        k = (r["component_name"], r["component_version"])
-        by_eco[eco][k].append(r)
-
-    # available component-versions per eco
-    counts = {eco: len(d) for eco, d in by_eco.items() if len(d) > 0}
-    if not counts:
-        raise RuntimeError("Balancing impossible: no ecosystem has entries")
-
-    if strategy == "min":
-        target = min(counts.values())
-    elif strategy == "median":
-        target = int(median(counts.values()))
-    else:
-        raise ValueError(f"Unknown balancing strategy: {strategy}")
-
-    balanced_rows = []
-    balance_stats = {}
-
-    for eco in ecosystems:
-        groups = by_eco.get(eco, {})
-        keys = list(groups.keys())
-
-        if not keys:
-            balance_stats[eco] = {
-                "target": 0,
-                "unique_components": 0,
-                "achieved_ratio": 0.0,
-                "fallback": True,
-                "strategy": strategy,
-                "reason": "no entries available",
-            }
-            continue
-
-        rnd.shuffle(keys)
-        selected_keys = keys[:target]
-
-        # enforce minimum unique component ratio (now on components, not vulns)
-        uniq_components = {k[0] for k in selected_keys}
-        achieved_ratio = len(uniq_components) / len(selected_keys) if selected_keys else 0.0
-
-        fallback = False
-        reason = None
-
-        if achieved_ratio < min_unique_component_ratio:
-            needed = int(target * min_unique_component_ratio)
-            seen = set(uniq_components)
-
-            for k in keys[target:]:
-                if k[0] not in seen:
-                    selected_keys.append(k)
-                    seen.add(k[0])
-                if len(seen) >= needed:
-                    break
-
-            uniq_components = seen
-            achieved_ratio = len(uniq_components) / len(selected_keys) if selected_keys else 0.0
-
-            if achieved_ratio < min_unique_component_ratio:
-                fallback = True
-                reason = "insufficient component diversity"
-
-        # KEEP ALL vulns for selected component-versions
-        for k in selected_keys:
-            balanced_rows.extend(groups[k])
-
-        balance_stats[eco] = {
-            "target": target,
-            "unique_components": len(uniq_components),
-            "achieved_ratio": achieved_ratio,
-            "fallback": fallback,
-            "strategy": strategy,
-        }
-        if reason:
-            balance_stats[eco]["reason"] = reason
-
-    return balanced_rows, balance_stats
-
 
 
 def _stable_row_key(r):
@@ -612,6 +510,157 @@ def write_ground_truth_meta(
     with meta_path.open("w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2, sort_keys=True)
 
+def balance_rows_by_vulnerability_deterministic(
+    rows,
+    ecosystems,
+    strategy="min",
+):
+    from collections import defaultdict, deque, Counter
+    from statistics import median
+
+    by_eco = defaultdict(list)
+    for r in rows:
+        eco = (r.get("ecosystem") or "").strip().lower()
+        if eco in ecosystems:
+            by_eco[eco].append(r)
+
+    counts = {eco: len(v) for eco, v in by_eco.items() if v}
+    if not counts:
+        raise RuntimeError("No data to balance")
+
+    if strategy == "min":
+        target = min(counts.values())
+    elif strategy == "median":
+        target = int(median(counts.values()))
+    else:
+        raise ValueError(f"Unknown strategy: {strategy}")
+
+    balanced = []
+    stats = {}
+
+    for eco in ecosystems:
+        eco_rows = by_eco.get(eco, [])
+
+        if not eco_rows:
+            stats[eco] = {
+                "original_rows": 0,
+                "kept_rows": 0,
+                "target": target,
+                "unique_components": 0,
+                "unique_component_versions": 0,
+            }
+            continue
+
+        groups = defaultdict(list)
+        comp_counter = Counter()
+
+        for r in eco_rows:
+            comp = r.get("component_name")
+            ver = r.get("component_version")
+            key = (comp, ver)
+
+            groups[key].append(r)
+            comp_counter[comp] += 1
+
+        ordered_groups = []
+
+        for (comp, ver), items in groups.items():
+            items_sorted = sorted(
+                items,
+                key=lambda r: (
+                    str(r.get("vulnerability_id") or ""),
+                    str(r.get("cve") or ""),
+                ),
+            )
+
+            ordered_groups.append((
+                len(items_sorted),
+                comp_counter[comp],
+                (comp or "").lower(),
+                str(ver),
+                deque(items_sorted),
+            ))
+
+        ordered_groups.sort(key=lambda x: (x[0], x[1], x[2], x[3]))
+
+        active = [g[4] for g in ordered_groups]
+        selected = []
+
+        while len(selected) < target and active:
+            next_active = []
+
+            for q in active:
+                if len(selected) >= target:
+                    break
+
+                if q:
+                    selected.append(q.popleft())
+
+                if q:
+                    next_active.append(q)
+
+            active = next_active
+
+        balanced.extend(selected)
+
+        stats[eco] = {
+            "original_rows": len(eco_rows),
+            "kept_rows": len(selected),
+            "target": target,
+            "unique_components": len({r["component_name"] for r in selected}),
+            "unique_component_versions": len({
+                (r["component_name"], r["component_version"]) for r in selected
+            }),
+        }
+
+    return balanced, stats
+
+def cap_per_component(rows, max_per_component=10):
+    from collections import defaultdict
+
+    out = []
+    counter = defaultdict(int)
+
+    for r in rows:
+        key = (r.get("ecosystem"), r.get("component_name"))
+
+        if counter[key] < max_per_component:
+            out.append(r)
+            counter[key] += 1
+
+    return out
+
+def compute_balance_validation(rows):
+    from collections import Counter, defaultdict
+    from statistics import median
+
+    by_eco = defaultdict(list)
+
+    for r in rows:
+        by_eco[(r.get("ecosystem") or "").lower()].append(r)
+
+    result = {}
+
+    for eco, eco_rows in by_eco.items():
+        comp_counter = Counter(r["component_name"] for r in eco_rows)
+        comp_ver_counter = Counter(
+            (r["component_name"], r["component_version"]) for r in eco_rows
+        )
+
+        total = len(eco_rows)
+        comp_counts = sorted(comp_counter.values(), reverse=True)
+
+        result[eco] = {
+            "rows": total,
+            "unique_components": len(comp_counter),
+            "unique_versions": len(comp_ver_counter),
+            "median_per_component": median(comp_counter.values()) if comp_counter else 0,
+            "max_per_component": max(comp_counter.values()) if comp_counter else 0,
+            "top1_share": comp_counts[0] / total if total else 0,
+            "top5_share": sum(comp_counts[:5]) / total if total else 0,
+        }
+
+    return result
 
 # ------------------------------------------------------------
 # Main
@@ -642,7 +691,6 @@ def main():
     min_unique_component_ratio = float(
         os.environ.get("MIN_UNIQUE_COMPONENT_RATIO", "0.5")
     )
-    balance_seed = int(os.environ.get("BALANCE_SEED", "0"))
 
     start_date = os.environ.get("START_DATE", START_DATE)
     end_date = os.environ.get("END_DATE", END_DATE)
@@ -705,7 +753,34 @@ def main():
         all_rows.extend(rows)
 
     if not all_rows:
-        log.warning("No samples collected")
+        log.warning("No samples collected — writing empty dataset")
+
+        # trotzdem leere CSV schreiben
+        build_dir = Path(GROUND_TRUTH_BUILD_PATH)
+        build_dir.mkdir(parents=True, exist_ok=True)
+
+        base_name = f"empty_dataset_{utc_ts()}"
+
+        csv_path = build_dir / f"{base_name}.csv"
+
+        import csv
+        with csv_path.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=[
+                    "ecosystem",
+                    "component_name",
+                    "component_version",
+                    "purl",
+                    "vulnerability_id",
+                    "cve",
+                    "vulnerability_description",
+                    "is_vulnerable",
+                ],
+            )
+            writer.writeheader()
+
+        log.warning(f"Empty dataset written to {csv_path}")
         return
 
     # --------------------------------------------------------
@@ -789,17 +864,29 @@ def main():
     balance_stats = None
     if balance:
         log.info(
-            "Applying post-hoc balancing | strategy=%s | min_unique_component_ratio=%.2f | seed=%d",
+            "Applying post-hoc balancing | strategy=%s | min_unique_component_ratio=%.2f",
             balance_strategy,
             min_unique_component_ratio,
-            balance_seed,
         )
 
-        all_rows, balance_stats = balance_rows_posthoc_by_component_version(
+        # verhindert Dominanz einzelner Pakete
+        all_rows = cap_per_component(all_rows, max_per_component=10)
+
+        # deterministische Reihenfolge
+        all_rows = sorted(
+            all_rows,
+            key=lambda r: (
+                (r.get("ecosystem") or ""),
+                (r.get("component_name") or ""),
+                str(r.get("component_version") or ""),
+                (r.get("vulnerability_id") or ""),
+            ),
+        )
+
+        # korrektes Balancing (WICHTIG: tuple unpacking)
+        all_rows, balance_stats = balance_rows_by_vulnerability_deterministic(
             all_rows,
             ecosystems=[e.lower() for e in ecosystems],
-            min_unique_component_ratio=min_unique_component_ratio,
-            seed=balance_seed,
             strategy=balance_strategy,
         )
 
@@ -812,7 +899,7 @@ def main():
     # Output paths
     # --------------------------------------------------------
     build_dir = Path(GROUND_TRUTH_BUILD_PATH)
-    build_dir.mkdir(exist_ok=True)
+    build_dir.mkdir(parents=True, exist_ok=True)
 
     base_name = f"mixed_ground_truth_dataset_{ts}_{component_count}_{osv_vuln_entries}"
 
@@ -867,7 +954,7 @@ def main():
     )
 
     # --------------------------------------------------------
-    # META FILE (NEU, WICHTIG)
+    # META FILE
     # --------------------------------------------------------
     ecosystem_stats = compute_ecosystem_stats(all_rows)
 

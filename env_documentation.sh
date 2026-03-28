@@ -1,0 +1,275 @@
+#!/usr/bin/env bash
+#
+# ============================================================
+# Environment documentation for the SCA evaluation pipeline
+# ============================================================
+#
+# This file documents all relevant environment variables used by
+# the current experiment / ground-truth / temporal evaluation setup.
+#
+# Notes
+# ------------------------------------------------------------
+# - Replace placeholder values before use.
+# - Secrets should not be committed to version control.
+# - Some variables are logged only, some are actively used, and
+#   some are overridden dynamically by the experiment runner.
+#
+# Usage
+# ------------------------------------------------------------
+# Copy this file to ".env" and adapt the values.
+#
+# ============================================================
+# PROJECT PATHS
+# ============================================================
+
+# Absolute path to the project root directory.
+# Used by the experiment runner and as the base for derived paths.
+CODEBASE="/path/to/sca_tool_evaluation"
+
+# Build base directory below the project root.
+# Used as the parent of experiment and report output folders.
+CODEBASE_BUILD_PATH="${CODEBASE}/build"
+
+# Report output directory.
+# Currently mainly a convenience path; not all scripts use it directly.
+REPORT_PATH="${CODEBASE_BUILD_PATH}/reports"
+
+# Experiment root directory.
+# The runner creates one subdirectory per RUN_ID below this path.
+EXPERIMENT_PATH="${CODEBASE_BUILD_PATH}/experiments"
+
+# ------------------------------------------------------------
+# Important note on GROUND_TRUTH_BUILD_PATH
+# ------------------------------------------------------------
+# In newer runner versions, the ground-truth build path is created
+# dynamically per experiment / run / attempt and should NOT be
+# configured statically in .env.
+#
+# Older runner versions may still expect it.
+# Leave commented out unless you know you are using an older setup.
+#
+# GROUND_TRUTH_BUILD_PATH="${CODEBASE_BUILD_PATH}/ground_truth"
+
+
+# ============================================================
+# API TOKENS / CREDENTIALS
+# ============================================================
+
+# GitHub API token.
+# Required if the GitHub tool / adapter is used.
+GITHUB_TOKEN="your_github_token"
+
+# NVD API key.
+# Required for NVD-backed enrichment / vulnerability lookup.
+NVD_API_KEY="your_nvd_api_key"
+
+# FOSSA API key.
+# Currently not visibly used in the checked orchestration files,
+# but may be required if a FOSSA adapter is added or enabled.
+FOSSA_API_KEY="your_fossa_api_key"
+
+# OSS Index API token.
+# Used by OSS Index related logic / adapters.
+OSSINDEX_TOKEN="your_ossindex_token"
+
+# OSS Index username / account identifier.
+OSSINDEX_USERNAME="your_email@example.com"
+
+
+# ============================================================
+# GROUND TRUTH GENERATION - GLOBAL CONTROLS
+# ============================================================
+
+# Number of candidate components / packages considered per ecosystem.
+# The collector usually applies:
+#   packages = packages[:SAMPLES]
+#
+# If SAMPLES is larger than the package universe, it has no effect.
+SAMPLES=1000
+
+# Date window for selecting package versions during ground-truth generation.
+# Versions outside this publication window are ignored.
+START_DATE="2020-01-01"
+END_DATE="2026-01-25"
+
+# Ecosystems included in ground-truth generation.
+# Supported values depend on the collectors available in the project.
+ECOSYSTEMS="nuget maven pypi npm"
+
+# Whether post-processing / balancing is enabled.
+# If false, collected rows are kept as-is.
+BALANCE=false
+
+# Strategy used when BALANCE=true.
+# Example: "min" means down-balance to the smallest ecosystem.
+BALANCE_STRATEGY="min"
+
+# Optional randomness seed for reproducibility in balancing / sampling logic.
+RANDOM_SEED=42
+
+
+# ============================================================
+# GROUND TRUTH GENERATION - VERSION SAMPLING PER ECOSYSTEM
+# ============================================================
+
+# Maximum number of versions considered per Maven package / artifact.
+MAVEN_MAX_VERSIONS_PER_PACKAGE=30
+
+# Maximum number of versions considered per PyPI package.
+PYPI_MAX_VERSIONS_PER_PACKAGE=3
+
+# Maximum number of versions considered per npm package.
+NPM_MAX_VERSIONS_PER_PACKAGE=20
+
+# Maximum number of versions considered per NuGet package.
+# Important:
+# The NuGet collector must actually read this variable correctly.
+NUGET_MAX_VERSIONS_PER_PACKAGE=50
+
+
+# ============================================================
+# GROUND TRUTH GENERATION - VULNERABILITY SAMPLING
+# ============================================================
+
+# Maximum number of OSV entries taken per concrete component version.
+# Example:
+# If a package version has 40 matched vulnerabilities and this is set to 20,
+# only the first 20 entries from the OSV response are used.
+MAX_OSV_ENTRIES_PER_COMPONENT=20
+
+# Desired target number of vulnerabilities per ecosystem.
+# Some collectors use this for an optional early stop.
+TARGET_VULNS_PER_ECOSYSTEM=250
+
+# Enable / disable early stopping when the target vulnerability count
+# is reached during collection.
+#
+# 1 = stop collecting once TARGET_VULNS_PER_ECOSYSTEM is reached
+# 0 = continue processing all selected packages
+#
+# Recommended for diagnostics / full runs:
+# EARLY_STOP_ON_TARGET_VULNS=0
+EARLY_STOP_ON_TARGET_VULNS=0
+
+
+# ============================================================
+# TOOL SELECTION
+# ============================================================
+
+# Space-separated list of evaluation tools to execute.
+# The temporal runner reads this variable and runs only these tools.
+#
+# Typical values:
+#   snyk
+#   oss-index
+#   github
+#   trivy
+#   dtrack
+EVAL_TOOLS="snyk oss-index github trivy dtrack"
+
+
+# ============================================================
+# DEPENDENCY-TRACK
+# ============================================================
+
+# Dependency-Track base URL.
+# Required if "dtrack" is part of EVAL_TOOLS.
+DTRACK_URL="http://your-dtrack-host:8081"
+
+# Dependency-Track API key.
+# Required if "dtrack" is part of EVAL_TOOLS.
+DTRACK_API_KEY="your_dtrack_api_key"
+
+# Dependency-Track project UUID.
+# Usually NOT needed as a fixed .env value in newer runner versions.
+# The prepare script typically resolves or creates the project dynamically.
+DTRACK_PROJECT_UUID=""
+
+# Dependency-Track project name.
+# Usually overridden dynamically by the experiment runner, e.g.:
+#   eval_<RUN_ID>
+DTRACK_PROJECT_NAME=""
+
+# Dependency-Track project version.
+# Often overridden dynamically or defaulted to "1.0".
+DTRACK_PROJECT_VERSION="1.0"
+
+
+# ============================================================
+# OSV
+# ============================================================
+
+# Local OSV data root, if local feeds / dumps are used by parts of the project.
+# Not all checked scripts use this directly.
+OSV_ROOT_PATH="/path/to/local/osv/vulnfeeds"
+
+
+# ============================================================
+# SNYK
+# ============================================================
+
+# Path to the Snyk binary.
+# Some scripts may instead rely on "command -v snyk".
+SNYK_BIN="/usr/local/bin/snyk"
+
+# Optional helper script path for Snyk-based evaluation.
+SNYK_BASH_SCRIPT="${CODEBASE}/tools/evaluate_snyk.sh"
+
+
+# ============================================================
+# EXECUTION / EXPERIMENT CONTROL
+# ============================================================
+
+# Number of independent outer experiment runs.
+# Example:
+# NUM_RUNS=1  -> only run_1
+# NUM_RUNS=2  -> run_1 and run_2
+NUM_RUNS=1
+
+# Whether result archiving is desired.
+# Depending on the current script version, this may be documented
+# but not actively enforced.
+ARCHIVE_RESULTS=true
+
+# Export switches.
+# Depending on the current script version, these may be documented
+# but not strictly enforced in all output paths.
+EXPORT_LATEX=true
+EXPORT_JSON=true
+EXPORT_CSV=true
+
+# Optional legacy / currently often unused progress variable.
+# Leave commented out unless a specific script expects it.
+# EVAL_PROGRESS=2
+
+
+# ============================================================
+# SUMMARY OF RUNTIME BEHAVIOR
+# ============================================================
+#
+# Commonly used directly by the experiment runner:
+#   CODEBASE
+#   EXPERIMENT_PATH
+#   NUM_RUNS
+#   GITHUB_TOKEN
+#   NVD_API_KEY
+#   EVAL_TOOLS
+#   DTRACK_URL / DTRACK_API_KEY   (if dtrack enabled)
+#
+# Commonly used by ecosystem collectors:
+#   SAMPLES
+#   START_DATE
+#   END_DATE
+#   ECOSYSTEMS
+#   *_MAX_VERSIONS_PER_PACKAGE
+#   MAX_OSV_ENTRIES_PER_COMPONENT
+#   TARGET_VULNS_PER_ECOSYSTEM
+#   EARLY_STOP_ON_TARGET_VULNS
+#
+# Commonly overridden dynamically by newer runners:
+#   GROUND_TRUTH_BUILD_PATH
+#   DTRACK_PROJECT_NAME
+#   DTRACK_PROJECT_VERSION
+#   DTRACK_PROJECT_UUID
+#
+# ============================================================
