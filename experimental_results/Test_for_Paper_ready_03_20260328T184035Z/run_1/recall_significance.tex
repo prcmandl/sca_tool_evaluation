@@ -1,0 +1,23 @@
+\paragraph{Statistical significance.}
+To determine whether the observed recall differences are statistically significant, we first apply Cochran's $Q$ test. The test indicates a significant overall difference (Q=1452.81, p=<0.001).
+
+\begin{table*}[!t]
+\centering
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Tool A & Tool B & $n_{10}$ & $n_{01}$ & $p$ & $p_{\mathrm{adj}}$ \\
+\midrule
+oss-index & trivy & 12 & 706 & <0.001 & <0.001 \\
+github & oss-index & 730 & 62 & <0.001 & <0.001 \\
+oss-index & snyk & 58 & 634 & <0.001 & <0.001 \\
+dtrack & oss-index & 686 & 100 & <0.001 & <0.001 \\
+dtrack & trivy & 32 & 140 & <0.001 & <0.001 \\
+snyk & trivy & 72 & 190 & <0.001 & <0.001 \\
+github & snyk & 194 & 102 & <0.001 & <0.001 \\
+dtrack & github & 94 & 176 & <0.001 & <0.001 \\
+github & trivy & 70 & 96 & 0.052 & 0.104 \\
+dtrack & snyk & 192 & 182 & 0.642 & 0.642 \\
+\bottomrule
+\end{tabular}
+\end{table*}

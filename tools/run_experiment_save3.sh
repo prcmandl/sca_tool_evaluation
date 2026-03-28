@@ -37,7 +37,7 @@ set -euo pipefail
 #   │   │   ├── gt_only_in_gt0.csv
 #   │   │   ├── gt_only_in_gt1.csv
 #   │   │   └── gt_comparison_report.txt
-#   │   ├── results.json
+#   │   ├── experimental_results.json
 #   │   ├── recall_significance.tex
 #   │   ├── recall_significance.json
 #   │   ├── recall_significance_matrix.png

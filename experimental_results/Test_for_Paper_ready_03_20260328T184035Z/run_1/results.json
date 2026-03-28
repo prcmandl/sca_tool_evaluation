@@ -1,0 +1,212 @@
+{
+  "snyk": {
+    "maven": {
+      "Components": 99,
+      "Vulnerabilities": 250,
+      "CVEs": 42,
+      "TP": 204,
+      "FP": 314,
+      "FN": 46,
+      "Recall": 0.816,
+      "Overlap": 0.3938223938223938
+    },
+    "npm": {
+      "Components": 66,
+      "Vulnerabilities": 250,
+      "CVEs": 19,
+      "TP": 211,
+      "FP": 60,
+      "FN": 39,
+      "Recall": 0.844,
+      "Overlap": 0.7785977859778598
+    },
+    "nuget": {
+      "Components": 189,
+      "Vulnerabilities": 250,
+      "CVEs": 36,
+      "TP": 250,
+      "FP": 3,
+      "FN": 0,
+      "Recall": 1.0,
+      "Overlap": 0.9881422924901185
+    },
+    "pypi": {
+      "Components": 76,
+      "Vulnerabilities": 250,
+      "CVEs": 92,
+      "TP": 237,
+      "FP": 119,
+      "FN": 13,
+      "Recall": 0.948,
+      "Overlap": 0.6657303370786517
+    }
+  },
+  "oss-index": {
+    "maven": {
+      "Components": 99,
+      "Vulnerabilities": 250,
+      "CVEs": 42,
+      "TP": 136,
+      "FP": 52,
+      "FN": 114,
+      "Recall": 0.544,
+      "Overlap": 0.723404255319149
+    },
+    "npm": {
+      "Components": 66,
+      "Vulnerabilities": 250,
+      "CVEs": 19,
+      "TP": 79,
+      "FP": 1,
+      "FN": 171,
+      "Recall": 0.316,
+      "Overlap": 0.9875
+    },
+    "nuget": {
+      "Components": 189,
+      "Vulnerabilities": 250,
+      "CVEs": 36,
+      "TP": 204,
+      "FP": 12,
+      "FN": 46,
+      "Recall": 0.816,
+      "Overlap": 0.9444444444444444
+    },
+    "pypi": {
+      "Components": 76,
+      "Vulnerabilities": 250,
+      "CVEs": 92,
+      "TP": 195,
+      "FP": 172,
+      "FN": 55,
+      "Recall": 0.78,
+      "Overlap": 0.5313351498637602
+    }
+  },
+  "github": {
+    "maven": {
+      "Components": 99,
+      "Vulnerabilities": 250,
+      "CVEs": 42,
+      "TP": 233,
+      "FP": 375,
+      "FN": 17,
+      "Recall": 0.932,
+      "Overlap": 0.3832236842105263
+    },
+    "npm": {
+      "Components": 66,
+      "Vulnerabilities": 250,
+      "CVEs": 19,
+      "TP": 250,
+      "FP": 133,
+      "FN": 0,
+      "Recall": 1.0,
+      "Overlap": 0.6527415143603134
+    },
+    "nuget": {
+      "Components": 189,
+      "Vulnerabilities": 250,
+      "CVEs": 36,
+      "TP": 250,
+      "FP": 103,
+      "FN": 0,
+      "Recall": 1.0,
+      "Overlap": 0.7082152974504249
+    },
+    "pypi": {
+      "Components": 76,
+      "Vulnerabilities": 250,
+      "CVEs": 92,
+      "TP": 215,
+      "FP": 320,
+      "FN": 35,
+      "Recall": 0.86,
+      "Overlap": 0.40186915887850466
+    }
+  },
+  "trivy": {
+    "maven": {
+      "Components": 99,
+      "Vulnerabilities": 250,
+      "CVEs": 42,
+      "TP": 240,
+      "FP": 193,
+      "FN": 10,
+      "Recall": 0.96,
+      "Overlap": 0.5542725173210161
+    },
+    "npm": {
+      "Components": 66,
+      "Vulnerabilities": 250,
+      "CVEs": 19,
+      "TP": 250,
+      "FP": 40,
+      "FN": 0,
+      "Recall": 1.0,
+      "Overlap": 0.8620689655172413
+    },
+    "nuget": {
+      "Components": 189,
+      "Vulnerabilities": 250,
+      "CVEs": 36,
+      "TP": 237,
+      "FP": 3,
+      "FN": 13,
+      "Recall": 0.948,
+      "Overlap": 0.9875
+    },
+    "pypi": {
+      "Components": 76,
+      "Vulnerabilities": 250,
+      "CVEs": 92,
+      "TP": 234,
+      "FP": 90,
+      "FN": 16,
+      "Recall": 0.936,
+      "Overlap": 0.7222222222222222
+    }
+  },
+  "dtrack": {
+    "maven": {
+      "Components": 99,
+      "Vulnerabilities": 250,
+      "CVEs": 42,
+      "TP": 250,
+      "FP": 193,
+      "FN": 0,
+      "Recall": 1.0,
+      "Overlap": 0.5643340857787811
+    },
+    "npm": {
+      "Components": 66,
+      "Vulnerabilities": 250,
+      "CVEs": 19,
+      "TP": 250,
+      "FP": 40,
+      "FN": 0,
+      "Recall": 1.0,
+      "Overlap": 0.8620689655172413
+    },
+    "nuget": {
+      "Components": 189,
+      "Vulnerabilities": 250,
+      "CVEs": 36,
+      "TP": 235,
+      "FP": 0,
+      "FN": 15,
+      "Recall": 0.94,
+      "Overlap": 1.0
+    },
+    "pypi": {
+      "Components": 76,
+      "Vulnerabilities": 250,
+      "CVEs": 92,
+      "TP": 172,
+      "FP": 89,
+      "FN": 78,
+      "Recall": 0.688,
+      "Overlap": 0.6590038314176245
+    }
+  }
+}

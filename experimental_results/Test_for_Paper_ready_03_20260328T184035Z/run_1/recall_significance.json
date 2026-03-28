@@ -1,0 +1,102 @@
+{
+  "tools": [
+    "dtrack",
+    "github",
+    "oss-index",
+    "snyk",
+    "trivy"
+  ],
+  "repeat_count": 2,
+  "ground_truth_size_per_repeat": 1000,
+  "significance_input": "all_repeats_concatenated",
+  "matrix_shape": [
+    2000,
+    5
+  ],
+  "cochran_q": {
+    "statistic": 1452.8127208480566,
+    "p_value": 0.0
+  },
+  "pairwise_mcnemar": [
+    {
+      "tool_a": "oss-index",
+      "tool_b": "trivy",
+      "n10": 12,
+      "n01": 706,
+      "p": 5.271534892806222e-191,
+      "p_adj": 5.271534892806222e-190
+    },
+    {
+      "tool_a": "github",
+      "tool_b": "oss-index",
+      "n10": 730,
+      "n01": 62,
+      "p": 1.2075322047355519e-145,
+      "p_adj": 1.0867789842619967e-144
+    },
+    {
+      "tool_a": "oss-index",
+      "tool_b": "snyk",
+      "n10": 58,
+      "n01": 634,
+      "p": 2.0766762919548928e-123,
+      "p_adj": 1.6613410335639142e-122
+    },
+    {
+      "tool_a": "dtrack",
+      "tool_b": "oss-index",
+      "n10": 686,
+      "n01": 100,
+      "p": 2.975069247543054e-108,
+      "p_adj": 2.0825484732801377e-107
+    },
+    {
+      "tool_a": "dtrack",
+      "tool_b": "trivy",
+      "n10": 32,
+      "n01": 140,
+      "p": 2.5960289994977246e-17,
+      "p_adj": 1.5576173996986347e-16
+    },
+    {
+      "tool_a": "snyk",
+      "tool_b": "trivy",
+      "n10": 72,
+      "n01": 190,
+      "p": 1.9012544675036762e-13,
+      "p_adj": 9.50627233751838e-13
+    },
+    {
+      "tool_a": "github",
+      "tool_b": "snyk",
+      "n10": 194,
+      "n01": 102,
+      "p": 9.773834194609848e-08,
+      "p_adj": 3.9095336778439394e-07
+    },
+    {
+      "tool_a": "dtrack",
+      "tool_b": "github",
+      "n10": 94,
+      "n01": 176,
+      "p": 6.82911414437845e-07,
+      "p_adj": 2.048734243313535e-06
+    },
+    {
+      "tool_a": "github",
+      "tool_b": "trivy",
+      "n10": 70,
+      "n01": 96,
+      "p": 0.05200575499696468,
+      "p_adj": 0.10401150999392936
+    },
+    {
+      "tool_a": "dtrack",
+      "tool_b": "snyk",
+      "n10": 192,
+      "n01": 182,
+      "p": 0.641718581977318,
+      "p_adj": 0.641718581977318
+    }
+  ]
+}

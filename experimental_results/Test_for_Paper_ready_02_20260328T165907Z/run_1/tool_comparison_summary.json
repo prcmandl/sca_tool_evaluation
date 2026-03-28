@@ -1,0 +1,81 @@
+{
+  "baseline": "oss-index",
+  "markers": {
+    "trivy": "*",
+    "github": "*",
+    "snyk": "*",
+    "dtrack": "*"
+  },
+  "tools": [
+    {
+      "tool": "trivy",
+      "ecosystems": [
+        "maven",
+        "npm",
+        "nuget",
+        "pypi"
+      ],
+      "mean_recall": 0.961,
+      "mean_overlap": 0.7815159262651199,
+      "total_tp": 961.0,
+      "total_fp": 326.0,
+      "total_fn": 39.0
+    },
+    {
+      "tool": "github",
+      "ecosystems": [
+        "maven",
+        "npm",
+        "nuget",
+        "pypi"
+      ],
+      "mean_recall": 0.948,
+      "mean_overlap": 0.5365124137249423,
+      "total_tp": 948.0,
+      "total_fp": 931.0,
+      "total_fn": 52.0
+    },
+    {
+      "tool": "dtrack",
+      "ecosystems": [
+        "maven",
+        "npm",
+        "nuget",
+        "pypi"
+      ],
+      "mean_recall": 0.907,
+      "mean_overlap": 0.7713517206784117,
+      "total_tp": 907.0,
+      "total_fp": 322.0,
+      "total_fn": 93.0
+    },
+    {
+      "tool": "snyk",
+      "ecosystems": [
+        "maven",
+        "npm",
+        "nuget",
+        "pypi"
+      ],
+      "mean_recall": 0.9019999999999999,
+      "mean_overlap": 0.706573202342256,
+      "total_tp": 902.0,
+      "total_fp": 496.0,
+      "total_fn": 98.0
+    },
+    {
+      "tool": "oss-index",
+      "ecosystems": [
+        "maven",
+        "npm",
+        "nuget",
+        "pypi"
+      ],
+      "mean_recall": 0.614,
+      "mean_overlap": 0.7966709624068384,
+      "total_tp": 614.0,
+      "total_fp": 237.0,
+      "total_fn": 386.0
+    }
+  ]
+}

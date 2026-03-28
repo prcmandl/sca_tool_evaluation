@@ -6,7 +6,7 @@ log = logging.getLogger("evaluation.analysis.plots")
 
 def plot_significance_matrix(rows, tools, output_dir):
     """
-    Creates a significance heatmap from McNemar results
+    Creates a significance heatmap from McNemar experimental_results
     in grayscale.
     """
     n = len(tools)

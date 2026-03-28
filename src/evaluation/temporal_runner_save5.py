@@ -292,7 +292,7 @@ def write_repeat_comparison_outputs(run_dir: Path, summary: dict) -> None:
 def build_tool_comparison_summary(final_metrics: dict, significance_rows: list[dict]) -> dict:
     """
     Build a compact comparison summary across tools using per-ecosystem
-    metrics and, where available, pairwise McNemar/Holm results.
+    metrics and, where available, pairwise McNemar/Holm experimental_results.
     """
     per_tool = {}
     for tool, ecos in final_metrics.items():
@@ -556,7 +556,7 @@ def run_temporal(gt_path: str, sbom_path: str | None, output_dir: str) -> None:
     comparison_summary = build_tool_comparison_summary(final_metrics, rows)
     write_tool_comparison_outputs(run_dir, comparison_summary)
 
-    with (run_dir / "results.json").open("w", encoding="utf-8") as f:
+    with (run_dir / "experimental_results.json").open("w", encoding="utf-8") as f:
         json.dump(final_metrics, f, indent=2)
 
     write_run_status(

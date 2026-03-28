@@ -1,0 +1,1609 @@
+[17:59:07 CET] RUN_ID=20260328T165907Z
+[17:59:07 CET] PROJECT_ROOT=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation
+[17:59:07 CET] CODEBASE=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation
+[17:59:07 CET] Experiment dir: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z
+[17:59:07 CET] GROUND_TRUTH_ROOT=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build
+[17:59:07 CET] [DTRACK] Project name: eval_20260328T165907Z
+[17:59:07 CET] MAX_FULL_ATTEMPTS=2
+
+============================================================
+Configuration
+============================================================
+[17:59:07 CET] EVAL_TOOLS=snyk oss-index github trivy dtrack
+[17:59:07 CET] NUM_RUNS=1
+[17:59:07 CET] EXPERIMENT_PATH=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments
+
+============================================================
+Checking tool setup
+============================================================
+[17:59:07 CET] Snyk CLI available
+[17:59:07 CET] jq available
+
+============================================================
+Running temporal evaluation
+============================================================
+[17:59:07 CET] Starting temporal run 1/1 (attempt 1)
+17:59:08 | INFO  | === collecting nuget ===
+17:59:08 | INFO  | NuGet scope: using 500/500 packages
+17:59:08 | INFO  | NuGet config | max_versions_per_package=20 | max_osv_entries_per_component=10 | target_vulns=250 | early_stop=True
+17:59:13 | INFO  | [1/500] Processing package Asp.Versioning.Mvc; 0 vulnerabilities
+17:59:16 | INFO  | [2/500] Processing package Asp.Versioning.Mvc.ApiExplorer; 0 vulnerabilities
+17:59:22 | INFO  | [3/500] Processing package AspNetCore.HealthChecks.UI; 0 vulnerabilities
+17:59:24 | INFO  | [4/500] Processing package AspNetCoreRateLimit; 0 vulnerabilities
+17:59:25 | INFO  | [5/500] Processing package Azure.Extensions.AspNetCore.Configuration.AppConfiguration; no versions found
+17:59:28 | INFO  | [6/500] Processing package Azure.Extensions.AspNetCore.Configuration.Secrets; 0 vulnerabilities
+17:59:30 | INFO  | [7/500] Processing package Azure.Monitor.OpenTelemetry.AspNetCore; 0 vulnerabilities
+17:59:36 | INFO  | [8/500] Processing package Elastic.Apm.AspNetCore; 0 vulnerabilities
+17:59:36 | INFO  | [9/500] Processing package FluentValidation.AspNetCore; no versions found
+17:59:38 | INFO  | [10/500] Processing package Google.Cloud.Diagnostics.AspNetCore3; 0 vulnerabilities
+17:59:38 | INFO  | [11/500] Processing package GraphQL; no versions found
+17:59:44 | INFO  | [12/500] Processing package GraphQL.Server.Transports.AspNetCore; 0 vulnerabilities
+17:59:50 | INFO  | [13/500] Processing package GraphQL.SystemTextJson; 0 vulnerabilities
+17:59:56 | INFO  | [14/500] Processing package Grpc.AspNetCore; 0 vulnerabilities
+18:00:02 | INFO  | [15/500] Processing package Hangfire.AspNetCore; 0 vulnerabilities
+18:00:02 | INFO  | [16/500] Processing package HealthChecks.UI.Client; no versions found
+18:00:08 | INFO  | [17/500] Processing package Hellang.Middleware.ProblemDetails; 0 vulnerabilities
+18:00:08 | INFO  | [18/500] Processing package HotChocolate.AspNetCore; no versions found
+18:00:08 | INFO  | [19/500] Processing package HotChocolate.AspNetCore.Authorization; no versions found
+18:00:14 | INFO  | [20/500] Processing package HotChocolate.Data.EntityFramework; 0 vulnerabilities
+18:00:15 | INFO  | [21/500] Processing package IdentityModel.AspNetCore; 0 vulnerabilities (no versions in date window)
+18:00:15 | INFO  | [22/500] Processing package Marten.AspNetCore; no versions found
+18:00:17 | INFO  | [23/500] Processing package Marvin.Cache.Headers; 0 vulnerabilities
+18:00:23 | INFO  | [24/500] Processing package MassTransit.AspNetCore; 0 vulnerabilities
+18:00:27 | INFO  | [25/500] Processing package Microsoft.ApplicationInsights.AspNetCore; 0 vulnerabilities
+18:00:28 | INFO  | [26/500] Processing package Microsoft.AspNetCore.Authentication.Cookies; 0 vulnerabilities
+18:00:29 | INFO  | [27/500] Processing package Microsoft.AspNetCore.Authentication.JwtBearer; no versions found
+18:00:29 | INFO  | [28/500] Processing package Microsoft.AspNetCore.Authentication.Negotiate; no versions found
+18:00:29 | INFO  | [29/500] Processing package Microsoft.AspNetCore.Authentication.OpenIdConnect; no versions found
+18:00:29 | INFO  | [30/500] Processing package Microsoft.AspNetCore.Authentication.WsFederation; no versions found
+18:00:29 | INFO  | [31/500] Processing package Microsoft.AspNetCore.Authorization; no versions found
+18:00:30 | INFO  | [32/500] Processing package Microsoft.AspNetCore.Authorization.Policy; 0 vulnerabilities
+18:00:31 | INFO  | [33/500] Processing package Microsoft.AspNetCore.DataProtection; no versions found
+18:00:37 | INFO  | [34/500] Processing package Microsoft.AspNetCore.DataProtection.AzureStorage; 0 vulnerabilities
+18:00:37 | INFO  | [35/500] Processing package Microsoft.AspNetCore.DataProtection.StackExchangeRedis; no versions found
+18:00:39 | INFO  | [36/500] Processing package Microsoft.AspNetCore.Http; 0 vulnerabilities
+18:00:40 | INFO  | [37/500] Processing package Microsoft.AspNetCore.Http.Abstractions; 0 vulnerabilities
+18:00:41 | INFO  | [38/500] Processing package Microsoft.AspNetCore.Http.Extensions; 0 vulnerabilities
+18:00:47 | INFO  | [39/500] Processing package Microsoft.AspNetCore.Http.Features; 0 vulnerabilities
+18:00:49 | INFO  | [40/500] Processing package Microsoft.AspNetCore.Identity; 2 vulnerabilities
+18:00:50 | INFO  | [41/500] Processing package Microsoft.AspNetCore.Identity.EntityFrameworkCore; no versions found
+18:00:50 | INFO  | [42/500] Processing package Microsoft.AspNetCore.Identity.UI; no versions found
+18:00:51 | INFO  | [43/500] Processing package Microsoft.AspNetCore.Mvc; 0 vulnerabilities
+18:00:53 | INFO  | [44/500] Processing package Microsoft.AspNetCore.Mvc.Core; 0 vulnerabilities
+18:00:54 | INFO  | [45/500] Processing package Microsoft.AspNetCore.Mvc.NewtonsoftJson; no versions found
+18:00:55 | INFO  | [46/500] Processing package Microsoft.AspNetCore.Mvc.Versioning; 0 vulnerabilities
+18:00:56 | INFO  | [47/500] Processing package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer; 0 vulnerabilities
+18:01:02 | INFO  | [48/500] Processing package Microsoft.AspNetCore.OpenApi; 0 vulnerabilities
+18:01:03 | INFO  | [49/500] Processing package Microsoft.AspNetCore.ResponseCompression; 0 vulnerabilities
+18:01:04 | INFO  | [50/500] Processing package Microsoft.AspNetCore.Rewrite; 0 vulnerabilities
+18:01:05 | INFO  | [51/500] Processing package Microsoft.AspNetCore.Routing; 0 vulnerabilities
+18:01:06 | INFO  | [52/500] Processing package Microsoft.AspNetCore.SignalR; 0 vulnerabilities
+18:01:06 | INFO  | [53/500] Processing package Microsoft.AspNetCore.SignalR.Client; no versions found
+18:01:06 | INFO  | [54/500] Processing package Microsoft.AspNetCore.SignalR.Protocols.Json; no versions found
+18:01:07 | INFO  | [55/500] Processing package Microsoft.AspNetCore.SpaServices.Extensions; no versions found
+18:01:08 | INFO  | [56/500] Processing package Microsoft.AspNetCore.StaticFiles; 0 vulnerabilities
+18:01:15 | INFO  | [57/500] Processing package Microsoft.AspNetCore.WebUtilities; 0 vulnerabilities
+18:01:22 | INFO  | [58/500] Processing package Microsoft.Azure.AppConfiguration.AspNetCore; 0 vulnerabilities
+18:01:28 | INFO  | [59/500] Processing package Microsoft.OpenApi; 0 vulnerabilities
+18:01:34 | INFO  | [60/500] Processing package NLog.Web.AspNetCore; 0 vulnerabilities
+18:01:34 | INFO  | [61/500] Processing package NSwag.AspNetCore; no versions found
+18:01:34 | INFO  | [62/500] Processing package NSwag.CodeGeneration.CSharp; no versions found
+18:01:34 | INFO  | [63/500] Processing package NSwag.CodeGeneration.TypeScript; no versions found
+18:01:35 | INFO  | [64/500] Processing package NSwag.MSBuild; no versions found
+18:01:39 | INFO  | [65/500] Processing package OpenTelemetry.Instrumentation.AspNetCore; 4 vulnerabilities
+18:01:40 | INFO  | [66/500] Processing package ProblemDetails; 0 vulnerabilities
+18:01:46 | INFO  | [67/500] Processing package Quartz.AspNetCore; 0 vulnerabilities
+18:01:46 | INFO  | [68/500] Processing package Sentry.AspNetCore; no versions found
+18:01:50 | INFO  | [69/500] Processing package Serilog.AspNetCore; 0 vulnerabilities
+18:01:56 | INFO  | [70/500] Processing package Swashbuckle.AspNetCore; 0 vulnerabilities
+18:02:02 | INFO  | [71/500] Processing package Swashbuckle.AspNetCore.Annotations; 0 vulnerabilities
+18:02:07 | INFO  | [72/500] Processing package Swashbuckle.AspNetCore.Newtonsoft; 0 vulnerabilities
+18:02:11 | INFO  | [73/500] Processing package Yarp.ReverseProxy; 6 vulnerabilities
+18:02:11 | INFO  | [74/500] Processing package prometheus-net.AspNetCore; no versions found
+18:02:18 | INFO  | [75/500] Processing package protobuf-net.Grpc.AspNetCore; 0 vulnerabilities
+18:02:25 | INFO  | [76/500] Processing package Azure.Identity; 33 vulnerabilities
+18:02:27 | INFO  | [77/500] Processing package Azure.Security.KeyVault.Administration; 0 vulnerabilities
+18:02:31 | INFO  | [78/500] Processing package Azure.Security.KeyVault.Certificates; 0 vulnerabilities
+18:02:35 | INFO  | [79/500] Processing package Azure.Security.KeyVault.Keys; 0 vulnerabilities
+18:02:38 | INFO  | [80/500] Processing package Azure.Security.KeyVault.Secrets; 0 vulnerabilities
+18:02:39 | INFO  | [81/500] Processing package BCrypt.Net; 0 vulnerabilities (no versions in date window)
+18:02:39 | INFO  | [82/500] Processing package BCrypt.Net-Core; 0 vulnerabilities (no versions in date window)
+18:02:44 | INFO  | [83/500] Processing package BouncyCastle.Cryptography; 18 vulnerabilities
+18:02:48 | INFO  | [84/500] Processing package Duende.AccessTokenManagement; 3 vulnerabilities
+18:02:55 | INFO  | [85/500] Processing package Duende.IdentityServer; 8 vulnerabilities
+18:02:55 | INFO  | [86/500] Processing package Ganss.XSS; no versions found
+18:03:02 | INFO  | [87/500] Processing package HtmlSanitizer; 30 vulnerabilities
+18:03:03 | INFO  | [88/500] Processing package IdentityModel; no versions found
+18:03:03 | INFO  | [89/500] Processing package IdentityModel.OidcClient; 0 vulnerabilities (no versions in date window)
+18:03:03 | INFO  | [90/500] Processing package IdentityServer4; 0 vulnerabilities (no versions in date window)
+18:03:04 | INFO  | [91/500] Processing package Jose.JWT; no versions found
+18:03:04 | INFO  | [92/500] Processing package Microsoft.Identity.Client; no versions found
+18:03:04 | INFO  | [93/500] Processing package Microsoft.Identity.Web; no versions found
+18:03:13 | INFO  | [94/500] Processing package Microsoft.IdentityModel.JsonWebTokens; 10 vulnerabilities
+18:03:14 | INFO  | [95/500] Processing package Microsoft.IdentityModel.Logging; no versions found
+18:03:14 | INFO  | [96/500] Processing package Microsoft.IdentityModel.Protocols.OpenIdConnect; no versions found
+18:03:14 | INFO  | [97/500] Processing package NaCl.Core; 0 vulnerabilities
+18:03:17 | INFO  | [98/500] Processing package Portable.BouncyCastle; 0 vulnerabilities
+18:03:19 | INFO  | [99/500] Processing package Sodium.Core; 0 vulnerabilities
+18:03:19 | INFO  | [100/500] Processing package System.IdentityModel.Tokens.Jwt; no versions found
+18:03:20 | INFO  | [101/500] Processing package System.Security.Cryptography.OpenSsl; 0 vulnerabilities
+18:03:25 | INFO  | [102/500] Processing package System.Security.Cryptography.Xml; 1 vulnerabilities
+18:03:31 | INFO  | [103/500] Processing package CassandraCSharpDriver; 0 vulnerabilities
+18:03:31 | INFO  | [104/500] Processing package CouchbaseNetClient; no versions found
+18:03:36 | INFO  | [105/500] Processing package Dapper; 0 vulnerabilities
+18:03:38 | INFO  | [106/500] Processing package DbUp; 0 vulnerabilities
+18:03:43 | INFO  | [107/500] Processing package Dommel; 0 vulnerabilities
+18:03:43 | INFO  | [108/500] Processing package EFCore.BulkExtensions; no versions found
+18:03:48 | INFO  | [109/500] Processing package Elsa.EntityFrameworkCore; 0 vulnerabilities
+18:03:49 | INFO  | [110/500] Processing package EntityFramework; 0 vulnerabilities
+18:03:49 | INFO  | [111/500] Processing package EntityFramework.SqlServer; no versions found
+18:03:51 | INFO  | [112/500] Processing package EntityFrameworkCore.Triggers; 0 vulnerabilities
+18:03:57 | INFO  | [113/500] Processing package FluentMigrator; 0 vulnerabilities
+18:04:03 | INFO  | [114/500] Processing package FluentMigrator.Runner; 0 vulnerabilities
+18:04:03 | INFO  | [115/500] Processing package FreeSql; no versions found
+18:04:04 | INFO  | [116/500] Processing package FreeSql.Provider.SqlServer; no versions found
+18:04:04 | INFO  | [117/500] Processing package FreeSql.Provider.Sqlite; no versions found
+18:04:04 | INFO  | [118/500] Processing package Hangfire.SqlServer; no versions found
+18:04:09 | INFO  | [119/500] Processing package InfluxDB.Client; 0 vulnerabilities
+18:04:17 | INFO  | [120/500] Processing package LiteDB; 11 vulnerabilities
+18:04:17 | INFO  | [121/500] Processing package Marten; no versions found
+18:04:18 | INFO  | [122/500] Processing package Microsoft.Azure.Cosmos; no versions found
+18:04:25 | INFO  | [123/500] Processing package Microsoft.Data.SqlClient; 13 vulnerabilities
+18:04:25 | INFO  | [124/500] Processing package Microsoft.Data.Sqlite; no versions found
+18:04:25 | INFO  | [125/500] Processing package Microsoft.EntityFrameworkCore; no versions found
+18:04:26 | INFO  | [126/500] Processing package Microsoft.EntityFrameworkCore.Design; no versions found
+18:04:26 | INFO  | [127/500] Processing package Microsoft.EntityFrameworkCore.InMemory; no versions found
+18:04:26 | INFO  | [128/500] Processing package Microsoft.EntityFrameworkCore.Proxies; no versions found
+18:04:26 | INFO  | [129/500] Processing package Microsoft.EntityFrameworkCore.Relational; no versions found
+18:04:26 | INFO  | [130/500] Processing package Microsoft.EntityFrameworkCore.SqlServer; no versions found
+18:04:27 | INFO  | [131/500] Processing package Microsoft.EntityFrameworkCore.Sqlite; no versions found
+18:04:27 | INFO  | [132/500] Processing package Microsoft.EntityFrameworkCore.Tools; no versions found
+18:04:34 | INFO  | [133/500] Processing package MongoDB.Driver; 10 vulnerabilities
+18:04:34 | INFO  | [134/500] Processing package MySql.EntityFrameworkCore; no versions found
+18:04:34 | INFO  | [135/500] Processing package MySqlConnector; no versions found
+18:04:34 | INFO  | [136/500] Processing package NPoco; no versions found
+18:04:40 | INFO  | [137/500] Processing package Neo4j.Driver; 0 vulnerabilities
+18:04:40 | INFO  | [138/500] Processing package Npgsql; no versions found
+18:04:46 | INFO  | [139/500] Processing package Oracle.EntityFrameworkCore; 0 vulnerabilities
+18:04:53 | INFO  | [140/500] Processing package Oracle.ManagedDataAccess.Core; 7 vulnerabilities
+18:04:53 | INFO  | [141/500] Processing package PetaPoco.Core; no versions found
+18:04:53 | INFO  | [142/500] Processing package Pomelo.EntityFrameworkCore.MySql; no versions found
+18:04:53 | INFO  | [143/500] Processing package RavenDB.Client; no versions found
+18:04:59 | INFO  | [144/500] Processing package Realm; 0 vulnerabilities
+18:04:59 | INFO  | [145/500] Processing package RepoDb; no versions found
+18:05:05 | INFO  | [146/500] Processing package RepoDb.SqlServer; 0 vulnerabilities
+18:05:07 | INFO  | [147/500] Processing package Respawn; 0 vulnerabilities
+18:05:08 | INFO  | [148/500] Processing package RoundhousE; 0 vulnerabilities
+18:05:11 | INFO  | [149/500] Processing package SqlKata; 0 vulnerabilities
+18:05:14 | INFO  | [150/500] Processing package SqlKata.Execution; 0 vulnerabilities
+18:05:14 | INFO  | [151/500] Processing package SqlSugarCore; no versions found
+18:05:20 | INFO  | [152/500] Processing package System.Data.Odbc; 0 vulnerabilities
+18:05:25 | INFO  | [153/500] Processing package System.Data.OleDb; 0 vulnerabilities
+18:05:29 | INFO  | [154/500] Processing package System.Data.SqlClient; 11 vulnerabilities
+18:05:29 | INFO  | [155/500] Processing package Z.EntityFramework.Plus.EFCore; no versions found
+18:05:29 | INFO  | [156/500] Processing package linq2db; no versions found
+18:05:36 | INFO  | [157/500] Processing package linq2db.PostgreSQL; 0 vulnerabilities
+18:05:42 | INFO  | [158/500] Processing package linq2db.SqlServer; 0 vulnerabilities
+18:05:42 | INFO  | [159/500] Processing package ActiveMQ.Artemis.Client; no versions found
+18:05:42 | INFO  | [160/500] Processing package Akka; no versions found
+18:05:43 | INFO  | [161/500] Processing package Akka.Cluster; no versions found
+18:05:43 | INFO  | [162/500] Processing package Akka.Persistence; no versions found
+18:05:43 | INFO  | [163/500] Processing package Akka.Remote; no versions found
+18:05:44 | INFO  | [164/500] Processing package Apache.NMS; 0 vulnerabilities
+18:05:48 | INFO  | [165/500] Processing package Apache.NMS.ActiveMQ; 4 vulnerabilities
+18:05:54 | INFO  | [166/500] Processing package Azure.Messaging.ServiceBus; 0 vulnerabilities
+18:05:54 | INFO  | [167/500] Processing package CAP; 0 vulnerabilities (no versions in date window)
+18:05:54 | INFO  | [168/500] Processing package CacheManager.Core; 0 vulnerabilities
+18:05:54 | INFO  | [169/500] Processing package CacheTower; no versions found
+18:05:55 | INFO  | [170/500] Processing package Confluent.Kafka; no versions found
+18:06:00 | INFO  | [171/500] Processing package Coravel; 0 vulnerabilities
+18:06:06 | INFO  | [172/500] Processing package DistributedLock; 0 vulnerabilities
+18:06:12 | INFO  | [173/500] Processing package DotPulsar; 0 vulnerabilities
+18:06:12 | INFO  | [174/500] Processing package EasyCaching.Core; no versions found
+18:06:13 | INFO  | [175/500] Processing package EasyCaching.Redis; no versions found
+18:06:13 | INFO  | [176/500] Processing package EasyNetQ; no versions found
+18:06:13 | INFO  | [177/500] Processing package Elsa; no versions found
+18:06:19 | INFO  | [178/500] Processing package Elsa.Activities.Http; 0 vulnerabilities
+18:06:20 | INFO  | [179/500] Processing package FusionCache; no versions found
+18:06:20 | INFO  | [180/500] Processing package Hangfire.Core; no versions found
+18:06:24 | INFO  | [181/500] Processing package Hangfire.Redis.StackExchange; 0 vulnerabilities
+18:06:30 | INFO  | [182/500] Processing package KafkaFlow; 0 vulnerabilities
+18:06:33 | INFO  | [183/500] Processing package LazyCache; 0 vulnerabilities
+18:06:33 | INFO  | [184/500] Processing package MQTTnet; no versions found
+18:06:33 | INFO  | [185/500] Processing package MassTransit; no versions found
+18:06:33 | INFO  | [186/500] Processing package MassTransit.Azure.ServiceBus.Core; no versions found
+18:06:33 | INFO  | [187/500] Processing package MassTransit.RabbitMQ; no versions found
+18:06:34 | INFO  | [188/500] Processing package Microsoft.Extensions.Caching.StackExchangeRedis; no versions found
+18:06:34 | INFO  | [189/500] Processing package NServiceBus; no versions found
+18:06:34 | INFO  | [190/500] Processing package NServiceBus.RabbitMQ; no versions found
+18:06:40 | INFO  | [191/500] Processing package NServiceBus.Transport.AzureServiceBus; 0 vulnerabilities
+18:06:44 | INFO  | [192/500] Processing package NetMQ; 0 vulnerabilities
+18:06:44 | INFO  | [193/500] Processing package Orleans; no versions found
+18:06:46 | INFO  | [194/500] Processing package Orleans.Clustering.Redis; 0 vulnerabilities
+18:06:47 | INFO  | [195/500] Processing package Orleans.Serialization.SystemTextJson; no versions found
+18:06:47 | INFO  | [196/500] Processing package Orleans.Server; no versions found
+18:06:53 | INFO  | [197/500] Processing package Quartz; 0 vulnerabilities
+18:06:54 | INFO  | [198/500] Processing package RabbitMQ.Client; no versions found
+18:06:54 | INFO  | [199/500] Processing package Rebus; no versions found
+18:06:55 | INFO  | [200/500] Processing package Rebus.AzureServiceBus; no versions found
+18:06:55 | INFO  | [201/500] Processing package Rebus.RabbitMq; no versions found
+18:07:01 | INFO  | [202/500] Processing package Rebus.ServiceProvider; 0 vulnerabilities
+18:07:02 | INFO  | [203/500] Processing package RedLock.net; 0 vulnerabilities
+18:07:02 | INFO  | [204/500] Processing package StackExchange.Redis; no versions found
+18:07:08 | INFO  | [205/500] Processing package StackExchange.Redis.Extensions.Core; 0 vulnerabilities
+18:07:14 | INFO  | [206/500] Processing package StackExchange.Redis.Extensions.Newtonsoft; 0 vulnerabilities
+18:07:20 | INFO  | [207/500] Processing package System.Runtime.Caching; 0 vulnerabilities
+18:07:26 | INFO  | [208/500] Processing package WorkflowCore; 0 vulnerabilities
+18:07:27 | INFO  | [209/500] Processing package App.Metrics; 0 vulnerabilities
+18:07:33 | INFO  | [210/500] Processing package Elastic.Apm.NetCoreAll; 0 vulnerabilities
+18:07:35 | INFO  | [211/500] Processing package Jaeger; 0 vulnerabilities
+18:07:36 | INFO  | [212/500] Processing package Microsoft.ApplicationInsights; no versions found
+18:07:37 | INFO  | [213/500] Processing package MiniProfiler; 0 vulnerabilities
+18:07:37 | INFO  | [214/500] Processing package NLog; no versions found
+18:07:45 | INFO  | [215/500] Processing package NLog.Extensions.Logging; 0 vulnerabilities
+18:07:51 | INFO  | [216/500] Processing package OpenTelemetry; 0 vulnerabilities
+18:07:57 | INFO  | [217/500] Processing package OpenTelemetry.Api; 0 vulnerabilities
+18:08:03 | INFO  | [218/500] Processing package OpenTelemetry.Exporter.Console; 0 vulnerabilities
+18:08:05 | INFO  | [219/500] Processing package OpenTelemetry.Exporter.Jaeger; 0 vulnerabilities
+18:08:11 | INFO  | [220/500] Processing package OpenTelemetry.Exporter.OpenTelemetryProtocol; 0 vulnerabilities
+18:08:16 | INFO  | [221/500] Processing package OpenTelemetry.Exporter.Zipkin; 0 vulnerabilities
+18:08:23 | INFO  | [222/500] Processing package OpenTelemetry.Extensions.Hosting; 0 vulnerabilities
+18:08:27 | INFO  | [223/500] Processing package OpenTelemetry.Instrumentation.Http; 4 vulnerabilities
+18:08:31 | INFO  | [224/500] Processing package OpenTelemetry.Instrumentation.Runtime; 0 vulnerabilities
+18:08:31 | INFO  | [225/500] Processing package OpenTracing; 0 vulnerabilities (no versions in date window)
+18:08:32 | INFO  | [226/500] Processing package OpenTracing.Contrib.NetCore; 0 vulnerabilities
+18:08:33 | INFO  | [227/500] Processing package Sentry; no versions found
+18:08:33 | INFO  | [228/500] Processing package Sentry.Serilog; no versions found
+18:08:33 | INFO  | [229/500] Processing package Serilog; no versions found
+18:08:33 | INFO  | [230/500] Processing package Serilog.Exceptions; 0 vulnerabilities (no versions in date window)
+18:08:35 | INFO  | [231/500] Processing package Serilog.Extensions.Logging; 0 vulnerabilities
+18:08:36 | INFO  | [232/500] Processing package Serilog.Formatting.Compact; 0 vulnerabilities
+18:08:36 | INFO  | [233/500] Processing package Serilog.Settings.Configuration; no versions found
+18:08:37 | INFO  | [234/500] Processing package Serilog.Sinks.ApplicationInsights; no versions found
+18:08:38 | INFO  | [235/500] Processing package Serilog.Sinks.Async; 0 vulnerabilities
+18:08:40 | INFO  | [236/500] Processing package Serilog.Sinks.Console; 0 vulnerabilities
+18:08:41 | INFO  | [237/500] Processing package Serilog.Sinks.Debug; 0 vulnerabilities
+18:08:42 | INFO  | [238/500] Processing package Serilog.Sinks.File; 0 vulnerabilities
+18:08:42 | INFO  | [239/500] Processing package Serilog.Sinks.RollingFile; 0 vulnerabilities (no versions in date window)
+18:08:42 | INFO  | [240/500] Processing package Serilog.Sinks.Seq; no versions found
+18:08:48 | INFO  | [241/500] Processing package Steeltoe.CircuitBreaker.HystrixCore; 0 vulnerabilities
+18:08:48 | INFO  | [242/500] Processing package Steeltoe.Configuration.ConfigServerCore; no versions found
+18:08:56 | INFO  | [243/500] Processing package Steeltoe.Discovery.ClientCore; 20 vulnerabilities
+18:09:02 | INFO  | [244/500] Processing package Steeltoe.Management.EndpointCore; 0 vulnerabilities
+18:09:02 | INFO  | [245/500] Processing package Zipkin; 0 vulnerabilities (no versions in date window)
+18:09:07 | INFO  | [246/500] Processing package log4net; 0 vulnerabilities
+18:09:07 | INFO  | [247/500] Processing package prometheus-net; no versions found
+18:09:07 | INFO  | [248/500] Processing package AWSSDK.CloudWatchLogs; no versions found
+18:09:08 | INFO  | [249/500] Processing package AWSSDK.Core; no versions found
+18:09:08 | INFO  | [250/500] Processing package AWSSDK.DynamoDBv2; no versions found
+18:09:13 | INFO  | [251/500] Processing package AWSSDK.Extensions.NETCore.Setup; 0 vulnerabilities
+18:09:13 | INFO  | [252/500] Processing package AWSSDK.Lambda; no versions found
+18:09:14 | INFO  | [253/500] Processing package AWSSDK.S3; no versions found
+18:09:14 | INFO  | [254/500] Processing package AWSSDK.SQS; no versions found
+18:09:14 | INFO  | [255/500] Processing package AWSSDK.SecretsManager; no versions found
+18:09:14 | INFO  | [256/500] Processing package AWSSDK.SecurityToken; no versions found
+18:09:14 | INFO  | [257/500] Processing package AWSSDK.SimpleNotificationService; no versions found
+18:09:15 | INFO  | [258/500] Processing package Azure.AI.OpenAI; 0 vulnerabilities
+18:09:23 | INFO  | [259/500] Processing package Azure.Core; 0 vulnerabilities
+18:09:27 | INFO  | [260/500] Processing package Azure.Data.AppConfiguration; 0 vulnerabilities
+18:09:33 | INFO  | [261/500] Processing package Azure.Data.Tables; 0 vulnerabilities
+18:09:40 | INFO  | [262/500] Processing package Azure.Messaging.EventGrid; 0 vulnerabilities
+18:09:46 | INFO  | [263/500] Processing package Azure.Messaging.EventHubs; 0 vulnerabilities
+18:09:51 | INFO  | [264/500] Processing package Azure.Monitor.Query; 0 vulnerabilities
+18:09:54 | INFO  | [265/500] Processing package Azure.Search.Documents; 0 vulnerabilities
+18:10:01 | INFO  | [266/500] Processing package Azure.Storage.Blobs; 9 vulnerabilities
+18:10:07 | INFO  | [267/500] Processing package Azure.Storage.Files.DataLake; 0 vulnerabilities
+18:10:13 | INFO  | [268/500] Processing package Azure.Storage.Files.Shares; 0 vulnerabilities
+18:10:20 | INFO  | [269/500] Processing package Azure.Storage.Queues; 9 vulnerabilities
+18:10:27 | INFO  | [270/500] Processing package Google.Api.Gax; 0 vulnerabilities
+18:10:33 | INFO  | [271/500] Processing package Google.Api.Gax.Grpc; 0 vulnerabilities
+18:10:40 | INFO  | [272/500] Processing package Google.Cloud.Firestore; 0 vulnerabilities
+18:10:44 | INFO  | [273/500] Processing package Google.Cloud.Logging.V2; 0 vulnerabilities
+18:10:50 | INFO  | [274/500] Processing package Google.Cloud.PubSub.V1; 0 vulnerabilities
+18:10:56 | INFO  | [275/500] Processing package Google.Cloud.SecretManager.V1; 0 vulnerabilities
+18:11:02 | INFO  | [276/500] Processing package Google.Cloud.Spanner.Data; 0 vulnerabilities
+18:11:08 | INFO  | [277/500] Processing package Google.Cloud.Storage.V1; 0 vulnerabilities
+18:11:09 | INFO  | [278/500] Processing package Microsoft.Graph; no versions found
+18:11:14 | INFO  | [279/500] Processing package Microsoft.Graph.Core; 0 vulnerabilities
+18:11:16 | INFO  | [280/500] Processing package Microsoft.Rest.ClientRuntime; 2 vulnerabilities
+18:11:16 | INFO  | [281/500] Processing package AngleSharp; no versions found
+18:11:16 | INFO  | [282/500] Processing package CsvHelper; no versions found
+18:11:17 | INFO  | [283/500] Processing package CsvHelper.Configuration; no versions found
+18:11:17 | INFO  | [284/500] Processing package CsvHelper.Excel; 0 vulnerabilities (no versions in date window)
+18:11:17 | INFO  | [285/500] Processing package CsvHelper.TypeConversion; no versions found
+18:11:19 | INFO  | [286/500] Processing package FluentAssertions.Json; 0 vulnerabilities
+18:11:20 | INFO  | [287/500] Processing package GeoJSON.Text; 0 vulnerabilities
+18:11:21 | INFO  | [288/500] Processing package Google.Protobuf; no versions found
+18:11:26 | INFO  | [289/500] Processing package Handlebars.Net; 0 vulnerabilities
+18:11:26 | INFO  | [290/500] Processing package HtmlAgilityPack; no versions found
+18:11:30 | INFO  | [291/500] Processing package Humanizer; 0 vulnerabilities
+18:11:30 | INFO  | [292/500] Processing package Jil; 0 vulnerabilities (no versions in date window)
+18:11:30 | INFO  | [293/500] Processing package JsonEverything.JsonSchema; no versions found
+18:11:32 | INFO  | [294/500] Processing package JsonSubTypes; 0 vulnerabilities
+18:11:32 | INFO  | [295/500] Processing package LanguageExt.Core; no versions found
+18:11:32 | INFO  | [296/500] Processing package MailKit; no versions found
+18:11:32 | INFO  | [297/500] Processing package Markdig; no versions found
+18:11:32 | INFO  | [298/500] Processing package MessagePack; no versions found
+18:11:39 | INFO  | [299/500] Processing package MessagePack.Annotations; 0 vulnerabilities
+18:11:45 | INFO  | [300/500] Processing package Microsoft.Extensions.Configuration.Json; 0 vulnerabilities
+18:11:49 | INFO  | [301/500] Processing package Mime-Detective; 0 vulnerabilities
+18:11:50 | INFO  | [302/500] Processing package MimeKit; no versions found
+18:11:52 | INFO  | [303/500] Processing package MoreLinq; 0 vulnerabilities
+18:11:52 | INFO  | [304/500] Processing package NJsonSchema; no versions found
+18:11:57 | INFO  | [305/500] Processing package NJsonSchema.Annotations; 0 vulnerabilities
+18:11:58 | INFO  | [306/500] Processing package Newtonsoft.Json; 0 vulnerabilities
+18:11:58 | INFO  | [307/500] Processing package Newtonsoft.Json.Bson; 0 vulnerabilities
+18:12:08 | INFO  | [308/500] Processing package OneOf; 0 vulnerabilities
+18:12:10 | INFO  | [309/500] Processing package RazorLight; 0 vulnerabilities
+18:12:10 | INFO  | [310/500] Processing package ReactiveUI; no versions found
+18:12:11 | INFO  | [311/500] Processing package ReactiveUI.Fody; no versions found
+18:12:17 | INFO  | [312/500] Processing package ReverseMarkdown; 0 vulnerabilities
+18:12:17 | INFO  | [313/500] Processing package Scriban; no versions found
+18:12:17 | INFO  | [314/500] Processing package ServiceStack.Text; no versions found
+18:12:23 | INFO  | [315/500] Processing package System.Collections.Immutable; 0 vulnerabilities
+18:12:29 | INFO  | [316/500] Processing package System.Formats.Asn1; 3 vulnerabilities
+18:12:36 | INFO  | [317/500] Processing package System.Formats.Cbor; 0 vulnerabilities
+18:12:38 | INFO  | [318/500] Processing package System.Reactive; 0 vulnerabilities
+18:12:40 | INFO  | [319/500] Processing package System.Reactive.Interfaces; 0 vulnerabilities
+18:12:43 | INFO  | [320/500] Processing package System.Reactive.Linq; 0 vulnerabilities
+18:12:51 | INFO  | [321/500] Processing package System.Text.Encodings.Web; 2 vulnerabilities
+18:12:58 | INFO  | [322/500] Processing package System.Text.Json; 11 vulnerabilities
+18:12:58 | INFO  | [323/500] Processing package System.Text.RegularExpressions; 0 vulnerabilities (no versions in date window)
+18:12:59 | INFO  | [324/500] Processing package Utf8Json; 0 vulnerabilities (no versions in date window)
+18:13:00 | INFO  | [325/500] Processing package ValueOf; 0 vulnerabilities
+18:13:00 | INFO  | [326/500] Processing package YamlDotNet; no versions found
+18:13:01 | INFO  | [327/500] Processing package YamlDotNet.Analyzers; no versions found
+18:13:06 | INFO  | [328/500] Processing package protobuf-net; 0 vulnerabilities
+18:13:12 | INFO  | [329/500] Processing package protobuf-net.Grpc; 0 vulnerabilities
+18:13:18 | INFO  | [330/500] Processing package BarcodeLib; 0 vulnerabilities
+18:13:23 | INFO  | [331/500] Processing package ClosedXML; 0 vulnerabilities
+18:13:24 | INFO  | [332/500] Processing package DinkToPdf; 0 vulnerabilities (no versions in date window)
+18:13:29 | INFO  | [333/500] Processing package DocumentFormat.OpenXml; 0 vulnerabilities
+18:13:34 | INFO  | [334/500] Processing package DotNetZip; 6 vulnerabilities
+18:13:34 | INFO  | [335/500] Processing package EPPlus; no versions found
+18:13:34 | INFO  | [336/500] Processing package FastReport.OpenSource; no versions found
+18:13:34 | INFO  | [337/500] Processing package GemBox.Document; no versions found
+18:13:34 | INFO  | [338/500] Processing package GemBox.Spreadsheet; no versions found
+18:13:35 | INFO  | [339/500] Processing package HtmlRenderer.PdfSharp; 0 vulnerabilities
+18:13:35 | INFO  | [340/500] Processing package ImageMagick; no versions found
+18:13:36 | INFO  | [341/500] Processing package ImageProcessor; 0 vulnerabilities
+18:13:36 | INFO  | [342/500] Processing package ImageSharp; 0 vulnerabilities (no versions in date window)
+18:13:36 | INFO  | [343/500] Processing package Ionic.Zip; 0 vulnerabilities (no versions in date window)
+18:13:36 | INFO  | [344/500] Processing package IronPdf; no versions found
+18:13:36 | INFO  | [345/500] Processing package Magick.NET-Q8-AnyCPU; no versions found
+18:13:41 | INFO  | [346/500] Processing package NPOI; 0 vulnerabilities
+18:13:41 | INFO  | [347/500] Processing package PdfPig; no versions found
+18:13:41 | INFO  | [348/500] Processing package PdfSharpCore; no versions found
+18:13:44 | INFO  | [349/500] Processing package QRCoder; 0 vulnerabilities
+18:13:44 | INFO  | [350/500] Processing package QuestPDF; no versions found
+18:13:44 | INFO  | [351/500] Processing package SelectPdf; no versions found
+18:13:47 | INFO  | [352/500] Processing package SharpZipLib; 9 vulnerabilities
+18:13:52 | INFO  | [353/500] Processing package SixLabors.Fonts; 0 vulnerabilities
+18:13:56 | INFO  | [354/500] Processing package SixLabors.ImageSharp.Drawing; 0 vulnerabilities
+18:13:59 | INFO  | [355/500] Processing package SkiaSharp; 4 vulnerabilities
+18:13:59 | INFO  | Stopping early at 250 vulnerabilities
+18:13:59 | INFO  | === collecting maven ===
+18:14:01 | INFO  | [1/200] Processing artifact org.apache.commons:commons-lang3; 0 vulnerabilities
+18:14:02 | INFO  | [2/200] Processing artifact org.apache.commons:commons-io; 0 vulnerabilities
+18:14:03 | INFO  | [3/200] Processing artifact org.apache.commons:commons-collections4; 0 vulnerabilities
+18:14:04 | INFO  | [4/200] Processing artifact org.apache.commons:commons-compress; 0 vulnerabilities
+18:14:06 | INFO  | [5/200] Processing artifact org.apache.commons:commons-text; 1 vulnerabilities
+18:14:06 | INFO  | [6/200] Processing artifact org.apache.commons:commons-beanutils; 0 vulnerabilities
+18:14:06 | INFO  | [7/200] Processing artifact org.apache.commons:commons-fileupload; 0 vulnerabilities
+18:14:07 | INFO  | [8/200] Processing artifact org.apache.commons:commons-validator; 0 vulnerabilities
+18:14:08 | INFO  | [9/200] Processing artifact org.apache.commons:commons-exec; 0 vulnerabilities
+18:14:10 | INFO  | [10/200] Processing artifact org.apache.commons:commons-dbcp2; 0 vulnerabilities
+18:14:11 | INFO  | [11/200] Processing artifact org.apache.commons:commons-pool2; 0 vulnerabilities
+18:14:13 | INFO  | [12/200] Processing artifact org.apache.commons:commons-csv; 0 vulnerabilities
+18:14:15 | INFO  | [13/200] Processing artifact org.apache.commons:commons-math3; 0 vulnerabilities
+18:14:17 | INFO  | [14/200] Processing artifact org.apache.commons:commons-email; 0 vulnerabilities
+18:14:20 | INFO  | [15/200] Processing artifact org.apache.commons:commons-vfs2; 6 vulnerabilities
+18:14:22 | INFO  | [16/200] Processing artifact org.apache.commons:commons-configuration2; 5 vulnerabilities
+18:14:22 | INFO  | [17/200] Processing artifact org.apache.commons:commons-imaging; 0 vulnerabilities
+18:14:26 | INFO  | [18/200] Processing artifact org.apache.commons:commons-jexl3; 0 vulnerabilities
+18:14:26 | INFO  | [19/200] Processing artifact org.apache.commons:commons-cli; 0 vulnerabilities
+18:14:26 | INFO  | [20/200] Processing artifact org.apache.commons:commons-codec; 0 vulnerabilities
+18:14:28 | INFO  | [21/200] Processing artifact org.apache.logging.log4j:log4j-core; 8 vulnerabilities
+18:14:30 | INFO  | [22/200] Processing artifact org.apache.logging.log4j:log4j-api; 0 vulnerabilities
+18:14:33 | INFO  | [23/200] Processing artifact org.apache.logging.log4j:log4j-web; 0 vulnerabilities
+18:14:34 | INFO  | [24/200] Processing artifact ch.qos.logback:logback-core; 0 vulnerabilities
+18:14:36 | INFO  | [25/200] Processing artifact ch.qos.logback:logback-classic; 0 vulnerabilities
+18:14:37 | INFO  | [26/200] Processing artifact org.slf4j:slf4j-api; 0 vulnerabilities
+18:14:39 | INFO  | [27/200] Processing artifact org.slf4j:slf4j-simple; 0 vulnerabilities
+18:14:40 | INFO  | [28/200] Processing artifact org.slf4j:jcl-over-slf4j; 0 vulnerabilities
+18:14:42 | INFO  | [29/200] Processing artifact org.slf4j:jul-to-slf4j; 0 vulnerabilities
+18:14:43 | INFO  | [30/200] Processing artifact org.slf4j:log4j-over-slf4j; 0 vulnerabilities
+18:14:45 | INFO  | [31/200] Processing artifact org.springframework:spring-core; 0 vulnerabilities
+18:14:46 | INFO  | [32/200] Processing artifact org.springframework:spring-context; 0 vulnerabilities
+18:14:48 | INFO  | [33/200] Processing artifact org.springframework:spring-beans; 0 vulnerabilities
+18:14:49 | INFO  | [34/200] Processing artifact org.springframework:spring-aop; 0 vulnerabilities
+18:14:55 | INFO  | [35/200] Processing artifact org.springframework:spring-expression; 40 vulnerabilities
+18:14:57 | INFO  | [36/200] Processing artifact org.springframework:spring-web; 0 vulnerabilities
+18:14:58 | INFO  | [37/200] Processing artifact org.springframework:spring-webmvc; 0 vulnerabilities
+18:15:00 | INFO  | [38/200] Processing artifact org.springframework:spring-jdbc; 0 vulnerabilities
+18:15:02 | INFO  | [39/200] Processing artifact org.springframework:spring-tx; 0 vulnerabilities
+18:15:04 | INFO  | [40/200] Processing artifact org.springframework:spring-orm; 0 vulnerabilities
+18:15:07 | INFO  | [41/200] Processing artifact org.springframework.security:spring-security-core; 25 vulnerabilities
+18:15:13 | INFO  | [42/200] Processing artifact org.springframework.security:spring-security-web; 34 vulnerabilities
+18:15:18 | INFO  | [43/200] Processing artifact org.springframework.security:spring-security-config; 0 vulnerabilities
+18:15:23 | INFO  | [44/200] Processing artifact org.springframework.security:spring-security-crypto; 10 vulnerabilities
+18:15:28 | INFO  | [45/200] Processing artifact org.springframework.security:spring-security-oauth2-core; 0 vulnerabilities
+18:15:33 | INFO  | [46/200] Processing artifact org.springframework.security:spring-security-oauth2-client; 17 vulnerabilities
+18:15:38 | INFO  | [47/200] Processing artifact org.springframework.security:spring-security-oauth2-resource-server; 0 vulnerabilities
+18:15:43 | INFO  | [48/200] Processing artifact org.springframework.boot:spring-boot; 10 vulnerabilities
+18:15:47 | INFO  | [49/200] Processing artifact org.springframework.boot:spring-boot-autoconfigure; 10 vulnerabilities
+18:15:52 | INFO  | [50/200] Processing artifact org.springframework.boot:spring-boot-starter-web; 10 vulnerabilities
+18:15:56 | INFO  | [51/200] Processing artifact org.springframework.boot:spring-boot-starter-security; 0 vulnerabilities
+18:16:00 | INFO  | [52/200] Processing artifact org.springframework.boot:spring-boot-starter-data-jpa; 0 vulnerabilities
+18:16:04 | INFO  | [53/200] Processing artifact org.springframework:spring-test; 0 vulnerabilities
+18:16:07 | INFO  | [54/200] Processing artifact org.springframework:spring-aspects; 0 vulnerabilities
+18:16:10 | INFO  | [55/200] Processing artifact org.springframework:spring-instrument; 0 vulnerabilities
+18:16:12 | INFO  | [56/200] Processing artifact org.hibernate:hibernate-core; 2 vulnerabilities
+18:16:12 | INFO  | [57/200] Processing artifact org.hibernate:hibernate-validator; 0 vulnerabilities
+18:16:13 | INFO  | [58/200] Processing artifact org.hibernate:hibernate-entitymanager; 0 vulnerabilities
+18:16:13 | INFO  | [59/200] Processing artifact javax.persistence:javax.persistence-api; 0 vulnerabilities
+18:16:15 | INFO  | [60/200] Processing artifact jakarta.persistence:jakarta.persistence-api; 0 vulnerabilities
+18:16:15 | INFO  | [61/200] Processing artifact org.hibernate.common:hibernate-commons-annotations; 0 vulnerabilities
+18:16:16 | INFO  | [62/200] Processing artifact org.hibernate:hibernate-jcache; 0 vulnerabilities
+18:16:17 | INFO  | [63/200] Processing artifact org.hibernate:hibernate-envers; 0 vulnerabilities
+18:16:18 | INFO  | [64/200] Processing artifact org.hibernate:hibernate-spatial; 0 vulnerabilities
+18:16:18 | INFO  | [65/200] Processing artifact org.hibernate:hibernate-search-engine; 0 vulnerabilities
+18:16:23 | INFO  | [66/200] Processing artifact com.fasterxml.jackson.core:jackson-core; 30 vulnerabilities
+18:16:35 | INFO  | [67/200] Processing artifact com.fasterxml.jackson.core:jackson-databind; 42 vulnerabilities
+18:16:35 | INFO  | Stopping early at 250 vulnerabilities
+18:16:35 | INFO  | === collecting pypi ===
+18:16:37 | INFO  | [1/210] Processing package requests; 21 vulnerabilities
+18:16:38 | INFO  | [2/210] Processing package urllib3; 2 vulnerabilities
+18:16:39 | INFO  | [3/210] Processing package httpx; 0 vulnerabilities
+18:16:40 | INFO  | [4/210] Processing package aiohttp; 10 vulnerabilities
+18:16:41 | INFO  | [5/210] Processing package httpcore; 0 vulnerabilities
+18:16:42 | INFO  | [6/210] Processing package h11; 3 vulnerabilities
+18:16:43 | INFO  | [7/210] Processing package h2; 2 vulnerabilities
+18:16:44 | INFO  | [8/210] Processing package wsproto; 0 vulnerabilities
+18:16:45 | INFO  | [9/210] Processing package websockets; 4 vulnerabilities
+18:16:46 | INFO  | [10/210] Processing package anyio; 0 vulnerabilities
+18:16:50 | INFO  | [11/210] Processing package flask; 2 vulnerabilities
+18:16:51 | INFO  | [12/210] Processing package django; 18 vulnerabilities
+18:16:53 | INFO  | [13/210] Processing package fastapi; 3 vulnerabilities
+18:16:54 | INFO  | [14/210] Processing package starlette; 4 vulnerabilities
+18:16:55 | INFO  | [15/210] Processing package werkzeug; 1 vulnerabilities
+18:16:57 | INFO  | [16/210] Processing package quart; 3 vulnerabilities
+18:16:57 | INFO  | [17/210] Processing package falcon; 0 vulnerabilities
+18:17:00 | INFO  | [18/210] Processing package bottle; 15 vulnerabilities
+18:17:01 | INFO  | [19/210] Processing package tornado; 5 vulnerabilities
+18:17:02 | INFO  | [20/210] Processing package sanic; 0 vulnerabilities
+18:17:03 | INFO  | [21/210] Processing package cryptography; 3 vulnerabilities
+18:17:04 | INFO  | [22/210] Processing package pyopenssl; 4 vulnerabilities
+18:17:05 | INFO  | [23/210] Processing package bcrypt; 0 vulnerabilities
+18:17:06 | INFO  | [24/210] Processing package passlib; 0 vulnerabilities
+18:17:07 | INFO  | [25/210] Processing package paramiko; 0 vulnerabilities
+18:17:08 | INFO  | [26/210] Processing package pynacl; 2 vulnerabilities
+18:17:08 | INFO  | [27/210] Processing package itsdangerous; 0 vulnerabilities
+18:17:09 | INFO  | [28/210] Processing package python-jose; 4 vulnerabilities
+18:17:11 | INFO  | [29/210] Processing package jwcrypto; 2 vulnerabilities
+18:17:12 | INFO  | [30/210] Processing package hashids; 0 vulnerabilities
+18:17:13 | INFO  | [31/210] Processing package pyyaml; 0 vulnerabilities
+18:17:14 | INFO  | [32/210] Processing package ruamel.yaml; 0 vulnerabilities
+18:17:15 | INFO  | [33/210] Processing package lxml; 0 vulnerabilities
+18:17:16 | INFO  | [34/210] Processing package beautifulsoup4; 0 vulnerabilities
+18:17:17 | INFO  | [35/210] Processing package html5lib; 0 vulnerabilities
+18:17:18 | INFO  | [36/210] Processing package markdown; 0 vulnerabilities
+18:17:19 | INFO  | [37/210] Processing package mistune; 0 vulnerabilities
+18:17:21 | INFO  | [38/210] Processing package docutils; 0 vulnerabilities
+18:17:22 | INFO  | [39/210] Processing package xmltodict; 0 vulnerabilities
+18:17:23 | INFO  | [40/210] Processing package defusedxml; 0 vulnerabilities
+18:17:24 | INFO  | [41/210] Processing package orjson; 9 vulnerabilities
+18:17:26 | INFO  | [42/210] Processing package ujson; 6 vulnerabilities
+18:17:26 | INFO  | [43/210] Processing package jsonschema; 0 vulnerabilities
+18:17:27 | INFO  | [44/210] Processing package pydantic; 0 vulnerabilities
+18:17:28 | INFO  | [45/210] Processing package msgpack; 0 vulnerabilities
+18:17:30 | INFO  | [46/210] Processing package cbor2; 1 vulnerabilities
+18:17:31 | INFO  | [47/210] Processing package marshmallow; 0 vulnerabilities
+18:17:32 | INFO  | [48/210] Processing package dataclasses-json; 0 vulnerabilities
+18:17:33 | INFO  | [49/210] Processing package jsonpickle; 0 vulnerabilities
+18:17:34 | INFO  | [50/210] Processing package simplejson; 0 vulnerabilities
+18:17:35 | INFO  | [51/210] Processing package numpy; 0 vulnerabilities
+18:17:36 | INFO  | [52/210] Processing package pandas; 0 vulnerabilities
+18:17:37 | INFO  | [53/210] Processing package scipy; 3 vulnerabilities
+18:17:38 | INFO  | [54/210] Processing package scikit-learn; 0 vulnerabilities
+18:17:39 | INFO  | [55/210] Processing package xgboost; 0 vulnerabilities
+18:17:40 | INFO  | [56/210] Processing package lightgbm; 4 vulnerabilities
+18:17:43 | INFO  | [57/210] Processing package catboost; 0 vulnerabilities
+18:17:43 | INFO  | [58/210] Processing package statsmodels; 0 vulnerabilities
+18:17:45 | INFO  | [59/210] Processing package sympy; 0 vulnerabilities
+18:17:46 | INFO  | [60/210] Processing package networkx; 0 vulnerabilities
+18:17:46 | INFO  | [61/210] Processing package torch; 0 vulnerabilities
+18:17:47 | INFO  | [62/210] Processing package torchvision; 0 vulnerabilities
+18:17:48 | INFO  | [63/210] Processing package torchaudio; 0 vulnerabilities
+18:17:54 | INFO  | [64/210] Processing package tensorflow; 30 vulnerabilities
+18:17:55 | INFO  | [65/210] Processing package keras; 21 vulnerabilities
+18:17:56 | INFO  | [66/210] Processing package jax; 0 vulnerabilities
+18:17:57 | INFO  | [67/210] Processing package flax; 0 vulnerabilities
+18:17:58 | INFO  | [68/210] Processing package transformers; 0 vulnerabilities
+18:17:59 | INFO  | [69/210] Processing package datasets; 0 vulnerabilities
+18:18:00 | INFO  | [70/210] Processing package accelerate; 0 vulnerabilities
+18:18:02 | INFO  | [71/210] Processing package pip; 24 vulnerabilities
+18:18:03 | INFO  | [72/210] Processing package setuptools; 15 vulnerabilities
+18:18:04 | INFO  | [73/210] Processing package wheel; 6 vulnerabilities
+18:18:05 | INFO  | [74/210] Processing package build; 0 vulnerabilities
+18:18:06 | INFO  | [75/210] Processing package twine; 0 vulnerabilities
+18:18:07 | INFO  | [76/210] Processing package virtualenv; 0 vulnerabilities
+18:18:08 | INFO  | [77/210] Processing package pipenv; 0 vulnerabilities
+18:18:10 | INFO  | [78/210] Processing package poetry; 0 vulnerabilities
+18:18:11 | INFO  | [79/210] Processing package installer; 0 vulnerabilities
+18:18:12 | INFO  | [80/210] Processing package distlib; 0 vulnerabilities
+18:18:13 | INFO  | [81/210] Processing package click; 0 vulnerabilities
+18:18:14 | INFO  | [82/210] Processing package typer; 0 vulnerabilities
+18:18:15 | INFO  | [83/210] Processing package rich; 0 vulnerabilities
+18:18:16 | INFO  | [84/210] Processing package loguru; 0 vulnerabilities
+18:18:16 | INFO  | [85/210] Processing package argcomplete; 0 vulnerabilities
+18:18:17 | INFO  | [86/210] Processing package colorama; 0 vulnerabilities
+18:18:19 | INFO  | [87/210] Processing package tqdm; 9 vulnerabilities
+18:18:20 | INFO  | [88/210] Processing package fire; 0 vulnerabilities
+18:18:21 | INFO  | [89/210] Processing package cement; 0 vulnerabilities
+18:18:22 | INFO  | [90/210] Processing package docopt; 0 vulnerabilities
+18:18:23 | INFO  | [91/210] Processing package trio; 0 vulnerabilities
+18:18:24 | INFO  | [92/210] Processing package curio; 0 vulnerabilities
+18:18:25 | INFO  | [93/210] Processing package gevent; 0 vulnerabilities
+18:18:26 | INFO  | [94/210] Processing package eventlet; 6 vulnerabilities
+18:18:27 | INFO  | [95/210] Processing package asyncio; 0 vulnerabilities
+18:18:28 | INFO  | [96/210] Processing package aiomysql; 0 vulnerabilities
+18:18:29 | INFO  | [97/210] Processing package aiosqlite; 0 vulnerabilities
+18:18:30 | INFO  | [98/210] Processing package uvloop; 0 vulnerabilities
+18:18:31 | INFO  | [99/210] Processing package janus; 0 vulnerabilities
+18:18:33 | INFO  | [100/210] Processing package sniffio; 0 vulnerabilities
+18:18:34 | INFO  | [101/210] Processing package sqlalchemy; 0 vulnerabilities
+18:18:35 | INFO  | [102/210] Processing package psycopg2; 0 vulnerabilities
+18:18:36 | INFO  | [103/210] Processing package psycopg2-binary; 0 vulnerabilities
+18:18:37 | INFO  | [104/210] Processing package pymysql; 1 vulnerabilities
+18:18:38 | INFO  | [105/210] Processing package mysqlclient; 0 vulnerabilities
+18:18:40 | INFO  | [106/210] Processing package redis; 0 vulnerabilities
+18:18:41 | INFO  | [107/210] Processing package mongoengine; 0 vulnerabilities
+18:18:42 | INFO  | [108/210] Processing package pymongo; 0 vulnerabilities
+18:18:43 | INFO  | [109/210] Processing package tinydb; 0 vulnerabilities
+18:18:44 | INFO  | [110/210] Processing package dataset; 0 vulnerabilities
+18:18:45 | INFO  | [111/210] Processing package pytest; 0 vulnerabilities
+18:18:45 | INFO  | [112/210] Processing package pytest-cov; 0 vulnerabilities
+18:18:46 | INFO  | [113/210] Processing package pytest-asyncio; 0 vulnerabilities
+18:18:48 | INFO  | [114/210] Processing package tox; 0 vulnerabilities
+18:18:49 | INFO  | [115/210] Processing package hypothesis; 0 vulnerabilities
+18:18:50 | INFO  | [116/210] Processing package nose2; 0 vulnerabilities
+18:18:51 | INFO  | [117/210] Processing package coverage; 0 vulnerabilities
+18:18:52 | INFO  | [118/210] Processing package unittest2; 0 vulnerabilities
+18:18:53 | INFO  | [119/210] Processing package pytest-mock; 0 vulnerabilities
+18:18:54 | INFO  | [120/210] Processing package pytest-xdist; 0 vulnerabilities
+18:18:55 | INFO  | [121/210] Processing package pillow; 7 vulnerabilities
+18:18:55 | INFO  | Stopping early at 250 vulnerabilities
+18:18:55 | INFO  | === collecting npm ===
+18:18:55 | INFO  | [1/200] Processing package lodash; 0 vulnerabilities
+18:18:55 | INFO  | [2/200] Processing package underscore; 0 vulnerabilities
+18:18:56 | INFO  | [3/200] Processing package minimist; 3 vulnerabilities
+18:18:56 | INFO  | [4/200] Processing package braces; 0 vulnerabilities
+18:18:57 | INFO  | [5/200] Processing package micromatch; 0 vulnerabilities
+18:18:59 | INFO  | [6/200] Processing package glob-parent; 2 vulnerabilities
+18:18:59 | INFO  | [7/200] Processing package yargs-parser; 0 vulnerabilities
+18:18:59 | INFO  | [8/200] Processing package axios; 0 vulnerabilities
+18:18:59 | INFO  | [9/200] Processing package request; 0 vulnerabilities
+18:18:59 | INFO  | [10/200] Processing package node-fetch; 0 vulnerabilities
+18:18:59 | INFO  | [11/200] Processing package got; 0 vulnerabilities
+18:19:00 | INFO  | [12/200] Processing package superagent; 0 vulnerabilities
+18:19:00 | INFO  | [13/200] Processing package follow-redirects; 0 vulnerabilities
+18:19:00 | INFO  | [14/200] Processing package http-proxy; 0 vulnerabilities
+18:19:00 | INFO  | [15/200] Processing package proxy-addr; 0 vulnerabilities
+18:19:00 | INFO  | [16/200] Processing package send; 0 vulnerabilities
+18:19:00 | INFO  | [17/200] Processing package serve-static; 0 vulnerabilities
+18:19:00 | INFO  | [18/200] Processing package express; 0 vulnerabilities
+18:19:00 | INFO  | [19/200] Processing package koa; 0 vulnerabilities
+18:19:01 | INFO  | [20/200] Processing package hapi; 0 vulnerabilities
+18:19:01 | INFO  | [21/200] Processing package restify; 0 vulnerabilities
+18:19:01 | INFO  | [22/200] Processing package connect; 0 vulnerabilities
+18:19:02 | INFO  | [23/200] Processing package fastify; 0 vulnerabilities
+18:19:02 | INFO  | [24/200] Processing package polka; 0 vulnerabilities
+18:19:02 | INFO  | [25/200] Processing package sails; 0 vulnerabilities
+18:19:03 | INFO  | [26/200] Processing package total.js; 0 vulnerabilities
+18:19:03 | INFO  | [27/200] Processing package derby; 0 vulnerabilities
+18:19:03 | INFO  | [28/200] Processing package body-parser; 0 vulnerabilities
+18:19:03 | INFO  | [29/200] Processing package cookie; 0 vulnerabilities
+18:19:04 | INFO  | [30/200] Processing package cookie-parser; 0 vulnerabilities
+18:19:04 | INFO  | [31/200] Processing package cors; 0 vulnerabilities
+18:19:04 | INFO  | [32/200] Processing package helmet; 0 vulnerabilities
+18:19:04 | INFO  | [33/200] Processing package morgan; 0 vulnerabilities
+18:19:04 | INFO  | [34/200] Processing package multer; 0 vulnerabilities
+18:19:05 | INFO  | [35/200] Processing package csurf; 0 vulnerabilities
+18:19:05 | INFO  | [36/200] Processing package serve-favicon; 0 vulnerabilities
+18:19:05 | INFO  | [37/200] Processing package compression; 0 vulnerabilities
+18:19:05 | INFO  | [38/200] Processing package jsonwebtoken; 0 vulnerabilities
+18:19:05 | INFO  | [39/200] Processing package bcrypt; 0 vulnerabilities
+18:19:06 | INFO  | [40/200] Processing package bcryptjs; 0 vulnerabilities
+18:19:08 | INFO  | [41/200] Processing package crypto-js; 7 vulnerabilities
+18:19:10 | INFO  | [42/200] Processing package uuid; 0 vulnerabilities
+18:19:10 | INFO  | [43/200] Processing package passport; 0 vulnerabilities
+18:19:10 | INFO  | [44/200] Processing package passport-local; 0 vulnerabilities
+18:19:10 | INFO  | [45/200] Processing package passport-jwt; 0 vulnerabilities
+18:19:12 | INFO  | [46/200] Processing package oauth2-server; 6 vulnerabilities
+18:19:12 | INFO  | [47/200] Processing package node-forge; 0 vulnerabilities
+18:19:12 | INFO  | [48/200] Processing package webpack; 0 vulnerabilities
+18:19:12 | INFO  | [49/200] Processing package webpack-cli; 0 vulnerabilities
+18:19:13 | INFO  | [50/200] Processing package webpack-dev-server; 0 vulnerabilities
+18:19:13 | INFO  | [51/200] Processing package rollup; 0 vulnerabilities
+18:19:13 | INFO  | [52/200] Processing package parcel; 0 vulnerabilities
+18:19:14 | INFO  | [53/200] Processing package browserify; 0 vulnerabilities
+18:19:23 | INFO  | [54/200] Processing package esbuild; 19 vulnerabilities
+18:19:39 | INFO  | [55/200] Processing package vite; 200 vulnerabilities
+18:19:39 | INFO  | [56/200] Processing package gulp; 0 vulnerabilities
+18:19:40 | INFO  | [57/200] Processing package grunt; 0 vulnerabilities
+18:19:40 | INFO  | [58/200] Processing package uglify-js; 0 vulnerabilities
+18:19:40 | INFO  | [59/200] Processing package terser; 0 vulnerabilities
+18:19:40 | INFO  | [60/200] Processing package babel-core; 0 vulnerabilities
+18:19:40 | INFO  | [61/200] Processing package @babel/core; 0 vulnerabilities
+18:19:40 | INFO  | [62/200] Processing package @babel/parser; 0 vulnerabilities
+18:19:41 | INFO  | [63/200] Processing package @babel/runtime; 0 vulnerabilities
+18:19:41 | INFO  | [64/200] Processing package babel-loader; 0 vulnerabilities
+18:19:42 | INFO  | [65/200] Processing package swc; 0 vulnerabilities
+18:19:42 | INFO  | [66/200] Processing package sucrase; 0 vulnerabilities
+18:19:42 | INFO  | [67/200] Processing package acorn; 0 vulnerabilities
+18:19:45 | INFO  | [68/200] Processing package json5; 4 vulnerabilities
+18:19:45 | INFO  | [69/200] Processing package yaml; 0 vulnerabilities
+18:19:45 | INFO  | [70/200] Processing package js-yaml; 0 vulnerabilities
+18:19:45 | INFO  | [71/200] Processing package qs; 0 vulnerabilities
+18:19:45 | INFO  | [72/200] Processing package xml2js; 0 vulnerabilities
+18:19:45 | INFO  | [73/200] Processing package fast-xml-parser; 0 vulnerabilities
+18:19:45 | INFO  | [74/200] Processing package csv-parse; 0 vulnerabilities
+18:19:45 | INFO  | [75/200] Processing package papaparse; 0 vulnerabilities
+18:19:45 | INFO  | [76/200] Processing package postcss; 0 vulnerabilities
+18:19:46 | INFO  | [77/200] Processing package css-loader; 0 vulnerabilities
+18:19:46 | INFO  | [78/200] Processing package style-loader; 0 vulnerabilities
+18:19:46 | INFO  | [79/200] Processing package sass; 0 vulnerabilities
+18:19:46 | INFO  | [80/200] Processing package less; 0 vulnerabilities
+18:19:46 | INFO  | [81/200] Processing package node-sass; 0 vulnerabilities
+18:19:46 | INFO  | [82/200] Processing package autoprefixer; 0 vulnerabilities
+18:19:46 | INFO  | [83/200] Processing package cssnano; 0 vulnerabilities
+18:19:47 | INFO  | [84/200] Processing package tailwindcss; 0 vulnerabilities
+18:19:47 | INFO  | [85/200] Processing package styled-components; 0 vulnerabilities
+18:19:47 | INFO  | [86/200] Processing package mongodb; 0 vulnerabilities
+18:19:47 | INFO  | [87/200] Processing package mongoose; 0 vulnerabilities
+18:19:48 | INFO  | [88/200] Processing package mysql; 0 vulnerabilities
+18:19:48 | INFO  | [89/200] Processing package mysql2; 0 vulnerabilities
+18:19:48 | INFO  | [90/200] Processing package pg; 0 vulnerabilities
+18:19:48 | INFO  | [91/200] Processing package redis; 0 vulnerabilities
+18:19:49 | INFO  | [92/200] Processing package ioredis; 0 vulnerabilities
+18:19:49 | INFO  | [93/200] Processing package sequelize; 0 vulnerabilities
+18:19:49 | INFO  | [94/200] Processing package knex; 0 vulnerabilities
+18:19:49 | INFO  | [95/200] Processing package nedb; 0 vulnerabilities
+18:19:49 | INFO  | [96/200] Processing package socket.io; 0 vulnerabilities
+18:19:49 | INFO  | [97/200] Processing package ws; 0 vulnerabilities
+18:19:49 | INFO  | [98/200] Processing package mqtt; 0 vulnerabilities
+18:19:49 | INFO  | [99/200] Processing package amqplib; 0 vulnerabilities
+18:19:50 | INFO  | [100/200] Processing package stompjs; 0 vulnerabilities
+18:19:50 | INFO  | [101/200] Processing package faye; 0 vulnerabilities
+18:19:50 | INFO  | [102/200] Processing package sockjs; 0 vulnerabilities
+18:19:50 | INFO  | [103/200] Processing package primus; 0 vulnerabilities
+18:19:50 | INFO  | [104/200] Processing package engine.io; 0 vulnerabilities
+18:19:50 | INFO  | [105/200] Processing package nats; 0 vulnerabilities
+18:19:51 | INFO  | [106/200] Processing package moment; 0 vulnerabilities
+18:19:51 | INFO  | [107/200] Processing package dayjs; 0 vulnerabilities
+18:19:51 | INFO  | [108/200] Processing package date-fns; 0 vulnerabilities
+18:19:51 | INFO  | [109/200] Processing package ajv; 0 vulnerabilities
+18:19:51 | INFO  | [110/200] Processing package joi; 0 vulnerabilities
+18:19:51 | INFO  | [111/200] Processing package validator; 0 vulnerabilities
+18:19:52 | INFO  | [112/200] Processing package yup; 0 vulnerabilities
+18:19:52 | INFO  | [113/200] Processing package superstruct; 0 vulnerabilities
+18:19:57 | INFO  | [114/200] Processing package zod; 9 vulnerabilities
+18:19:57 | INFO  | Stopping early at 250 vulnerabilities
+18:20:53 | INFO  | === verifying dataset against OSV (OFFLINE, CACHED) ===
+18:20:53 | INFO  | validation successful | rows=1000
+18:20:53 | INFO  | Building SBOM (component-centric)
+18:20:53 | INFO  | SBOM component set prepared | unique_components=430
+18:20:53 | INFO  | Validating SBOM against CycloneDX 1.5 schema
+18:20:54 | INFO  | SBOM is CycloneDX 1.5 conformant
+18:20:54 | INFO  | SBOM written | path=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/.tmp_ground_truth_build/run_1/attempt_1/gt0/mixed_ground_truth_dataset_20260328T165908Z_430_1000.sbom.json
+18:20:54 | INFO  | DONE | unique_components=430 | osv_vuln_entries=1000
+[18:20:54 CET] ground_truth_gt0: build completed in 1307s
+[18:20:54 CET] ground_truth_gt0: GT   -> /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.csv
+[18:20:54 CET] ground_truth_gt0: SBOM -> /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+[18:20:55 CET] Preparing Dependency-Track for temporal run 1, attempt 1
+[DTRACK 18:20:55] SBOM_PATH=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+[DTRACK 18:20:55] DTRACK_PROJECT_NAME=eval_20260328T165907Z
+[DTRACK 18:20:55] DTRACK_PROJECT_VERSION=1.0
+[DTRACK 18:20:55] DTRACK_URL=http://dtrackapi.evaltech.de:8081
+[DTRACK 18:20:55] Looking up project
+[DTRACK 18:20:55] Lookup status: 404
+[DTRACK 18:20:55] Project not found -> creating
+[DTRACK 18:20:55] Create status: 201
+[DTRACK 18:20:56] Created project UUID: 8d4977f8-d8f9-47a2-9d13-7c34eeb87465
+[DTRACK 18:20:56] Uploading SBOM
+[DTRACK 18:20:56] Upload status: 200
+[DTRACK 18:20:56] Upload token: c2916111-fce2-4c2a-85be-ae9c945ddd92
+[DTRACK 18:20:56] Waiting for analysis
+[DTRACK 18:20:56] waiting... (0s)
+[DTRACK 18:21:01] waiting... (5s)
+[DTRACK 18:21:06] waiting... (10s)
+[DTRACK 18:21:11] waiting... (15s)
+[DTRACK 18:21:16] waiting... (20s)
+[DTRACK 18:21:21] waiting... (25s)
+[DTRACK 18:21:27] waiting... (30s)
+[DTRACK 18:21:32] waiting... (35s)
+[DTRACK 18:21:37] waiting... (40s)
+[DTRACK 18:21:42] waiting... (45s)
+[DTRACK 18:21:47] waiting... (50s)
+[DTRACK 18:21:52] waiting... (55s)
+[DTRACK 18:21:57] waiting... (60s)
+[DTRACK 18:22:02] waiting... (65s)
+[DTRACK 18:22:07] waiting... (70s)
+[DTRACK 18:22:13] waiting... (75s)
+[DTRACK 18:22:18] waiting... (80s)
+[DTRACK 18:22:23] waiting... (85s)
+[DTRACK 18:22:28] waiting... (90s)
+[DTRACK 18:22:33] waiting... (95s)
+[DTRACK 18:22:38] waiting... (100s)
+[DTRACK 18:22:43] waiting... (105s)
+[DTRACK 18:22:48] waiting... (110s)
+[DTRACK 18:22:53] waiting... (115s)
+[DTRACK 18:22:59] waiting... (120s)
+[DTRACK 18:23:04] waiting... (125s)
+[DTRACK 18:23:09] waiting... (130s)
+[DTRACK 18:23:14] waiting... (135s)
+[DTRACK 18:23:19] waiting... (140s)
+[DTRACK 18:23:24] waiting... (145s)
+[DTRACK 18:23:29] waiting... (150s)
+[DTRACK 18:23:34] waiting... (155s)
+[DTRACK 18:23:39] waiting... (160s)
+[DTRACK 18:23:44] waiting... (165s)
+[DTRACK 18:23:50] waiting... (170s)
+[DTRACK 18:23:55] waiting... (175s)
+[DTRACK 18:24:03] Final vulnerability count: 1229
+[DTRACK 18:24:03] Exported:
+[DTRACK 18:24:04]   DTRACK_PROJECT_NAME=eval_20260328T165907Z
+[DTRACK 18:24:04]   DTRACK_PROJECT_UUID=8d4977f8-d8f9-47a2-9d13-7c34eeb87465
+18:24:06 | INFO  | === Evaluation started ===
+18:24:06 | INFO  | Selected tool: snyk
+18:24:06 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/snyk/ground_truth_gt0.csv
+18:24:06 | INFO  | Ground truth loaded: 1000 entries
+18:24:06 | INFO  | API trace log initialized: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/snyk/ground_truth_gt0_snyk_api.log
+18:24:06 | INFO  | Initialized Snyk adapters (SBOM-based)
+18:24:06 | INFO  |   sbom_file   : /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:24:06 | INFO  |   bash_script : /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/tools/evaluate_snyk.sh
+18:24:06 | INFO  |   max_attempts: 3
+18:24:06 | INFO  |   timeout_sec : 180
+18:24:06 | INFO  | Initialized adapters: snyk
+18:24:06 | INFO  | Loading findings from tool
+18:24:06 | INFO  | Running Snyk via Bash script
+18:24:06 | INFO  | Bash command: /bin/bash /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/tools/evaluate_snyk.sh /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:24:06 | INFO  | Snyk attempt 1/3
+18:24:14 | INFO  | Snyk: processing 1396 vulnerabilities
+18:24:14 | INFO  | Snyk: normalized 1339 findings
+18:24:14 | INFO  | Tool findings loaded (normalized): 1339
+18:24:14 | INFO  | Evaluation result | TP=902 | FP=496 | FN=98
+18:26:31 | INFO  | GT detection vector built | detected=902 | gt_size=1000
+18:26:31 | INFO  | Writing evaluation report
+18:26:31 | INFO  | === Evaluation finished ===
+18:26:31 | INFO  | === Evaluation started ===
+18:26:31 | INFO  | Selected tool: oss-index
+18:26:31 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/oss-index/ground_truth_gt0.csv
+18:26:31 | INFO  | Ground truth loaded: 1000 entries
+18:26:31 | INFO  | API trace log initialized: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/oss-index/ground_truth_gt0_oss-index_api.log
+18:26:31 | INFO  | OSS Index adapters initialized (authenticated)
+18:26:31 | INFO  | Initialized adapters: oss-index
+18:26:31 | INFO  | Loading findings from tool
+18:26:37 | INFO  | Tool findings loaded (normalized): 820
+18:26:37 | INFO  | Evaluation result | TP=614 | FP=237 | FN=386
+18:27:25 | INFO  | GT detection vector built | detected=614 | gt_size=1000
+18:27:25 | INFO  | Writing evaluation report
+18:27:25 | INFO  | === Evaluation finished ===
+18:27:25 | INFO  | === Evaluation started ===
+18:27:25 | INFO  | Selected tool: github
+18:27:25 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/github/ground_truth_gt0.csv
+18:27:25 | INFO  | Ground truth loaded: 1000 entries
+18:27:25 | INFO  | API trace log initialized: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/github/ground_truth_gt0_github_api.log
+18:27:25 | INFO  | Initialized adapters: GitHub Advisory Database
+18:27:25 | INFO  | Initialized adapters: github
+18:27:25 | INFO  | Loading findings from tool
+18:27:25 | INFO  | Querying GitHub Advisory DB for 430 unique components
+18:28:59 | INFO  | Tool findings loaded (normalized): 1835
+18:28:59 | INFO  | Evaluation result | TP=948 | FP=931 | FN=52
+18:33:15 | INFO  | GT detection vector built | detected=948 | gt_size=1000
+18:33:15 | INFO  | Writing evaluation report
+18:33:15 | INFO  | === Evaluation finished ===
+18:33:15 | INFO  | === Evaluation started ===
+18:33:15 | INFO  | Selected tool: trivy
+18:33:15 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/trivy/ground_truth_gt0.csv
+18:33:15 | INFO  | Ground truth loaded: 1000 entries
+18:33:15 | INFO  | API trace log initialized: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/trivy/ground_truth_gt0_trivy_api.log
+18:33:15 | INFO  | Initialized Trivy adapter (SBOM-based)
+18:33:15 | INFO  |   sbom_file : /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:33:15 | INFO  |   trivy_bin : /usr/local/bin/trivy
+18:33:15 | INFO  | Initialized adapters: trivy
+18:33:15 | INFO  | Loading findings from tool
+18:33:15 | INFO  | Running Trivy SBOM scan
+18:33:15 | INFO  | Command: /usr/local/bin/trivy sbom --format json /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:33:26 | INFO  | Trivy: normalized 1243 findings
+18:33:26 | INFO  | Tool findings loaded (normalized): 1243
+18:33:26 | INFO  | Evaluation result | TP=961 | FP=326 | FN=39
+18:34:59 | INFO  | GT detection vector built | detected=961 | gt_size=1000
+18:34:59 | INFO  | Writing evaluation report
+18:34:59 | INFO  | === Evaluation finished ===
+18:34:59 | INFO  | === Evaluation started ===
+18:34:59 | INFO  | Selected tool: dtrack
+18:34:59 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/dtrack/ground_truth_gt0.csv
+18:34:59 | INFO  | Ground truth loaded: 1000 entries
+18:34:59 | INFO  | API trace log initialized: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_1/dtrack/ground_truth_gt0_dtrack_api.log
+18:34:59 | INFO  | Dependency-Track adapters initialized
+18:34:59 | INFO  | Initialized adapters: dtrack
+18:34:59 | INFO  | Loading findings from tool
+18:35:00 | INFO  | Dependency-Track normalization complete | kept=1229
+18:35:00 | INFO  | Tool findings loaded (normalized): 1229
+18:35:00 | INFO  | Evaluation result | TP=907 | FP=322 | FN=93
+18:35:00 | INFO  | GT detection vector built | detected=907 | gt_size=1000
+18:35:00 | INFO  | Writing evaluation report
+18:35:00 | INFO  | === Evaluation finished ===
+18:35:00 | INFO  | === Evaluation started ===
+18:35:00 | INFO  | Selected tool: snyk
+18:35:00 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_2/snyk/ground_truth_gt0.csv
+18:35:00 | INFO  | Ground truth loaded: 1000 entries
+18:35:00 | INFO  | Initialized Snyk adapters (SBOM-based)
+18:35:00 | INFO  |   sbom_file   : /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:35:00 | INFO  |   bash_script : /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/tools/evaluate_snyk.sh
+18:35:00 | INFO  |   max_attempts: 3
+18:35:00 | INFO  |   timeout_sec : 180
+18:35:00 | INFO  | Initialized adapters: snyk
+18:35:00 | INFO  | Loading findings from tool
+18:35:00 | INFO  | Running Snyk via Bash script
+18:35:00 | INFO  | Bash command: /bin/bash /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/tools/evaluate_snyk.sh /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:35:00 | INFO  | Snyk attempt 1/3
+18:35:14 | INFO  | Snyk: processing 1396 vulnerabilities
+18:35:14 | INFO  | Snyk: normalized 1339 findings
+18:35:14 | INFO  | Tool findings loaded (normalized): 1339
+18:35:14 | INFO  | Evaluation result | TP=902 | FP=496 | FN=98
+18:37:32 | INFO  | GT detection vector built | detected=902 | gt_size=1000
+18:37:32 | INFO  | Writing evaluation report
+18:37:32 | INFO  | === Evaluation finished ===
+18:37:32 | INFO  | === Evaluation started ===
+18:37:32 | INFO  | Selected tool: oss-index
+18:37:32 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_2/oss-index/ground_truth_gt0.csv
+18:37:32 | INFO  | Ground truth loaded: 1000 entries
+18:37:32 | INFO  | OSS Index adapters initialized (authenticated)
+18:37:32 | INFO  | Initialized adapters: oss-index
+18:37:32 | INFO  | Loading findings from tool
+18:37:38 | INFO  | Tool findings loaded (normalized): 820
+18:37:38 | INFO  | Evaluation result | TP=614 | FP=237 | FN=386
+18:38:28 | INFO  | GT detection vector built | detected=614 | gt_size=1000
+18:38:28 | INFO  | Writing evaluation report
+18:38:28 | INFO  | === Evaluation finished ===
+18:38:28 | INFO  | === Evaluation started ===
+18:38:28 | INFO  | Selected tool: github
+18:38:28 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_2/github/ground_truth_gt0.csv
+18:38:28 | INFO  | Ground truth loaded: 1000 entries
+18:38:28 | INFO  | Initialized adapters: GitHub Advisory Database
+18:38:28 | INFO  | Initialized adapters: github
+18:38:28 | INFO  | Loading findings from tool
+18:38:28 | INFO  | Querying GitHub Advisory DB for 430 unique components
+18:40:10 | INFO  | Tool findings loaded (normalized): 1835
+18:40:10 | INFO  | Evaluation result | TP=948 | FP=931 | FN=52
+18:44:21 | INFO  | GT detection vector built | detected=948 | gt_size=1000
+18:44:21 | INFO  | Writing evaluation report
+18:44:21 | INFO  | === Evaluation finished ===
+18:44:21 | INFO  | === Evaluation started ===
+18:44:21 | INFO  | Selected tool: trivy
+18:44:21 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_2/trivy/ground_truth_gt0.csv
+18:44:21 | INFO  | Ground truth loaded: 1000 entries
+18:44:21 | INFO  | Initialized Trivy adapter (SBOM-based)
+18:44:21 | INFO  |   sbom_file : /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:44:21 | INFO  |   trivy_bin : /usr/local/bin/trivy
+18:44:21 | INFO  | Initialized adapters: trivy
+18:44:21 | INFO  | Loading findings from tool
+18:44:21 | INFO  | Running Trivy SBOM scan
+18:44:21 | INFO  | Command: /usr/local/bin/trivy sbom --format json /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.sbom.json
+18:44:22 | INFO  | Trivy: normalized 1243 findings
+18:44:22 | INFO  | Tool findings loaded (normalized): 1243
+18:44:22 | INFO  | Evaluation result | TP=961 | FP=326 | FN=39
+18:45:55 | INFO  | GT detection vector built | detected=961 | gt_size=1000
+18:45:55 | INFO  | Writing evaluation report
+18:45:55 | INFO  | === Evaluation finished ===
+18:45:55 | INFO  | === Evaluation started ===
+18:45:55 | INFO  | Selected tool: dtrack
+18:45:55 | INFO  | Loading ground truth CSV: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/artifacts/repeat_2/dtrack/ground_truth_gt0.csv
+18:45:55 | INFO  | Ground truth loaded: 1000 entries
+18:45:55 | INFO  | Dependency-Track adapters initialized
+18:45:55 | INFO  | Initialized adapters: dtrack
+18:45:55 | INFO  | Loading findings from tool
+18:45:56 | INFO  | Dependency-Track normalization complete | kept=1229
+18:45:56 | INFO  | Tool findings loaded (normalized): 1229
+18:45:56 | INFO  | Evaluation result | TP=907 | FP=322 | FN=93
+18:45:56 | INFO  | GT detection vector built | detected=907 | gt_size=1000
+18:45:56 | INFO  | Writing evaluation report
+18:45:56 | INFO  | === Evaluation finished ===
+18:45:57 | INFO  | [PLOT] Significance matrix: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/recall_significance_matrix.png
+18:45:57 | INFO  | [PLOT] Significance matrix: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/significance_matrix.png
+18:45:58 | INFO  | [PLOT] Tool comparison: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/tool_comparison.png
+18:45:59 | INFO  | === collecting nuget ===
+18:45:59 | INFO  | NuGet scope: using 500/500 packages
+18:45:59 | INFO  | NuGet config | max_versions_per_package=20 | max_osv_entries_per_component=10 | target_vulns=250 | early_stop=True
+18:46:03 | INFO  | [1/500] Processing package Asp.Versioning.Mvc; 0 vulnerabilities
+18:46:07 | INFO  | [2/500] Processing package Asp.Versioning.Mvc.ApiExplorer; 0 vulnerabilities
+18:46:13 | INFO  | [3/500] Processing package AspNetCore.HealthChecks.UI; 0 vulnerabilities
+18:46:15 | INFO  | [4/500] Processing package AspNetCoreRateLimit; 0 vulnerabilities
+18:46:16 | INFO  | [5/500] Processing package Azure.Extensions.AspNetCore.Configuration.AppConfiguration; no versions found
+18:46:19 | INFO  | [6/500] Processing package Azure.Extensions.AspNetCore.Configuration.Secrets; 0 vulnerabilities
+18:46:20 | INFO  | [7/500] Processing package Azure.Monitor.OpenTelemetry.AspNetCore; 0 vulnerabilities
+18:46:26 | INFO  | [8/500] Processing package Elastic.Apm.AspNetCore; 0 vulnerabilities
+18:46:27 | INFO  | [9/500] Processing package FluentValidation.AspNetCore; no versions found
+18:46:29 | INFO  | [10/500] Processing package Google.Cloud.Diagnostics.AspNetCore3; 0 vulnerabilities
+18:46:29 | INFO  | [11/500] Processing package GraphQL; no versions found
+18:46:35 | INFO  | [12/500] Processing package GraphQL.Server.Transports.AspNetCore; 0 vulnerabilities
+18:46:42 | INFO  | [13/500] Processing package GraphQL.SystemTextJson; 0 vulnerabilities
+18:46:48 | INFO  | [14/500] Processing package Grpc.AspNetCore; 0 vulnerabilities
+18:46:54 | INFO  | [15/500] Processing package Hangfire.AspNetCore; 0 vulnerabilities
+18:46:54 | INFO  | [16/500] Processing package HealthChecks.UI.Client; no versions found
+18:47:00 | INFO  | [17/500] Processing package Hellang.Middleware.ProblemDetails; 0 vulnerabilities
+18:47:00 | INFO  | [18/500] Processing package HotChocolate.AspNetCore; no versions found
+18:47:00 | INFO  | [19/500] Processing package HotChocolate.AspNetCore.Authorization; no versions found
+18:47:06 | INFO  | [20/500] Processing package HotChocolate.Data.EntityFramework; 0 vulnerabilities
+18:47:06 | INFO  | [21/500] Processing package IdentityModel.AspNetCore; 0 vulnerabilities (no versions in date window)
+18:47:07 | INFO  | [22/500] Processing package Marten.AspNetCore; no versions found
+18:47:09 | INFO  | [23/500] Processing package Marvin.Cache.Headers; 0 vulnerabilities
+18:47:15 | INFO  | [24/500] Processing package MassTransit.AspNetCore; 0 vulnerabilities
+18:47:20 | INFO  | [25/500] Processing package Microsoft.ApplicationInsights.AspNetCore; 0 vulnerabilities
+18:47:21 | INFO  | [26/500] Processing package Microsoft.AspNetCore.Authentication.Cookies; 0 vulnerabilities
+18:47:21 | INFO  | [27/500] Processing package Microsoft.AspNetCore.Authentication.JwtBearer; no versions found
+18:47:22 | INFO  | [28/500] Processing package Microsoft.AspNetCore.Authentication.Negotiate; no versions found
+18:47:22 | INFO  | [29/500] Processing package Microsoft.AspNetCore.Authentication.OpenIdConnect; no versions found
+18:47:22 | INFO  | [30/500] Processing package Microsoft.AspNetCore.Authentication.WsFederation; no versions found
+18:47:22 | INFO  | [31/500] Processing package Microsoft.AspNetCore.Authorization; no versions found
+18:47:23 | INFO  | [32/500] Processing package Microsoft.AspNetCore.Authorization.Policy; 0 vulnerabilities
+18:47:23 | INFO  | [33/500] Processing package Microsoft.AspNetCore.DataProtection; no versions found
+18:47:29 | INFO  | [34/500] Processing package Microsoft.AspNetCore.DataProtection.AzureStorage; 0 vulnerabilities
+18:47:30 | INFO  | [35/500] Processing package Microsoft.AspNetCore.DataProtection.StackExchangeRedis; no versions found
+18:47:31 | INFO  | [36/500] Processing package Microsoft.AspNetCore.Http; 0 vulnerabilities
+18:47:32 | INFO  | [37/500] Processing package Microsoft.AspNetCore.Http.Abstractions; 0 vulnerabilities
+18:47:34 | INFO  | [38/500] Processing package Microsoft.AspNetCore.Http.Extensions; 0 vulnerabilities
+18:47:39 | INFO  | [39/500] Processing package Microsoft.AspNetCore.Http.Features; 0 vulnerabilities
+18:47:42 | INFO  | [40/500] Processing package Microsoft.AspNetCore.Identity; 2 vulnerabilities
+18:47:42 | INFO  | [41/500] Processing package Microsoft.AspNetCore.Identity.EntityFrameworkCore; no versions found
+18:47:42 | INFO  | [42/500] Processing package Microsoft.AspNetCore.Identity.UI; no versions found
+18:47:43 | INFO  | [43/500] Processing package Microsoft.AspNetCore.Mvc; 0 vulnerabilities
+18:47:45 | INFO  | [44/500] Processing package Microsoft.AspNetCore.Mvc.Core; 0 vulnerabilities
+18:47:45 | INFO  | [45/500] Processing package Microsoft.AspNetCore.Mvc.NewtonsoftJson; no versions found
+18:47:47 | INFO  | [46/500] Processing package Microsoft.AspNetCore.Mvc.Versioning; 0 vulnerabilities
+18:47:48 | INFO  | [47/500] Processing package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer; 0 vulnerabilities
+18:47:53 | INFO  | [48/500] Processing package Microsoft.AspNetCore.OpenApi; 0 vulnerabilities
+18:47:55 | INFO  | [49/500] Processing package Microsoft.AspNetCore.ResponseCompression; 0 vulnerabilities
+18:47:56 | INFO  | [50/500] Processing package Microsoft.AspNetCore.Rewrite; 0 vulnerabilities
+18:47:57 | INFO  | [51/500] Processing package Microsoft.AspNetCore.Routing; 0 vulnerabilities
+18:47:58 | INFO  | [52/500] Processing package Microsoft.AspNetCore.SignalR; 0 vulnerabilities
+18:47:58 | INFO  | [53/500] Processing package Microsoft.AspNetCore.SignalR.Client; no versions found
+18:47:58 | INFO  | [54/500] Processing package Microsoft.AspNetCore.SignalR.Protocols.Json; no versions found
+18:47:58 | INFO  | [55/500] Processing package Microsoft.AspNetCore.SpaServices.Extensions; no versions found
+18:48:00 | INFO  | [56/500] Processing package Microsoft.AspNetCore.StaticFiles; 0 vulnerabilities
+18:48:05 | INFO  | [57/500] Processing package Microsoft.AspNetCore.WebUtilities; 0 vulnerabilities
+18:48:11 | INFO  | [58/500] Processing package Microsoft.Azure.AppConfiguration.AspNetCore; 0 vulnerabilities
+18:48:17 | INFO  | [59/500] Processing package Microsoft.OpenApi; 0 vulnerabilities
+18:48:23 | INFO  | [60/500] Processing package NLog.Web.AspNetCore; 0 vulnerabilities
+18:48:23 | INFO  | [61/500] Processing package NSwag.AspNetCore; no versions found
+18:48:23 | INFO  | [62/500] Processing package NSwag.CodeGeneration.CSharp; no versions found
+18:48:23 | INFO  | [63/500] Processing package NSwag.CodeGeneration.TypeScript; no versions found
+18:48:24 | INFO  | [64/500] Processing package NSwag.MSBuild; no versions found
+18:48:28 | INFO  | [65/500] Processing package OpenTelemetry.Instrumentation.AspNetCore; 4 vulnerabilities
+18:48:29 | INFO  | [66/500] Processing package ProblemDetails; 0 vulnerabilities
+18:48:35 | INFO  | [67/500] Processing package Quartz.AspNetCore; 0 vulnerabilities
+18:48:35 | INFO  | [68/500] Processing package Sentry.AspNetCore; no versions found
+18:48:39 | INFO  | [69/500] Processing package Serilog.AspNetCore; 0 vulnerabilities
+18:48:44 | INFO  | [70/500] Processing package Swashbuckle.AspNetCore; 0 vulnerabilities
+18:48:50 | INFO  | [71/500] Processing package Swashbuckle.AspNetCore.Annotations; 0 vulnerabilities
+18:48:56 | INFO  | [72/500] Processing package Swashbuckle.AspNetCore.Newtonsoft; 0 vulnerabilities
+18:49:00 | INFO  | [73/500] Processing package Yarp.ReverseProxy; 6 vulnerabilities
+18:49:00 | INFO  | [74/500] Processing package prometheus-net.AspNetCore; no versions found
+18:49:08 | INFO  | [75/500] Processing package protobuf-net.Grpc.AspNetCore; 0 vulnerabilities
+18:49:15 | INFO  | [76/500] Processing package Azure.Identity; 33 vulnerabilities
+18:49:17 | INFO  | [77/500] Processing package Azure.Security.KeyVault.Administration; 0 vulnerabilities
+18:49:21 | INFO  | [78/500] Processing package Azure.Security.KeyVault.Certificates; 0 vulnerabilities
+18:49:24 | INFO  | [79/500] Processing package Azure.Security.KeyVault.Keys; 0 vulnerabilities
+18:49:28 | INFO  | [80/500] Processing package Azure.Security.KeyVault.Secrets; 0 vulnerabilities
+18:49:29 | INFO  | [81/500] Processing package BCrypt.Net; 0 vulnerabilities (no versions in date window)
+18:49:29 | INFO  | [82/500] Processing package BCrypt.Net-Core; 0 vulnerabilities (no versions in date window)
+18:49:33 | INFO  | [83/500] Processing package BouncyCastle.Cryptography; 18 vulnerabilities
+18:49:36 | INFO  | [84/500] Processing package Duende.AccessTokenManagement; 3 vulnerabilities
+18:49:42 | INFO  | [85/500] Processing package Duende.IdentityServer; 8 vulnerabilities
+18:49:43 | INFO  | [86/500] Processing package Ganss.XSS; no versions found
+18:49:51 | INFO  | [87/500] Processing package HtmlSanitizer; 30 vulnerabilities
+18:49:51 | INFO  | [88/500] Processing package IdentityModel; no versions found
+18:49:51 | INFO  | [89/500] Processing package IdentityModel.OidcClient; 0 vulnerabilities (no versions in date window)
+18:49:52 | INFO  | [90/500] Processing package IdentityServer4; 0 vulnerabilities (no versions in date window)
+18:49:52 | INFO  | [91/500] Processing package Jose.JWT; no versions found
+18:49:52 | INFO  | [92/500] Processing package Microsoft.Identity.Client; no versions found
+18:49:52 | INFO  | [93/500] Processing package Microsoft.Identity.Web; no versions found
+18:49:59 | INFO  | [94/500] Processing package Microsoft.IdentityModel.JsonWebTokens; 10 vulnerabilities
+18:49:59 | INFO  | [95/500] Processing package Microsoft.IdentityModel.Logging; no versions found
+18:49:59 | INFO  | [96/500] Processing package Microsoft.IdentityModel.Protocols.OpenIdConnect; no versions found
+18:50:00 | INFO  | [97/500] Processing package NaCl.Core; 0 vulnerabilities
+18:50:02 | INFO  | [98/500] Processing package Portable.BouncyCastle; 0 vulnerabilities
+18:50:05 | INFO  | [99/500] Processing package Sodium.Core; 0 vulnerabilities
+18:50:05 | INFO  | [100/500] Processing package System.IdentityModel.Tokens.Jwt; no versions found
+18:50:05 | INFO  | [101/500] Processing package System.Security.Cryptography.OpenSsl; 0 vulnerabilities
+18:50:11 | INFO  | [102/500] Processing package System.Security.Cryptography.Xml; 1 vulnerabilities
+18:50:17 | INFO  | [103/500] Processing package CassandraCSharpDriver; 0 vulnerabilities
+18:50:17 | INFO  | [104/500] Processing package CouchbaseNetClient; no versions found
+18:50:22 | INFO  | [105/500] Processing package Dapper; 0 vulnerabilities
+18:50:24 | INFO  | [106/500] Processing package DbUp; 0 vulnerabilities
+18:50:29 | INFO  | [107/500] Processing package Dommel; 0 vulnerabilities
+18:50:29 | INFO  | [108/500] Processing package EFCore.BulkExtensions; no versions found
+18:50:34 | INFO  | [109/500] Processing package Elsa.EntityFrameworkCore; 0 vulnerabilities
+18:50:35 | INFO  | [110/500] Processing package EntityFramework; 0 vulnerabilities
+18:50:35 | INFO  | [111/500] Processing package EntityFramework.SqlServer; no versions found
+18:50:36 | INFO  | [112/500] Processing package EntityFrameworkCore.Triggers; 0 vulnerabilities
+18:50:41 | INFO  | [113/500] Processing package FluentMigrator; 0 vulnerabilities
+18:50:47 | INFO  | [114/500] Processing package FluentMigrator.Runner; 0 vulnerabilities
+18:50:48 | INFO  | [115/500] Processing package FreeSql; no versions found
+18:50:48 | INFO  | [116/500] Processing package FreeSql.Provider.SqlServer; no versions found
+18:50:48 | INFO  | [117/500] Processing package FreeSql.Provider.Sqlite; no versions found
+18:50:48 | INFO  | [118/500] Processing package Hangfire.SqlServer; no versions found
+18:50:54 | INFO  | [119/500] Processing package InfluxDB.Client; 0 vulnerabilities
+18:51:01 | INFO  | [120/500] Processing package LiteDB; 11 vulnerabilities
+18:51:01 | INFO  | [121/500] Processing package Marten; no versions found
+18:51:01 | INFO  | [122/500] Processing package Microsoft.Azure.Cosmos; no versions found
+18:51:09 | INFO  | [123/500] Processing package Microsoft.Data.SqlClient; 13 vulnerabilities
+18:51:09 | INFO  | [124/500] Processing package Microsoft.Data.Sqlite; no versions found
+18:51:09 | INFO  | [125/500] Processing package Microsoft.EntityFrameworkCore; no versions found
+18:51:09 | INFO  | [126/500] Processing package Microsoft.EntityFrameworkCore.Design; no versions found
+18:51:10 | INFO  | [127/500] Processing package Microsoft.EntityFrameworkCore.InMemory; no versions found
+18:51:10 | INFO  | [128/500] Processing package Microsoft.EntityFrameworkCore.Proxies; no versions found
+18:51:10 | INFO  | [129/500] Processing package Microsoft.EntityFrameworkCore.Relational; no versions found
+18:51:10 | INFO  | [130/500] Processing package Microsoft.EntityFrameworkCore.SqlServer; no versions found
+18:51:10 | INFO  | [131/500] Processing package Microsoft.EntityFrameworkCore.Sqlite; no versions found
+18:51:11 | INFO  | [132/500] Processing package Microsoft.EntityFrameworkCore.Tools; no versions found
+18:51:17 | INFO  | [133/500] Processing package MongoDB.Driver; 10 vulnerabilities
+18:51:17 | INFO  | [134/500] Processing package MySql.EntityFrameworkCore; no versions found
+18:51:18 | INFO  | [135/500] Processing package MySqlConnector; no versions found
+18:51:18 | INFO  | [136/500] Processing package NPoco; no versions found
+18:51:23 | INFO  | [137/500] Processing package Neo4j.Driver; 0 vulnerabilities
+18:51:23 | INFO  | [138/500] Processing package Npgsql; no versions found
+18:51:29 | INFO  | [139/500] Processing package Oracle.EntityFrameworkCore; 0 vulnerabilities
+18:51:35 | INFO  | [140/500] Processing package Oracle.ManagedDataAccess.Core; 7 vulnerabilities
+18:51:36 | INFO  | [141/500] Processing package PetaPoco.Core; no versions found
+18:51:36 | INFO  | [142/500] Processing package Pomelo.EntityFrameworkCore.MySql; no versions found
+18:51:36 | INFO  | [143/500] Processing package RavenDB.Client; no versions found
+18:51:42 | INFO  | [144/500] Processing package Realm; 0 vulnerabilities
+18:51:42 | INFO  | [145/500] Processing package RepoDb; no versions found
+18:51:47 | INFO  | [146/500] Processing package RepoDb.SqlServer; 0 vulnerabilities
+18:51:50 | INFO  | [147/500] Processing package Respawn; 0 vulnerabilities
+18:51:51 | INFO  | [148/500] Processing package RoundhousE; 0 vulnerabilities
+18:51:54 | INFO  | [149/500] Processing package SqlKata; 0 vulnerabilities
+18:51:56 | INFO  | [150/500] Processing package SqlKata.Execution; 0 vulnerabilities
+18:51:56 | INFO  | [151/500] Processing package SqlSugarCore; no versions found
+18:52:03 | INFO  | [152/500] Processing package System.Data.Odbc; 0 vulnerabilities
+18:52:09 | INFO  | [153/500] Processing package System.Data.OleDb; 0 vulnerabilities
+18:52:13 | INFO  | [154/500] Processing package System.Data.SqlClient; 11 vulnerabilities
+18:52:13 | INFO  | [155/500] Processing package Z.EntityFramework.Plus.EFCore; no versions found
+18:52:13 | INFO  | [156/500] Processing package linq2db; no versions found
+18:52:20 | INFO  | [157/500] Processing package linq2db.PostgreSQL; 0 vulnerabilities
+18:52:25 | INFO  | [158/500] Processing package linq2db.SqlServer; 0 vulnerabilities
+18:52:26 | INFO  | [159/500] Processing package ActiveMQ.Artemis.Client; no versions found
+18:52:26 | INFO  | [160/500] Processing package Akka; no versions found
+18:52:26 | INFO  | [161/500] Processing package Akka.Cluster; no versions found
+18:52:26 | INFO  | [162/500] Processing package Akka.Persistence; no versions found
+18:52:26 | INFO  | [163/500] Processing package Akka.Remote; no versions found
+18:52:28 | INFO  | [164/500] Processing package Apache.NMS; 0 vulnerabilities
+18:52:30 | INFO  | [165/500] Processing package Apache.NMS.ActiveMQ; 4 vulnerabilities
+18:52:36 | INFO  | [166/500] Processing package Azure.Messaging.ServiceBus; 0 vulnerabilities
+18:52:36 | INFO  | [167/500] Processing package CAP; 0 vulnerabilities (no versions in date window)
+18:52:36 | INFO  | [168/500] Processing package CacheManager.Core; 0 vulnerabilities
+18:52:37 | INFO  | [169/500] Processing package CacheTower; no versions found
+18:52:37 | INFO  | [170/500] Processing package Confluent.Kafka; no versions found
+18:52:42 | INFO  | [171/500] Processing package Coravel; 0 vulnerabilities
+18:52:47 | INFO  | [172/500] Processing package DistributedLock; 0 vulnerabilities
+18:52:53 | INFO  | [173/500] Processing package DotPulsar; 0 vulnerabilities
+18:52:53 | INFO  | [174/500] Processing package EasyCaching.Core; no versions found
+18:52:53 | INFO  | [175/500] Processing package EasyCaching.Redis; no versions found
+18:52:53 | INFO  | [176/500] Processing package EasyNetQ; no versions found
+18:52:54 | INFO  | [177/500] Processing package Elsa; no versions found
+18:53:00 | INFO  | [178/500] Processing package Elsa.Activities.Http; 0 vulnerabilities
+18:53:00 | INFO  | [179/500] Processing package FusionCache; no versions found
+18:53:00 | INFO  | [180/500] Processing package Hangfire.Core; no versions found
+18:53:04 | INFO  | [181/500] Processing package Hangfire.Redis.StackExchange; 0 vulnerabilities
+18:53:11 | INFO  | [182/500] Processing package KafkaFlow; 0 vulnerabilities
+18:53:14 | INFO  | [183/500] Processing package LazyCache; 0 vulnerabilities
+18:53:14 | INFO  | [184/500] Processing package MQTTnet; no versions found
+18:53:14 | INFO  | [185/500] Processing package MassTransit; no versions found
+18:53:15 | INFO  | [186/500] Processing package MassTransit.Azure.ServiceBus.Core; no versions found
+18:53:15 | INFO  | [187/500] Processing package MassTransit.RabbitMQ; no versions found
+18:53:15 | INFO  | [188/500] Processing package Microsoft.Extensions.Caching.StackExchangeRedis; no versions found
+18:53:15 | INFO  | [189/500] Processing package NServiceBus; no versions found
+18:53:15 | INFO  | [190/500] Processing package NServiceBus.RabbitMQ; no versions found
+18:53:21 | INFO  | [191/500] Processing package NServiceBus.Transport.AzureServiceBus; 0 vulnerabilities
+18:53:25 | INFO  | [192/500] Processing package NetMQ; 0 vulnerabilities
+18:53:26 | INFO  | [193/500] Processing package Orleans; no versions found
+18:53:28 | INFO  | [194/500] Processing package Orleans.Clustering.Redis; 0 vulnerabilities
+18:53:28 | INFO  | [195/500] Processing package Orleans.Serialization.SystemTextJson; no versions found
+18:53:28 | INFO  | [196/500] Processing package Orleans.Server; no versions found
+18:53:34 | INFO  | [197/500] Processing package Quartz; 0 vulnerabilities
+18:53:34 | INFO  | [198/500] Processing package RabbitMQ.Client; no versions found
+18:53:34 | INFO  | [199/500] Processing package Rebus; no versions found
+18:53:35 | INFO  | [200/500] Processing package Rebus.AzureServiceBus; no versions found
+18:53:35 | INFO  | [201/500] Processing package Rebus.RabbitMq; no versions found
+18:53:40 | INFO  | [202/500] Processing package Rebus.ServiceProvider; 0 vulnerabilities
+18:53:41 | INFO  | [203/500] Processing package RedLock.net; 0 vulnerabilities
+18:53:41 | INFO  | [204/500] Processing package StackExchange.Redis; no versions found
+18:53:47 | INFO  | [205/500] Processing package StackExchange.Redis.Extensions.Core; 0 vulnerabilities
+18:53:52 | INFO  | [206/500] Processing package StackExchange.Redis.Extensions.Newtonsoft; 0 vulnerabilities
+18:53:58 | INFO  | [207/500] Processing package System.Runtime.Caching; 0 vulnerabilities
+18:54:05 | INFO  | [208/500] Processing package WorkflowCore; 0 vulnerabilities
+18:54:06 | INFO  | [209/500] Processing package App.Metrics; 0 vulnerabilities
+18:54:12 | INFO  | [210/500] Processing package Elastic.Apm.NetCoreAll; 0 vulnerabilities
+18:54:15 | INFO  | [211/500] Processing package Jaeger; 0 vulnerabilities
+18:54:15 | INFO  | [212/500] Processing package Microsoft.ApplicationInsights; no versions found
+18:54:16 | INFO  | [213/500] Processing package MiniProfiler; 0 vulnerabilities
+18:54:16 | INFO  | [214/500] Processing package NLog; no versions found
+18:54:22 | INFO  | [215/500] Processing package NLog.Extensions.Logging; 0 vulnerabilities
+18:54:28 | INFO  | [216/500] Processing package OpenTelemetry; 0 vulnerabilities
+18:54:34 | INFO  | [217/500] Processing package OpenTelemetry.Api; 0 vulnerabilities
+18:54:39 | INFO  | [218/500] Processing package OpenTelemetry.Exporter.Console; 0 vulnerabilities
+18:54:42 | INFO  | [219/500] Processing package OpenTelemetry.Exporter.Jaeger; 0 vulnerabilities
+18:54:48 | INFO  | [220/500] Processing package OpenTelemetry.Exporter.OpenTelemetryProtocol; 0 vulnerabilities
+18:54:54 | INFO  | [221/500] Processing package OpenTelemetry.Exporter.Zipkin; 0 vulnerabilities
+18:54:58 | INFO  | [222/500] Processing package OpenTelemetry.Extensions.Hosting; 0 vulnerabilities
+18:55:02 | INFO  | [223/500] Processing package OpenTelemetry.Instrumentation.Http; 4 vulnerabilities
+18:55:07 | INFO  | [224/500] Processing package OpenTelemetry.Instrumentation.Runtime; 0 vulnerabilities
+18:55:07 | INFO  | [225/500] Processing package OpenTracing; 0 vulnerabilities (no versions in date window)
+18:55:08 | INFO  | [226/500] Processing package OpenTracing.Contrib.NetCore; 0 vulnerabilities
+18:55:09 | INFO  | [227/500] Processing package Sentry; no versions found
+18:55:09 | INFO  | [228/500] Processing package Sentry.Serilog; no versions found
+18:55:09 | INFO  | [229/500] Processing package Serilog; no versions found
+18:55:09 | INFO  | [230/500] Processing package Serilog.Exceptions; 0 vulnerabilities (no versions in date window)
+18:55:11 | INFO  | [231/500] Processing package Serilog.Extensions.Logging; 0 vulnerabilities
+18:55:12 | INFO  | [232/500] Processing package Serilog.Formatting.Compact; 0 vulnerabilities
+18:55:12 | INFO  | [233/500] Processing package Serilog.Settings.Configuration; no versions found
+18:55:13 | INFO  | [234/500] Processing package Serilog.Sinks.ApplicationInsights; no versions found
+18:55:14 | INFO  | [235/500] Processing package Serilog.Sinks.Async; 0 vulnerabilities
+18:55:16 | INFO  | [236/500] Processing package Serilog.Sinks.Console; 0 vulnerabilities
+18:55:17 | INFO  | [237/500] Processing package Serilog.Sinks.Debug; 0 vulnerabilities
+18:55:18 | INFO  | [238/500] Processing package Serilog.Sinks.File; 0 vulnerabilities
+18:55:18 | INFO  | [239/500] Processing package Serilog.Sinks.RollingFile; 0 vulnerabilities (no versions in date window)
+18:55:18 | INFO  | [240/500] Processing package Serilog.Sinks.Seq; no versions found
+18:55:24 | INFO  | [241/500] Processing package Steeltoe.CircuitBreaker.HystrixCore; 0 vulnerabilities
+18:55:24 | INFO  | [242/500] Processing package Steeltoe.Configuration.ConfigServerCore; no versions found
+18:55:32 | INFO  | [243/500] Processing package Steeltoe.Discovery.ClientCore; 20 vulnerabilities
+18:55:38 | INFO  | [244/500] Processing package Steeltoe.Management.EndpointCore; 0 vulnerabilities
+18:55:38 | INFO  | [245/500] Processing package Zipkin; 0 vulnerabilities (no versions in date window)
+18:55:42 | INFO  | [246/500] Processing package log4net; 0 vulnerabilities
+18:55:43 | INFO  | [247/500] Processing package prometheus-net; no versions found
+18:55:43 | INFO  | [248/500] Processing package AWSSDK.CloudWatchLogs; no versions found
+18:55:43 | INFO  | [249/500] Processing package AWSSDK.Core; no versions found
+18:55:43 | INFO  | [250/500] Processing package AWSSDK.DynamoDBv2; no versions found
+18:55:50 | INFO  | [251/500] Processing package AWSSDK.Extensions.NETCore.Setup; 0 vulnerabilities
+18:55:51 | INFO  | [252/500] Processing package AWSSDK.Lambda; no versions found
+18:55:51 | INFO  | [253/500] Processing package AWSSDK.S3; no versions found
+18:55:51 | INFO  | [254/500] Processing package AWSSDK.SQS; no versions found
+18:55:51 | INFO  | [255/500] Processing package AWSSDK.SecretsManager; no versions found
+18:55:51 | INFO  | [256/500] Processing package AWSSDK.SecurityToken; no versions found
+18:55:52 | INFO  | [257/500] Processing package AWSSDK.SimpleNotificationService; no versions found
+18:55:52 | INFO  | [258/500] Processing package Azure.AI.OpenAI; 0 vulnerabilities
+18:55:59 | INFO  | [259/500] Processing package Azure.Core; 0 vulnerabilities
+18:56:03 | INFO  | [260/500] Processing package Azure.Data.AppConfiguration; 0 vulnerabilities
+18:56:09 | INFO  | [261/500] Processing package Azure.Data.Tables; 0 vulnerabilities
+18:56:15 | INFO  | [262/500] Processing package Azure.Messaging.EventGrid; 0 vulnerabilities
+18:56:21 | INFO  | [263/500] Processing package Azure.Messaging.EventHubs; 0 vulnerabilities
+18:56:24 | INFO  | [264/500] Processing package Azure.Monitor.Query; 0 vulnerabilities
+18:56:28 | INFO  | [265/500] Processing package Azure.Search.Documents; 0 vulnerabilities
+18:56:34 | INFO  | [266/500] Processing package Azure.Storage.Blobs; 9 vulnerabilities
+18:56:40 | INFO  | [267/500] Processing package Azure.Storage.Files.DataLake; 0 vulnerabilities
+18:56:46 | INFO  | [268/500] Processing package Azure.Storage.Files.Shares; 0 vulnerabilities
+18:56:53 | INFO  | [269/500] Processing package Azure.Storage.Queues; 9 vulnerabilities
+18:57:00 | INFO  | [270/500] Processing package Google.Api.Gax; 0 vulnerabilities
+18:57:06 | INFO  | [271/500] Processing package Google.Api.Gax.Grpc; 0 vulnerabilities
+18:57:12 | INFO  | [272/500] Processing package Google.Cloud.Firestore; 0 vulnerabilities
+18:57:16 | INFO  | [273/500] Processing package Google.Cloud.Logging.V2; 0 vulnerabilities
+18:57:21 | INFO  | [274/500] Processing package Google.Cloud.PubSub.V1; 0 vulnerabilities
+18:57:27 | INFO  | [275/500] Processing package Google.Cloud.SecretManager.V1; 0 vulnerabilities
+18:57:33 | INFO  | [276/500] Processing package Google.Cloud.Spanner.Data; 0 vulnerabilities
+18:57:39 | INFO  | [277/500] Processing package Google.Cloud.Storage.V1; 0 vulnerabilities
+18:57:39 | INFO  | [278/500] Processing package Microsoft.Graph; no versions found
+18:57:45 | INFO  | [279/500] Processing package Microsoft.Graph.Core; 0 vulnerabilities
+18:57:46 | INFO  | [280/500] Processing package Microsoft.Rest.ClientRuntime; 2 vulnerabilities
+18:57:46 | INFO  | [281/500] Processing package AngleSharp; no versions found
+18:57:46 | INFO  | [282/500] Processing package CsvHelper; no versions found
+18:57:47 | INFO  | [283/500] Processing package CsvHelper.Configuration; no versions found
+18:57:47 | INFO  | [284/500] Processing package CsvHelper.Excel; 0 vulnerabilities (no versions in date window)
+18:57:47 | INFO  | [285/500] Processing package CsvHelper.TypeConversion; no versions found
+18:57:49 | INFO  | [286/500] Processing package FluentAssertions.Json; 0 vulnerabilities
+18:57:50 | INFO  | [287/500] Processing package GeoJSON.Text; 0 vulnerabilities
+18:57:50 | INFO  | [288/500] Processing package Google.Protobuf; no versions found
+18:57:57 | INFO  | [289/500] Processing package Handlebars.Net; 0 vulnerabilities
+18:57:58 | INFO  | [290/500] Processing package HtmlAgilityPack; no versions found
+18:58:01 | INFO  | [291/500] Processing package Humanizer; 0 vulnerabilities
+18:58:01 | INFO  | [292/500] Processing package Jil; 0 vulnerabilities (no versions in date window)
+18:58:01 | INFO  | [293/500] Processing package JsonEverything.JsonSchema; no versions found
+18:58:03 | INFO  | [294/500] Processing package JsonSubTypes; 0 vulnerabilities
+18:58:03 | INFO  | [295/500] Processing package LanguageExt.Core; no versions found
+18:58:03 | INFO  | [296/500] Processing package MailKit; no versions found
+18:58:03 | INFO  | [297/500] Processing package Markdig; no versions found
+18:58:04 | INFO  | [298/500] Processing package MessagePack; no versions found
+18:58:11 | INFO  | [299/500] Processing package MessagePack.Annotations; 0 vulnerabilities
+18:58:17 | INFO  | [300/500] Processing package Microsoft.Extensions.Configuration.Json; 0 vulnerabilities
+18:58:22 | INFO  | [301/500] Processing package Mime-Detective; 0 vulnerabilities
+18:58:23 | INFO  | [302/500] Processing package MimeKit; no versions found
+18:58:25 | INFO  | [303/500] Processing package MoreLinq; 0 vulnerabilities
+18:58:25 | INFO  | [304/500] Processing package NJsonSchema; no versions found
+18:58:29 | INFO  | [305/500] Processing package NJsonSchema.Annotations; 0 vulnerabilities
+18:58:30 | INFO  | [306/500] Processing package Newtonsoft.Json; 0 vulnerabilities
+18:58:30 | INFO  | [307/500] Processing package Newtonsoft.Json.Bson; 0 vulnerabilities
+18:58:36 | INFO  | [308/500] Processing package OneOf; 0 vulnerabilities
+18:58:38 | INFO  | [309/500] Processing package RazorLight; 0 vulnerabilities
+18:58:38 | INFO  | [310/500] Processing package ReactiveUI; no versions found
+18:58:38 | INFO  | [311/500] Processing package ReactiveUI.Fody; no versions found
+18:58:44 | INFO  | [312/500] Processing package ReverseMarkdown; 0 vulnerabilities
+18:58:44 | INFO  | [313/500] Processing package Scriban; no versions found
+18:58:44 | INFO  | [314/500] Processing package ServiceStack.Text; no versions found
+18:58:50 | INFO  | [315/500] Processing package System.Collections.Immutable; 0 vulnerabilities
+18:58:55 | INFO  | [316/500] Processing package System.Formats.Asn1; 3 vulnerabilities
+18:59:01 | INFO  | [317/500] Processing package System.Formats.Cbor; 0 vulnerabilities
+18:59:04 | INFO  | [318/500] Processing package System.Reactive; 0 vulnerabilities
+18:59:06 | INFO  | [319/500] Processing package System.Reactive.Interfaces; 0 vulnerabilities
+18:59:08 | INFO  | [320/500] Processing package System.Reactive.Linq; 0 vulnerabilities
+18:59:14 | INFO  | [321/500] Processing package System.Text.Encodings.Web; 2 vulnerabilities
+18:59:22 | INFO  | [322/500] Processing package System.Text.Json; 11 vulnerabilities
+18:59:22 | INFO  | [323/500] Processing package System.Text.RegularExpressions; 0 vulnerabilities (no versions in date window)
+18:59:22 | INFO  | [324/500] Processing package Utf8Json; 0 vulnerabilities (no versions in date window)
+18:59:24 | INFO  | [325/500] Processing package ValueOf; 0 vulnerabilities
+18:59:24 | INFO  | [326/500] Processing package YamlDotNet; no versions found
+18:59:24 | INFO  | [327/500] Processing package YamlDotNet.Analyzers; no versions found
+18:59:30 | INFO  | [328/500] Processing package protobuf-net; 0 vulnerabilities
+18:59:36 | INFO  | [329/500] Processing package protobuf-net.Grpc; 0 vulnerabilities
+18:59:41 | INFO  | [330/500] Processing package BarcodeLib; 0 vulnerabilities
+18:59:47 | INFO  | [331/500] Processing package ClosedXML; 0 vulnerabilities
+18:59:47 | INFO  | [332/500] Processing package DinkToPdf; 0 vulnerabilities (no versions in date window)
+18:59:55 | INFO  | [333/500] Processing package DocumentFormat.OpenXml; 0 vulnerabilities
+18:59:57 | INFO  | [334/500] Processing package DotNetZip; 6 vulnerabilities
+18:59:57 | INFO  | [335/500] Processing package EPPlus; no versions found
+18:59:58 | INFO  | [336/500] Processing package FastReport.OpenSource; no versions found
+18:59:58 | INFO  | [337/500] Processing package GemBox.Document; no versions found
+18:59:58 | INFO  | [338/500] Processing package GemBox.Spreadsheet; no versions found
+18:59:59 | INFO  | [339/500] Processing package HtmlRenderer.PdfSharp; 0 vulnerabilities
+18:59:59 | INFO  | [340/500] Processing package ImageMagick; no versions found
+18:59:59 | INFO  | [341/500] Processing package ImageProcessor; 0 vulnerabilities
+19:00:00 | INFO  | [342/500] Processing package ImageSharp; 0 vulnerabilities (no versions in date window)
+19:00:00 | INFO  | [343/500] Processing package Ionic.Zip; 0 vulnerabilities (no versions in date window)
+19:00:00 | INFO  | [344/500] Processing package IronPdf; no versions found
+19:00:00 | INFO  | [345/500] Processing package Magick.NET-Q8-AnyCPU; no versions found
+19:00:05 | INFO  | [346/500] Processing package NPOI; 0 vulnerabilities
+19:00:05 | INFO  | [347/500] Processing package PdfPig; no versions found
+19:00:05 | INFO  | [348/500] Processing package PdfSharpCore; no versions found
+19:00:08 | INFO  | [349/500] Processing package QRCoder; 0 vulnerabilities
+19:00:08 | INFO  | [350/500] Processing package QuestPDF; no versions found
+19:00:08 | INFO  | [351/500] Processing package SelectPdf; no versions found
+19:00:11 | INFO  | [352/500] Processing package SharpZipLib; 9 vulnerabilities
+19:00:15 | INFO  | [353/500] Processing package SixLabors.Fonts; 0 vulnerabilities
+19:00:19 | INFO  | [354/500] Processing package SixLabors.ImageSharp.Drawing; 0 vulnerabilities
+19:00:23 | INFO  | [355/500] Processing package SkiaSharp; 4 vulnerabilities
+19:00:23 | INFO  | Stopping early at 250 vulnerabilities
+19:00:23 | INFO  | === collecting maven ===
+19:00:25 | INFO  | [1/200] Processing artifact org.apache.commons:commons-lang3; 0 vulnerabilities
+19:00:26 | INFO  | [2/200] Processing artifact org.apache.commons:commons-io; 0 vulnerabilities
+19:00:27 | INFO  | [3/200] Processing artifact org.apache.commons:commons-collections4; 0 vulnerabilities
+19:00:29 | INFO  | [4/200] Processing artifact org.apache.commons:commons-compress; 0 vulnerabilities
+19:00:30 | INFO  | [5/200] Processing artifact org.apache.commons:commons-text; 1 vulnerabilities
+19:00:31 | INFO  | [6/200] Processing artifact org.apache.commons:commons-beanutils; 0 vulnerabilities
+19:00:31 | INFO  | [7/200] Processing artifact org.apache.commons:commons-fileupload; 0 vulnerabilities
+19:00:31 | INFO  | [8/200] Processing artifact org.apache.commons:commons-validator; 0 vulnerabilities
+19:00:33 | INFO  | [9/200] Processing artifact org.apache.commons:commons-exec; 0 vulnerabilities
+19:00:34 | INFO  | [10/200] Processing artifact org.apache.commons:commons-dbcp2; 0 vulnerabilities
+19:00:36 | INFO  | [11/200] Processing artifact org.apache.commons:commons-pool2; 0 vulnerabilities
+19:00:38 | INFO  | [12/200] Processing artifact org.apache.commons:commons-csv; 0 vulnerabilities
+19:00:39 | INFO  | [13/200] Processing artifact org.apache.commons:commons-math3; 0 vulnerabilities
+19:00:41 | INFO  | [14/200] Processing artifact org.apache.commons:commons-email; 0 vulnerabilities
+19:00:44 | INFO  | [15/200] Processing artifact org.apache.commons:commons-vfs2; 6 vulnerabilities
+19:00:46 | INFO  | [16/200] Processing artifact org.apache.commons:commons-configuration2; 5 vulnerabilities
+19:00:46 | INFO  | [17/200] Processing artifact org.apache.commons:commons-imaging; 0 vulnerabilities
+19:00:51 | INFO  | [18/200] Processing artifact org.apache.commons:commons-jexl3; 0 vulnerabilities
+19:00:51 | INFO  | [19/200] Processing artifact org.apache.commons:commons-cli; 0 vulnerabilities
+19:00:51 | INFO  | [20/200] Processing artifact org.apache.commons:commons-codec; 0 vulnerabilities
+19:00:54 | INFO  | [21/200] Processing artifact org.apache.logging.log4j:log4j-core; 8 vulnerabilities
+19:00:56 | INFO  | [22/200] Processing artifact org.apache.logging.log4j:log4j-api; 0 vulnerabilities
+19:00:58 | INFO  | [23/200] Processing artifact org.apache.logging.log4j:log4j-web; 0 vulnerabilities
+19:00:59 | INFO  | [24/200] Processing artifact ch.qos.logback:logback-core; 0 vulnerabilities
+19:01:01 | INFO  | [25/200] Processing artifact ch.qos.logback:logback-classic; 0 vulnerabilities
+19:01:03 | INFO  | [26/200] Processing artifact org.slf4j:slf4j-api; 0 vulnerabilities
+19:01:04 | INFO  | [27/200] Processing artifact org.slf4j:slf4j-simple; 0 vulnerabilities
+19:01:06 | INFO  | [28/200] Processing artifact org.slf4j:jcl-over-slf4j; 0 vulnerabilities
+19:01:07 | INFO  | [29/200] Processing artifact org.slf4j:jul-to-slf4j; 0 vulnerabilities
+19:01:09 | INFO  | [30/200] Processing artifact org.slf4j:log4j-over-slf4j; 0 vulnerabilities
+19:01:10 | INFO  | [31/200] Processing artifact org.springframework:spring-core; 0 vulnerabilities
+19:01:12 | INFO  | [32/200] Processing artifact org.springframework:spring-context; 0 vulnerabilities
+19:01:13 | INFO  | [33/200] Processing artifact org.springframework:spring-beans; 0 vulnerabilities
+19:01:15 | INFO  | [34/200] Processing artifact org.springframework:spring-aop; 0 vulnerabilities
+19:01:20 | INFO  | [35/200] Processing artifact org.springframework:spring-expression; 40 vulnerabilities
+19:01:22 | INFO  | [36/200] Processing artifact org.springframework:spring-web; 0 vulnerabilities
+19:01:23 | INFO  | [37/200] Processing artifact org.springframework:spring-webmvc; 0 vulnerabilities
+19:01:25 | INFO  | [38/200] Processing artifact org.springframework:spring-jdbc; 0 vulnerabilities
+19:01:27 | INFO  | [39/200] Processing artifact org.springframework:spring-tx; 0 vulnerabilities
+19:01:29 | INFO  | [40/200] Processing artifact org.springframework:spring-orm; 0 vulnerabilities
+19:01:33 | INFO  | [41/200] Processing artifact org.springframework.security:spring-security-core; 25 vulnerabilities
+19:01:39 | INFO  | [42/200] Processing artifact org.springframework.security:spring-security-web; 34 vulnerabilities
+19:01:44 | INFO  | [43/200] Processing artifact org.springframework.security:spring-security-config; 0 vulnerabilities
+19:01:50 | INFO  | [44/200] Processing artifact org.springframework.security:spring-security-crypto; 10 vulnerabilities
+19:01:54 | INFO  | [45/200] Processing artifact org.springframework.security:spring-security-oauth2-core; 0 vulnerabilities
+19:02:00 | INFO  | [46/200] Processing artifact org.springframework.security:spring-security-oauth2-client; 17 vulnerabilities
+19:02:04 | INFO  | [47/200] Processing artifact org.springframework.security:spring-security-oauth2-resource-server; 0 vulnerabilities
+19:02:08 | INFO  | [48/200] Processing artifact org.springframework.boot:spring-boot; 10 vulnerabilities
+19:02:12 | INFO  | [49/200] Processing artifact org.springframework.boot:spring-boot-autoconfigure; 10 vulnerabilities
+19:02:17 | INFO  | [50/200] Processing artifact org.springframework.boot:spring-boot-starter-web; 10 vulnerabilities
+19:02:20 | INFO  | [51/200] Processing artifact org.springframework.boot:spring-boot-starter-security; 0 vulnerabilities
+19:02:25 | INFO  | [52/200] Processing artifact org.springframework.boot:spring-boot-starter-data-jpa; 0 vulnerabilities
+19:02:28 | INFO  | [53/200] Processing artifact org.springframework:spring-test; 0 vulnerabilities
+19:02:32 | INFO  | [54/200] Processing artifact org.springframework:spring-aspects; 0 vulnerabilities
+19:02:36 | INFO  | [55/200] Processing artifact org.springframework:spring-instrument; 0 vulnerabilities
+19:02:37 | INFO  | [56/200] Processing artifact org.hibernate:hibernate-core; 2 vulnerabilities
+19:02:37 | INFO  | [57/200] Processing artifact org.hibernate:hibernate-validator; 0 vulnerabilities
+19:02:38 | INFO  | [58/200] Processing artifact org.hibernate:hibernate-entitymanager; 0 vulnerabilities
+19:02:38 | INFO  | [59/200] Processing artifact javax.persistence:javax.persistence-api; 0 vulnerabilities
+19:02:40 | INFO  | [60/200] Processing artifact jakarta.persistence:jakarta.persistence-api; 0 vulnerabilities
+19:02:40 | INFO  | [61/200] Processing artifact org.hibernate.common:hibernate-commons-annotations; 0 vulnerabilities
+19:02:41 | INFO  | [62/200] Processing artifact org.hibernate:hibernate-jcache; 0 vulnerabilities
+19:02:42 | INFO  | [63/200] Processing artifact org.hibernate:hibernate-envers; 0 vulnerabilities
+19:02:43 | INFO  | [64/200] Processing artifact org.hibernate:hibernate-spatial; 0 vulnerabilities
+19:02:43 | INFO  | [65/200] Processing artifact org.hibernate:hibernate-search-engine; 0 vulnerabilities
+19:02:48 | INFO  | [66/200] Processing artifact com.fasterxml.jackson.core:jackson-core; 30 vulnerabilities
+19:02:58 | INFO  | [67/200] Processing artifact com.fasterxml.jackson.core:jackson-databind; 42 vulnerabilities
+19:02:58 | INFO  | Stopping early at 250 vulnerabilities
+19:02:58 | INFO  | === collecting pypi ===
+19:03:00 | INFO  | [1/210] Processing package requests; 21 vulnerabilities
+19:03:02 | INFO  | [2/210] Processing package urllib3; 2 vulnerabilities
+19:03:03 | INFO  | [3/210] Processing package httpx; 0 vulnerabilities
+19:03:06 | INFO  | [4/210] Processing package aiohttp; 10 vulnerabilities
+19:03:07 | INFO  | [5/210] Processing package httpcore; 0 vulnerabilities
+19:03:08 | INFO  | [6/210] Processing package h11; 3 vulnerabilities
+19:03:10 | INFO  | [7/210] Processing package h2; 2 vulnerabilities
+19:03:12 | INFO  | [8/210] Processing package wsproto; 0 vulnerabilities
+19:03:13 | INFO  | [9/210] Processing package websockets; 4 vulnerabilities
+19:03:14 | INFO  | [10/210] Processing package anyio; 0 vulnerabilities
+19:03:15 | INFO  | [11/210] Processing package flask; 2 vulnerabilities
+19:03:16 | INFO  | [12/210] Processing package django; 18 vulnerabilities
+19:03:17 | INFO  | [13/210] Processing package fastapi; 3 vulnerabilities
+19:03:18 | INFO  | [14/210] Processing package starlette; 4 vulnerabilities
+19:03:19 | INFO  | [15/210] Processing package werkzeug; 1 vulnerabilities
+19:03:21 | INFO  | [16/210] Processing package quart; 3 vulnerabilities
+19:03:22 | INFO  | [17/210] Processing package falcon; 0 vulnerabilities
+19:03:23 | INFO  | [18/210] Processing package bottle; 15 vulnerabilities
+19:03:24 | INFO  | [19/210] Processing package tornado; 5 vulnerabilities
+19:03:25 | INFO  | [20/210] Processing package sanic; 0 vulnerabilities
+19:03:26 | INFO  | [21/210] Processing package cryptography; 3 vulnerabilities
+19:03:27 | INFO  | [22/210] Processing package pyopenssl; 4 vulnerabilities
+19:03:28 | INFO  | [23/210] Processing package bcrypt; 0 vulnerabilities
+19:03:29 | INFO  | [24/210] Processing package passlib; 0 vulnerabilities
+19:03:30 | INFO  | [25/210] Processing package paramiko; 0 vulnerabilities
+19:03:31 | INFO  | [26/210] Processing package pynacl; 2 vulnerabilities
+19:03:32 | INFO  | [27/210] Processing package itsdangerous; 0 vulnerabilities
+19:03:33 | INFO  | [28/210] Processing package python-jose; 4 vulnerabilities
+19:03:35 | INFO  | [29/210] Processing package jwcrypto; 2 vulnerabilities
+19:03:36 | INFO  | [30/210] Processing package hashids; 0 vulnerabilities
+19:03:37 | INFO  | [31/210] Processing package pyyaml; 0 vulnerabilities
+19:03:38 | INFO  | [32/210] Processing package ruamel.yaml; 0 vulnerabilities
+19:03:39 | INFO  | [33/210] Processing package lxml; 0 vulnerabilities
+19:03:39 | INFO  | [34/210] Processing package beautifulsoup4; 0 vulnerabilities
+19:03:40 | INFO  | [35/210] Processing package html5lib; 0 vulnerabilities
+19:03:42 | INFO  | [36/210] Processing package markdown; 0 vulnerabilities
+19:03:43 | INFO  | [37/210] Processing package mistune; 0 vulnerabilities
+19:03:43 | INFO  | [38/210] Processing package docutils; 0 vulnerabilities
+19:03:45 | INFO  | [39/210] Processing package xmltodict; 0 vulnerabilities
+19:03:46 | INFO  | [40/210] Processing package defusedxml; 0 vulnerabilities
+19:03:48 | INFO  | [41/210] Processing package orjson; 9 vulnerabilities
+19:03:49 | INFO  | [42/210] Processing package ujson; 6 vulnerabilities
+19:03:50 | INFO  | [43/210] Processing package jsonschema; 0 vulnerabilities
+19:03:51 | INFO  | [44/210] Processing package pydantic; 0 vulnerabilities
+19:03:52 | INFO  | [45/210] Processing package msgpack; 0 vulnerabilities
+19:03:53 | INFO  | [46/210] Processing package cbor2; 1 vulnerabilities
+19:03:54 | INFO  | [47/210] Processing package marshmallow; 0 vulnerabilities
+19:03:55 | INFO  | [48/210] Processing package dataclasses-json; 0 vulnerabilities
+19:03:56 | INFO  | [49/210] Processing package jsonpickle; 0 vulnerabilities
+19:03:57 | INFO  | [50/210] Processing package simplejson; 0 vulnerabilities
+19:03:58 | INFO  | [51/210] Processing package numpy; 0 vulnerabilities
+19:03:59 | INFO  | [52/210] Processing package pandas; 0 vulnerabilities
+19:04:00 | INFO  | [53/210] Processing package scipy; 3 vulnerabilities
+19:04:01 | INFO  | [54/210] Processing package scikit-learn; 0 vulnerabilities
+19:04:02 | INFO  | [55/210] Processing package xgboost; 0 vulnerabilities
+19:04:03 | INFO  | [56/210] Processing package lightgbm; 4 vulnerabilities
+19:04:04 | INFO  | [57/210] Processing package catboost; 0 vulnerabilities
+19:04:05 | INFO  | [58/210] Processing package statsmodels; 0 vulnerabilities
+19:04:06 | INFO  | [59/210] Processing package sympy; 0 vulnerabilities
+19:04:07 | INFO  | [60/210] Processing package networkx; 0 vulnerabilities
+19:04:08 | INFO  | [61/210] Processing package torch; 0 vulnerabilities
+19:04:09 | INFO  | [62/210] Processing package torchvision; 0 vulnerabilities
+19:04:10 | INFO  | [63/210] Processing package torchaudio; 0 vulnerabilities
+19:04:16 | INFO  | [64/210] Processing package tensorflow; 30 vulnerabilities
+19:04:17 | INFO  | [65/210] Processing package keras; 21 vulnerabilities
+19:04:18 | INFO  | [66/210] Processing package jax; 0 vulnerabilities
+19:04:19 | INFO  | [67/210] Processing package flax; 0 vulnerabilities
+19:04:20 | INFO  | [68/210] Processing package transformers; 0 vulnerabilities
+19:04:21 | INFO  | [69/210] Processing package datasets; 0 vulnerabilities
+19:04:22 | INFO  | [70/210] Processing package accelerate; 0 vulnerabilities
+19:04:23 | INFO  | [71/210] Processing package pip; 24 vulnerabilities
+19:04:26 | INFO  | [72/210] Processing package setuptools; 15 vulnerabilities
+19:04:27 | INFO  | [73/210] Processing package wheel; 6 vulnerabilities
+19:04:28 | INFO  | [74/210] Processing package build; 0 vulnerabilities
+19:04:29 | INFO  | [75/210] Processing package twine; 0 vulnerabilities
+19:04:30 | INFO  | [76/210] Processing package virtualenv; 0 vulnerabilities
+19:04:31 | INFO  | [77/210] Processing package pipenv; 0 vulnerabilities
+19:04:32 | INFO  | [78/210] Processing package poetry; 0 vulnerabilities
+19:04:33 | INFO  | [79/210] Processing package installer; 0 vulnerabilities
+19:04:34 | INFO  | [80/210] Processing package distlib; 0 vulnerabilities
+19:04:35 | INFO  | [81/210] Processing package click; 0 vulnerabilities
+19:04:36 | INFO  | [82/210] Processing package typer; 0 vulnerabilities
+19:04:37 | INFO  | [83/210] Processing package rich; 0 vulnerabilities
+19:04:38 | INFO  | [84/210] Processing package loguru; 0 vulnerabilities
+19:04:39 | INFO  | [85/210] Processing package argcomplete; 0 vulnerabilities
+19:04:39 | INFO  | [86/210] Processing package colorama; 0 vulnerabilities
+19:04:41 | INFO  | [87/210] Processing package tqdm; 9 vulnerabilities
+19:04:41 | INFO  | [88/210] Processing package fire; 0 vulnerabilities
+19:04:42 | INFO  | [89/210] Processing package cement; 0 vulnerabilities
+19:04:44 | INFO  | [90/210] Processing package docopt; 0 vulnerabilities
+19:04:45 | INFO  | [91/210] Processing package trio; 0 vulnerabilities
+19:04:46 | INFO  | [92/210] Processing package curio; 0 vulnerabilities
+19:04:47 | INFO  | [93/210] Processing package gevent; 0 vulnerabilities
+19:04:48 | INFO  | [94/210] Processing package eventlet; 6 vulnerabilities
+19:04:49 | INFO  | [95/210] Processing package asyncio; 0 vulnerabilities
+19:04:50 | INFO  | [96/210] Processing package aiomysql; 0 vulnerabilities
+19:04:51 | INFO  | [97/210] Processing package aiosqlite; 0 vulnerabilities
+19:04:52 | INFO  | [98/210] Processing package uvloop; 0 vulnerabilities
+19:04:53 | INFO  | [99/210] Processing package janus; 0 vulnerabilities
+19:04:53 | INFO  | [100/210] Processing package sniffio; 0 vulnerabilities
+19:04:54 | INFO  | [101/210] Processing package sqlalchemy; 0 vulnerabilities
+19:04:55 | INFO  | [102/210] Processing package psycopg2; 0 vulnerabilities
+19:04:56 | INFO  | [103/210] Processing package psycopg2-binary; 0 vulnerabilities
+19:04:57 | INFO  | [104/210] Processing package pymysql; 1 vulnerabilities
+19:04:58 | INFO  | [105/210] Processing package mysqlclient; 0 vulnerabilities
+19:04:59 | INFO  | [106/210] Processing package redis; 0 vulnerabilities
+19:05:00 | INFO  | [107/210] Processing package mongoengine; 0 vulnerabilities
+19:05:01 | INFO  | [108/210] Processing package pymongo; 0 vulnerabilities
+19:05:02 | INFO  | [109/210] Processing package tinydb; 0 vulnerabilities
+19:05:03 | INFO  | [110/210] Processing package dataset; 0 vulnerabilities
+19:05:04 | INFO  | [111/210] Processing package pytest; 0 vulnerabilities
+19:05:05 | INFO  | [112/210] Processing package pytest-cov; 0 vulnerabilities
+19:05:06 | INFO  | [113/210] Processing package pytest-asyncio; 0 vulnerabilities
+19:05:07 | INFO  | [114/210] Processing package tox; 0 vulnerabilities
+19:05:08 | INFO  | [115/210] Processing package hypothesis; 0 vulnerabilities
+19:05:08 | INFO  | [116/210] Processing package nose2; 0 vulnerabilities
+19:05:09 | INFO  | [117/210] Processing package coverage; 0 vulnerabilities
+19:05:11 | INFO  | [118/210] Processing package unittest2; 0 vulnerabilities
+19:05:12 | INFO  | [119/210] Processing package pytest-mock; 0 vulnerabilities
+19:05:13 | INFO  | [120/210] Processing package pytest-xdist; 0 vulnerabilities
+19:05:14 | INFO  | [121/210] Processing package pillow; 7 vulnerabilities
+19:05:14 | INFO  | Stopping early at 250 vulnerabilities
+19:05:14 | INFO  | === collecting npm ===
+19:05:14 | INFO  | [1/200] Processing package lodash; 0 vulnerabilities
+19:05:14 | INFO  | [2/200] Processing package underscore; 0 vulnerabilities
+19:05:15 | INFO  | [3/200] Processing package minimist; 3 vulnerabilities
+19:05:15 | INFO  | [4/200] Processing package braces; 0 vulnerabilities
+19:05:15 | INFO  | [5/200] Processing package micromatch; 0 vulnerabilities
+19:05:17 | INFO  | [6/200] Processing package glob-parent; 2 vulnerabilities
+19:05:17 | INFO  | [7/200] Processing package yargs-parser; 0 vulnerabilities
+19:05:17 | INFO  | [8/200] Processing package axios; 0 vulnerabilities
+19:05:18 | INFO  | [9/200] Processing package request; 0 vulnerabilities
+19:05:18 | INFO  | [10/200] Processing package node-fetch; 0 vulnerabilities
+19:05:18 | INFO  | [11/200] Processing package got; 0 vulnerabilities
+19:05:18 | INFO  | [12/200] Processing package superagent; 0 vulnerabilities
+19:05:18 | INFO  | [13/200] Processing package follow-redirects; 0 vulnerabilities
+19:05:18 | INFO  | [14/200] Processing package http-proxy; 0 vulnerabilities
+19:05:18 | INFO  | [15/200] Processing package proxy-addr; 0 vulnerabilities
+19:05:18 | INFO  | [16/200] Processing package send; 0 vulnerabilities
+19:05:18 | INFO  | [17/200] Processing package serve-static; 0 vulnerabilities
+19:05:18 | INFO  | [18/200] Processing package express; 0 vulnerabilities
+19:05:19 | INFO  | [19/200] Processing package koa; 0 vulnerabilities
+19:05:19 | INFO  | [20/200] Processing package hapi; 0 vulnerabilities
+19:05:19 | INFO  | [21/200] Processing package restify; 0 vulnerabilities
+19:05:19 | INFO  | [22/200] Processing package connect; 0 vulnerabilities
+19:05:20 | INFO  | [23/200] Processing package fastify; 0 vulnerabilities
+19:05:20 | INFO  | [24/200] Processing package polka; 0 vulnerabilities
+19:05:20 | INFO  | [25/200] Processing package sails; 0 vulnerabilities
+19:05:21 | INFO  | [26/200] Processing package total.js; 0 vulnerabilities
+19:05:21 | INFO  | [27/200] Processing package derby; 0 vulnerabilities
+19:05:21 | INFO  | [28/200] Processing package body-parser; 0 vulnerabilities
+19:05:21 | INFO  | [29/200] Processing package cookie; 0 vulnerabilities
+19:05:22 | INFO  | [30/200] Processing package cookie-parser; 0 vulnerabilities
+19:05:22 | INFO  | [31/200] Processing package cors; 0 vulnerabilities
+19:05:22 | INFO  | [32/200] Processing package helmet; 0 vulnerabilities
+19:05:23 | INFO  | [33/200] Processing package morgan; 0 vulnerabilities
+19:05:23 | INFO  | [34/200] Processing package multer; 0 vulnerabilities
+19:05:23 | INFO  | [35/200] Processing package csurf; 0 vulnerabilities
+19:05:23 | INFO  | [36/200] Processing package serve-favicon; 0 vulnerabilities
+19:05:23 | INFO  | [37/200] Processing package compression; 0 vulnerabilities
+19:05:23 | INFO  | [38/200] Processing package jsonwebtoken; 0 vulnerabilities
+19:05:23 | INFO  | [39/200] Processing package bcrypt; 0 vulnerabilities
+19:05:24 | INFO  | [40/200] Processing package bcryptjs; 0 vulnerabilities
+19:05:27 | INFO  | [41/200] Processing package crypto-js; 7 vulnerabilities
+19:05:28 | INFO  | [42/200] Processing package uuid; 0 vulnerabilities
+19:05:28 | INFO  | [43/200] Processing package passport; 0 vulnerabilities
+19:05:29 | INFO  | [44/200] Processing package passport-local; 0 vulnerabilities
+19:05:29 | INFO  | [45/200] Processing package passport-jwt; 0 vulnerabilities
+19:05:31 | INFO  | [46/200] Processing package oauth2-server; 6 vulnerabilities
+19:05:31 | INFO  | [47/200] Processing package node-forge; 0 vulnerabilities
+19:05:31 | INFO  | [48/200] Processing package webpack; 0 vulnerabilities
+19:05:31 | INFO  | [49/200] Processing package webpack-cli; 0 vulnerabilities
+19:05:31 | INFO  | [50/200] Processing package webpack-dev-server; 0 vulnerabilities
+19:05:32 | INFO  | [51/200] Processing package rollup; 0 vulnerabilities
+19:05:32 | INFO  | [52/200] Processing package parcel; 0 vulnerabilities
+19:05:33 | INFO  | [53/200] Processing package browserify; 0 vulnerabilities
+19:05:42 | INFO  | [54/200] Processing package esbuild; 19 vulnerabilities
+19:05:55 | INFO  | [55/200] Processing package vite; 200 vulnerabilities
+19:05:55 | INFO  | [56/200] Processing package gulp; 0 vulnerabilities
+19:05:55 | INFO  | [57/200] Processing package grunt; 0 vulnerabilities
+19:05:55 | INFO  | [58/200] Processing package uglify-js; 0 vulnerabilities
+19:05:55 | INFO  | [59/200] Processing package terser; 0 vulnerabilities
+19:05:55 | INFO  | [60/200] Processing package babel-core; 0 vulnerabilities
+19:05:55 | INFO  | [61/200] Processing package @babel/core; 0 vulnerabilities
+19:05:55 | INFO  | [62/200] Processing package @babel/parser; 0 vulnerabilities
+19:05:55 | INFO  | [63/200] Processing package @babel/runtime; 0 vulnerabilities
+19:05:56 | INFO  | [64/200] Processing package babel-loader; 0 vulnerabilities
+19:05:56 | INFO  | [65/200] Processing package swc; 0 vulnerabilities
+19:05:56 | INFO  | [66/200] Processing package sucrase; 0 vulnerabilities
+19:05:56 | INFO  | [67/200] Processing package acorn; 0 vulnerabilities
+19:05:59 | INFO  | [68/200] Processing package json5; 4 vulnerabilities
+19:05:59 | INFO  | [69/200] Processing package yaml; 0 vulnerabilities
+19:05:59 | INFO  | [70/200] Processing package js-yaml; 0 vulnerabilities
+19:05:59 | INFO  | [71/200] Processing package qs; 0 vulnerabilities
+19:06:00 | INFO  | [72/200] Processing package xml2js; 0 vulnerabilities
+19:06:00 | INFO  | [73/200] Processing package fast-xml-parser; 0 vulnerabilities
+19:06:00 | INFO  | [74/200] Processing package csv-parse; 0 vulnerabilities
+19:06:01 | INFO  | [75/200] Processing package papaparse; 0 vulnerabilities
+19:06:01 | INFO  | [76/200] Processing package postcss; 0 vulnerabilities
+19:06:01 | INFO  | [77/200] Processing package css-loader; 0 vulnerabilities
+19:06:01 | INFO  | [78/200] Processing package style-loader; 0 vulnerabilities
+19:06:01 | INFO  | [79/200] Processing package sass; 0 vulnerabilities
+19:06:02 | INFO  | [80/200] Processing package less; 0 vulnerabilities
+19:06:02 | INFO  | [81/200] Processing package node-sass; 0 vulnerabilities
+19:06:02 | INFO  | [82/200] Processing package autoprefixer; 0 vulnerabilities
+19:06:02 | INFO  | [83/200] Processing package cssnano; 0 vulnerabilities
+19:06:02 | INFO  | [84/200] Processing package tailwindcss; 0 vulnerabilities
+19:06:02 | INFO  | [85/200] Processing package styled-components; 0 vulnerabilities
+19:06:03 | INFO  | [86/200] Processing package mongodb; 0 vulnerabilities
+19:06:03 | INFO  | [87/200] Processing package mongoose; 0 vulnerabilities
+19:06:03 | INFO  | [88/200] Processing package mysql; 0 vulnerabilities
+19:06:03 | INFO  | [89/200] Processing package mysql2; 0 vulnerabilities
+19:06:03 | INFO  | [90/200] Processing package pg; 0 vulnerabilities
+19:06:04 | INFO  | [91/200] Processing package redis; 0 vulnerabilities
+19:06:04 | INFO  | [92/200] Processing package ioredis; 0 vulnerabilities
+19:06:04 | INFO  | [93/200] Processing package sequelize; 0 vulnerabilities
+19:06:04 | INFO  | [94/200] Processing package knex; 0 vulnerabilities
+19:06:04 | INFO  | [95/200] Processing package nedb; 0 vulnerabilities
+19:06:05 | INFO  | [96/200] Processing package socket.io; 0 vulnerabilities
+19:06:05 | INFO  | [97/200] Processing package ws; 0 vulnerabilities
+19:06:05 | INFO  | [98/200] Processing package mqtt; 0 vulnerabilities
+19:06:05 | INFO  | [99/200] Processing package amqplib; 0 vulnerabilities
+19:06:05 | INFO  | [100/200] Processing package stompjs; 0 vulnerabilities
+19:06:06 | INFO  | [101/200] Processing package faye; 0 vulnerabilities
+19:06:06 | INFO  | [102/200] Processing package sockjs; 0 vulnerabilities
+19:06:06 | INFO  | [103/200] Processing package primus; 0 vulnerabilities
+19:06:07 | INFO  | [104/200] Processing package engine.io; 0 vulnerabilities
+19:06:07 | INFO  | [105/200] Processing package nats; 0 vulnerabilities
+19:06:07 | INFO  | [106/200] Processing package moment; 0 vulnerabilities
+19:06:07 | INFO  | [107/200] Processing package dayjs; 0 vulnerabilities
+19:06:07 | INFO  | [108/200] Processing package date-fns; 0 vulnerabilities
+19:06:08 | INFO  | [109/200] Processing package ajv; 0 vulnerabilities
+19:06:08 | INFO  | [110/200] Processing package joi; 0 vulnerabilities
+19:06:08 | INFO  | [111/200] Processing package validator; 0 vulnerabilities
+19:06:08 | INFO  | [112/200] Processing package yup; 0 vulnerabilities
+19:06:08 | INFO  | [113/200] Processing package superstruct; 0 vulnerabilities
+19:06:12 | INFO  | [114/200] Processing package zod; 9 vulnerabilities
+19:06:12 | INFO  | Stopping early at 250 vulnerabilities
+19:07:02 | INFO  | === verifying dataset against OSV (OFFLINE, CACHED) ===
+19:07:02 | INFO  | validation successful | rows=1000
+19:07:02 | INFO  | Building SBOM (component-centric)
+19:07:02 | INFO  | SBOM component set prepared | unique_components=430
+19:07:02 | INFO  | Validating SBOM against CycloneDX 1.5 schema
+19:07:03 | INFO  | SBOM is CycloneDX 1.5 conformant
+19:07:03 | INFO  | SBOM written | path=/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/.tmp_ground_truth_build/run_1/attempt_1/gt1/mixed_ground_truth_dataset_20260328T174559Z_430_1000.sbom.json
+19:07:03 | INFO  | DONE | unique_components=430 | osv_vuln_entries=1000
+[19:07:04 CET] ground_truth_gt1: build completed in 1266s
+[19:07:04 CET] ground_truth_gt1: GT   -> /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt1/ground_truth_gt1.csv
+[19:07:04 CET] ground_truth_gt1: SBOM -> /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt1/ground_truth_gt1.sbom.json
+[19:07:05 CET] GT comparison artifacts written to: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/gt_comparison
+[19:07:06 CET] GT comparison artifacts written to: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/run_1/gt_comparison
+[19:07:06 CET] Temporal run 1 accepted on attempt 1
+[19:07:06 CET] RUN_1_ATTEMPT_1_DURATION_SECONDS=4079
+
+============================================================
+Statistical analysis
+============================================================
+
+============================================================
+Finished
+============================================================
+[19:07:07 CET] Experiment completed
+[19:07:07 CET] Results stored in: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z

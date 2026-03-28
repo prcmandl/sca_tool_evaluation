@@ -32,7 +32,7 @@ def main() -> None:
 
     data = []
     for run_dir in run_dirs:
-        result_file = run_dir / "results.json"
+        result_file = run_dir / "experimental_results.json"
         if result_file.exists():
             with result_file.open("r", encoding="utf-8") as handle:
                 payload = json.load(handle)

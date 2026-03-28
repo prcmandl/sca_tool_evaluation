@@ -1,0 +1,27 @@
+GROUND TRUTH DIFFERENCE REPORT
+========================================
+
+GT0: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.csv
+GT1: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T165907Z/ground_truth_build/run_1/attempt_1/gt1/ground_truth_gt1.csv
+
+GT0 total rows:         1000
+GT1 total rows:         1000
+GT0 unique findings:    956
+GT1 unique findings:    956
+Shared unique findings: 956
+Added rows:             0
+Removed rows:           0
+Net row delta:          0
+Jaccard(unique):        1.0000
+
+ADDED BY ECOSYSTEM
+----------------------------------------
+
+REMOVED BY ECOSYSTEM
+----------------------------------------
+
+TOP ADDED EXAMPLES
+----------------------------------------
+
+TOP REMOVED EXAMPLES
+----------------------------------------

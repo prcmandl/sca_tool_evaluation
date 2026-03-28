@@ -1,0 +1,9 @@
+Baseline for significance markers: oss-index
+
+Tool comparison summary
+=======================
+- trivy*: mean_recall=0.9610, mean_overlap=0.7815, total_tp=961.00, total_fp=326.00, total_fn=39.00
+- github*: mean_recall=0.9480, mean_overlap=0.5365, total_tp=948.00, total_fp=931.00, total_fn=52.00
+- dtrack*: mean_recall=0.9070, mean_overlap=0.7714, total_tp=907.00, total_fp=322.00, total_fn=93.00
+- snyk*: mean_recall=0.9020, mean_overlap=0.7066, total_tp=902.00, total_fp=496.00, total_fn=98.00
+- oss-index: mean_recall=0.6140, mean_overlap=0.7967, total_tp=614.00, total_fp=237.00, total_fn=386.00

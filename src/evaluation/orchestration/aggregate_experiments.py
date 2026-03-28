@@ -107,7 +107,7 @@ def aggregate_experiment(experiment_dir: Path, ground_truth_path: Path) -> dict:
 
     data = []
     for rd in run_dirs:
-        result_file = rd / "results.json"
+        result_file = rd / "experimental_results.json"
         if result_file.exists():
             payload = json.loads(result_file.read_text(encoding="utf-8"))
             if payload:

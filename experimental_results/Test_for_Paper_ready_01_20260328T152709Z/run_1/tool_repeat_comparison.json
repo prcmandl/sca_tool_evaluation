@@ -1,0 +1,507 @@
+{
+  "snyk": {
+    "stable": true,
+    "hashes": [
+      "84eb9e26ab4ba1b7dcfe6faa3af2f1061c51a6f77e52c2698905f8b42ec57e33",
+      "84eb9e26ab4ba1b7dcfe6faa3af2f1061c51a6f77e52c2698905f8b42ec57e33"
+    ],
+    "repeats": [
+      {
+        "repeat": 1,
+        "hash": "84eb9e26ab4ba1b7dcfe6faa3af2f1061c51a6f77e52c2698905f8b42ec57e33",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 204,
+            "FP": 314,
+            "FN": 46,
+            "Recall": 0.816,
+            "Overlap": 0.3938223938223938
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 211,
+            "FP": 60,
+            "FN": 39,
+            "Recall": 0.844,
+            "Overlap": 0.7785977859778598
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 250,
+            "FP": 3,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.9881422924901185
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 237,
+            "FP": 119,
+            "FN": 13,
+            "Recall": 0.948,
+            "Overlap": 0.6657303370786517
+          }
+        }
+      },
+      {
+        "repeat": 2,
+        "hash": "84eb9e26ab4ba1b7dcfe6faa3af2f1061c51a6f77e52c2698905f8b42ec57e33",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 204,
+            "FP": 314,
+            "FN": 46,
+            "Recall": 0.816,
+            "Overlap": 0.3938223938223938
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 211,
+            "FP": 60,
+            "FN": 39,
+            "Recall": 0.844,
+            "Overlap": 0.7785977859778598
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 250,
+            "FP": 3,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.9881422924901185
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 237,
+            "FP": 119,
+            "FN": 13,
+            "Recall": 0.948,
+            "Overlap": 0.6657303370786517
+          }
+        }
+      }
+    ]
+  },
+  "oss-index": {
+    "stable": true,
+    "hashes": [
+      "3fa49063daae56f3bb53f824b02195f82237129bf928dc305af4152fced90948",
+      "3fa49063daae56f3bb53f824b02195f82237129bf928dc305af4152fced90948"
+    ],
+    "repeats": [
+      {
+        "repeat": 1,
+        "hash": "3fa49063daae56f3bb53f824b02195f82237129bf928dc305af4152fced90948",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 136,
+            "FP": 52,
+            "FN": 114,
+            "Recall": 0.544,
+            "Overlap": 0.723404255319149
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 79,
+            "FP": 1,
+            "FN": 171,
+            "Recall": 0.316,
+            "Overlap": 0.9875
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 204,
+            "FP": 12,
+            "FN": 46,
+            "Recall": 0.816,
+            "Overlap": 0.9444444444444444
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 195,
+            "FP": 172,
+            "FN": 55,
+            "Recall": 0.78,
+            "Overlap": 0.5313351498637602
+          }
+        }
+      },
+      {
+        "repeat": 2,
+        "hash": "3fa49063daae56f3bb53f824b02195f82237129bf928dc305af4152fced90948",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 136,
+            "FP": 52,
+            "FN": 114,
+            "Recall": 0.544,
+            "Overlap": 0.723404255319149
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 79,
+            "FP": 1,
+            "FN": 171,
+            "Recall": 0.316,
+            "Overlap": 0.9875
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 204,
+            "FP": 12,
+            "FN": 46,
+            "Recall": 0.816,
+            "Overlap": 0.9444444444444444
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 195,
+            "FP": 172,
+            "FN": 55,
+            "Recall": 0.78,
+            "Overlap": 0.5313351498637602
+          }
+        }
+      }
+    ]
+  },
+  "github": {
+    "stable": true,
+    "hashes": [
+      "915b159644195001fa8de002a2e6b384c45683406d83385d716a551b2d3ef8e9",
+      "915b159644195001fa8de002a2e6b384c45683406d83385d716a551b2d3ef8e9"
+    ],
+    "repeats": [
+      {
+        "repeat": 1,
+        "hash": "915b159644195001fa8de002a2e6b384c45683406d83385d716a551b2d3ef8e9",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 233,
+            "FP": 375,
+            "FN": 17,
+            "Recall": 0.932,
+            "Overlap": 0.3832236842105263
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 250,
+            "FP": 133,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.6527415143603134
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 250,
+            "FP": 103,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.7082152974504249
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 215,
+            "FP": 320,
+            "FN": 35,
+            "Recall": 0.86,
+            "Overlap": 0.40186915887850466
+          }
+        }
+      },
+      {
+        "repeat": 2,
+        "hash": "915b159644195001fa8de002a2e6b384c45683406d83385d716a551b2d3ef8e9",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 233,
+            "FP": 375,
+            "FN": 17,
+            "Recall": 0.932,
+            "Overlap": 0.3832236842105263
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 250,
+            "FP": 133,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.6527415143603134
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 250,
+            "FP": 103,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.7082152974504249
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 215,
+            "FP": 320,
+            "FN": 35,
+            "Recall": 0.86,
+            "Overlap": 0.40186915887850466
+          }
+        }
+      }
+    ]
+  },
+  "trivy": {
+    "stable": true,
+    "hashes": [
+      "c235821b476286fae6304819f429e7b22c17fcc9e3cdc5b46799fa7c9e87a2b2",
+      "c235821b476286fae6304819f429e7b22c17fcc9e3cdc5b46799fa7c9e87a2b2"
+    ],
+    "repeats": [
+      {
+        "repeat": 1,
+        "hash": "c235821b476286fae6304819f429e7b22c17fcc9e3cdc5b46799fa7c9e87a2b2",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 240,
+            "FP": 193,
+            "FN": 10,
+            "Recall": 0.96,
+            "Overlap": 0.5542725173210161
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 250,
+            "FP": 40,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.8620689655172413
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 237,
+            "FP": 3,
+            "FN": 13,
+            "Recall": 0.948,
+            "Overlap": 0.9875
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 234,
+            "FP": 90,
+            "FN": 16,
+            "Recall": 0.936,
+            "Overlap": 0.7222222222222222
+          }
+        }
+      },
+      {
+        "repeat": 2,
+        "hash": "c235821b476286fae6304819f429e7b22c17fcc9e3cdc5b46799fa7c9e87a2b2",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 240,
+            "FP": 193,
+            "FN": 10,
+            "Recall": 0.96,
+            "Overlap": 0.5542725173210161
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 250,
+            "FP": 40,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.8620689655172413
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 237,
+            "FP": 3,
+            "FN": 13,
+            "Recall": 0.948,
+            "Overlap": 0.9875
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 234,
+            "FP": 90,
+            "FN": 16,
+            "Recall": 0.936,
+            "Overlap": 0.7222222222222222
+          }
+        }
+      }
+    ]
+  },
+  "dtrack": {
+    "stable": true,
+    "hashes": [
+      "85e86fb50cca55c84b27ee1bd2f3b15df7f58e52f8dd58c5d295a28d6eb572ee",
+      "85e86fb50cca55c84b27ee1bd2f3b15df7f58e52f8dd58c5d295a28d6eb572ee"
+    ],
+    "repeats": [
+      {
+        "repeat": 1,
+        "hash": "85e86fb50cca55c84b27ee1bd2f3b15df7f58e52f8dd58c5d295a28d6eb572ee",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 250,
+            "FP": 193,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.5643340857787811
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 250,
+            "FP": 40,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.8620689655172413
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 235,
+            "FP": 0,
+            "FN": 15,
+            "Recall": 0.94,
+            "Overlap": 1.0
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 172,
+            "FP": 89,
+            "FN": 78,
+            "Recall": 0.688,
+            "Overlap": 0.6590038314176245
+          }
+        }
+      },
+      {
+        "repeat": 2,
+        "hash": "85e86fb50cca55c84b27ee1bd2f3b15df7f58e52f8dd58c5d295a28d6eb572ee",
+        "metrics": {
+          "maven": {
+            "Components": 99,
+            "Vulnerabilities": 250,
+            "CVEs": 42,
+            "TP": 250,
+            "FP": 193,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.5643340857787811
+          },
+          "npm": {
+            "Components": 66,
+            "Vulnerabilities": 250,
+            "CVEs": 19,
+            "TP": 250,
+            "FP": 40,
+            "FN": 0,
+            "Recall": 1.0,
+            "Overlap": 0.8620689655172413
+          },
+          "nuget": {
+            "Components": 189,
+            "Vulnerabilities": 250,
+            "CVEs": 36,
+            "TP": 235,
+            "FP": 0,
+            "FN": 15,
+            "Recall": 0.94,
+            "Overlap": 1.0
+          },
+          "pypi": {
+            "Components": 76,
+            "Vulnerabilities": 250,
+            "CVEs": 92,
+            "TP": 172,
+            "FP": 89,
+            "FN": 78,
+            "Recall": 0.688,
+            "Overlap": 0.6590038314176245
+          }
+        }
+      }
+    ]
+  }
+}

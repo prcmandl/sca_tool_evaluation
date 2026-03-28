@@ -1,0 +1,1001 @@
+ecosystem,component_name,component_version,purl,vulnerability_id,cve,vulnerability_description,is_vulnerable
+nuget,Microsoft.AspNetCore.Identity,2.3.0,pkg:nuget/Microsoft.AspNetCore.Identity@2.3.0,GHSA-2865-hh9g-w894,CVE-2025-24070,Microsoft Security Advisory CVE-2025-24070: .NET Elevation of Privilege Vulnerability,True
+nuget,Microsoft.AspNetCore.Identity,2.1.31,pkg:nuget/Microsoft.AspNetCore.Identity@2.1.31,GHSA-25c8-p796-jg6r,CVE-2023-33170,Microsoft Security Advisory CVE-2023-33170: .NET Security Feature Bypass Vulnerability,True
+nuget,OpenTelemetry.Instrumentation.AspNetCore,1.8.0,pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.8.0,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,OpenTelemetry.Instrumentation.AspNetCore,1.7.1,pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.1,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,OpenTelemetry.Instrumentation.AspNetCore,1.7.0,pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.0,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,OpenTelemetry.Instrumentation.AspNetCore,1.6.0,pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.6.0,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,Yarp.ReverseProxy,2.0.0,pkg:nuget/Yarp.ReverseProxy@2.0.0,GHSA-jrjw-qgr2-wfcg,CVE-2023-33141,YARP Denial of Service Vulnerability,True
+nuget,Yarp.ReverseProxy,1.1.1,pkg:nuget/Yarp.ReverseProxy@1.1.1,GHSA-jrjw-qgr2-wfcg,CVE-2023-33141,YARP Denial of Service Vulnerability,True
+nuget,Yarp.ReverseProxy,1.1.0,pkg:nuget/Yarp.ReverseProxy@1.1.0,GHSA-jrjw-qgr2-wfcg,CVE-2023-33141,YARP Denial of Service Vulnerability,True
+nuget,Yarp.ReverseProxy,1.0.1,pkg:nuget/Yarp.ReverseProxy@1.0.1,GHSA-jrjw-qgr2-wfcg,CVE-2023-33141,YARP Denial of Service Vulnerability,True
+nuget,Yarp.ReverseProxy,1.0.0,pkg:nuget/Yarp.ReverseProxy@1.0.0,GHSA-8xc6-g8xw-h2c4,CVE-2022-26924,YARP Denial of Service Vulnerability,True
+nuget,Yarp.ReverseProxy,1.0.0,pkg:nuget/Yarp.ReverseProxy@1.0.0,GHSA-jrjw-qgr2-wfcg,CVE-2023-33141,YARP Denial of Service Vulnerability,True
+nuget,Azure.Identity,1.11.3,pkg:nuget/Azure.Identity@1.11.3,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.11.1,pkg:nuget/Azure.Identity@1.11.1,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.10.4,pkg:nuget/Azure.Identity@1.10.4,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.10.4,pkg:nuget/Azure.Identity@1.10.4,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.10.2,pkg:nuget/Azure.Identity@1.10.2,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.10.2,pkg:nuget/Azure.Identity@1.10.2,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.10.0,pkg:nuget/Azure.Identity@1.10.0,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.10.0,pkg:nuget/Azure.Identity@1.10.0,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.10.0,pkg:nuget/Azure.Identity@1.10.0,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.8.2,pkg:nuget/Azure.Identity@1.8.2,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.8.2,pkg:nuget/Azure.Identity@1.8.2,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.8.2,pkg:nuget/Azure.Identity@1.8.2,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.8.0,pkg:nuget/Azure.Identity@1.8.0,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.8.0,pkg:nuget/Azure.Identity@1.8.0,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.8.0,pkg:nuget/Azure.Identity@1.8.0,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.6.1,pkg:nuget/Azure.Identity@1.6.1,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.6.1,pkg:nuget/Azure.Identity@1.6.1,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.6.1,pkg:nuget/Azure.Identity@1.6.1,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.6.0,pkg:nuget/Azure.Identity@1.6.0,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.6.0,pkg:nuget/Azure.Identity@1.6.0,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.6.0,pkg:nuget/Azure.Identity@1.6.0,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.4.1,pkg:nuget/Azure.Identity@1.4.1,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.4.1,pkg:nuget/Azure.Identity@1.4.1,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.4.1,pkg:nuget/Azure.Identity@1.4.1,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.3.0,pkg:nuget/Azure.Identity@1.3.0,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.3.0,pkg:nuget/Azure.Identity@1.3.0,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.3.0,pkg:nuget/Azure.Identity@1.3.0,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.2.2,pkg:nuget/Azure.Identity@1.2.2,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.2.2,pkg:nuget/Azure.Identity@1.2.2,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.2.2,pkg:nuget/Azure.Identity@1.2.2,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,Azure.Identity,1.1.1,pkg:nuget/Azure.Identity@1.1.1,GHSA-5mfx-4wcx-rv27,CVE-2023-36414,Azure Identity SDK Remote Code Execution Vulnerability,True
+nuget,Azure.Identity,1.1.1,pkg:nuget/Azure.Identity@1.1.1,GHSA-m5vv-6r4h-3vj9,CVE-2024-35255,Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability,True
+nuget,Azure.Identity,1.1.1,pkg:nuget/Azure.Identity@1.1.1,GHSA-wvxc-855f-jvrv,CVE-2024-29992,Azure Identity Library for .NET Information Disclosure Vulnerability,True
+nuget,BouncyCastle.Cryptography,2.3.0,pkg:nuget/BouncyCastle.Cryptography@2.3.0,GHSA-8xfc-gm6g-vgpv,CVE-2024-29857,Bouncy Castle certificate parsing issues cause high CPU usage during parameter evaluation.,True
+nuget,BouncyCastle.Cryptography,2.3.0,pkg:nuget/BouncyCastle.Cryptography@2.3.0,GHSA-m44j-cfrm-g8qc,CVE-2024-30172,Bouncy Castle crafted signature and public key can be used to trigger an infinite loop,True
+nuget,BouncyCastle.Cryptography,2.3.0,pkg:nuget/BouncyCastle.Cryptography@2.3.0,GHSA-v435-xc8x-wvr9,CVE-2024-30171,"Bouncy Castle affected by timing side-channel for RSA key exchange (""The Marvin Attack"")",True
+nuget,BouncyCastle.Cryptography,2.2.1,pkg:nuget/BouncyCastle.Cryptography@2.2.1,GHSA-8xfc-gm6g-vgpv,CVE-2024-29857,Bouncy Castle certificate parsing issues cause high CPU usage during parameter evaluation.,True
+nuget,BouncyCastle.Cryptography,2.2.1,pkg:nuget/BouncyCastle.Cryptography@2.2.1,GHSA-m44j-cfrm-g8qc,CVE-2024-30172,Bouncy Castle crafted signature and public key can be used to trigger an infinite loop,True
+nuget,BouncyCastle.Cryptography,2.2.1,pkg:nuget/BouncyCastle.Cryptography@2.2.1,GHSA-v435-xc8x-wvr9,CVE-2024-30171,"Bouncy Castle affected by timing side-channel for RSA key exchange (""The Marvin Attack"")",True
+nuget,BouncyCastle.Cryptography,2.2.0,pkg:nuget/BouncyCastle.Cryptography@2.2.0,GHSA-8xfc-gm6g-vgpv,CVE-2024-29857,Bouncy Castle certificate parsing issues cause high CPU usage during parameter evaluation.,True
+nuget,BouncyCastle.Cryptography,2.2.0,pkg:nuget/BouncyCastle.Cryptography@2.2.0,GHSA-m44j-cfrm-g8qc,CVE-2024-30172,Bouncy Castle crafted signature and public key can be used to trigger an infinite loop,True
+nuget,BouncyCastle.Cryptography,2.2.0,pkg:nuget/BouncyCastle.Cryptography@2.2.0,GHSA-v435-xc8x-wvr9,CVE-2024-30171,"Bouncy Castle affected by timing side-channel for RSA key exchange (""The Marvin Attack"")",True
+nuget,BouncyCastle.Cryptography,2.1.1,pkg:nuget/BouncyCastle.Cryptography@2.1.1,GHSA-8xfc-gm6g-vgpv,CVE-2024-29857,Bouncy Castle certificate parsing issues cause high CPU usage during parameter evaluation.,True
+nuget,BouncyCastle.Cryptography,2.1.1,pkg:nuget/BouncyCastle.Cryptography@2.1.1,GHSA-m44j-cfrm-g8qc,CVE-2024-30172,Bouncy Castle crafted signature and public key can be used to trigger an infinite loop,True
+nuget,BouncyCastle.Cryptography,2.1.1,pkg:nuget/BouncyCastle.Cryptography@2.1.1,GHSA-v435-xc8x-wvr9,CVE-2024-30171,"Bouncy Castle affected by timing side-channel for RSA key exchange (""The Marvin Attack"")",True
+nuget,BouncyCastle.Cryptography,2.1.0,pkg:nuget/BouncyCastle.Cryptography@2.1.0,GHSA-8xfc-gm6g-vgpv,CVE-2024-29857,Bouncy Castle certificate parsing issues cause high CPU usage during parameter evaluation.,True
+nuget,BouncyCastle.Cryptography,2.1.0,pkg:nuget/BouncyCastle.Cryptography@2.1.0,GHSA-m44j-cfrm-g8qc,CVE-2024-30172,Bouncy Castle crafted signature and public key can be used to trigger an infinite loop,True
+nuget,BouncyCastle.Cryptography,2.1.0,pkg:nuget/BouncyCastle.Cryptography@2.1.0,GHSA-v435-xc8x-wvr9,CVE-2024-30171,"Bouncy Castle affected by timing side-channel for RSA key exchange (""The Marvin Attack"")",True
+nuget,BouncyCastle.Cryptography,2.0.0,pkg:nuget/BouncyCastle.Cryptography@2.0.0,GHSA-8xfc-gm6g-vgpv,CVE-2024-29857,Bouncy Castle certificate parsing issues cause high CPU usage during parameter evaluation.,True
+nuget,BouncyCastle.Cryptography,2.0.0,pkg:nuget/BouncyCastle.Cryptography@2.0.0,GHSA-m44j-cfrm-g8qc,CVE-2024-30172,Bouncy Castle crafted signature and public key can be used to trigger an infinite loop,True
+nuget,BouncyCastle.Cryptography,2.0.0,pkg:nuget/BouncyCastle.Cryptography@2.0.0,GHSA-v435-xc8x-wvr9,CVE-2024-30171,"Bouncy Castle affected by timing side-channel for RSA key exchange (""The Marvin Attack"")",True
+nuget,Duende.AccessTokenManagement,3.1.1,pkg:nuget/Duende.AccessTokenManagement@3.1.1,GHSA-qxj7-2x7w-3mpp,CVE-2025-26620,Duende.AccessTokenManagement race condition when concurrently retrieving customized Client Credentials Access Tokens,True
+nuget,Duende.AccessTokenManagement,3.1.0,pkg:nuget/Duende.AccessTokenManagement@3.1.0,GHSA-qxj7-2x7w-3mpp,CVE-2025-26620,Duende.AccessTokenManagement race condition when concurrently retrieving customized Client Credentials Access Tokens,True
+nuget,Duende.AccessTokenManagement,3.0.1,pkg:nuget/Duende.AccessTokenManagement@3.0.1,GHSA-qxj7-2x7w-3mpp,CVE-2025-26620,Duende.AccessTokenManagement race condition when concurrently retrieving customized Client Credentials Access Tokens,True
+nuget,Duende.IdentityServer,7.0.7,pkg:nuget/Duende.IdentityServer@7.0.7,GHSA-v9xq-2mvm-x8xc,CVE-2024-49755,Duende IdentityServer has insufficient validation of DPoP cnf claim in Local APIs,True
+nuget,Duende.IdentityServer,7.0.6,pkg:nuget/Duende.IdentityServer@7.0.6,GHSA-v9xq-2mvm-x8xc,CVE-2024-49755,Duende IdentityServer has insufficient validation of DPoP cnf claim in Local APIs,True
+nuget,Duende.IdentityServer,7.0.5,pkg:nuget/Duende.IdentityServer@7.0.5,GHSA-ff4q-64jc-gx98,CVE-2024-39694,IdentityServer Open Redirect vulnerability,True
+nuget,Duende.IdentityServer,7.0.5,pkg:nuget/Duende.IdentityServer@7.0.5,GHSA-v9xq-2mvm-x8xc,CVE-2024-49755,Duende IdentityServer has insufficient validation of DPoP cnf claim in Local APIs,True
+nuget,Duende.IdentityServer,7.0.4,pkg:nuget/Duende.IdentityServer@7.0.4,GHSA-ff4q-64jc-gx98,CVE-2024-39694,IdentityServer Open Redirect vulnerability,True
+nuget,Duende.IdentityServer,7.0.4,pkg:nuget/Duende.IdentityServer@7.0.4,GHSA-v9xq-2mvm-x8xc,CVE-2024-49755,Duende IdentityServer has insufficient validation of DPoP cnf claim in Local APIs,True
+nuget,Duende.IdentityServer,7.0.3,pkg:nuget/Duende.IdentityServer@7.0.3,GHSA-ff4q-64jc-gx98,CVE-2024-39694,IdentityServer Open Redirect vulnerability,True
+nuget,Duende.IdentityServer,7.0.3,pkg:nuget/Duende.IdentityServer@7.0.3,GHSA-v9xq-2mvm-x8xc,CVE-2024-49755,Duende IdentityServer has insufficient validation of DPoP cnf claim in Local APIs,True
+nuget,HtmlSanitizer,9.0.889,pkg:nuget/HtmlSanitizer@9.0.889,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,9.0.884,pkg:nuget/HtmlSanitizer@9.0.884,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,9.0.881,pkg:nuget/HtmlSanitizer@9.0.881,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,9.0.873,pkg:nuget/HtmlSanitizer@9.0.873,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.1.870,pkg:nuget/HtmlSanitizer@8.1.870,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.843,pkg:nuget/HtmlSanitizer@8.0.843,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.838,pkg:nuget/HtmlSanitizer@8.0.838,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.795,pkg:nuget/HtmlSanitizer@8.0.795,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.744,pkg:nuget/HtmlSanitizer@8.0.744,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.723,pkg:nuget/HtmlSanitizer@8.0.723,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.692,pkg:nuget/HtmlSanitizer@8.0.692,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,8.0.692,pkg:nuget/HtmlSanitizer@8.0.692,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,8.0.645,pkg:nuget/HtmlSanitizer@8.0.645,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,8.0.645,pkg:nuget/HtmlSanitizer@8.0.645,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,7.1.542,pkg:nuget/HtmlSanitizer@7.1.542,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,7.1.542,pkg:nuget/HtmlSanitizer@7.1.542,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,7.1.509,pkg:nuget/HtmlSanitizer@7.1.509,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,7.1.509,pkg:nuget/HtmlSanitizer@7.1.509,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,7.1.488,pkg:nuget/HtmlSanitizer@7.1.488,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,7.1.488,pkg:nuget/HtmlSanitizer@7.1.488,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,7.0.473,pkg:nuget/HtmlSanitizer@7.0.473,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,7.0.473,pkg:nuget/HtmlSanitizer@7.0.473,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,6.0.453,pkg:nuget/HtmlSanitizer@6.0.453,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,6.0.453,pkg:nuget/HtmlSanitizer@6.0.453,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,6.0.437,pkg:nuget/HtmlSanitizer@6.0.437,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,6.0.437,pkg:nuget/HtmlSanitizer@6.0.437,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,5.0.404,pkg:nuget/HtmlSanitizer@5.0.404,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,5.0.404,pkg:nuget/HtmlSanitizer@5.0.404,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,HtmlSanitizer,5.0.372,pkg:nuget/HtmlSanitizer@5.0.372,GHSA-43cp-6p3q-2pc4,CVE-2023-44390,HtmlSanitizer vulnerable to Cross-site Scripting in Foreign Content,True
+nuget,HtmlSanitizer,5.0.372,pkg:nuget/HtmlSanitizer@5.0.372,GHSA-j92c-7v7g-gj3f,CVE-2026-25543,HtmlSanitizer has a bypass via template tag,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,7.0.3,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.0.3,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.32.2,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.32.2,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.30.0,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.30.0,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.26.1,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.26.1,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.23.1,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.23.1,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.20.0,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.20.0,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.15.1,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.15.1,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.12.2,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.12.2,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.11.0,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.11.0,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,Microsoft.IdentityModel.JsonWebTokens,6.8.0,pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.8.0,GHSA-59j7-ghrg-fj52,CVE-2024-21319,Microsoft ASP.NET Core project templates vulnerable to denial of service,True
+nuget,System.Security.Cryptography.Xml,5.0.0,pkg:nuget/System.Security.Cryptography.Xml@5.0.0,GHSA-vh55-786g-wjwj,CVE-2022-34716,.NET Information Disclosure Vulnerability,True
+nuget,LiteDB,5.0.12,pkg:nuget/LiteDB@5.0.12,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.11,pkg:nuget/LiteDB@5.0.11,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.10,pkg:nuget/LiteDB@5.0.10,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.9,pkg:nuget/LiteDB@5.0.9,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.8,pkg:nuget/LiteDB@5.0.8,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.7,pkg:nuget/LiteDB@5.0.7,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.5,pkg:nuget/LiteDB@5.0.5,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.4,pkg:nuget/LiteDB@5.0.4,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.3,pkg:nuget/LiteDB@5.0.3,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.2,pkg:nuget/LiteDB@5.0.2,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,LiteDB,5.0.1,pkg:nuget/LiteDB@5.0.1,GHSA-3x49-g6rc-c284,CVE-2022-23535,LiteDB may deserialize bad JSON on object type using _type,True
+nuget,Microsoft.Data.SqlClient,5.1.1,pkg:nuget/Microsoft.Data.SqlClient@5.1.1,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,5.0.1,pkg:nuget/Microsoft.Data.SqlClient@5.0.1,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,4.0.4,pkg:nuget/Microsoft.Data.SqlClient@4.0.4,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,4.0.1,pkg:nuget/Microsoft.Data.SqlClient@4.0.1,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,3.1.2,pkg:nuget/Microsoft.Data.SqlClient@3.1.2,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,3.0.1,pkg:nuget/Microsoft.Data.SqlClient@3.0.1,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,2.1.6,pkg:nuget/Microsoft.Data.SqlClient@2.1.6,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,2.1.3,pkg:nuget/Microsoft.Data.SqlClient@2.1.3,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,2.1.0,pkg:nuget/Microsoft.Data.SqlClient@2.1.0,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,Microsoft.Data.SqlClient,2.1.0,pkg:nuget/Microsoft.Data.SqlClient@2.1.0,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,1.1.4,pkg:nuget/Microsoft.Data.SqlClient@1.1.4,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Microsoft.Data.SqlClient,1.1.1,pkg:nuget/Microsoft.Data.SqlClient@1.1.1,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,Microsoft.Data.SqlClient,1.1.1,pkg:nuget/Microsoft.Data.SqlClient@1.1.1,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,MongoDB.Driver,2.17.0,pkg:nuget/MongoDB.Driver@2.17.0,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.15.1,pkg:nuget/MongoDB.Driver@2.15.1,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.14.0,pkg:nuget/MongoDB.Driver@2.14.0,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.13.1,pkg:nuget/MongoDB.Driver@2.13.1,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.12.4,pkg:nuget/MongoDB.Driver@2.12.4,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.12.1,pkg:nuget/MongoDB.Driver@2.12.1,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.11.5,pkg:nuget/MongoDB.Driver@2.11.5,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.11.2,pkg:nuget/MongoDB.Driver@2.11.2,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.10.4,pkg:nuget/MongoDB.Driver@2.10.4,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,MongoDB.Driver,2.10.1,pkg:nuget/MongoDB.Driver@2.10.1,GHSA-7j9m-j397-g4wx,CVE-2022-48282,MongoDB .NET/C# Driver vulnerable to Deserialization of Untrusted Data,True
+nuget,Oracle.ManagedDataAccess.Core,3.21.80,pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.80,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,Oracle.ManagedDataAccess.Core,3.21.50,pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.50,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,Oracle.ManagedDataAccess.Core,3.21.1,pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.1,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,Oracle.ManagedDataAccess.Core,2.19.160,pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.160,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,Oracle.ManagedDataAccess.Core,2.19.131,pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.131,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,Oracle.ManagedDataAccess.Core,2.19.101,pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.101,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,Oracle.ManagedDataAccess.Core,2.19.80,pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.80,GHSA-5pm2-9mr2-3frq,CVE-2023-21893,Component takeover in Oracle Data Provider for .NET,True
+nuget,System.Data.SqlClient,4.8.5,pkg:nuget/System.Data.SqlClient@4.8.5,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,System.Data.SqlClient,4.8.4,pkg:nuget/System.Data.SqlClient@4.8.4,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,System.Data.SqlClient,4.8.4,pkg:nuget/System.Data.SqlClient@4.8.4,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,System.Data.SqlClient,4.8.3,pkg:nuget/System.Data.SqlClient@4.8.3,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,System.Data.SqlClient,4.8.3,pkg:nuget/System.Data.SqlClient@4.8.3,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,System.Data.SqlClient,4.8.2,pkg:nuget/System.Data.SqlClient@4.8.2,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,System.Data.SqlClient,4.8.2,pkg:nuget/System.Data.SqlClient@4.8.2,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,System.Data.SqlClient,4.8.1,pkg:nuget/System.Data.SqlClient@4.8.1,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,System.Data.SqlClient,4.8.1,pkg:nuget/System.Data.SqlClient@4.8.1,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,System.Data.SqlClient,4.5.3,pkg:nuget/System.Data.SqlClient@4.5.3,GHSA-8g2p-5pqh-5jmc,CVE-2022-41064,.NET Information Disclosure Vulnerability,True
+nuget,System.Data.SqlClient,4.5.3,pkg:nuget/System.Data.SqlClient@4.5.3,GHSA-98g6-xh36-x2p7,CVE-2024-0056,Microsoft.Data.SqlClient and System.Data.SqlClient vulnerable to SQL Data Provider Security Feature Bypass,True
+nuget,Apache.NMS.ActiveMQ,2.1.0,pkg:nuget/Apache.NMS.ActiveMQ@2.1.0,GHSA-9g64-r942-fvmp,CVE-2025-29953,Apache ActiveMQ NMS OpenWire Client Deserialization of Untrusted Data vulnerability,True
+nuget,Apache.NMS.ActiveMQ,2.0.1,pkg:nuget/Apache.NMS.ActiveMQ@2.0.1,GHSA-9g64-r942-fvmp,CVE-2025-29953,Apache ActiveMQ NMS OpenWire Client Deserialization of Untrusted Data vulnerability,True
+nuget,Apache.NMS.ActiveMQ,2.0.0,pkg:nuget/Apache.NMS.ActiveMQ@2.0.0,GHSA-9g64-r942-fvmp,CVE-2025-29953,Apache ActiveMQ NMS OpenWire Client Deserialization of Untrusted Data vulnerability,True
+nuget,Apache.NMS.ActiveMQ,1.8.0,pkg:nuget/Apache.NMS.ActiveMQ@1.8.0,GHSA-9g64-r942-fvmp,CVE-2025-29953,Apache ActiveMQ NMS OpenWire Client Deserialization of Untrusted Data vulnerability,True
+nuget,OpenTelemetry.Instrumentation.Http,1.8.0,pkg:nuget/OpenTelemetry.Instrumentation.Http@1.8.0,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,OpenTelemetry.Instrumentation.Http,1.7.1,pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.1,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,OpenTelemetry.Instrumentation.Http,1.7.0,pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.0,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,OpenTelemetry.Instrumentation.Http,1.6.0,pkg:nuget/OpenTelemetry.Instrumentation.Http@1.6.0,GHSA-vh2m-22xx-q94f,CVE-2024-32028,Sensitive query parameters logged by default in OpenTelemetry.Instrumentation http and AspNetCore,True
+nuget,Steeltoe.Discovery.ClientCore,4.0.0,pkg:nuget/Steeltoe.Discovery.ClientCore@4.0.0,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.3.0,pkg:nuget/Steeltoe.Discovery.ClientCore@3.3.0,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.2.7,pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.7,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.2.6,pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.6,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.2.4,pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.4,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.2.3,pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.3,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.2.1,pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.1,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.2.0,pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.0,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.1.3,pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.3,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.1.1,pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.1,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.1.0,pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.0,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.0.1,pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.1,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,3.0.0,pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.0,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.5.5,pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.5,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.5.3,pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.3,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.5.2,pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.2,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.5.0,pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.0,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.4.4,pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.4,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.4.2,pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.2,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Steeltoe.Discovery.ClientCore,2.4.1,pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.1,GHSA-vmcp-66r5-3pcp,CVE-2024-40636,Steeltoe Leaks Basic Auth Credentials to Logs After Fetch Registry Error,True
+nuget,Azure.Storage.Blobs,12.12.0,pkg:nuget/Azure.Storage.Blobs@12.12.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.9.1,pkg:nuget/Azure.Storage.Blobs@12.9.1,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.8.4,pkg:nuget/Azure.Storage.Blobs@12.8.4,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.8.2,pkg:nuget/Azure.Storage.Blobs@12.8.2,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.7.0,pkg:nuget/Azure.Storage.Blobs@12.7.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.5.1,pkg:nuget/Azure.Storage.Blobs@12.5.1,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.4.3,pkg:nuget/Azure.Storage.Blobs@12.4.3,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.4.0,pkg:nuget/Azure.Storage.Blobs@12.4.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Blobs,12.2.0,pkg:nuget/Azure.Storage.Blobs@12.2.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.10.0,pkg:nuget/Azure.Storage.Queues@12.10.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.9.0,pkg:nuget/Azure.Storage.Queues@12.9.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.7.0,pkg:nuget/Azure.Storage.Queues@12.7.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.6.1,pkg:nuget/Azure.Storage.Queues@12.6.1,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.5.0,pkg:nuget/Azure.Storage.Queues@12.5.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.4.1,pkg:nuget/Azure.Storage.Queues@12.4.1,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.3.2,pkg:nuget/Azure.Storage.Queues@12.3.2,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.3.0,pkg:nuget/Azure.Storage.Queues@12.3.0,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Azure.Storage.Queues,12.1.1,pkg:nuget/Azure.Storage.Queues@12.1.1,GHSA-64x4-9hc6-r2h6,CVE-2022-30187,Microsoft: CBC Padding Oracle in Azure Blob Storage Encryption Library,True
+nuget,Microsoft.Rest.ClientRuntime,2.3.23,pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.23,GHSA-whph-446h-6m9v,CVE-2022-26907,Azure SDK for .NET Information Disclosure Vulnerability.,True
+nuget,Microsoft.Rest.ClientRuntime,2.3.22,pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.22,GHSA-whph-446h-6m9v,CVE-2022-26907,Azure SDK for .NET Information Disclosure Vulnerability.,True
+nuget,System.Formats.Asn1,7.0.0,pkg:nuget/System.Formats.Asn1@7.0.0,GHSA-447r-wph3-92pm,CVE-2024-38095,Microsoft Security Advisory CVE-2024-38095 | .NET Denial of Service Vulnerability,True
+nuget,System.Formats.Asn1,6.0.0,pkg:nuget/System.Formats.Asn1@6.0.0,GHSA-447r-wph3-92pm,CVE-2024-38095,Microsoft Security Advisory CVE-2024-38095 | .NET Denial of Service Vulnerability,True
+nuget,System.Formats.Asn1,5.0.0,pkg:nuget/System.Formats.Asn1@5.0.0,GHSA-447r-wph3-92pm,CVE-2024-38095,Microsoft Security Advisory CVE-2024-38095 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Encodings.Web,5.0.0,pkg:nuget/System.Text.Encodings.Web@5.0.0,GHSA-ghhp-997w-qr28,CVE-2021-26701,.NET Core Remote Code Execution Vulnerability,True
+nuget,System.Text.Encodings.Web,4.7.1,pkg:nuget/System.Text.Encodings.Web@4.7.1,GHSA-ghhp-997w-qr28,CVE-2021-26701,.NET Core Remote Code Execution Vulnerability,True
+nuget,System.Text.Json,8.0.3,pkg:nuget/System.Text.Json@8.0.3,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,8.0.3,pkg:nuget/System.Text.Json@8.0.3,GHSA-hh2w-p6rv-4g7w,CVE-2024-30105,Microsoft Security Advisory CVE-2024-30105 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,8.0.1,pkg:nuget/System.Text.Json@8.0.1,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,8.0.1,pkg:nuget/System.Text.Json@8.0.1,GHSA-hh2w-p6rv-4g7w,CVE-2024-30105,Microsoft Security Advisory CVE-2024-30105 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,7.0.4,pkg:nuget/System.Text.Json@7.0.4,GHSA-hh2w-p6rv-4g7w,CVE-2024-30105,Microsoft Security Advisory CVE-2024-30105 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,7.0.2,pkg:nuget/System.Text.Json@7.0.2,GHSA-hh2w-p6rv-4g7w,CVE-2024-30105,Microsoft Security Advisory CVE-2024-30105 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,6.0.9,pkg:nuget/System.Text.Json@6.0.9,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,6.0.7,pkg:nuget/System.Text.Json@6.0.7,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,6.0.4,pkg:nuget/System.Text.Json@6.0.4,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,6.0.2,pkg:nuget/System.Text.Json@6.0.2,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,System.Text.Json,6.0.0,pkg:nuget/System.Text.Json@6.0.0,GHSA-8g4q-xg66-9fp4,CVE-2024-43485,Microsoft Security Advisory CVE-2024-43485 | .NET Denial of Service Vulnerability,True
+nuget,DotNetZip,1.16.0,pkg:nuget/DotNetZip@1.16.0,GHSA-xhg6-9j5j-w4vf,CVE-2024-48510,DotNetZip Directory Traversal vulnerability,True
+nuget,DotNetZip,1.15.0,pkg:nuget/DotNetZip@1.15.0,GHSA-xhg6-9j5j-w4vf,CVE-2024-48510,DotNetZip Directory Traversal vulnerability,True
+nuget,DotNetZip,1.14.0,pkg:nuget/DotNetZip@1.14.0,GHSA-xhg6-9j5j-w4vf,CVE-2024-48510,DotNetZip Directory Traversal vulnerability,True
+nuget,DotNetZip,1.13.8,pkg:nuget/DotNetZip@1.13.8,GHSA-xhg6-9j5j-w4vf,CVE-2024-48510,DotNetZip Directory Traversal vulnerability,True
+nuget,DotNetZip,1.13.7,pkg:nuget/DotNetZip@1.13.7,GHSA-xhg6-9j5j-w4vf,CVE-2024-48510,DotNetZip Directory Traversal vulnerability,True
+nuget,DotNetZip,1.13.6,pkg:nuget/DotNetZip@1.13.6,GHSA-xhg6-9j5j-w4vf,CVE-2024-48510,DotNetZip Directory Traversal vulnerability,True
+nuget,SharpZipLib,1.3.2,pkg:nuget/SharpZipLib@1.3.2,GHSA-2x7h-96h5-rq84,CVE-2021-32841,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.2,pkg:nuget/SharpZipLib@1.3.2,GHSA-m22m-h4rf-pwq3,CVE-2021-32840,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.2,pkg:nuget/SharpZipLib@1.3.2,GHSA-mm6g-mmq6-53ff,CVE-2021-32842,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.1,pkg:nuget/SharpZipLib@1.3.1,GHSA-2x7h-96h5-rq84,CVE-2021-32841,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.1,pkg:nuget/SharpZipLib@1.3.1,GHSA-m22m-h4rf-pwq3,CVE-2021-32840,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.1,pkg:nuget/SharpZipLib@1.3.1,GHSA-mm6g-mmq6-53ff,CVE-2021-32842,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.0,pkg:nuget/SharpZipLib@1.3.0,GHSA-2x7h-96h5-rq84,CVE-2021-32841,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.0,pkg:nuget/SharpZipLib@1.3.0,GHSA-m22m-h4rf-pwq3,CVE-2021-32840,Path Traversal in SharpZipLib,True
+nuget,SharpZipLib,1.3.0,pkg:nuget/SharpZipLib@1.3.0,GHSA-mm6g-mmq6-53ff,CVE-2021-32842,Path Traversal in SharpZipLib,True
+nuget,SkiaSharp,2.88.5,pkg:nuget/SkiaSharp@2.88.5,GHSA-j7hp-h8jx-5ppr,CVE-2023-4863,libwebp: OOB write in BuildHuffmanTable,True
+nuget,SkiaSharp,2.88.4,pkg:nuget/SkiaSharp@2.88.4,GHSA-j7hp-h8jx-5ppr,CVE-2023-4863,libwebp: OOB write in BuildHuffmanTable,True
+nuget,SkiaSharp,2.88.3,pkg:nuget/SkiaSharp@2.88.3,GHSA-j7hp-h8jx-5ppr,CVE-2023-4863,libwebp: OOB write in BuildHuffmanTable,True
+nuget,SkiaSharp,2.88.2,pkg:nuget/SkiaSharp@2.88.2,GHSA-j7hp-h8jx-5ppr,CVE-2023-4863,libwebp: OOB write in BuildHuffmanTable,True
+maven,org.apache.commons:commons-text,1.9,pkg:maven/org.apache.commons/commons-text@1.9,GHSA-599f-7c49-w659,CVE-2022-42889,Arbitrary code execution in Apache Commons Text,True
+maven,org.apache.commons:commons-vfs2,2.6.0,pkg:maven/org.apache.commons/commons-vfs2@2.6.0,GHSA-3936-3gx6-49c4,CVE-2025-30474,Apache Commons VFS Exposure of Sensitive Information to an Unauthorized Actor,True
+maven,org.apache.commons:commons-vfs2,2.6.0,pkg:maven/org.apache.commons/commons-vfs2@2.6.0,GHSA-9q4x-fr4m-jp86,CVE-2025-27553,Apache Commons VFS Has Relative Path Traversal Vulnerability,True
+maven,org.apache.commons:commons-vfs2,2.7.0,pkg:maven/org.apache.commons/commons-vfs2@2.7.0,GHSA-3936-3gx6-49c4,CVE-2025-30474,Apache Commons VFS Exposure of Sensitive Information to an Unauthorized Actor,True
+maven,org.apache.commons:commons-vfs2,2.7.0,pkg:maven/org.apache.commons/commons-vfs2@2.7.0,GHSA-9q4x-fr4m-jp86,CVE-2025-27553,Apache Commons VFS Has Relative Path Traversal Vulnerability,True
+maven,org.apache.commons:commons-vfs2,2.8.0,pkg:maven/org.apache.commons/commons-vfs2@2.8.0,GHSA-3936-3gx6-49c4,CVE-2025-30474,Apache Commons VFS Exposure of Sensitive Information to an Unauthorized Actor,True
+maven,org.apache.commons:commons-vfs2,2.8.0,pkg:maven/org.apache.commons/commons-vfs2@2.8.0,GHSA-9q4x-fr4m-jp86,CVE-2025-27553,Apache Commons VFS Has Relative Path Traversal Vulnerability,True
+maven,org.apache.commons:commons-configuration2,2.7,pkg:maven/org.apache.commons/commons-configuration2@2.7,GHSA-9w38-p64v-xpmv,CVE-2024-29133,"Apache Commons Configuration: StackOverflowError calling ListDelimiterHandler.flatten(Object, int) with a cyclical object tree",True
+maven,org.apache.commons:commons-configuration2,2.7,pkg:maven/org.apache.commons/commons-configuration2@2.7,GHSA-xj57-8qj4-c4m6,CVE-2022-33980,Code injection in Apache Commons Configuration,True
+maven,org.apache.commons:commons-configuration2,2.7,pkg:maven/org.apache.commons/commons-configuration2@2.7,GHSA-xjp4-hw94-mvp5,CVE-2024-29131,Apache Commons Configuration: StackOverflowError adding property in AbstractListDelimiterHandler.flattenIterator(),True
+maven,org.apache.commons:commons-configuration2,2.8.0,pkg:maven/org.apache.commons/commons-configuration2@2.8.0,GHSA-9w38-p64v-xpmv,CVE-2024-29133,"Apache Commons Configuration: StackOverflowError calling ListDelimiterHandler.flatten(Object, int) with a cyclical object tree",True
+maven,org.apache.commons:commons-configuration2,2.8.0,pkg:maven/org.apache.commons/commons-configuration2@2.8.0,GHSA-xjp4-hw94-mvp5,CVE-2024-29131,Apache Commons Configuration: StackOverflowError adding property in AbstractListDelimiterHandler.flattenIterator(),True
+maven,org.apache.logging.log4j:log4j-core,2.3.1,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1,GHSA-7rjr-3q55-vv33,CVE-2021-45046,Incomplete fix for Apache Log4j vulnerability,True
+maven,org.apache.logging.log4j:log4j-core,2.3.1,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1,GHSA-8489-44mv-ggj8,CVE-2021-44832,Improper Input Validation and Injection in Apache Log4j2,True
+maven,org.apache.logging.log4j:log4j-core,2.3.1,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1,GHSA-fxph-q3j8-mv87,CVE-2017-5645,Deserialization of Untrusted Data in Log4j,True
+maven,org.apache.logging.log4j:log4j-core,2.3.1,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1,GHSA-vc5p-v9hr-52mj,CVE-2025-68161,Apache Log4j does not verify the TLS hostname in its Socket Appender,True
+maven,org.apache.logging.log4j:log4j-core,2.3.1,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1,GHSA-vwqq-5vrc-xw9h,CVE-2020-9488,Improper validation of certificate with host mismatch in Apache Log4j SMTP appender,True
+maven,org.apache.logging.log4j:log4j-core,2.3.2,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.2,GHSA-7rjr-3q55-vv33,CVE-2021-45046,Incomplete fix for Apache Log4j vulnerability,True
+maven,org.apache.logging.log4j:log4j-core,2.3.2,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.2,GHSA-fxph-q3j8-mv87,CVE-2017-5645,Deserialization of Untrusted Data in Log4j,True
+maven,org.apache.logging.log4j:log4j-core,2.3.2,pkg:maven/org.apache.logging.log4j/log4j-core@2.3.2,GHSA-vc5p-v9hr-52mj,CVE-2025-68161,Apache Log4j does not verify the TLS hostname in its Socket Appender,True
+maven,org.springframework:spring-expression,5.3.0,pkg:maven/org.springframework/spring-expression@5.3.0,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.0,pkg:maven/org.springframework/spring-expression@5.3.0,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.0,pkg:maven/org.springframework/spring-expression@5.3.0,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.0,pkg:maven/org.springframework/spring-expression@5.3.0,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.1,pkg:maven/org.springframework/spring-expression@5.3.1,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.1,pkg:maven/org.springframework/spring-expression@5.3.1,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.1,pkg:maven/org.springframework/spring-expression@5.3.1,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.1,pkg:maven/org.springframework/spring-expression@5.3.1,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.2,pkg:maven/org.springframework/spring-expression@5.3.2,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.2,pkg:maven/org.springframework/spring-expression@5.3.2,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.2,pkg:maven/org.springframework/spring-expression@5.3.2,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.2,pkg:maven/org.springframework/spring-expression@5.3.2,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.3,pkg:maven/org.springframework/spring-expression@5.3.3,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.3,pkg:maven/org.springframework/spring-expression@5.3.3,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.3,pkg:maven/org.springframework/spring-expression@5.3.3,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.3,pkg:maven/org.springframework/spring-expression@5.3.3,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.4,pkg:maven/org.springframework/spring-expression@5.3.4,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.4,pkg:maven/org.springframework/spring-expression@5.3.4,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.4,pkg:maven/org.springframework/spring-expression@5.3.4,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.4,pkg:maven/org.springframework/spring-expression@5.3.4,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.5,pkg:maven/org.springframework/spring-expression@5.3.5,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.5,pkg:maven/org.springframework/spring-expression@5.3.5,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.5,pkg:maven/org.springframework/spring-expression@5.3.5,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.5,pkg:maven/org.springframework/spring-expression@5.3.5,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.6,pkg:maven/org.springframework/spring-expression@5.3.6,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.6,pkg:maven/org.springframework/spring-expression@5.3.6,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.6,pkg:maven/org.springframework/spring-expression@5.3.6,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.6,pkg:maven/org.springframework/spring-expression@5.3.6,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.7,pkg:maven/org.springframework/spring-expression@5.3.7,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.7,pkg:maven/org.springframework/spring-expression@5.3.7,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.7,pkg:maven/org.springframework/spring-expression@5.3.7,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.7,pkg:maven/org.springframework/spring-expression@5.3.7,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.8,pkg:maven/org.springframework/spring-expression@5.3.8,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.8,pkg:maven/org.springframework/spring-expression@5.3.8,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.8,pkg:maven/org.springframework/spring-expression@5.3.8,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.8,pkg:maven/org.springframework/spring-expression@5.3.8,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework:spring-expression,5.3.9,pkg:maven/org.springframework/spring-expression@5.3.9,GHSA-558x-2xjg-6232,CVE-2022-22950,Allocation of Resources Without Limits or Throttling in Spring Framework,True
+maven,org.springframework:spring-expression,5.3.9,pkg:maven/org.springframework/spring-expression@5.3.9,GHSA-564r-hj7v-mcr5,CVE-2023-20861,Spring Framework vulnerable to denial of service via specially crafted SpEL expression,True
+maven,org.springframework:spring-expression,5.3.9,pkg:maven/org.springframework/spring-expression@5.3.9,GHSA-9cmq-m9j5-mvww,CVE-2024-38808,Spring Framework vulnerable to Denial of Service,True
+maven,org.springframework:spring-expression,5.3.9,pkg:maven/org.springframework/spring-expression@5.3.9,GHSA-wxqc-pxw9-g2p8,CVE-2023-20863,Spring Framework vulnerable to denial of service,True
+maven,org.springframework.security:spring-security-core,5.4.0,pkg:maven/org.springframework.security/spring-security-core@5.4.0,GHSA-f3jh-qvm4-mg39,CVE-2024-22257,Erroneous authentication pass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.0,pkg:maven/org.springframework.security/spring-security-core@5.4.0,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.0,pkg:maven/org.springframework.security/spring-security-core@5.4.0,GHSA-q3v6-hm2v-pw99,CVE-2024-38827,Spring Framework has Authorization Bypass for Case Sensitive Comparisons,True
+maven,org.springframework.security:spring-security-core,5.4.0,pkg:maven/org.springframework.security/spring-security-core@5.4.0,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.0,pkg:maven/org.springframework.security/spring-security-core@5.4.0,GHSA-wx54-3278-m5g4,CVE-2022-22976,Integer overflow in BCrypt class in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.1,pkg:maven/org.springframework.security/spring-security-core@5.4.1,GHSA-f3jh-qvm4-mg39,CVE-2024-22257,Erroneous authentication pass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.1,pkg:maven/org.springframework.security/spring-security-core@5.4.1,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.1,pkg:maven/org.springframework.security/spring-security-core@5.4.1,GHSA-q3v6-hm2v-pw99,CVE-2024-38827,Spring Framework has Authorization Bypass for Case Sensitive Comparisons,True
+maven,org.springframework.security:spring-security-core,5.4.1,pkg:maven/org.springframework.security/spring-security-core@5.4.1,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.1,pkg:maven/org.springframework.security/spring-security-core@5.4.1,GHSA-wx54-3278-m5g4,CVE-2022-22976,Integer overflow in BCrypt class in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.2,pkg:maven/org.springframework.security/spring-security-core@5.4.2,GHSA-f3jh-qvm4-mg39,CVE-2024-22257,Erroneous authentication pass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.2,pkg:maven/org.springframework.security/spring-security-core@5.4.2,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.2,pkg:maven/org.springframework.security/spring-security-core@5.4.2,GHSA-q3v6-hm2v-pw99,CVE-2024-38827,Spring Framework has Authorization Bypass for Case Sensitive Comparisons,True
+maven,org.springframework.security:spring-security-core,5.4.2,pkg:maven/org.springframework.security/spring-security-core@5.4.2,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.2,pkg:maven/org.springframework.security/spring-security-core@5.4.2,GHSA-wx54-3278-m5g4,CVE-2022-22976,Integer overflow in BCrypt class in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.3,pkg:maven/org.springframework.security/spring-security-core@5.4.3,GHSA-f3jh-qvm4-mg39,CVE-2024-22257,Erroneous authentication pass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.3,pkg:maven/org.springframework.security/spring-security-core@5.4.3,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.3,pkg:maven/org.springframework.security/spring-security-core@5.4.3,GHSA-q3v6-hm2v-pw99,CVE-2024-38827,Spring Framework has Authorization Bypass for Case Sensitive Comparisons,True
+maven,org.springframework.security:spring-security-core,5.4.3,pkg:maven/org.springframework.security/spring-security-core@5.4.3,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.3,pkg:maven/org.springframework.security/spring-security-core@5.4.3,GHSA-wx54-3278-m5g4,CVE-2022-22976,Integer overflow in BCrypt class in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.4,pkg:maven/org.springframework.security/spring-security-core@5.4.4,GHSA-f3jh-qvm4-mg39,CVE-2024-22257,Erroneous authentication pass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.4,pkg:maven/org.springframework.security/spring-security-core@5.4.4,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.4,pkg:maven/org.springframework.security/spring-security-core@5.4.4,GHSA-q3v6-hm2v-pw99,CVE-2024-38827,Spring Framework has Authorization Bypass for Case Sensitive Comparisons,True
+maven,org.springframework.security:spring-security-core,5.4.4,pkg:maven/org.springframework.security/spring-security-core@5.4.4,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-core,5.4.4,pkg:maven/org.springframework.security/spring-security-core@5.4.4,GHSA-wx54-3278-m5g4,CVE-2022-22976,Integer overflow in BCrypt class in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.0,pkg:maven/org.springframework.security/spring-security-web@5.4.0,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.0,pkg:maven/org.springframework.security/spring-security-web@5.4.0,GHSA-gq28-h5vg-8prx,CVE-2021-22112,Privilege escalation in spring security,True
+maven,org.springframework.security:spring-security-web,5.4.0,pkg:maven/org.springframework.security/spring-security-web@5.4.0,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.0,pkg:maven/org.springframework.security/spring-security-web@5.4.0,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.1,pkg:maven/org.springframework.security/spring-security-web@5.4.1,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.1,pkg:maven/org.springframework.security/spring-security-web@5.4.1,GHSA-gq28-h5vg-8prx,CVE-2021-22112,Privilege escalation in spring security,True
+maven,org.springframework.security:spring-security-web,5.4.1,pkg:maven/org.springframework.security/spring-security-web@5.4.1,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.1,pkg:maven/org.springframework.security/spring-security-web@5.4.1,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.2,pkg:maven/org.springframework.security/spring-security-web@5.4.2,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.2,pkg:maven/org.springframework.security/spring-security-web@5.4.2,GHSA-gq28-h5vg-8prx,CVE-2021-22112,Privilege escalation in spring security,True
+maven,org.springframework.security:spring-security-web,5.4.2,pkg:maven/org.springframework.security/spring-security-web@5.4.2,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.2,pkg:maven/org.springframework.security/spring-security-web@5.4.2,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.3,pkg:maven/org.springframework.security/spring-security-web@5.4.3,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.3,pkg:maven/org.springframework.security/spring-security-web@5.4.3,GHSA-gq28-h5vg-8prx,CVE-2021-22112,Privilege escalation in spring security,True
+maven,org.springframework.security:spring-security-web,5.4.3,pkg:maven/org.springframework.security/spring-security-web@5.4.3,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.3,pkg:maven/org.springframework.security/spring-security-web@5.4.3,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.4,pkg:maven/org.springframework.security/spring-security-web@5.4.4,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.4,pkg:maven/org.springframework.security/spring-security-web@5.4.4,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.4,pkg:maven/org.springframework.security/spring-security-web@5.4.4,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.5,pkg:maven/org.springframework.security/spring-security-web@5.4.5,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.5,pkg:maven/org.springframework.security/spring-security-web@5.4.5,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.5,pkg:maven/org.springframework.security/spring-security-web@5.4.5,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.6,pkg:maven/org.springframework.security/spring-security-web@5.4.6,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.6,pkg:maven/org.springframework.security/spring-security-web@5.4.6,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.6,pkg:maven/org.springframework.security/spring-security-web@5.4.6,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.7,pkg:maven/org.springframework.security/spring-security-web@5.4.7,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.7,pkg:maven/org.springframework.security/spring-security-web@5.4.7,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.7,pkg:maven/org.springframework.security/spring-security-web@5.4.7,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.8,pkg:maven/org.springframework.security/spring-security-web@5.4.8,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.8,pkg:maven/org.springframework.security/spring-security-web@5.4.8,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.8,pkg:maven/org.springframework.security/spring-security-web@5.4.8,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-web,5.4.9,pkg:maven/org.springframework.security/spring-security-web@5.4.9,GHSA-c4q5-6c82-3qpw,CVE-2024-38821,Spring Security vulnerable to Authorization Bypass of Static Resources in WebFlux Applications,True
+maven,org.springframework.security:spring-security-web,5.4.9,pkg:maven/org.springframework.security/spring-security-web@5.4.9,GHSA-hh32-7344-cg2f,CVE-2022-22978,Authorization bypass in Spring Security,True
+maven,org.springframework.security:spring-security-web,5.4.9,pkg:maven/org.springframework.security/spring-security-web@5.4.9,GHSA-mf92-479x-3373,CVE-2026-22732,Spring Security HTTP Headers Are not Written Under Some Conditions,True
+maven,org.springframework.security:spring-security-crypto,5.4.0,pkg:maven/org.springframework.security/spring-security-crypto@5.4.0,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.1,pkg:maven/org.springframework.security/spring-security-crypto@5.4.1,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.2,pkg:maven/org.springframework.security/spring-security-crypto@5.4.2,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.3,pkg:maven/org.springframework.security/spring-security-crypto@5.4.3,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.4,pkg:maven/org.springframework.security/spring-security-crypto@5.4.4,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.5,pkg:maven/org.springframework.security/spring-security-crypto@5.4.5,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.6,pkg:maven/org.springframework.security/spring-security-crypto@5.4.6,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.7,pkg:maven/org.springframework.security/spring-security-crypto@5.4.7,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.8,pkg:maven/org.springframework.security/spring-security-crypto@5.4.8,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-crypto,5.4.9,pkg:maven/org.springframework.security/spring-security-crypto@5.4.9,GHSA-mg83-c7gq-rv5c,CVE-2025-22228,Spring Security Does Not Enforce Password Length,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.0,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.0,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.0,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.0,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.1,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.1,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.1,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.1,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.2,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.2,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.2,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.2,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.3,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.3,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.3,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.3,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.4,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.4,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.4,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.4,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.5,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.5,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.5,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.5,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.6,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.6,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.6,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.6,GHSA-w9jg-gvgr-354m,CVE-2021-22119,Resource Exhaustion in Spring Security,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.7,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.7,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.8,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.8,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.security:spring-security-oauth2-client,5.4.9,pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.9,GHSA-32vj-v39g-jh23,CVE-2022-31690,spring-security-oauth2-client vulnerable to Privilege Escalation,True
+maven,org.springframework.boot:spring-boot,2.4.0,pkg:maven/org.springframework.boot/spring-boot@2.4.0,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.1,pkg:maven/org.springframework.boot/spring-boot@2.4.1,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.2,pkg:maven/org.springframework.boot/spring-boot@2.4.2,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.3,pkg:maven/org.springframework.boot/spring-boot@2.4.3,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.4,pkg:maven/org.springframework.boot/spring-boot@2.4.4,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.5,pkg:maven/org.springframework.boot/spring-boot@2.4.5,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.6,pkg:maven/org.springframework.boot/spring-boot@2.4.6,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.7,pkg:maven/org.springframework.boot/spring-boot@2.4.7,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.8,pkg:maven/org.springframework.boot/spring-boot@2.4.8,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot,2.4.9,pkg:maven/org.springframework.boot/spring-boot@2.4.9,GHSA-rc42-6c7j-7h5r,CVE-2025-22235,Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.0,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.0,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.1,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.1,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.2,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.2,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.3,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.3,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.4,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.4,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.5,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.5,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.6,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.6,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.7,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.7,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.8,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.8,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-autoconfigure,2.4.9,pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.9,GHSA-xf96-w227-r7c4,CVE-2023-20883,Spring Boot Welcome Page Denial of Service,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.0,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.0,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.1,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.1,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.2,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.2,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.3,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.3,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.4,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.4,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.5,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.5,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.6,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.6,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.7,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.7,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.8,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.8,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.springframework.boot:spring-boot-starter-web,2.4.9,pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.9,GHSA-36p3-wjmg-h94x,CVE-2022-22965,Remote Code Execution in Spring Framework,True
+maven,org.hibernate:hibernate-core,4.1.2,pkg:maven/org.hibernate/hibernate-core@4.1.2,GHSA-8grg-q944-cch5,CVE-2019-14900,SQL Injection in Hibernate ORM,True
+maven,org.hibernate:hibernate-core,4.1.2,pkg:maven/org.hibernate/hibernate-core@4.1.2,GHSA-j8jw-g6fq-mp7h,CVE-2020-25638,SQL injection in hibernate-core,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.0,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.0,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.0,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.1,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.1,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.1,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.2,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.2,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.2,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.4,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.4,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.4,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.5,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.5,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.5,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.5,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.5,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.5,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.6,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.6,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.6,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.6,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.0.6,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.6,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.0,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.0,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.0,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.0,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.0,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.0,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.1,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.1,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.1,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.1,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.1,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.1,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.2,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.2,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.2,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.2,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.2,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.2,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.3,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.3,GHSA-72hv-8253-57qq,,jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.3,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.3,GHSA-h46c-h94j-95f3,CVE-2025-52999,jackson-core can throw a StackoverflowError when processing deeply nested data,True
+maven,com.fasterxml.jackson.core:jackson-core,2.1.3,pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.3,GHSA-wf8f-6423-gfxg,CVE-2025-49128,Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-4gq5-ch57-c2mg,CVE-2018-14719,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-4w82-r329-3q67,CVE-2020-8840,Deserialization of Untrusted Data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-57j2-w4cx-62h2,CVE-2020-36518,Deeply nested json in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-5949-rw7g-wx7w,CVE-2021-20190,Deserialization of untrusted data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-5r5r-6hpj-8gg9,CVE-2020-35728,Serialization gadget exploit in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-5ww9-j83m-q7qx,CVE-2019-12086,Information exposure in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-645p-88qh-w398,CVE-2018-14718,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-6fpp-rgj9-8rwc,CVE-2019-14379,Deserialization of untrusted data in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-85cw-hj65-qqv9,CVE-2019-16335,Polymorphic Typing issue in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.0,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0,GHSA-89qr-369f-5m5x,CVE-2020-36182,Unsafe Deserialization in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-4gq5-ch57-c2mg,CVE-2018-14719,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-4w82-r329-3q67,CVE-2020-8840,Deserialization of Untrusted Data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-57j2-w4cx-62h2,CVE-2020-36518,Deeply nested json in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-5949-rw7g-wx7w,CVE-2021-20190,Deserialization of untrusted data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-5r5r-6hpj-8gg9,CVE-2020-35728,Serialization gadget exploit in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-5ww9-j83m-q7qx,CVE-2019-12086,Information exposure in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-645p-88qh-w398,CVE-2018-14718,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-6fpp-rgj9-8rwc,CVE-2019-14379,Deserialization of untrusted data in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-85cw-hj65-qqv9,CVE-2019-16335,Polymorphic Typing issue in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.1,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1,GHSA-89qr-369f-5m5x,CVE-2020-36182,Unsafe Deserialization in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-4gq5-ch57-c2mg,CVE-2018-14719,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-4w82-r329-3q67,CVE-2020-8840,Deserialization of Untrusted Data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-57j2-w4cx-62h2,CVE-2020-36518,Deeply nested json in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-5949-rw7g-wx7w,CVE-2021-20190,Deserialization of untrusted data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-5r5r-6hpj-8gg9,CVE-2020-35728,Serialization gadget exploit in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-5ww9-j83m-q7qx,CVE-2019-12086,Information exposure in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-645p-88qh-w398,CVE-2018-14718,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-6fpp-rgj9-8rwc,CVE-2019-14379,Deserialization of untrusted data in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-85cw-hj65-qqv9,CVE-2019-16335,Polymorphic Typing issue in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.2,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2,GHSA-89qr-369f-5m5x,CVE-2020-36182,Unsafe Deserialization in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-4gq5-ch57-c2mg,CVE-2018-14719,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-4w82-r329-3q67,CVE-2020-8840,Deserialization of Untrusted Data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-57j2-w4cx-62h2,CVE-2020-36518,Deeply nested json in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-5949-rw7g-wx7w,CVE-2021-20190,Deserialization of untrusted data in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-5r5r-6hpj-8gg9,CVE-2020-35728,Serialization gadget exploit in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-5ww9-j83m-q7qx,CVE-2019-12086,Information exposure in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-645p-88qh-w398,CVE-2018-14718,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-6fpp-rgj9-8rwc,CVE-2019-14379,Deserialization of untrusted data in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-85cw-hj65-qqv9,CVE-2019-16335,Polymorphic Typing issue in FasterXML jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.4,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4,GHSA-89qr-369f-5m5x,CVE-2020-36182,Unsafe Deserialization in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.5,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.5,GHSA-4gq5-ch57-c2mg,CVE-2018-14719,Arbitrary Code Execution in jackson-databind,True
+maven,com.fasterxml.jackson.core:jackson-databind,2.0.5,pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.5,GHSA-4w82-r329-3q67,CVE-2020-8840,Deserialization of Untrusted Data in jackson-databind,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,GHSA-9hjg-9r4m-mvj7,CVE-2024-47081,Requests vulnerable to .netrc credentials leak via malicious URLs,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,GHSA-9wx4-h78v-vm56,CVE-2024-35195,Requests `Session` object does not verify requests after making first request with verify=False,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,GHSA-gc5v-m9x4-r6x2,CVE-2026-25645,Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,GHSA-j8r2-6x86-q33q,CVE-2023-32681,Unintended leak of Proxy-Authorization header in requests,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,GHSA-x84v-xcm2-53pg,CVE-2018-18074,Insufficiently Protected Credentials in Requests,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,PYSEC-2018-28,CVE-2018-18074,The Requests package before 2,True
+pypi,requests,2.9.2,pkg:pypi/requests@2.9.2,PYSEC-2023-74,CVE-2023-32681,Requests is a HTTP library,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,GHSA-9hjg-9r4m-mvj7,CVE-2024-47081,Requests vulnerable to .netrc credentials leak via malicious URLs,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,GHSA-9wx4-h78v-vm56,CVE-2024-35195,Requests `Session` object does not verify requests after making first request with verify=False,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,GHSA-gc5v-m9x4-r6x2,CVE-2026-25645,Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,GHSA-j8r2-6x86-q33q,CVE-2023-32681,Unintended leak of Proxy-Authorization header in requests,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,GHSA-x84v-xcm2-53pg,CVE-2018-18074,Insufficiently Protected Credentials in Requests,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,PYSEC-2018-28,CVE-2018-18074,The Requests package before 2,True
+pypi,requests,2.9.1,pkg:pypi/requests@2.9.1,PYSEC-2023-74,CVE-2023-32681,Requests is a HTTP library,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,GHSA-9hjg-9r4m-mvj7,CVE-2024-47081,Requests vulnerable to .netrc credentials leak via malicious URLs,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,GHSA-9wx4-h78v-vm56,CVE-2024-35195,Requests `Session` object does not verify requests after making first request with verify=False,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,GHSA-gc5v-m9x4-r6x2,CVE-2026-25645,Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,GHSA-j8r2-6x86-q33q,CVE-2023-32681,Unintended leak of Proxy-Authorization header in requests,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,GHSA-x84v-xcm2-53pg,CVE-2018-18074,Insufficiently Protected Credentials in Requests,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,PYSEC-2018-28,CVE-2018-18074,The Requests package before 2,True
+pypi,requests,2.9.0,pkg:pypi/requests@2.9.0,PYSEC-2023-74,CVE-2023-32681,Requests is a HTTP library,True
+pypi,urllib3,2.6.2,pkg:pypi/urllib3@2.6.2,GHSA-38jv-5279-wg99,CVE-2026-21441,Decompression-bomb safeguards bypassed when following HTTP redirects (streaming API),True
+pypi,urllib3,2.6.1,pkg:pypi/urllib3@2.6.1,GHSA-38jv-5279-wg99,CVE-2026-21441,Decompression-bomb safeguards bypassed when following HTTP redirects (streaming API),True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-54jq-c3m8-4m76,CVE-2025-69226,AIOHTTP vulnerable to brute-force leak of internal static ﬁle path components,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-69f9-5gxw-wvc2,CVE-2025-69224,AIOHTTP's unicode processing of header values could cause parsing discrepancies,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-6jhg-hg63-jvvf,CVE-2025-69228,AIOHTTP vulnerable to denial of service through large payloads,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-6mq8-rvhq-8wgg,CVE-2025-69223,AIOHTTP's HTTP Parser auto_decompress feature is vulnerable to zip bomb,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-8495-4g3g-x7pr,CVE-2024-52304,aiohttp allows request smuggling due to incorrect parsing of chunk extensions,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-9548-qrrj-x5pj,CVE-2025-53643,AIOHTTP is vulnerable to HTTP Request/Response Smuggling through incorrect parsing of chunked trailer sections,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-fh55-r93g-j68g,CVE-2025-69230,AIOHTTP Vulnerable to Cookie Parser Warning Storm,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-g84x-mcqj-x9qq,CVE-2025-69229,AIOHTTP vulnerable to DoS through chunked messages,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-jj3x-wxrx-4x23,CVE-2025-69227,AIOHTTP vulnerable to DoS when bypassing asserts,True
+pypi,aiohttp,3.9.5,pkg:pypi/aiohttp@3.9.5,GHSA-mqqc-3gqh-h2x8,CVE-2025-69225,AIOHTTP has unicode match groups in regexes for ASCII protocol elements,True
+pypi,h11,0.9.0,pkg:pypi/h11@0.9.0,GHSA-vqfr-h8mv-ghfj,CVE-2025-43859,h11 accepts some malformed Chunked-Encoding bodies,True
+pypi,h11,0.8.1,pkg:pypi/h11@0.8.1,GHSA-vqfr-h8mv-ghfj,CVE-2025-43859,h11 accepts some malformed Chunked-Encoding bodies,True
+pypi,h11,0.8.0,pkg:pypi/h11@0.8.0,GHSA-vqfr-h8mv-ghfj,CVE-2025-43859,h11 accepts some malformed Chunked-Encoding bodies,True
+pypi,h2,4.2.0,pkg:pypi/h2@4.2.0,GHSA-847f-9342-265h,CVE-2025-57804,h2 allows HTTP Request Smuggling due to illegal characters in headers,True
+pypi,h2,4.1.0,pkg:pypi/h2@4.1.0,GHSA-847f-9342-265h,CVE-2025-57804,h2 allows HTTP Request Smuggling due to illegal characters in headers,True
+pypi,websockets,9.0.2,pkg:pypi/websockets@9.0.2,GHSA-8ch4-58qp-g3mp,CVE-2021-33880,Observable Timing Discrepancy in aaugustin websockets library,True
+pypi,websockets,9.0.2,pkg:pypi/websockets@9.0.2,PYSEC-2021-95,CVE-2021-33880,The aaugustin websockets library before 9,True
+pypi,websockets,9.0.1,pkg:pypi/websockets@9.0.1,GHSA-8ch4-58qp-g3mp,CVE-2021-33880,Observable Timing Discrepancy in aaugustin websockets library,True
+pypi,websockets,9.0.1,pkg:pypi/websockets@9.0.1,PYSEC-2021-95,CVE-2021-33880,The aaugustin websockets library before 9,True
+pypi,flask,3.1.2,pkg:pypi/flask@3.1.2,GHSA-68rp-wp8r-4726,CVE-2026-27205,Flask session does not add `Vary: Cookie` header when accessed in some ways,True
+pypi,flask,3.1.1,pkg:pypi/flask@3.1.1,GHSA-68rp-wp8r-4726,CVE-2026-27205,Flask session does not add `Vary: Cookie` header when accessed in some ways,True
+pypi,django,6.0rc1,pkg:pypi/django@6.0rc1,GHSA-2mcm-79hx-8fxw,CVE-2025-13473,Django has Observable Timing Discrepancy,True
+pypi,django,6.0rc1,pkg:pypi/django@6.0rc1,GHSA-33mw-q7rj-mjwj,CVE-2025-14550,Django has Inefficient Algorithmic Complexity,True
+pypi,django,6.0rc1,pkg:pypi/django@6.0rc1,GHSA-4rrr-2h4v-f3j9,CVE-2026-1285,Django has Inefficient Algorithmic Complexity,True
+pypi,django,6.0rc1,pkg:pypi/django@6.0rc1,GHSA-6426-9fv3-65x8,CVE-2026-1312,Django has an SQL Injection issue,True
+pypi,django,6.0rc1,pkg:pypi/django@6.0rc1,GHSA-gvg8-93h5-g6qq,CVE-2026-1287,Django has an SQL Injection issue,True
+pypi,django,6.0rc1,pkg:pypi/django@6.0rc1,GHSA-mwm9-4648-f68q,CVE-2026-1207,Django has an SQL Injection issue,True
+pypi,django,6.0b1,pkg:pypi/django@6.0b1,GHSA-2mcm-79hx-8fxw,CVE-2025-13473,Django has Observable Timing Discrepancy,True
+pypi,django,6.0b1,pkg:pypi/django@6.0b1,GHSA-33mw-q7rj-mjwj,CVE-2025-14550,Django has Inefficient Algorithmic Complexity,True
+pypi,django,6.0b1,pkg:pypi/django@6.0b1,GHSA-4rrr-2h4v-f3j9,CVE-2026-1285,Django has Inefficient Algorithmic Complexity,True
+pypi,django,6.0b1,pkg:pypi/django@6.0b1,GHSA-6426-9fv3-65x8,CVE-2026-1312,Django has an SQL Injection issue,True
+pypi,django,6.0b1,pkg:pypi/django@6.0b1,GHSA-gvg8-93h5-g6qq,CVE-2026-1287,Django has an SQL Injection issue,True
+pypi,django,6.0b1,pkg:pypi/django@6.0b1,GHSA-mwm9-4648-f68q,CVE-2026-1207,Django has an SQL Injection issue,True
+pypi,django,6.0a1,pkg:pypi/django@6.0a1,GHSA-2mcm-79hx-8fxw,CVE-2025-13473,Django has Observable Timing Discrepancy,True
+pypi,django,6.0a1,pkg:pypi/django@6.0a1,GHSA-33mw-q7rj-mjwj,CVE-2025-14550,Django has Inefficient Algorithmic Complexity,True
+pypi,django,6.0a1,pkg:pypi/django@6.0a1,GHSA-4rrr-2h4v-f3j9,CVE-2026-1285,Django has Inefficient Algorithmic Complexity,True
+pypi,django,6.0a1,pkg:pypi/django@6.0a1,GHSA-6426-9fv3-65x8,CVE-2026-1312,Django has an SQL Injection issue,True
+pypi,django,6.0a1,pkg:pypi/django@6.0a1,GHSA-gvg8-93h5-g6qq,CVE-2026-1287,Django has an SQL Injection issue,True
+pypi,django,6.0a1,pkg:pypi/django@6.0a1,GHSA-mwm9-4648-f68q,CVE-2026-1207,Django has an SQL Injection issue,True
+pypi,fastapi,0.99.1,pkg:pypi/fastapi@0.99.1,PYSEC-2024-38,CVE-2024-24762,FastAPI is a web framework for building APIs with Python 3,True
+pypi,fastapi,0.99.0,pkg:pypi/fastapi@0.99.0,PYSEC-2024-38,CVE-2024-24762,FastAPI is a web framework for building APIs with Python 3,True
+pypi,fastapi,0.98.0,pkg:pypi/fastapi@0.98.0,PYSEC-2024-38,CVE-2024-24762,FastAPI is a web framework for building APIs with Python 3,True
+pypi,starlette,0.9.9,pkg:pypi/starlette@0.9.9,GHSA-2c2j-9gv5-cj73,CVE-2025-54121,Starlette has possible denial-of-service vector when parsing large files in multipart forms,True
+pypi,starlette,0.9.9,pkg:pypi/starlette@0.9.9,GHSA-74m5-2c7w-9w3x,CVE-2023-30798,MultipartParser denial of service with too many fields or files,True
+pypi,starlette,0.9.9,pkg:pypi/starlette@0.9.9,GHSA-f96h-pmfr-66vw,CVE-2024-47874,Starlette Denial of service (DoS) via multipart/form-data,True
+pypi,starlette,0.9.9,pkg:pypi/starlette@0.9.9,PYSEC-2023-48,CVE-2023-30798,There MultipartParser usage in Encode's Starlette python framework before versions 0,True
+pypi,werkzeug,3.1.5,pkg:pypi/werkzeug@3.1.5,GHSA-29vq-49wr-vm6x,CVE-2026-27199,Werkzeug safe_join() allows Windows special device names,True
+pypi,quart,0.9.1,pkg:pypi/quart@0.9.1,GHSA-q34m-jh98-gwm2,CVE-2024-49767,Werkzeug possible resource exhaustion when parsing file data in forms,True
+pypi,quart,0.9.0,pkg:pypi/quart@0.9.0,GHSA-q34m-jh98-gwm2,CVE-2024-49767,Werkzeug possible resource exhaustion when parsing file data in forms,True
+pypi,quart,0.8.1,pkg:pypi/quart@0.8.1,GHSA-q34m-jh98-gwm2,CVE-2024-49767,Werkzeug possible resource exhaustion when parsing file data in forms,True
+pypi,bottle,0.9.8,pkg:pypi/bottle@0.9.8,GHSA-qhx9-7hx7-cp4r,CVE-2020-28473,bottle HTTP Request smuggling,True
+pypi,bottle,0.9.8,pkg:pypi/bottle@0.9.8,GHSA-xhp9-4947-rq78,CVE-2022-31799,Denial of service in bottle,True
+pypi,bottle,0.9.8,pkg:pypi/bottle@0.9.8,PYSEC-2014-77,CVE-2014-3137,Bottle 0,True
+pypi,bottle,0.9.8,pkg:pypi/bottle@0.9.8,PYSEC-2021-129,CVE-2020-28473,The package bottle from 0 and before 0,True
+pypi,bottle,0.9.8,pkg:pypi/bottle@0.9.8,PYSEC-2022-227,CVE-2022-31799,Bottle before 0,True
+pypi,bottle,0.9.7,pkg:pypi/bottle@0.9.7,GHSA-qhx9-7hx7-cp4r,CVE-2020-28473,bottle HTTP Request smuggling,True
+pypi,bottle,0.9.7,pkg:pypi/bottle@0.9.7,GHSA-xhp9-4947-rq78,CVE-2022-31799,Denial of service in bottle,True
+pypi,bottle,0.9.7,pkg:pypi/bottle@0.9.7,PYSEC-2014-77,CVE-2014-3137,Bottle 0,True
+pypi,bottle,0.9.7,pkg:pypi/bottle@0.9.7,PYSEC-2021-129,CVE-2020-28473,The package bottle from 0 and before 0,True
+pypi,bottle,0.9.7,pkg:pypi/bottle@0.9.7,PYSEC-2022-227,CVE-2022-31799,Bottle before 0,True
+pypi,bottle,0.9.6,pkg:pypi/bottle@0.9.6,GHSA-qhx9-7hx7-cp4r,CVE-2020-28473,bottle HTTP Request smuggling,True
+pypi,bottle,0.9.6,pkg:pypi/bottle@0.9.6,GHSA-xhp9-4947-rq78,CVE-2022-31799,Denial of service in bottle,True
+pypi,bottle,0.9.6,pkg:pypi/bottle@0.9.6,PYSEC-2014-77,CVE-2014-3137,Bottle 0,True
+pypi,bottle,0.9.6,pkg:pypi/bottle@0.9.6,PYSEC-2021-129,CVE-2020-28473,The package bottle from 0 and before 0,True
+pypi,bottle,0.9.6,pkg:pypi/bottle@0.9.6,PYSEC-2022-227,CVE-2022-31799,Bottle before 0,True
+pypi,tornado,6.5b1,pkg:pypi/tornado@6.5b1,GHSA-78cv-mqj4-43f7,,Tornado has incomplete validation of cookie attributes,True
+pypi,tornado,6.5b1,pkg:pypi/tornado@6.5b1,GHSA-7cx3-6m66-7c5m,CVE-2025-47287,Tornado vulnerable to excessive logging caused by malformed multipart form data,True
+pypi,tornado,6.5b1,pkg:pypi/tornado@6.5b1,GHSA-qjxf-f2mg-c6mc,CVE-2026-31958,Tornado is vulnerable to DoS due to too many multipart parts,True
+pypi,tornado,6.5.4,pkg:pypi/tornado@6.5.4,GHSA-78cv-mqj4-43f7,,Tornado has incomplete validation of cookie attributes,True
+pypi,tornado,6.5.4,pkg:pypi/tornado@6.5.4,GHSA-qjxf-f2mg-c6mc,CVE-2026-31958,Tornado is vulnerable to DoS due to too many multipart parts,True
+pypi,cryptography,46.0.5,pkg:pypi/cryptography@46.0.5,GHSA-m959-cc7f-wv43,CVE-2026-34073,cryptography has incomplete DNS name constraint enforcement on peer names,True
+pypi,cryptography,46.0.4,pkg:pypi/cryptography@46.0.4,GHSA-m959-cc7f-wv43,CVE-2026-34073,cryptography has incomplete DNS name constraint enforcement on peer names,True
+pypi,cryptography,46.0.4,pkg:pypi/cryptography@46.0.4,GHSA-r6ph-v2qm-q3c2,CVE-2026-26007,cryptography Vulnerable to a Subgroup Attack Due to Missing Subgroup Validation for SECT Curves,True
+pypi,pyopenssl,25.3.0,pkg:pypi/pyopenssl@25.3.0,GHSA-5pwr-322w-8jr4,CVE-2026-27459,pyOpenSSL DTLS cookie callback buffer overflow,True
+pypi,pyopenssl,25.3.0,pkg:pypi/pyopenssl@25.3.0,GHSA-vp96-hxj8-p424,CVE-2026-27448,pyOpenSSL allows TLS connection bypass via unhandled callback exception in set_tlsext_servername_callback,True
+pypi,pyopenssl,25.2.0,pkg:pypi/pyopenssl@25.2.0,GHSA-5pwr-322w-8jr4,CVE-2026-27459,pyOpenSSL DTLS cookie callback buffer overflow,True
+pypi,pyopenssl,25.2.0,pkg:pypi/pyopenssl@25.2.0,GHSA-vp96-hxj8-p424,CVE-2026-27448,pyOpenSSL allows TLS connection bypass via unhandled callback exception in set_tlsext_servername_callback,True
+pypi,pynacl,1.6.1,pkg:pypi/pynacl@1.6.1,GHSA-mrfv-m5wm-5w6w,CVE-2025-69277,libsodium has Incomplete List of Disallowed Inputs,True
+pypi,pynacl,1.6.0,pkg:pypi/pynacl@1.6.0,GHSA-mrfv-m5wm-5w6w,CVE-2025-69277,libsodium has Incomplete List of Disallowed Inputs,True
+pypi,python-jose,3.3.0,pkg:pypi/python-jose@3.3.0,GHSA-6c5p-j8vq-pqhj,CVE-2024-33663,python-jose algorithm confusion with OpenSSH ECDSA keys,True
+pypi,python-jose,3.3.0,pkg:pypi/python-jose@3.3.0,GHSA-cjwg-qfpm-7377,CVE-2024-33664,python-jose denial of service via compressed JWE content,True
+pypi,python-jose,3.3.0,pkg:pypi/python-jose@3.3.0,PYSEC-2024-232,CVE-2024-33663,python-jose through 3,True
+pypi,python-jose,3.3.0,pkg:pypi/python-jose@3.3.0,PYSEC-2024-233,CVE-2024-33664,python-jose through 3,True
+pypi,jwcrypto,1.5.5,pkg:pypi/jwcrypto@1.5.5,GHSA-j857-7rvv-vj97,CVE-2024-28102,JWCrypto vulnerable to JWT bomb Attack in `deserialize` function,True
+pypi,jwcrypto,1.5.4,pkg:pypi/jwcrypto@1.5.4,GHSA-j857-7rvv-vj97,CVE-2024-28102,JWCrypto vulnerable to JWT bomb Attack in `deserialize` function,True
+pypi,orjson,3.9.9,pkg:pypi/orjson@3.9.9,GHSA-hx9q-6w63-j58v,CVE-2025-67221,orjson does not limit recursion for deeply nested JSON documents,True
+pypi,orjson,3.9.9,pkg:pypi/orjson@3.9.9,GHSA-pwr2-4v36-6qpr,CVE-2024-27454,orjson does not limit recursion for deeply nested JSON documents,True
+pypi,orjson,3.9.9,pkg:pypi/orjson@3.9.9,PYSEC-2024-40,CVE-2024-27454,orjson,True
+pypi,orjson,3.9.8,pkg:pypi/orjson@3.9.8,GHSA-hx9q-6w63-j58v,CVE-2025-67221,orjson does not limit recursion for deeply nested JSON documents,True
+pypi,orjson,3.9.8,pkg:pypi/orjson@3.9.8,GHSA-pwr2-4v36-6qpr,CVE-2024-27454,orjson does not limit recursion for deeply nested JSON documents,True
+pypi,orjson,3.9.8,pkg:pypi/orjson@3.9.8,PYSEC-2024-40,CVE-2024-27454,orjson,True
+pypi,orjson,3.9.7,pkg:pypi/orjson@3.9.7,GHSA-hx9q-6w63-j58v,CVE-2025-67221,orjson does not limit recursion for deeply nested JSON documents,True
+pypi,orjson,3.9.7,pkg:pypi/orjson@3.9.7,GHSA-pwr2-4v36-6qpr,CVE-2024-27454,orjson does not limit recursion for deeply nested JSON documents,True
+pypi,orjson,3.9.7,pkg:pypi/orjson@3.9.7,PYSEC-2024-40,CVE-2024-27454,orjson,True
+pypi,ujson,5.9.0,pkg:pypi/ujson@5.9.0,GHSA-c8rr-9gxc-jprv,CVE-2026-32875,UltraJSON has an integer overflow handling large indent leads to buffer overflow or infinite loop,True
+pypi,ujson,5.9.0,pkg:pypi/ujson@5.9.0,GHSA-wgvc-ghv9-3pmm,CVE-2026-32874,UltraJSON has a Memory Leak parsing large integers allows DoS,True
+pypi,ujson,5.8.0,pkg:pypi/ujson@5.8.0,GHSA-c8rr-9gxc-jprv,CVE-2026-32875,UltraJSON has an integer overflow handling large indent leads to buffer overflow or infinite loop,True
+pypi,ujson,5.8.0,pkg:pypi/ujson@5.8.0,GHSA-wgvc-ghv9-3pmm,CVE-2026-32874,UltraJSON has a Memory Leak parsing large integers allows DoS,True
+pypi,ujson,5.7.0,pkg:pypi/ujson@5.7.0,GHSA-c8rr-9gxc-jprv,CVE-2026-32875,UltraJSON has an integer overflow handling large indent leads to buffer overflow or infinite loop,True
+pypi,ujson,5.7.0,pkg:pypi/ujson@5.7.0,GHSA-wgvc-ghv9-3pmm,CVE-2026-32874,UltraJSON has a Memory Leak parsing large integers allows DoS,True
+pypi,cbor2,5.8.0,pkg:pypi/cbor2@5.8.0,GHSA-3c37-wwvx-h642,CVE-2026-26209,cbor2 has a Denial of Service via Uncontrolled Recursion in cbor2.loads,True
+pypi,scipy,1.9.3,pkg:pypi/scipy@1.9.3,PYSEC-2023-102,CVE-2023-25399,A refcounting issue which leads to potential memory leak was discovered in scipy commit 8627df31ab in Py_FindObjects() function,True
+pypi,scipy,1.9.2,pkg:pypi/scipy@1.9.2,PYSEC-2023-102,CVE-2023-25399,A refcounting issue which leads to potential memory leak was discovered in scipy commit 8627df31ab in Py_FindObjects() function,True
+pypi,scipy,1.9.1,pkg:pypi/scipy@1.9.1,PYSEC-2023-102,CVE-2023-25399,A refcounting issue which leads to potential memory leak was discovered in scipy commit 8627df31ab in Py_FindObjects() function,True
+pypi,lightgbm,4.5.0,pkg:pypi/lightgbm@4.5.0,GHSA-2586-f3p4-hq84,CVE-2024-43598,LightGBM Remote Code Execution Vulnerability,True
+pypi,lightgbm,4.5.0,pkg:pypi/lightgbm@4.5.0,PYSEC-2024-231,CVE-2024-43598,LightGBM Remote Code Execution Vulnerability,True
+pypi,lightgbm,4.4.0,pkg:pypi/lightgbm@4.4.0,GHSA-2586-f3p4-hq84,CVE-2024-43598,LightGBM Remote Code Execution Vulnerability,True
+pypi,lightgbm,4.4.0,pkg:pypi/lightgbm@4.4.0,PYSEC-2024-231,CVE-2024-43598,LightGBM Remote Code Execution Vulnerability,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-49rq-hwc3-x77w,CVE-2023-25670,TensorFlow has Null Pointer Error in QuantizedMatMulWithBiasAndDequantize,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-558h-mq8x-7q9g,CVE-2023-25665,TensorFlow has Null Pointer Error in SparseSparseMaximum,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-5w96-866f-6rm8,CVE-2023-27579,TensorFlow has Floating Point Exception in TFLite in conv kernel,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-647v-r7qq-24fh,CVE-2023-25673,TensorFlow has Floating Point Exception in TensorListSplit with XLA,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-64jg-wjww-7c5w,CVE-2023-25663,TensorFlow has Null Pointer Error in TensorArrayConcatV2,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-68v3-g9cm-rmm6,CVE-2023-25658,TensorFlow vulnerable to Out-of-Bounds Read in GRUBlockCellGrad,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-6hg6-5c2q-7rcr,CVE-2023-25664,TensorFlow has Heap-buffer-overflow in AvgPoolGrad,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-6wfh-89q8-44jq,CVE-2023-25676,TensorFlow has null dereference on ParallelConcat with XLA,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-7jvm-xxmr-v5cw,CVE-2023-25662,TensorFlow vulnerable to integer overflow in EditDistance,True
+pypi,tensorflow,2.9.3,pkg:pypi/tensorflow@2.9.3,GHSA-7x4v-9gxg-9hwj,CVE-2023-25675,TensorFlow has Segfault in Bincount with XLA,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-27rc-728f-x5w2,CVE-2022-41899,`CHECK` fail via inputs in `SdcaOptimizer`,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-368v-7v32-52fx,CVE-2022-41907,Overflow in `ResizeNearestNeighborGrad`,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-49rq-hwc3-x77w,CVE-2023-25670,TensorFlow has Null Pointer Error in QuantizedMatMulWithBiasAndDequantize,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-54pp-c6pp-7fpx,CVE-2022-41886,Overflow in `ImageProjectiveTransformV2`,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-558h-mq8x-7q9g,CVE-2023-25665,TensorFlow has Null Pointer Error in SparseSparseMaximum,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-5w96-866f-6rm8,CVE-2023-27579,TensorFlow has Floating Point Exception in TFLite in conv kernel,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-647v-r7qq-24fh,CVE-2023-25673,TensorFlow has Floating Point Exception in TensorListSplit with XLA,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-64jg-wjww-7c5w,CVE-2023-25663,TensorFlow has Null Pointer Error in TensorArrayConcatV2,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-66vq-54fq-6jvv,CVE-2022-41891,Segfault in `tf.raw_ops.TensorListConcat`,True
+pypi,tensorflow,2.9.2,pkg:pypi/tensorflow@2.9.2,GHSA-67pf-62xr-q35m,CVE-2022-41893,`CHECK_EQ` fail in `tf.raw_ops.TensorListResize`,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-27rc-728f-x5w2,CVE-2022-41899,`CHECK` fail via inputs in `SdcaOptimizer`,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-368v-7v32-52fx,CVE-2022-41907,Overflow in `ResizeNearestNeighborGrad`,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-49rq-hwc3-x77w,CVE-2023-25670,TensorFlow has Null Pointer Error in QuantizedMatMulWithBiasAndDequantize,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-54pp-c6pp-7fpx,CVE-2022-41886,Overflow in `ImageProjectiveTransformV2`,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-558h-mq8x-7q9g,CVE-2023-25665,TensorFlow has Null Pointer Error in SparseSparseMaximum,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-5w96-866f-6rm8,CVE-2023-27579,TensorFlow has Floating Point Exception in TFLite in conv kernel,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-647v-r7qq-24fh,CVE-2023-25673,TensorFlow has Floating Point Exception in TensorListSplit with XLA,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-64jg-wjww-7c5w,CVE-2023-25663,TensorFlow has Null Pointer Error in TensorArrayConcatV2,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-66vq-54fq-6jvv,CVE-2022-41891,Segfault in `tf.raw_ops.TensorListConcat`,True
+pypi,tensorflow,2.9.1,pkg:pypi/tensorflow@2.9.1,GHSA-67pf-62xr-q35m,CVE-2022-41893,`CHECK_EQ` fail in `tf.raw_ops.TensorListResize`,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-36fq-jgmw-4r9c,CVE-2025-9906,Keras is vulnerable to Deserialization of Untrusted Data,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-36rr-ww3j-vrjv,CVE-2025-9905,The Keras `Model.load_model` method **silently** ignores `safe_mode=True` and allows arbitrary code execution when a `.h5`/`.hdf5` file is loaded.,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-3m4q-jmj6-r34q,CVE-2026-1669,Keras has a Local File Disclosure via HDF5 External Storage During Keras Weight Loading,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-c9rc-mg46-23w3,CVE-2025-8747,Keras vulnerable to CVE-2025-1550 bypass via reuse of internal functionality,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-hjqc-jx6g-rwp9,CVE-2025-12060,Keras Directory Traversal Vulnerability,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-mq84-hjqx-cwf2,CVE-2025-12058,Keras is vulnerable to arbitrary local file loading and Server-Side Request Forgery,True
+pypi,keras,3.9.2,pkg:pypi/keras@3.9.2,GHSA-xfhx-r7ww-5995,CVE-2026-0897,Google Keras Allocates Resources Without Limits or Throttling in the HDF5 weight loading component,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-36fq-jgmw-4r9c,CVE-2025-9906,Keras is vulnerable to Deserialization of Untrusted Data,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-36rr-ww3j-vrjv,CVE-2025-9905,The Keras `Model.load_model` method **silently** ignores `safe_mode=True` and allows arbitrary code execution when a `.h5`/`.hdf5` file is loaded.,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-3m4q-jmj6-r34q,CVE-2026-1669,Keras has a Local File Disclosure via HDF5 External Storage During Keras Weight Loading,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-c9rc-mg46-23w3,CVE-2025-8747,Keras vulnerable to CVE-2025-1550 bypass via reuse of internal functionality,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-hjqc-jx6g-rwp9,CVE-2025-12060,Keras Directory Traversal Vulnerability,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-mq84-hjqx-cwf2,CVE-2025-12058,Keras is vulnerable to arbitrary local file loading and Server-Side Request Forgery,True
+pypi,keras,3.9.1,pkg:pypi/keras@3.9.1,GHSA-xfhx-r7ww-5995,CVE-2026-0897,Google Keras Allocates Resources Without Limits or Throttling in the HDF5 weight loading component,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-36fq-jgmw-4r9c,CVE-2025-9906,Keras is vulnerable to Deserialization of Untrusted Data,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-36rr-ww3j-vrjv,CVE-2025-9905,The Keras `Model.load_model` method **silently** ignores `safe_mode=True` and allows arbitrary code execution when a `.h5`/`.hdf5` file is loaded.,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-3m4q-jmj6-r34q,CVE-2026-1669,Keras has a Local File Disclosure via HDF5 External Storage During Keras Weight Loading,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-c9rc-mg46-23w3,CVE-2025-8747,Keras vulnerable to CVE-2025-1550 bypass via reuse of internal functionality,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-hjqc-jx6g-rwp9,CVE-2025-12060,Keras Directory Traversal Vulnerability,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-mq84-hjqx-cwf2,CVE-2025-12058,Keras is vulnerable to arbitrary local file loading and Server-Side Request Forgery,True
+pypi,keras,3.9.0,pkg:pypi/keras@3.9.0,GHSA-xfhx-r7ww-5995,CVE-2026-0897,Google Keras Allocates Resources Without Limits or Throttling in the HDF5 weight loading component,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,GHSA-4xh5-x5gv-qwph,CVE-2025-8869,pip's fallback tar extraction doesn't check symbolic links point to extraction directory,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,GHSA-5xp3-jfq3-5q8x,CVE-2021-3572,Improper Input Validation in pip,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,GHSA-6vgw-5pg2-w6jp,CVE-2026-1703,pip Path Traversal vulnerability,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,GHSA-gpvv-69j7-gwj8,CVE-2019-20916,Path Traversal in pip,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,GHSA-mq26-g339-26xf,CVE-2023-5752,Command Injection in pip when used with Mercurial,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,PYSEC-2020-173,CVE-2019-20916,The pip package before 19,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,PYSEC-2021-437,CVE-2021-3572,A flaw was found in python-pip in the way it handled Unicode separators in git references,True
+pypi,pip,9.0.3,pkg:pypi/pip@9.0.3,PYSEC-2023-228,CVE-2023-5752,"When installing a package from a Mercurial VCS URL (ie ""pip install hg+",True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,GHSA-4xh5-x5gv-qwph,CVE-2025-8869,pip's fallback tar extraction doesn't check symbolic links point to extraction directory,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,GHSA-5xp3-jfq3-5q8x,CVE-2021-3572,Improper Input Validation in pip,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,GHSA-6vgw-5pg2-w6jp,CVE-2026-1703,pip Path Traversal vulnerability,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,GHSA-gpvv-69j7-gwj8,CVE-2019-20916,Path Traversal in pip,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,GHSA-mq26-g339-26xf,CVE-2023-5752,Command Injection in pip when used with Mercurial,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,PYSEC-2020-173,CVE-2019-20916,The pip package before 19,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,PYSEC-2021-437,CVE-2021-3572,A flaw was found in python-pip in the way it handled Unicode separators in git references,True
+pypi,pip,9.0.2,pkg:pypi/pip@9.0.2,PYSEC-2023-228,CVE-2023-5752,"When installing a package from a Mercurial VCS URL (ie ""pip install hg+",True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,GHSA-4xh5-x5gv-qwph,CVE-2025-8869,pip's fallback tar extraction doesn't check symbolic links point to extraction directory,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,GHSA-5xp3-jfq3-5q8x,CVE-2021-3572,Improper Input Validation in pip,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,GHSA-6vgw-5pg2-w6jp,CVE-2026-1703,pip Path Traversal vulnerability,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,GHSA-gpvv-69j7-gwj8,CVE-2019-20916,Path Traversal in pip,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,GHSA-mq26-g339-26xf,CVE-2023-5752,Command Injection in pip when used with Mercurial,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,PYSEC-2020-173,CVE-2019-20916,The pip package before 19,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,PYSEC-2021-437,CVE-2021-3572,A flaw was found in python-pip in the way it handled Unicode separators in git references,True
+pypi,pip,9.0.1,pkg:pypi/pip@9.0.1,PYSEC-2023-228,CVE-2023-5752,"When installing a package from a Mercurial VCS URL (ie ""pip install hg+",True
+pypi,setuptools,9.1,pkg:pypi/setuptools@9.1,GHSA-5rjg-fvgr-3xxf,CVE-2025-47273,setuptools has a path traversal vulnerability in PackageIndex.download that leads to Arbitrary File Write,True
+pypi,setuptools,9.1,pkg:pypi/setuptools@9.1,GHSA-cx63-2mw6-8hw5,CVE-2024-6345,setuptools vulnerable to Command Injection via package URL,True
+pypi,setuptools,9.1,pkg:pypi/setuptools@9.1,GHSA-r9hx-vwmv-q579,CVE-2022-40897,pypa/setuptools vulnerable to Regular Expression Denial of Service (ReDoS),True
+pypi,setuptools,9.1,pkg:pypi/setuptools@9.1,PYSEC-2022-43012,CVE-2022-40897,Python Packaging Authority (PyPA) setuptools before 65,True
+pypi,setuptools,9.1,pkg:pypi/setuptools@9.1,PYSEC-2025-49,CVE-2025-47273,"setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages",True
+pypi,setuptools,9.0.1,pkg:pypi/setuptools@9.0.1,GHSA-5rjg-fvgr-3xxf,CVE-2025-47273,setuptools has a path traversal vulnerability in PackageIndex.download that leads to Arbitrary File Write,True
+pypi,setuptools,9.0.1,pkg:pypi/setuptools@9.0.1,GHSA-cx63-2mw6-8hw5,CVE-2024-6345,setuptools vulnerable to Command Injection via package URL,True
+pypi,setuptools,9.0.1,pkg:pypi/setuptools@9.0.1,GHSA-r9hx-vwmv-q579,CVE-2022-40897,pypa/setuptools vulnerable to Regular Expression Denial of Service (ReDoS),True
+pypi,setuptools,9.0.1,pkg:pypi/setuptools@9.0.1,PYSEC-2022-43012,CVE-2022-40897,Python Packaging Authority (PyPA) setuptools before 65,True
+pypi,setuptools,9.0.1,pkg:pypi/setuptools@9.0.1,PYSEC-2025-49,CVE-2025-47273,"setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages",True
+pypi,setuptools,9.0,pkg:pypi/setuptools@9.0,GHSA-5rjg-fvgr-3xxf,CVE-2025-47273,setuptools has a path traversal vulnerability in PackageIndex.download that leads to Arbitrary File Write,True
+pypi,setuptools,9.0,pkg:pypi/setuptools@9.0,GHSA-cx63-2mw6-8hw5,CVE-2024-6345,setuptools vulnerable to Command Injection via package URL,True
+pypi,setuptools,9.0,pkg:pypi/setuptools@9.0,GHSA-r9hx-vwmv-q579,CVE-2022-40897,pypa/setuptools vulnerable to Regular Expression Denial of Service (ReDoS),True
+pypi,setuptools,9.0,pkg:pypi/setuptools@9.0,PYSEC-2022-43012,CVE-2022-40897,Python Packaging Authority (PyPA) setuptools before 65,True
+pypi,setuptools,9.0,pkg:pypi/setuptools@9.0,PYSEC-2025-49,CVE-2025-47273,"setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages",True
+pypi,wheel,0.9.7,pkg:pypi/wheel@0.9.7,GHSA-qwmp-2cf2-g9g6,CVE-2022-40898,pypa/wheel vulnerable to Regular Expression denial of service (ReDoS),True
+pypi,wheel,0.9.7,pkg:pypi/wheel@0.9.7,PYSEC-2022-43017,CVE-2022-40898,An issue discovered in Python Packaging Authority (PyPA) Wheel 0,True
+pypi,wheel,0.9.6,pkg:pypi/wheel@0.9.6,GHSA-qwmp-2cf2-g9g6,CVE-2022-40898,pypa/wheel vulnerable to Regular Expression denial of service (ReDoS),True
+pypi,wheel,0.9.6,pkg:pypi/wheel@0.9.6,PYSEC-2022-43017,CVE-2022-40898,An issue discovered in Python Packaging Authority (PyPA) Wheel 0,True
+pypi,wheel,0.9.5,pkg:pypi/wheel@0.9.5,GHSA-qwmp-2cf2-g9g6,CVE-2022-40898,pypa/wheel vulnerable to Regular Expression denial of service (ReDoS),True
+pypi,wheel,0.9.5,pkg:pypi/wheel@0.9.5,PYSEC-2022-43017,CVE-2022-40898,An issue discovered in Python Packaging Authority (PyPA) Wheel 0,True
+pypi,tqdm,4.9.0,pkg:pypi/tqdm@4.9.0,GHSA-g7vv-2v7x-gj9p,CVE-2024-34062,tqdm CLI arguments injection attack,True
+pypi,tqdm,4.9.0,pkg:pypi/tqdm@4.9.0,GHSA-r7q7-xcjw-qx8q,CVE-2016-10075,TDQM Arbitrary Code Execution,True
+pypi,tqdm,4.9.0,pkg:pypi/tqdm@4.9.0,PYSEC-2017-74,CVE-2016-10075,The tqdm,True
+pypi,tqdm,4.8.4,pkg:pypi/tqdm@4.8.4,GHSA-g7vv-2v7x-gj9p,CVE-2024-34062,tqdm CLI arguments injection attack,True
+pypi,tqdm,4.8.4,pkg:pypi/tqdm@4.8.4,GHSA-r7q7-xcjw-qx8q,CVE-2016-10075,TDQM Arbitrary Code Execution,True
+pypi,tqdm,4.8.4,pkg:pypi/tqdm@4.8.4,PYSEC-2017-74,CVE-2016-10075,The tqdm,True
+pypi,tqdm,4.8.3,pkg:pypi/tqdm@4.8.3,GHSA-g7vv-2v7x-gj9p,CVE-2024-34062,tqdm CLI arguments injection attack,True
+pypi,tqdm,4.8.3,pkg:pypi/tqdm@4.8.3,GHSA-r7q7-xcjw-qx8q,CVE-2016-10075,TDQM Arbitrary Code Execution,True
+pypi,tqdm,4.8.3,pkg:pypi/tqdm@4.8.3,PYSEC-2017-74,CVE-2016-10075,The tqdm,True
+pypi,eventlet,0.9.17,pkg:pypi/eventlet@0.9.17,GHSA-3rq5-2g8h-59hc,CVE-2023-29483,Potential DoS via the Tudoor mechanism in eventlet and dnspython,True
+pypi,eventlet,0.9.17,pkg:pypi/eventlet@0.9.17,GHSA-hw6f-rjfj-j7j7,CVE-2025-58068,Eventlet affected by HTTP request smuggling in unparsed trailers,True
+pypi,eventlet,0.8.16,pkg:pypi/eventlet@0.8.16,GHSA-3rq5-2g8h-59hc,CVE-2023-29483,Potential DoS via the Tudoor mechanism in eventlet and dnspython,True
+pypi,eventlet,0.8.16,pkg:pypi/eventlet@0.8.16,GHSA-hw6f-rjfj-j7j7,CVE-2025-58068,Eventlet affected by HTTP request smuggling in unparsed trailers,True
+pypi,eventlet,0.8,pkg:pypi/eventlet@0.8,GHSA-3rq5-2g8h-59hc,CVE-2023-29483,Potential DoS via the Tudoor mechanism in eventlet and dnspython,True
+pypi,eventlet,0.8,pkg:pypi/eventlet@0.8,GHSA-hw6f-rjfj-j7j7,CVE-2025-58068,Eventlet affected by HTTP request smuggling in unparsed trailers,True
+pypi,pymysql,1.1.0rc2,pkg:pypi/pymysql@1.1.0rc2,GHSA-v9hf-5j83-6xpp,CVE-2024-36039,PyMySQL SQL Injection vulnerability,True
+pypi,pillow,9.5.0,pkg:pypi/pillow@9.5.0,GHSA-3f63-hfp8-52jq,CVE-2023-50447,Arbitrary Code Execution in Pillow,True
+pypi,pillow,9.5.0,pkg:pypi/pillow@9.5.0,GHSA-44wm-f244-xhp3,CVE-2024-28219,Pillow buffer overflow vulnerability,True
+pypi,pillow,9.5.0,pkg:pypi/pillow@9.5.0,GHSA-8ghj-p4vj-mr35,CVE-2023-44271,Pillow Denial of Service vulnerability,True
+pypi,pillow,9.5.0,pkg:pypi/pillow@9.5.0,GHSA-j7hp-h8jx-5ppr,CVE-2023-4863,libwebp: OOB write in BuildHuffmanTable,True
+pypi,pillow,9.5.0,pkg:pypi/pillow@9.5.0,PYSEC-2023-175,,Pillow versions before v10,True
+pypi,pillow,9.5.0,pkg:pypi/pillow@9.5.0,PYSEC-2023-227,CVE-2023-44271,An issue was discovered in Pillow before 10,True
+pypi,pillow,9.4.0,pkg:pypi/pillow@9.4.0,GHSA-3f63-hfp8-52jq,CVE-2023-50447,Arbitrary Code Execution in Pillow,True
+npm,minimist,0.2.1,pkg:npm/minimist@0.2.1,GHSA-xvch-5gv4-984h,CVE-2021-44906,Prototype Pollution in minimist,True
+npm,minimist,0.2.2,pkg:npm/minimist@0.2.2,GHSA-xvch-5gv4-984h,CVE-2021-44906,Prototype Pollution in minimist,True
+npm,minimist,0.2.3,pkg:npm/minimist@0.2.3,GHSA-xvch-5gv4-984h,CVE-2021-44906,Prototype Pollution in minimist,True
+npm,glob-parent,5.1.1,pkg:npm/glob-parent@5.1.1,GHSA-ww39-953v-wcq6,CVE-2020-28469,glob-parent vulnerable to Regular Expression Denial of Service in enclosure regex,True
+npm,glob-parent,6.0.0,pkg:npm/glob-parent@6.0.0,GHSA-cj88-88mr-972w,CVE-2021-35065,glob-parent 6.0.0 vulnerable to Regular Expression Denial of Service,True
+npm,crypto-js,3.2.0,pkg:npm/crypto-js@3.2.0,GHSA-3w3w-pxmm-2w2j,CVE-2020-36732,crypto-js uses insecure random numbers,True
+npm,crypto-js,3.2.0,pkg:npm/crypto-js@3.2.0,GHSA-xwcq-pm8m-c4vf,CVE-2023-46233,"crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",True
+npm,crypto-js,3.2.1,pkg:npm/crypto-js@3.2.1,GHSA-xwcq-pm8m-c4vf,CVE-2023-46233,"crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",True
+npm,crypto-js,3.3.0,pkg:npm/crypto-js@3.3.0,GHSA-xwcq-pm8m-c4vf,CVE-2023-46233,"crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",True
+npm,crypto-js,4.0.0,pkg:npm/crypto-js@4.0.0,GHSA-xwcq-pm8m-c4vf,CVE-2023-46233,"crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",True
+npm,crypto-js,4.1.0,pkg:npm/crypto-js@4.1.0,GHSA-xwcq-pm8m-c4vf,CVE-2023-46233,"crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",True
+npm,crypto-js,4.1.1,pkg:npm/crypto-js@4.1.1,GHSA-xwcq-pm8m-c4vf,CVE-2023-46233,"crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",True
+npm,oauth2-server,3.0.2,pkg:npm/oauth2-server@3.0.2,GHSA-2fw4-mgq9-39cx,CVE-2017-18924,Code Injection in oauth2-server,True
+npm,oauth2-server,3.0.2,pkg:npm/oauth2-server@3.0.2,GHSA-4rg6-fm25-gc34,CVE-2020-26938,oauth2-server through 3.1.1 vulnerable to Open Redirect,True
+npm,oauth2-server,3.1.0,pkg:npm/oauth2-server@3.1.0,GHSA-2fw4-mgq9-39cx,CVE-2017-18924,Code Injection in oauth2-server,True
+npm,oauth2-server,3.1.0,pkg:npm/oauth2-server@3.1.0,GHSA-4rg6-fm25-gc34,CVE-2020-26938,oauth2-server through 3.1.1 vulnerable to Open Redirect,True
+npm,oauth2-server,3.1.1,pkg:npm/oauth2-server@3.1.1,GHSA-2fw4-mgq9-39cx,CVE-2017-18924,Code Injection in oauth2-server,True
+npm,oauth2-server,3.1.1,pkg:npm/oauth2-server@3.1.1,GHSA-4rg6-fm25-gc34,CVE-2020-26938,oauth2-server through 3.1.1 vulnerable to Open Redirect,True
+npm,esbuild,0.0.4,pkg:npm/esbuild@0.0.4,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.0.11,pkg:npm/esbuild@0.0.11,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.0.12,pkg:npm/esbuild@0.0.12,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.0.13,pkg:npm/esbuild@0.0.13,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.0.14,pkg:npm/esbuild@0.0.14,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.0.15,pkg:npm/esbuild@0.0.15,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.0.16,pkg:npm/esbuild@0.0.16,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.0,pkg:npm/esbuild@0.1.0,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.1,pkg:npm/esbuild@0.1.1,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.2,pkg:npm/esbuild@0.1.2,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.3,pkg:npm/esbuild@0.1.3,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.4,pkg:npm/esbuild@0.1.4,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.5,pkg:npm/esbuild@0.1.5,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.6,pkg:npm/esbuild@0.1.6,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.7,pkg:npm/esbuild@0.1.7,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.8,pkg:npm/esbuild@0.1.8,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.9,pkg:npm/esbuild@0.1.9,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.10,pkg:npm/esbuild@0.1.10,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,esbuild,0.1.11,pkg:npm/esbuild@0.1.11,GHSA-67mh-4wv8-2f99,,esbuild enables any website to send any requests to the development server and read the response,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.1.0,pkg:npm/vite@0.1.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.1.1,pkg:npm/vite@0.1.1,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.1.2,pkg:npm/vite@0.1.2,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.2.0,pkg:npm/vite@0.2.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.3.0,pkg:npm/vite@0.3.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.3.1,pkg:npm/vite@0.3.1,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.3.2,pkg:npm/vite@0.3.2,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.4.0,pkg:npm/vite@0.4.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.5.0,pkg:npm/vite@0.5.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.5.1,pkg:npm/vite@0.5.1,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.5.2,pkg:npm/vite@0.5.2,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.5.3,pkg:npm/vite@0.5.3,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.6.0,pkg:npm/vite@0.6.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.6.1,pkg:npm/vite@0.6.1,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.7.0,pkg:npm/vite@0.7.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.8.0,pkg:npm/vite@0.8.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.8.1,pkg:npm/vite@0.8.1,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.9.0,pkg:npm/vite@0.9.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.9.1,pkg:npm/vite@0.9.1,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-353f-5xf4-qw67,CVE-2023-34092,Vite Server Options (server.fs.deny) can be bypassed using double forward-slash (//),True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-356w-63v5-8wf4,CVE-2025-32395,Vite has an `server.fs.deny` bypass with an invalid `request-target`,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-4r4m-qw57-chr8,CVE-2025-31125,Vite has a `server.fs.deny` bypassed for `inline` and `raw` with `?import` query,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-64vr-g452-qvp3,CVE-2024-45812,Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-859w-5945-r5v3,CVE-2025-46565,Vite's server.fs.deny bypassed with /. for files under project root,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-9cwx-2883-4wfx,CVE-2024-45811,Vite's `server.fs.deny` is bypassed when using `?import&raw`,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-g4jq-h2w9-997c,CVE-2025-58751,Vite middleware may serve files starting with the same name with the public directory,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-jqfw-vq24-v9c3,CVE-2025-58752,Vite's `server.fs` settings were not applied to HTML files,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-mv48-hcvh-8jj8,CVE-2022-35204,Vite before v2.9.13 vulnerable to directory traversal via crafted URL to victim's service,True
+npm,vite,0.10.0,pkg:npm/vite@0.10.0,GHSA-vg6x-rcgg-rjx6,CVE-2025-24010,Websites were able to send any requests to the development server and read the response in vite,True
+npm,json5,2.1.2,pkg:npm/json5@2.1.2,GHSA-9c47-m6qq-7p4h,CVE-2022-46175,Prototype Pollution in JSON5 via Parse Method,True
+npm,json5,2.1.3,pkg:npm/json5@2.1.3,GHSA-9c47-m6qq-7p4h,CVE-2022-46175,Prototype Pollution in JSON5 via Parse Method,True
+npm,json5,2.2.0,pkg:npm/json5@2.2.0,GHSA-9c47-m6qq-7p4h,CVE-2022-46175,Prototype Pollution in JSON5 via Parse Method,True
+npm,json5,2.2.1,pkg:npm/json5@2.2.1,GHSA-9c47-m6qq-7p4h,CVE-2022-46175,Prototype Pollution in JSON5 via Parse Method,True
+npm,zod,1.0.0,pkg:npm/zod@1.0.0,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.1,pkg:npm/zod@1.0.1,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.2,pkg:npm/zod@1.0.2,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.4,pkg:npm/zod@1.0.4,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.5,pkg:npm/zod@1.0.5,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.6,pkg:npm/zod@1.0.6,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.7,pkg:npm/zod@1.0.7,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.8,pkg:npm/zod@1.0.8,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True
+npm,zod,1.0.9,pkg:npm/zod@1.0.9,GHSA-m95q-7qp3-xv42,CVE-2023-4316,Zod denial of service vulnerability,True

@@ -221,7 +221,7 @@ def run_temporal(ground_truth_path: str, output_file: str):
                 for tool in TOOLS
             }
 
-            with open(run_dir / "results.json", "w") as f:
+            with open(run_dir / "experimental_results.json", "w") as f:
                 json.dump(final_metrics, f, indent=2)
 
             break

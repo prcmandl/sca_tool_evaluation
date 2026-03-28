@@ -56,7 +56,7 @@ set -euo pipefail
 #   run_<i>/
 #     run.log
 #     run_status.json
-#     results.json
+#     experimental_results.json
 #     recall_significance.tex
 #     recall_significance.json
 #     recall_significance_matrix.png

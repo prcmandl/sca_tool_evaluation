@@ -436,7 +436,7 @@ def run_temporal(gt_path: str, sbom_path: str | None, output_dir: str) -> None:
     )
 
     collapsed_results = collapse_repeat_metrics(repeat_metric_runs, tools)
-    write_json(run_dir / "results.json", collapsed_results)
+    write_json(run_dir / "experimental_results.json", collapsed_results)
 
     tool_summary = summarize_tool_metrics(agg)
     tool_summary_payload = {
@@ -472,7 +472,7 @@ def run_temporal(gt_path: str, sbom_path: str | None, output_dir: str) -> None:
             for tool in tools
         },
         "outputs": {
-            "results_json": "results.json",
+            "results_json": "experimental_results.json",
             "aggregated_results_tex": "aggregated_results.tex",
             "ecosystem_summary_tex": "ecosystem_summary.tex",
             "recall_significance_tex": "recall_significance.tex",

@@ -13,7 +13,7 @@ def load_runs(run_dirs: List[str]):
     data = []
 
     for rd in run_dirs:
-        p = Path(rd) / "results.json"
+        p = Path(rd) / "experimental_results.json"
         if p.exists():
             with open(p) as f:
                 data.append(json.load(f))

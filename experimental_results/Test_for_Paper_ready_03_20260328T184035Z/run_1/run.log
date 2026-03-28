@@ -1,0 +1,6 @@
+20:05:31 | INFO  | STARTED | 2026-03-28 20:05:31 CET
+20:05:31 | INFO  | REPEAT 1/2
+20:16:46 | INFO  | REPEAT 2/2
+20:29:42 | INFO  | Temporal evaluation completed in 1451.62s
+20:29:42 | INFO  | Run-level artifacts written to: /Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260328T184035Z/run_1
+20:29:42 | INFO  | FINISHED | 2026-03-28 20:29:42 CET | duration=1451.62s

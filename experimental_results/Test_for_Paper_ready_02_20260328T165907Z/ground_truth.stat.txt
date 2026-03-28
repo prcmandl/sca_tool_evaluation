@@ -1,0 +1,395 @@
+OSV Ground Truth Dataset – Statistics
+====================================
+Generated at: 2026-03-28 18:20:53
+
+Dataset files
+-------------
+CSV dataset : mixed_ground_truth_dataset_20260328T165908Z_430_1000.csv
+SBOM file   : mixed_ground_truth_dataset_20260328T165908Z_430_1000.sbom.json
+
+Adapter configuration (effective parameters)
+--------------------------------------------
+Parameter                               | Value | Source
+------------------------------------------------------------
+PYPI_MAX_VERSIONS_PER_PACKAGE           |     3 | env
+NPM_MAX_VERSIONS_PER_PACKAGE            |    20 | env
+MAVEN_MAX_VERSIONS_PER_PACKAGE          |    10 | env
+NUGET_MAX_VERSIONS_PER_PACKAGE          |    20 | env
+
+Invocation parameters (effective run configuration)
+----------------------------------------------------------
+Parameter                  | Value                | Source
+----------------------------------------------------------
+SAMPLES_PER_ECOSYSTEM      | 1000                 | env   
+ECOSYSTEMS                 | nuget maven pypi npm | env   
+START_DATE                 | 2020-01-01           | env   
+END_DATE                   | 2026-01-25           | env   
+BALANCE_ENABLED            | False                | env   
+BALANCE_STRATEGY           | min                  | env   
+MIN_UNIQUE_COMPONENT_RATIO | -                    | env   
+BALANCE_SEED               | -                    | env   
+
+Per-ecosystem statistics (post-balancing dataset)
+-------------------------------------------------
+Ecosystem  | Components  | OSV-Vulns  | CVE-Findings  | CVEs  | Comp/OSV  | CVE/OSV  | Vuln-Share  | Comp-Share  | MaxCompFreq  | MaxCompVerFreq  | AvgCompFreq  | AvgCompVerFreq  | MinCompFreq  | MinCompVerFreq  | MedianCompFreq  | MedianCompVerFreq 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+maven      | 99          | 250        | 240           | 42    | 0.40      | 0.96     | 25.00%      | 23.02%      | 42           | 10              | 16.67        | 2.53            | 1            | 1               | 10.00           | 2.00              
+npm        | 66          | 250        | 231           | 19    | 0.26      | 0.92     | 25.00%      | 15.35%      | 200          | 10              | 31.25        | 3.79            | 2            | 1               | 6.50            | 1.00              
+nuget      | 189         | 250        | 250           | 36    | 0.76      | 1.00     | 25.00%      | 43.95%      | 33           | 3               | 9.26         | 1.32            | 1            | 1               | 8.00            | 1.00              
+pypi       | 76          | 250        | 203           | 92    | 0.30      | 0.81     | 25.00%      | 17.67%      | 30           | 10              | 7.58         | 3.29            | 1            | 1               | 4.00            | 2.00              
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL      | 430         | 1000       | 924           | 188   | 0.43      | 0.92     | 100.00%     | 100.00%     | 200          | 10              | 12.05        | 2.33            | 1            | 1               | 6.00            | 1.00              
+
+Top-20 components by frequency (post-balancing)
+-----------------------------------------------
+Ecosystem  | Component                                                   | Versions  | Samples 
+-----------------------------------------------------------------------------------------------
+npm        | vite                                                        | 0.1.0     | 200     
+           |                                                             | 0.1.1     |         
+           |                                                             | 0.1.2     |         
+           |                                                             | 0.10.0    |         
+           |                                                             | 0.2.0     |         
+           |                                                             | 0.3.0     |         
+           |                                                             | 0.3.1     |         
+           |                                                             | 0.3.2     |         
+           |                                                             | 0.4.0     |         
+           |                                                             | 0.5.0     |         
+           |                                                             | 0.5.1     |         
+           |                                                             | 0.5.2     |         
+           |                                                             | 0.5.3     |         
+           |                                                             | 0.6.0     |         
+           |                                                             | 0.6.1     |         
+           |                                                             | 0.7.0     |         
+           |                                                             | 0.8.0     |         
+           |                                                             | 0.8.1     |         
+           |                                                             | 0.9.0     |         
+           |                                                             | 0.9.1     |         
+-----------------------------------------------------------------------------------------------
+maven      | com.fasterxml.jackson.core:jackson-databind                 | 2.0.0     | 42      
+           |                                                             | 2.0.1     |         
+           |                                                             | 2.0.2     |         
+           |                                                             | 2.0.4     |         
+           |                                                             | 2.0.5     |         
+-----------------------------------------------------------------------------------------------
+maven      | org.springframework:spring-expression                       | 5.3.0     | 40      
+           |                                                             | 5.3.1     |         
+           |                                                             | 5.3.2     |         
+           |                                                             | 5.3.3     |         
+           |                                                             | 5.3.4     |         
+           |                                                             | 5.3.5     |         
+           |                                                             | 5.3.6     |         
+           |                                                             | 5.3.7     |         
+           |                                                             | 5.3.8     |         
+           |                                                             | 5.3.9     |         
+-----------------------------------------------------------------------------------------------
+maven      | org.springframework.security:spring-security-web            | 5.4.0     | 34      
+           |                                                             | 5.4.1     |         
+           |                                                             | 5.4.2     |         
+           |                                                             | 5.4.3     |         
+           |                                                             | 5.4.4     |         
+           |                                                             | 5.4.5     |         
+           |                                                             | 5.4.6     |         
+           |                                                             | 5.4.7     |         
+           |                                                             | 5.4.8     |         
+           |                                                             | 5.4.9     |         
+-----------------------------------------------------------------------------------------------
+nuget      | Azure.Identity                                              | 1.1.1     | 33      
+           |                                                             | 1.10.0    |         
+           |                                                             | 1.10.2    |         
+           |                                                             | 1.10.4    |         
+           |                                                             | 1.11.1    |         
+           |                                                             | 1.11.3    |         
+           |                                                             | 1.2.2     |         
+           |                                                             | 1.3.0     |         
+           |                                                             | 1.4.1     |         
+           |                                                             | 1.6.0     |         
+           |                                                             | 1.6.1     |         
+           |                                                             | 1.8.0     |         
+           |                                                             | 1.8.2     |         
+-----------------------------------------------------------------------------------------------
+nuget      | HtmlSanitizer                                               | 5.0.372   | 30      
+           |                                                             | 5.0.404   |         
+           |                                                             | 6.0.437   |         
+           |                                                             | 6.0.453   |         
+           |                                                             | 7.0.473   |         
+           |                                                             | 7.1.488   |         
+           |                                                             | 7.1.509   |         
+           |                                                             | 7.1.542   |         
+           |                                                             | 8.0.645   |         
+           |                                                             | 8.0.692   |         
+           |                                                             | 8.0.723   |         
+           |                                                             | 8.0.744   |         
+           |                                                             | 8.0.795   |         
+           |                                                             | 8.0.838   |         
+           |                                                             | 8.0.843   |         
+           |                                                             | 8.1.870   |         
+           |                                                             | 9.0.873   |         
+           |                                                             | 9.0.881   |         
+           |                                                             | 9.0.884   |         
+           |                                                             | 9.0.889   |         
+-----------------------------------------------------------------------------------------------
+maven      | com.fasterxml.jackson.core:jackson-core                     | 2.0.0     | 30      
+           |                                                             | 2.0.1     |         
+           |                                                             | 2.0.2     |         
+           |                                                             | 2.0.4     |         
+           |                                                             | 2.0.5     |         
+           |                                                             | 2.0.6     |         
+           |                                                             | 2.1.0     |         
+           |                                                             | 2.1.1     |         
+           |                                                             | 2.1.2     |         
+           |                                                             | 2.1.3     |         
+-----------------------------------------------------------------------------------------------
+pypi       | tensorflow                                                  | 2.9.1     | 30      
+           |                                                             | 2.9.2     |         
+           |                                                             | 2.9.3     |         
+-----------------------------------------------------------------------------------------------
+maven      | org.springframework.security:spring-security-core           | 5.4.0     | 25      
+           |                                                             | 5.4.1     |         
+           |                                                             | 5.4.2     |         
+           |                                                             | 5.4.3     |         
+           |                                                             | 5.4.4     |         
+-----------------------------------------------------------------------------------------------
+pypi       | pip                                                         | 9.0.1     | 24      
+           |                                                             | 9.0.2     |         
+           |                                                             | 9.0.3     |         
+-----------------------------------------------------------------------------------------------
+pypi       | requests                                                    | 2.9.0     | 21      
+           |                                                             | 2.9.1     |         
+           |                                                             | 2.9.2     |         
+-----------------------------------------------------------------------------------------------
+pypi       | keras                                                       | 3.9.0     | 21      
+           |                                                             | 3.9.1     |         
+           |                                                             | 3.9.2     |         
+-----------------------------------------------------------------------------------------------
+nuget      | Steeltoe.Discovery.ClientCore                               | 2.4.1     | 20      
+           |                                                             | 2.4.2     |         
+           |                                                             | 2.4.4     |         
+           |                                                             | 2.5.0     |         
+           |                                                             | 2.5.2     |         
+           |                                                             | 2.5.3     |         
+           |                                                             | 2.5.5     |         
+           |                                                             | 3.0.0     |         
+           |                                                             | 3.0.1     |         
+           |                                                             | 3.1.0     |         
+           |                                                             | 3.1.1     |         
+           |                                                             | 3.1.3     |         
+           |                                                             | 3.2.0     |         
+           |                                                             | 3.2.1     |         
+           |                                                             | 3.2.3     |         
+           |                                                             | 3.2.4     |         
+           |                                                             | 3.2.6     |         
+           |                                                             | 3.2.7     |         
+           |                                                             | 3.3.0     |         
+           |                                                             | 4.0.0     |         
+-----------------------------------------------------------------------------------------------
+npm        | esbuild                                                     | 0.0.11    | 19      
+           |                                                             | 0.0.12    |         
+           |                                                             | 0.0.13    |         
+           |                                                             | 0.0.14    |         
+           |                                                             | 0.0.15    |         
+           |                                                             | 0.0.16    |         
+           |                                                             | 0.0.4     |         
+           |                                                             | 0.1.0     |         
+           |                                                             | 0.1.1     |         
+           |                                                             | 0.1.10    |         
+           |                                                             | 0.1.11    |         
+           |                                                             | 0.1.2     |         
+           |                                                             | 0.1.3     |         
+           |                                                             | 0.1.4     |         
+           |                                                             | 0.1.5     |         
+           |                                                             | 0.1.6     |         
+           |                                                             | 0.1.7     |         
+           |                                                             | 0.1.8     |         
+           |                                                             | 0.1.9     |         
+-----------------------------------------------------------------------------------------------
+nuget      | BouncyCastle.Cryptography                                   | 2.0.0     | 18      
+           |                                                             | 2.1.0     |         
+           |                                                             | 2.1.1     |         
+           |                                                             | 2.2.0     |         
+           |                                                             | 2.2.1     |         
+           |                                                             | 2.3.0     |         
+-----------------------------------------------------------------------------------------------
+pypi       | django                                                      | 6.0a1     | 18      
+           |                                                             | 6.0b1     |         
+           |                                                             | 6.0rc1    |         
+-----------------------------------------------------------------------------------------------
+maven      | org.springframework.security:spring-security-oauth2-client  | 5.4.0     | 17      
+           |                                                             | 5.4.1     |         
+           |                                                             | 5.4.2     |         
+           |                                                             | 5.4.3     |         
+           |                                                             | 5.4.4     |         
+           |                                                             | 5.4.5     |         
+           |                                                             | 5.4.6     |         
+           |                                                             | 5.4.7     |         
+           |                                                             | 5.4.8     |         
+           |                                                             | 5.4.9     |         
+-----------------------------------------------------------------------------------------------
+pypi       | bottle                                                      | 0.9.6     | 15      
+           |                                                             | 0.9.7     |         
+           |                                                             | 0.9.8     |         
+-----------------------------------------------------------------------------------------------
+pypi       | setuptools                                                  | 9.0       | 15      
+           |                                                             | 9.0.1     |         
+           |                                                             | 9.1       |         
+-----------------------------------------------------------------------------------------------
+nuget      | Microsoft.Data.SqlClient                                    | 1.1.1     | 13      
+           |                                                             | 1.1.4     |         
+           |                                                             | 2.1.0     |         
+           |                                                             | 2.1.3     |         
+           |                                                             | 2.1.6     |         
+           |                                                             | 3.0.1     |         
+           |                                                             | 3.1.2     |         
+           |                                                             | 4.0.1     |         
+           |                                                             | 4.0.4     |         
+           |                                                             | 5.0.1     |         
+           |                                                             | 5.1.1     |         
+-----------------------------------------------------------------------------------------------
+
+API access statistics (ground-truth collection)
+---------------------------------------------
+API              | Calls | Total Time (ms) | Avg Time (ms)
+----------------------------------------------------------
+NuGet            |   355 |       87399.97 |        246.20
+OSV              |  2687 |      803937.82 |        299.20
+----------------------------------------------------------
+TOTAL            |  3042 |      891337.79 |        293.01
+
+Definitions and column semantics for the per-ecosystem statistics table:
+
+Ecosystem
+  Identifier of the package ecosystem (e.g., pypi, npm, maven, nuget).
+
+Components
+  Number of unique components in the final dataset for this ecosystem.
+  A component is defined as a unique tuple (component_name, component_version).
+
+OSV-Vulns
+  Number of OSV vulnerability entries associated with this ecosystem.
+  Each entry corresponds to one OSV advisory affecting a specific component version.
+
+CVE-Findings
+  Number of CVE-backed vulnerability findings.
+  A CVE-backed finding is defined as a unique tuple
+  (component_name, component_version, CVE-ID).
+  Multiple OSV advisories may reference the same CVE and are deduplicated here.
+
+CVEs
+  Number of unique CVE identifiers referenced by OSV advisories
+  in this ecosystem, independent of affected components or versions.
+
+Comp/OSV
+  Ratio of unique components to OSV vulnerability entries for this ecosystem:
+    Comp/OSV = Components / OSV-Vulns
+  This metric indicates component diversity relative to the number of vulnerabilities.
+
+CVE/OSV
+  Ratio of CVE-backed findings to OSV vulnerability entries:
+    CVE/OSV = CVE-Findings / OSV-Vulns
+  Values below 1 indicate that multiple OSV advisories map to the same CVE.
+  This ratio characterizes the degree of advisory-to-CVE consolidation.
+
+Vuln-Share
+  Proportion of OSV vulnerability entries of this ecosystem relative
+  to the total number of OSV entries across all ecosystems:
+    Vuln-Share = OSV-Vulns_ecosystem / OSV-Vulns_global
+
+Comp-Share
+  Proportion of unique components of this ecosystem relative
+  to the total number of unique components across all ecosystems:
+    Comp-Share = Components_ecosystem / Components_global
+
+Component frequency statistics (post-balancing):
+
+The following columns characterize how often individual components and
+component-version pairs occur in the final ground-truth dataset. Frequency
+is defined as the number of OSV vulnerability entries associated with the
+respective entity.
+
+
+MaxCompFreq
+  Maximum number of vulnerability entries associated with any single
+  component (identified by component_name) within the ecosystem.
+
+MaxCompVerFreq
+  Maximum number of vulnerability entries associated with any single
+  component-version pair (component_name, component_version).
+
+AvgCompFreq
+  Average number of vulnerability entries per component
+  (component_name), computed over all components in the ecosystem.
+
+AvgCompVerFreq
+  Average number of vulnerability entries per component-version pair
+  (component_name, component_version).
+
+MinCompFreq
+  Minimum number of vulnerability entries associated with any component
+  in the ecosystem.
+
+MinCompVerFreq
+  Minimum number of vulnerability entries associated with any
+  component-version pair.
+
+MedianCompFreq
+  Median number of vulnerability entries per component, providing a
+  robust central tendency measure that is less sensitive to outliers.
+
+MedianCompVerFreq
+  Median number of vulnerability entries per component-version pair,
+  reflecting the typical vulnerability density at version granularity.
+
+
+TOTAL
+  Aggregated sums across all ecosystems.
+  Ratio columns in the TOTAL row are computed from the summed values
+  and therefore reflect global averages.
+Invocation parameter semantics:
+
+SAMPLES_PER_ECOSYSTEM
+  Number of components sampled per ecosystem prior to OSV querying.
+
+ECOSYSTEMS
+  Space-separated list of ecosystems included in the dataset construction.
+
+START_DATE
+  Optional lower bound on component release dates.
+
+END_DATE
+  Optional upper bound on component release dates.
+
+BALANCE_ENABLED
+  Indicates whether post-hoc balancing across ecosystems is applied.
+
+BALANCE_STRATEGY
+  Strategy used to determine the per-ecosystem balancing target (min or median).
+
+MIN_UNIQUE_COMPONENT_RATIO
+  Minimum required ratio of unique components during balancing.
+
+BALANCE_SEED
+  Random seed used for deterministic post-hoc balancing.
+
+Parameter-specific interpretation:
+
+PYPI_MAX_VERSIONS_PER_PACKAGE
+  Maximum number of released versions considered per PyPI package.
+
+NPM_MAX_VERSIONS_PER_PACKAGE
+  Maximum number of released versions considered per npm package.
+
+MAVEN_MAX_VERSIONS_PER_PACKAGE
+  Maximum number of released versions considered per Maven artifact.
+
+NUGET_MAX_VERSIONS_PER_PACKAGE
+  Maximum number of released versions considered per NuGet package.
+
+NUGET_MAX_VERSIONS_PER_PACKAGE
+  Maximum number of released versions considered per NuGet package.
+
+A component is defined as a unique tuple (ecosystem, component_name, component_version).
+Each OSV vulnerability entry is counted uniquely by (ecosystem, component, version, vulnerability_id).
+CVEs are treated as aliases of OSV vulnerabilities and are deduplicated only for CVE-based metrics.
+Pre-balancing coverage reports the raw OSV results after canonicalization and before validation and balancing.
+Post-hoc balancing approximates equal vulnerability coverage across ecosystems while maximizing component diversity.
+If diversity constraints are infeasible, a soft fallback reduces the per-ecosystem target accordingly.
+

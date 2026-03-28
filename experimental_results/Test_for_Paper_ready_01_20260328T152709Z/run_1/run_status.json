@@ -1,0 +1,36 @@
+{
+  "status": "success",
+  "generated_at": "2026-03-28T16:17:07.874401+00:00",
+  "started_at_local": "2026-03-28 16:52:07 CET",
+  "finished_at_local": "2026-03-28 17:17:07 CET",
+  "duration_seconds": 1499.9871451854706,
+  "repeat_count": 2,
+  "tool_count": 5,
+  "tools": [
+    "snyk",
+    "oss-index",
+    "github",
+    "trivy",
+    "dtrack"
+  ],
+  "repeat_hash_stability": {
+    "snyk": true,
+    "oss-index": true,
+    "github": true,
+    "trivy": true,
+    "dtrack": true
+  },
+  "outputs": {
+    "results_json": "results.json",
+    "aggregated_results_tex": "aggregated_results.tex",
+    "ecosystem_summary_tex": "ecosystem_summary.tex",
+    "recall_significance_tex": "recall_significance.tex",
+    "recall_significance_json": "recall_significance.json",
+    "recall_significance_matrix_png": "recall_significance_matrix.png",
+    "tool_comparison_png": "tool_comparison.png",
+    "tool_comparison_summary_json": "tool_comparison_summary.json",
+    "tool_comparison_summary_txt": "tool_comparison_summary.txt",
+    "tool_repeat_comparison_json": "tool_repeat_comparison.json",
+    "tool_repeat_comparison_txt": "tool_repeat_comparison.txt"
+  }
+}

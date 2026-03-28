@@ -1,0 +1,55 @@
+\begin{table*}[!t]
+\centering
+\small
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Ecosystem & Components & Vulnerabilities & CVEs & TP & FP & FN & Recall & Overlap \\
+\midrule
+\multicolumn{9}{c}{\textbf{snyk}} \\
+\midrule
+maven & 99 & 250 & 42 & 204 & 314 & 46 & 0.82 & 0.39 \\
+npm & 66 & 250 & 19 & 211 & 60 & 39 & 0.84 & 0.78 \\
+nuget & 189 & 250 & 36 & 250 & 3 & 0 & 1.00 & 0.99 \\
+pypi & 76 & 250 & 92 & 237 & 119 & 13 & 0.95 & 0.67 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 902 & 496 & 98 & 0.90 & 0.71 \\
+\midrule
+\multicolumn{9}{c}{\textbf{oss-index}} \\
+\midrule
+maven & 99 & 250 & 42 & 136 & 52 & 114 & 0.54 & 0.72 \\
+npm & 66 & 250 & 19 & 79 & 1 & 171 & 0.32 & 0.99 \\
+nuget & 189 & 250 & 36 & 204 & 12 & 46 & 0.82 & 0.94 \\
+pypi & 76 & 250 & 92 & 195 & 172 & 55 & 0.78 & 0.53 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 614 & 237 & 386 & 0.61 & 0.80 \\
+\midrule
+\multicolumn{9}{c}{\textbf{github}} \\
+\midrule
+maven & 99 & 250 & 42 & 233 & 375 & 17 & 0.93 & 0.38 \\
+npm & 66 & 250 & 19 & 250 & 133 & 0 & 1.00 & 0.65 \\
+nuget & 189 & 250 & 36 & 250 & 103 & 0 & 1.00 & 0.71 \\
+pypi & 76 & 250 & 92 & 215 & 320 & 35 & 0.86 & 0.40 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 948 & 931 & 52 & 0.95 & 0.54 \\
+\midrule
+\multicolumn{9}{c}{\textbf{trivy}} \\
+\midrule
+maven & 99 & 250 & 42 & 240 & 193 & 10 & 0.96 & 0.55 \\
+npm & 66 & 250 & 19 & 250 & 40 & 0 & 1.00 & 0.86 \\
+nuget & 189 & 250 & 36 & 237 & 3 & 13 & 0.95 & 0.99 \\
+pypi & 76 & 250 & 92 & 234 & 90 & 16 & 0.94 & 0.72 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 961 & 326 & 39 & 0.96 & 0.78 \\
+\midrule
+\multicolumn{9}{c}{\textbf{dtrack}} \\
+\midrule
+maven & 99 & 250 & 42 & 250 & 193 & 0 & 1.00 & 0.56 \\
+npm & 66 & 250 & 19 & 250 & 40 & 0 & 1.00 & 0.86 \\
+nuget & 189 & 250 & 36 & 235 & 0 & 15 & 0.94 & 1.00 \\
+pypi & 76 & 250 & 92 & 172 & 89 & 78 & 0.69 & 0.66 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 907 & 322 & 93 & 0.91 & 0.77 \\
+\midrule
+\bottomrule
+\end{tabular}
+\end{table*}

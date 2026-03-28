@@ -501,7 +501,7 @@ def run_temporal(gt_path: str, sbom_path: str | None, output_dir: str) -> None:
     write_tool_comparison_outputs(run_dir, comparison_summary)
     write_tool_comparison_tikz(comparison_summary, run_dir / "tool_comparison.tex")
 
-    with (run_dir / "results.json").open("w", encoding="utf-8") as f:
+    with (run_dir / "experimental_results.json").open("w", encoding="utf-8") as f:
         json.dump(final_metrics, f, indent=2)
 
     write_run_status(

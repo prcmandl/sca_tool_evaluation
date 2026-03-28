@@ -645,7 +645,7 @@ def write_statistics(
             "(ecosystem, component, version, vulnerability_id).\n"
             "CVEs are treated as aliases of OSV vulnerabilities and are deduplicated "
             "only for CVE-based metrics.\n"
-            "Pre-balancing coverage reports the raw OSV results after canonicalization "
+            "Pre-balancing coverage reports the raw OSV experimental_results after canonicalization "
             "and before validation and balancing.\n"
             "Post-hoc balancing approximates equal vulnerability coverage across "
             "ecosystems while maximizing component diversity.\n"
