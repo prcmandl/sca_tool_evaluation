@@ -1,0 +1,30 @@
+{
+  "status": "success",
+  "generated_at": "2026-03-29T13:00:13.806108+00:00",
+  "started_at_local": "2026-03-29 14:54:21 CEST",
+  "finished_at_local": "2026-03-29 15:00:13 CEST",
+  "duration_seconds": 352.0864751338959,
+  "repeat_count": 2,
+  "tool_count": 2,
+  "tools": [
+    "snyk",
+    "dtrack"
+  ],
+  "repeat_hash_stability": {
+    "snyk": true,
+    "dtrack": true
+  },
+  "outputs": {
+    "results_json": "experimental_results.json",
+    "aggregated_results_tex": "aggregated_results.tex",
+    "ecosystem_summary_tex": "ecosystem_summary.tex",
+    "recall_significance_tex": "recall_significance.tex",
+    "recall_significance_json": "recall_significance.json",
+    "recall_significance_matrix_png": "recall_significance_matrix.png",
+    "tool_comparison_png": "tool_comparison.png",
+    "tool_comparison_summary_json": "tool_comparison_summary.json",
+    "tool_comparison_summary_txt": "tool_comparison_summary.txt",
+    "tool_repeat_comparison_json": "tool_repeat_comparison.json",
+    "tool_repeat_comparison_txt": "tool_repeat_comparison.txt"
+  }
+}

@@ -1,0 +1,4764 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-03-29T11:56:35.241348+00:00",
+    "component": {
+      "type": "application",
+      "name": "mixed-ground-truth",
+      "properties": [
+        {
+          "name": "dataset.type",
+          "value": "mixed"
+        },
+        {
+          "name": "dataset.timestamp",
+          "value": "20260329T113537Z"
+        },
+        {
+          "name": "dataset.components",
+          "value": "430"
+        },
+        {
+          "name": "dataset.vulnerabilities",
+          "value": "1000"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Identity@2.3.0",
+      "name": "Microsoft.AspNetCore.Identity",
+      "version": "2.3.0",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.Identity@2.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Identity@2.1.31",
+      "name": "Microsoft.AspNetCore.Identity",
+      "version": "2.1.31",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.Identity@2.1.31"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.8.0",
+      "name": "OpenTelemetry.Instrumentation.AspNetCore",
+      "version": "1.8.0",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.1",
+      "name": "OpenTelemetry.Instrumentation.AspNetCore",
+      "version": "1.7.1",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.0",
+      "name": "OpenTelemetry.Instrumentation.AspNetCore",
+      "version": "1.7.0",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.6.0",
+      "name": "OpenTelemetry.Instrumentation.AspNetCore",
+      "version": "1.6.0",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Yarp.ReverseProxy@2.0.0",
+      "name": "Yarp.ReverseProxy",
+      "version": "2.0.0",
+      "purl": "pkg:nuget/Yarp.ReverseProxy@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Yarp.ReverseProxy@1.1.1",
+      "name": "Yarp.ReverseProxy",
+      "version": "1.1.1",
+      "purl": "pkg:nuget/Yarp.ReverseProxy@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Yarp.ReverseProxy@1.1.0",
+      "name": "Yarp.ReverseProxy",
+      "version": "1.1.0",
+      "purl": "pkg:nuget/Yarp.ReverseProxy@1.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Yarp.ReverseProxy@1.0.1",
+      "name": "Yarp.ReverseProxy",
+      "version": "1.0.1",
+      "purl": "pkg:nuget/Yarp.ReverseProxy@1.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Yarp.ReverseProxy@1.0.0",
+      "name": "Yarp.ReverseProxy",
+      "version": "1.0.0",
+      "purl": "pkg:nuget/Yarp.ReverseProxy@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.11.3",
+      "name": "Azure.Identity",
+      "version": "1.11.3",
+      "purl": "pkg:nuget/Azure.Identity@1.11.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.11.1",
+      "name": "Azure.Identity",
+      "version": "1.11.1",
+      "purl": "pkg:nuget/Azure.Identity@1.11.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.10.4",
+      "name": "Azure.Identity",
+      "version": "1.10.4",
+      "purl": "pkg:nuget/Azure.Identity@1.10.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.10.2",
+      "name": "Azure.Identity",
+      "version": "1.10.2",
+      "purl": "pkg:nuget/Azure.Identity@1.10.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.10.0",
+      "name": "Azure.Identity",
+      "version": "1.10.0",
+      "purl": "pkg:nuget/Azure.Identity@1.10.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.8.2",
+      "name": "Azure.Identity",
+      "version": "1.8.2",
+      "purl": "pkg:nuget/Azure.Identity@1.8.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.8.0",
+      "name": "Azure.Identity",
+      "version": "1.8.0",
+      "purl": "pkg:nuget/Azure.Identity@1.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.6.1",
+      "name": "Azure.Identity",
+      "version": "1.6.1",
+      "purl": "pkg:nuget/Azure.Identity@1.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.6.0",
+      "name": "Azure.Identity",
+      "version": "1.6.0",
+      "purl": "pkg:nuget/Azure.Identity@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.4.1",
+      "name": "Azure.Identity",
+      "version": "1.4.1",
+      "purl": "pkg:nuget/Azure.Identity@1.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.3.0",
+      "name": "Azure.Identity",
+      "version": "1.3.0",
+      "purl": "pkg:nuget/Azure.Identity@1.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.2.2",
+      "name": "Azure.Identity",
+      "version": "1.2.2",
+      "purl": "pkg:nuget/Azure.Identity@1.2.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Identity@1.1.1",
+      "name": "Azure.Identity",
+      "version": "1.1.1",
+      "purl": "pkg:nuget/Azure.Identity@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.3.0",
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.3.0",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.2.1",
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.2.1",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.2.0",
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.2.0",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.1.1",
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.1.1",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.1.0",
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.1.0",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.0.0",
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.0.0",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.AccessTokenManagement@3.1.1",
+      "name": "Duende.AccessTokenManagement",
+      "version": "3.1.1",
+      "purl": "pkg:nuget/Duende.AccessTokenManagement@3.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.AccessTokenManagement@3.1.0",
+      "name": "Duende.AccessTokenManagement",
+      "version": "3.1.0",
+      "purl": "pkg:nuget/Duende.AccessTokenManagement@3.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.AccessTokenManagement@3.0.1",
+      "name": "Duende.AccessTokenManagement",
+      "version": "3.0.1",
+      "purl": "pkg:nuget/Duende.AccessTokenManagement@3.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.IdentityServer@7.0.7",
+      "name": "Duende.IdentityServer",
+      "version": "7.0.7",
+      "purl": "pkg:nuget/Duende.IdentityServer@7.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.IdentityServer@7.0.6",
+      "name": "Duende.IdentityServer",
+      "version": "7.0.6",
+      "purl": "pkg:nuget/Duende.IdentityServer@7.0.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.IdentityServer@7.0.5",
+      "name": "Duende.IdentityServer",
+      "version": "7.0.5",
+      "purl": "pkg:nuget/Duende.IdentityServer@7.0.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.IdentityServer@7.0.4",
+      "name": "Duende.IdentityServer",
+      "version": "7.0.4",
+      "purl": "pkg:nuget/Duende.IdentityServer@7.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Duende.IdentityServer@7.0.3",
+      "name": "Duende.IdentityServer",
+      "version": "7.0.3",
+      "purl": "pkg:nuget/Duende.IdentityServer@7.0.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@9.0.889",
+      "name": "HtmlSanitizer",
+      "version": "9.0.889",
+      "purl": "pkg:nuget/HtmlSanitizer@9.0.889"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@9.0.884",
+      "name": "HtmlSanitizer",
+      "version": "9.0.884",
+      "purl": "pkg:nuget/HtmlSanitizer@9.0.884"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@9.0.881",
+      "name": "HtmlSanitizer",
+      "version": "9.0.881",
+      "purl": "pkg:nuget/HtmlSanitizer@9.0.881"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@9.0.873",
+      "name": "HtmlSanitizer",
+      "version": "9.0.873",
+      "purl": "pkg:nuget/HtmlSanitizer@9.0.873"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.1.870",
+      "name": "HtmlSanitizer",
+      "version": "8.1.870",
+      "purl": "pkg:nuget/HtmlSanitizer@8.1.870"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.843",
+      "name": "HtmlSanitizer",
+      "version": "8.0.843",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.843"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.838",
+      "name": "HtmlSanitizer",
+      "version": "8.0.838",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.838"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.795",
+      "name": "HtmlSanitizer",
+      "version": "8.0.795",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.795"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.744",
+      "name": "HtmlSanitizer",
+      "version": "8.0.744",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.744"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.723",
+      "name": "HtmlSanitizer",
+      "version": "8.0.723",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.723"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.692",
+      "name": "HtmlSanitizer",
+      "version": "8.0.692",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.692"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@8.0.645",
+      "name": "HtmlSanitizer",
+      "version": "8.0.645",
+      "purl": "pkg:nuget/HtmlSanitizer@8.0.645"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@7.1.542",
+      "name": "HtmlSanitizer",
+      "version": "7.1.542",
+      "purl": "pkg:nuget/HtmlSanitizer@7.1.542"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@7.1.509",
+      "name": "HtmlSanitizer",
+      "version": "7.1.509",
+      "purl": "pkg:nuget/HtmlSanitizer@7.1.509"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@7.1.488",
+      "name": "HtmlSanitizer",
+      "version": "7.1.488",
+      "purl": "pkg:nuget/HtmlSanitizer@7.1.488"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@7.0.473",
+      "name": "HtmlSanitizer",
+      "version": "7.0.473",
+      "purl": "pkg:nuget/HtmlSanitizer@7.0.473"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@6.0.453",
+      "name": "HtmlSanitizer",
+      "version": "6.0.453",
+      "purl": "pkg:nuget/HtmlSanitizer@6.0.453"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@6.0.437",
+      "name": "HtmlSanitizer",
+      "version": "6.0.437",
+      "purl": "pkg:nuget/HtmlSanitizer@6.0.437"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@5.0.404",
+      "name": "HtmlSanitizer",
+      "version": "5.0.404",
+      "purl": "pkg:nuget/HtmlSanitizer@5.0.404"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/HtmlSanitizer@5.0.372",
+      "name": "HtmlSanitizer",
+      "version": "5.0.372",
+      "purl": "pkg:nuget/HtmlSanitizer@5.0.372"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.0.3",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "7.0.3",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.0.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.32.2",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.32.2",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.32.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.30.0",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.30.0",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.30.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.26.1",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.26.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.26.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.23.1",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.23.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.23.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.20.0",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.20.0",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.20.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.15.1",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.15.1",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.15.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.12.2",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.12.2",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.12.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.11.0",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.11.0",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.8.0",
+      "name": "Microsoft.IdentityModel.JsonWebTokens",
+      "version": "6.8.0",
+      "purl": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Security.Cryptography.Xml@5.0.0",
+      "name": "System.Security.Cryptography.Xml",
+      "version": "5.0.0",
+      "purl": "pkg:nuget/System.Security.Cryptography.Xml@5.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.12",
+      "name": "LiteDB",
+      "version": "5.0.12",
+      "purl": "pkg:nuget/LiteDB@5.0.12"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.11",
+      "name": "LiteDB",
+      "version": "5.0.11",
+      "purl": "pkg:nuget/LiteDB@5.0.11"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.10",
+      "name": "LiteDB",
+      "version": "5.0.10",
+      "purl": "pkg:nuget/LiteDB@5.0.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.9",
+      "name": "LiteDB",
+      "version": "5.0.9",
+      "purl": "pkg:nuget/LiteDB@5.0.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.8",
+      "name": "LiteDB",
+      "version": "5.0.8",
+      "purl": "pkg:nuget/LiteDB@5.0.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.7",
+      "name": "LiteDB",
+      "version": "5.0.7",
+      "purl": "pkg:nuget/LiteDB@5.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.5",
+      "name": "LiteDB",
+      "version": "5.0.5",
+      "purl": "pkg:nuget/LiteDB@5.0.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.4",
+      "name": "LiteDB",
+      "version": "5.0.4",
+      "purl": "pkg:nuget/LiteDB@5.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.3",
+      "name": "LiteDB",
+      "version": "5.0.3",
+      "purl": "pkg:nuget/LiteDB@5.0.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.2",
+      "name": "LiteDB",
+      "version": "5.0.2",
+      "purl": "pkg:nuget/LiteDB@5.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/LiteDB@5.0.1",
+      "name": "LiteDB",
+      "version": "5.0.1",
+      "purl": "pkg:nuget/LiteDB@5.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@5.1.1",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "5.1.1",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@5.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@5.0.1",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "5.0.1",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@5.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@4.0.4",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "4.0.4",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@4.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@4.0.1",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "4.0.1",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@4.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@3.1.2",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "3.1.2",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@3.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@3.0.1",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "3.0.1",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@3.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@2.1.6",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "2.1.6",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@2.1.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@2.1.3",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "2.1.3",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@2.1.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@2.1.0",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "2.1.0",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@2.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@1.1.4",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "1.1.4",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@1.1.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Data.SqlClient@1.1.1",
+      "name": "Microsoft.Data.SqlClient",
+      "version": "1.1.1",
+      "purl": "pkg:nuget/Microsoft.Data.SqlClient@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.17.0",
+      "name": "MongoDB.Driver",
+      "version": "2.17.0",
+      "purl": "pkg:nuget/MongoDB.Driver@2.17.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.15.1",
+      "name": "MongoDB.Driver",
+      "version": "2.15.1",
+      "purl": "pkg:nuget/MongoDB.Driver@2.15.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.14.0",
+      "name": "MongoDB.Driver",
+      "version": "2.14.0",
+      "purl": "pkg:nuget/MongoDB.Driver@2.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.13.1",
+      "name": "MongoDB.Driver",
+      "version": "2.13.1",
+      "purl": "pkg:nuget/MongoDB.Driver@2.13.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.12.4",
+      "name": "MongoDB.Driver",
+      "version": "2.12.4",
+      "purl": "pkg:nuget/MongoDB.Driver@2.12.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.12.1",
+      "name": "MongoDB.Driver",
+      "version": "2.12.1",
+      "purl": "pkg:nuget/MongoDB.Driver@2.12.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.11.5",
+      "name": "MongoDB.Driver",
+      "version": "2.11.5",
+      "purl": "pkg:nuget/MongoDB.Driver@2.11.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.11.2",
+      "name": "MongoDB.Driver",
+      "version": "2.11.2",
+      "purl": "pkg:nuget/MongoDB.Driver@2.11.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.10.4",
+      "name": "MongoDB.Driver",
+      "version": "2.10.4",
+      "purl": "pkg:nuget/MongoDB.Driver@2.10.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MongoDB.Driver@2.10.1",
+      "name": "MongoDB.Driver",
+      "version": "2.10.1",
+      "purl": "pkg:nuget/MongoDB.Driver@2.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.80",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "3.21.80",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.80"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.50",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "3.21.50",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.50"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.1",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "3.21.1",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.160",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "2.19.160",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.160"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.131",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "2.19.131",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.131"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.101",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "2.19.101",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.101"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.80",
+      "name": "Oracle.ManagedDataAccess.Core",
+      "version": "2.19.80",
+      "purl": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.80"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Data.SqlClient@4.8.5",
+      "name": "System.Data.SqlClient",
+      "version": "4.8.5",
+      "purl": "pkg:nuget/System.Data.SqlClient@4.8.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Data.SqlClient@4.8.4",
+      "name": "System.Data.SqlClient",
+      "version": "4.8.4",
+      "purl": "pkg:nuget/System.Data.SqlClient@4.8.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Data.SqlClient@4.8.3",
+      "name": "System.Data.SqlClient",
+      "version": "4.8.3",
+      "purl": "pkg:nuget/System.Data.SqlClient@4.8.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Data.SqlClient@4.8.2",
+      "name": "System.Data.SqlClient",
+      "version": "4.8.2",
+      "purl": "pkg:nuget/System.Data.SqlClient@4.8.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Data.SqlClient@4.8.1",
+      "name": "System.Data.SqlClient",
+      "version": "4.8.1",
+      "purl": "pkg:nuget/System.Data.SqlClient@4.8.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Data.SqlClient@4.5.3",
+      "name": "System.Data.SqlClient",
+      "version": "4.5.3",
+      "purl": "pkg:nuget/System.Data.SqlClient@4.5.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Apache.NMS.ActiveMQ@2.1.0",
+      "name": "Apache.NMS.ActiveMQ",
+      "version": "2.1.0",
+      "purl": "pkg:nuget/Apache.NMS.ActiveMQ@2.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Apache.NMS.ActiveMQ@2.0.1",
+      "name": "Apache.NMS.ActiveMQ",
+      "version": "2.0.1",
+      "purl": "pkg:nuget/Apache.NMS.ActiveMQ@2.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Apache.NMS.ActiveMQ@2.0.0",
+      "name": "Apache.NMS.ActiveMQ",
+      "version": "2.0.0",
+      "purl": "pkg:nuget/Apache.NMS.ActiveMQ@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Apache.NMS.ActiveMQ@1.8.0",
+      "name": "Apache.NMS.ActiveMQ",
+      "version": "1.8.0",
+      "purl": "pkg:nuget/Apache.NMS.ActiveMQ@1.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.8.0",
+      "name": "OpenTelemetry.Instrumentation.Http",
+      "version": "1.8.0",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.1",
+      "name": "OpenTelemetry.Instrumentation.Http",
+      "version": "1.7.1",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.0",
+      "name": "OpenTelemetry.Instrumentation.Http",
+      "version": "1.7.0",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.6.0",
+      "name": "OpenTelemetry.Instrumentation.Http",
+      "version": "1.6.0",
+      "purl": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@4.0.0",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "4.0.0",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@4.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.3.0",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.3.0",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.7",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.2.7",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.6",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.2.6",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.4",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.2.4",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.3",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.2.3",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.1",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.2.1",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.0",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.2.0",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.3",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.1.3",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.1",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.1.1",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.0",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.1.0",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.1",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.0.1",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.0",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "3.0.0",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.5",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.5.5",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.3",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.5.3",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.2",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.5.2",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.0",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.5.0",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.4",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.4.4",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.2",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.4.2",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.1",
+      "name": "Steeltoe.Discovery.ClientCore",
+      "version": "2.4.1",
+      "purl": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.12.0",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.12.0",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.12.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.9.1",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.9.1",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.8.4",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.8.4",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.8.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.8.2",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.8.2",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.8.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.7.0",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.7.0",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.5.1",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.5.1",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.4.3",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.4.3",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.4.0",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.4.0",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Blobs@12.2.0",
+      "name": "Azure.Storage.Blobs",
+      "version": "12.2.0",
+      "purl": "pkg:nuget/Azure.Storage.Blobs@12.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.10.0",
+      "name": "Azure.Storage.Queues",
+      "version": "12.10.0",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.10.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.9.0",
+      "name": "Azure.Storage.Queues",
+      "version": "12.9.0",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.7.0",
+      "name": "Azure.Storage.Queues",
+      "version": "12.7.0",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.6.1",
+      "name": "Azure.Storage.Queues",
+      "version": "12.6.1",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.5.0",
+      "name": "Azure.Storage.Queues",
+      "version": "12.5.0",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.4.1",
+      "name": "Azure.Storage.Queues",
+      "version": "12.4.1",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.3.2",
+      "name": "Azure.Storage.Queues",
+      "version": "12.3.2",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.3.0",
+      "name": "Azure.Storage.Queues",
+      "version": "12.3.0",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Azure.Storage.Queues@12.1.1",
+      "name": "Azure.Storage.Queues",
+      "version": "12.1.1",
+      "purl": "pkg:nuget/Azure.Storage.Queues@12.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.23",
+      "name": "Microsoft.Rest.ClientRuntime",
+      "version": "2.3.23",
+      "purl": "pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.23"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.22",
+      "name": "Microsoft.Rest.ClientRuntime",
+      "version": "2.3.22",
+      "purl": "pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.22"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Formats.Asn1@7.0.0",
+      "name": "System.Formats.Asn1",
+      "version": "7.0.0",
+      "purl": "pkg:nuget/System.Formats.Asn1@7.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Formats.Asn1@6.0.0",
+      "name": "System.Formats.Asn1",
+      "version": "6.0.0",
+      "purl": "pkg:nuget/System.Formats.Asn1@6.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Formats.Asn1@5.0.0",
+      "name": "System.Formats.Asn1",
+      "version": "5.0.0",
+      "purl": "pkg:nuget/System.Formats.Asn1@5.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Encodings.Web@5.0.0",
+      "name": "System.Text.Encodings.Web",
+      "version": "5.0.0",
+      "purl": "pkg:nuget/System.Text.Encodings.Web@5.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Encodings.Web@4.7.1",
+      "name": "System.Text.Encodings.Web",
+      "version": "4.7.1",
+      "purl": "pkg:nuget/System.Text.Encodings.Web@4.7.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@8.0.3",
+      "name": "System.Text.Json",
+      "version": "8.0.3",
+      "purl": "pkg:nuget/System.Text.Json@8.0.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@8.0.1",
+      "name": "System.Text.Json",
+      "version": "8.0.1",
+      "purl": "pkg:nuget/System.Text.Json@8.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@7.0.4",
+      "name": "System.Text.Json",
+      "version": "7.0.4",
+      "purl": "pkg:nuget/System.Text.Json@7.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@7.0.2",
+      "name": "System.Text.Json",
+      "version": "7.0.2",
+      "purl": "pkg:nuget/System.Text.Json@7.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@6.0.9",
+      "name": "System.Text.Json",
+      "version": "6.0.9",
+      "purl": "pkg:nuget/System.Text.Json@6.0.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@6.0.7",
+      "name": "System.Text.Json",
+      "version": "6.0.7",
+      "purl": "pkg:nuget/System.Text.Json@6.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@6.0.4",
+      "name": "System.Text.Json",
+      "version": "6.0.4",
+      "purl": "pkg:nuget/System.Text.Json@6.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@6.0.2",
+      "name": "System.Text.Json",
+      "version": "6.0.2",
+      "purl": "pkg:nuget/System.Text.Json@6.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Text.Json@6.0.0",
+      "name": "System.Text.Json",
+      "version": "6.0.0",
+      "purl": "pkg:nuget/System.Text.Json@6.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/DotNetZip@1.16.0",
+      "name": "DotNetZip",
+      "version": "1.16.0",
+      "purl": "pkg:nuget/DotNetZip@1.16.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/DotNetZip@1.15.0",
+      "name": "DotNetZip",
+      "version": "1.15.0",
+      "purl": "pkg:nuget/DotNetZip@1.15.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/DotNetZip@1.14.0",
+      "name": "DotNetZip",
+      "version": "1.14.0",
+      "purl": "pkg:nuget/DotNetZip@1.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/DotNetZip@1.13.8",
+      "name": "DotNetZip",
+      "version": "1.13.8",
+      "purl": "pkg:nuget/DotNetZip@1.13.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/DotNetZip@1.13.7",
+      "name": "DotNetZip",
+      "version": "1.13.7",
+      "purl": "pkg:nuget/DotNetZip@1.13.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/DotNetZip@1.13.6",
+      "name": "DotNetZip",
+      "version": "1.13.6",
+      "purl": "pkg:nuget/DotNetZip@1.13.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SharpZipLib@1.3.2",
+      "name": "SharpZipLib",
+      "version": "1.3.2",
+      "purl": "pkg:nuget/SharpZipLib@1.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SharpZipLib@1.3.1",
+      "name": "SharpZipLib",
+      "version": "1.3.1",
+      "purl": "pkg:nuget/SharpZipLib@1.3.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SharpZipLib@1.3.0",
+      "name": "SharpZipLib",
+      "version": "1.3.0",
+      "purl": "pkg:nuget/SharpZipLib@1.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SkiaSharp@2.88.5",
+      "name": "SkiaSharp",
+      "version": "2.88.5",
+      "purl": "pkg:nuget/SkiaSharp@2.88.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SkiaSharp@2.88.4",
+      "name": "SkiaSharp",
+      "version": "2.88.4",
+      "purl": "pkg:nuget/SkiaSharp@2.88.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SkiaSharp@2.88.3",
+      "name": "SkiaSharp",
+      "version": "2.88.3",
+      "purl": "pkg:nuget/SkiaSharp@2.88.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SkiaSharp@2.88.2",
+      "name": "SkiaSharp",
+      "version": "2.88.2",
+      "purl": "pkg:nuget/SkiaSharp@2.88.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-text@1.9",
+      "name": "org.apache.commons:commons-text",
+      "version": "1.9",
+      "purl": "pkg:maven/org.apache.commons/commons-text@1.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-vfs2@2.6.0",
+      "name": "org.apache.commons:commons-vfs2",
+      "version": "2.6.0",
+      "purl": "pkg:maven/org.apache.commons/commons-vfs2@2.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-vfs2@2.7.0",
+      "name": "org.apache.commons:commons-vfs2",
+      "version": "2.7.0",
+      "purl": "pkg:maven/org.apache.commons/commons-vfs2@2.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-vfs2@2.8.0",
+      "name": "org.apache.commons:commons-vfs2",
+      "version": "2.8.0",
+      "purl": "pkg:maven/org.apache.commons/commons-vfs2@2.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-configuration2@2.7",
+      "name": "org.apache.commons:commons-configuration2",
+      "version": "2.7",
+      "purl": "pkg:maven/org.apache.commons/commons-configuration2@2.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-configuration2@2.8.0",
+      "name": "org.apache.commons:commons-configuration2",
+      "version": "2.8.0",
+      "purl": "pkg:maven/org.apache.commons/commons-configuration2@2.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1",
+      "name": "org.apache.logging.log4j:log4j-core",
+      "version": "2.3.1",
+      "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.3.2",
+      "name": "org.apache.logging.log4j:log4j-core",
+      "version": "2.3.2",
+      "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.0",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.0",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.1",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.1",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.2",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.2",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.3",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.3",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.4",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.4",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.5",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.5",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.6",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.6",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.7",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.7",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.8",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.8",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework/spring-expression@5.3.9",
+      "name": "org.springframework:spring-expression",
+      "version": "5.3.9",
+      "purl": "pkg:maven/org.springframework/spring-expression@5.3.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.0",
+      "name": "org.springframework.security:spring-security-core",
+      "version": "5.4.0",
+      "purl": "pkg:maven/org.springframework.security/spring-security-core@5.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.1",
+      "name": "org.springframework.security:spring-security-core",
+      "version": "5.4.1",
+      "purl": "pkg:maven/org.springframework.security/spring-security-core@5.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.2",
+      "name": "org.springframework.security:spring-security-core",
+      "version": "5.4.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-core@5.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.3",
+      "name": "org.springframework.security:spring-security-core",
+      "version": "5.4.3",
+      "purl": "pkg:maven/org.springframework.security/spring-security-core@5.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.4",
+      "name": "org.springframework.security:spring-security-core",
+      "version": "5.4.4",
+      "purl": "pkg:maven/org.springframework.security/spring-security-core@5.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.0",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.0",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.1",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.1",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.2",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.3",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.3",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.4",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.4",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.5",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.5",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.6",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.6",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.7",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.7",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.8",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.8",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.9",
+      "name": "org.springframework.security:spring-security-web",
+      "version": "5.4.9",
+      "purl": "pkg:maven/org.springframework.security/spring-security-web@5.4.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.0",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.0",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.1",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.1",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.2",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.3",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.3",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.4",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.4",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.5",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.5",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.6",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.6",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.7",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.7",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.8",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.8",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.9",
+      "name": "org.springframework.security:spring-security-crypto",
+      "version": "5.4.9",
+      "purl": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.0",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.0",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.1",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.1",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.2",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.2",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.3",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.3",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.4",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.4",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.5",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.5",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.6",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.6",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.7",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.7",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.8",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.8",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.9",
+      "name": "org.springframework.security:spring-security-oauth2-client",
+      "version": "5.4.9",
+      "purl": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.0",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.0",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.1",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.1",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.2",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.2",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.3",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.3",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.4",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.4",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.5",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.5",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.6",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.6",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.7",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.7",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.8",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.8",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.9",
+      "name": "org.springframework.boot:spring-boot",
+      "version": "2.4.9",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot@2.4.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.0",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.0",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.1",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.1",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.2",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.2",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.3",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.3",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.4",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.4",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.5",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.5",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.6",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.6",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.7",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.7",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.8",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.8",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.9",
+      "name": "org.springframework.boot:spring-boot-autoconfigure",
+      "version": "2.4.9",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.0",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.0",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.1",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.1",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.2",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.2",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.3",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.3",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.4",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.4",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.5",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.5",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.6",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.6",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.7",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.7",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.8",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.8",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.9",
+      "name": "org.springframework.boot:spring-boot-starter-web",
+      "version": "2.4.9",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.hibernate/hibernate-core@4.1.2",
+      "name": "org.hibernate:hibernate-core",
+      "version": "4.1.2",
+      "purl": "pkg:maven/org.hibernate/hibernate-core@4.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.0",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.0.0",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.1",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.0.1",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.2",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.0.2",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.4",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.0.4",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.5",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.0.5",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.6",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.0.6",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.0",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.1.0",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.1",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.1.1",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.2",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.1.2",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.3",
+      "name": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.1.3",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0",
+      "name": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.0.0",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1",
+      "name": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.0.1",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2",
+      "name": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.0.2",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4",
+      "name": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.0.4",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.5",
+      "name": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.0.5",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/requests@2.9.2",
+      "name": "requests",
+      "version": "2.9.2",
+      "purl": "pkg:pypi/requests@2.9.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/requests@2.9.1",
+      "name": "requests",
+      "version": "2.9.1",
+      "purl": "pkg:pypi/requests@2.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/requests@2.9.0",
+      "name": "requests",
+      "version": "2.9.0",
+      "purl": "pkg:pypi/requests@2.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/urllib3@2.6.2",
+      "name": "urllib3",
+      "version": "2.6.2",
+      "purl": "pkg:pypi/urllib3@2.6.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/urllib3@2.6.1",
+      "name": "urllib3",
+      "version": "2.6.1",
+      "purl": "pkg:pypi/urllib3@2.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/aiohttp@3.9.5",
+      "name": "aiohttp",
+      "version": "3.9.5",
+      "purl": "pkg:pypi/aiohttp@3.9.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/h11@0.9.0",
+      "name": "h11",
+      "version": "0.9.0",
+      "purl": "pkg:pypi/h11@0.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/h11@0.8.1",
+      "name": "h11",
+      "version": "0.8.1",
+      "purl": "pkg:pypi/h11@0.8.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/h11@0.8.0",
+      "name": "h11",
+      "version": "0.8.0",
+      "purl": "pkg:pypi/h11@0.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/h2@4.2.0",
+      "name": "h2",
+      "version": "4.2.0",
+      "purl": "pkg:pypi/h2@4.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/h2@4.1.0",
+      "name": "h2",
+      "version": "4.1.0",
+      "purl": "pkg:pypi/h2@4.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/websockets@9.0.2",
+      "name": "websockets",
+      "version": "9.0.2",
+      "purl": "pkg:pypi/websockets@9.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/websockets@9.0.1",
+      "name": "websockets",
+      "version": "9.0.1",
+      "purl": "pkg:pypi/websockets@9.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/flask@3.1.2",
+      "name": "flask",
+      "version": "3.1.2",
+      "purl": "pkg:pypi/flask@3.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/flask@3.1.1",
+      "name": "flask",
+      "version": "3.1.1",
+      "purl": "pkg:pypi/flask@3.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/django@6.0rc1",
+      "name": "django",
+      "version": "6.0rc1",
+      "purl": "pkg:pypi/django@6.0rc1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/django@6.0b1",
+      "name": "django",
+      "version": "6.0b1",
+      "purl": "pkg:pypi/django@6.0b1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/django@6.0a1",
+      "name": "django",
+      "version": "6.0a1",
+      "purl": "pkg:pypi/django@6.0a1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/fastapi@0.99.1",
+      "name": "fastapi",
+      "version": "0.99.1",
+      "purl": "pkg:pypi/fastapi@0.99.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/fastapi@0.99.0",
+      "name": "fastapi",
+      "version": "0.99.0",
+      "purl": "pkg:pypi/fastapi@0.99.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/fastapi@0.98.0",
+      "name": "fastapi",
+      "version": "0.98.0",
+      "purl": "pkg:pypi/fastapi@0.98.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/starlette@0.9.9",
+      "name": "starlette",
+      "version": "0.9.9",
+      "purl": "pkg:pypi/starlette@0.9.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/werkzeug@3.1.5",
+      "name": "werkzeug",
+      "version": "3.1.5",
+      "purl": "pkg:pypi/werkzeug@3.1.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/quart@0.9.1",
+      "name": "quart",
+      "version": "0.9.1",
+      "purl": "pkg:pypi/quart@0.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/quart@0.9.0",
+      "name": "quart",
+      "version": "0.9.0",
+      "purl": "pkg:pypi/quart@0.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/quart@0.8.1",
+      "name": "quart",
+      "version": "0.8.1",
+      "purl": "pkg:pypi/quart@0.8.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/bottle@0.9.8",
+      "name": "bottle",
+      "version": "0.9.8",
+      "purl": "pkg:pypi/bottle@0.9.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/bottle@0.9.7",
+      "name": "bottle",
+      "version": "0.9.7",
+      "purl": "pkg:pypi/bottle@0.9.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/bottle@0.9.6",
+      "name": "bottle",
+      "version": "0.9.6",
+      "purl": "pkg:pypi/bottle@0.9.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tornado@6.5b1",
+      "name": "tornado",
+      "version": "6.5b1",
+      "purl": "pkg:pypi/tornado@6.5b1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tornado@6.5.4",
+      "name": "tornado",
+      "version": "6.5.4",
+      "purl": "pkg:pypi/tornado@6.5.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/cryptography@46.0.5",
+      "name": "cryptography",
+      "version": "46.0.5",
+      "purl": "pkg:pypi/cryptography@46.0.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/cryptography@46.0.4",
+      "name": "cryptography",
+      "version": "46.0.4",
+      "purl": "pkg:pypi/cryptography@46.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pyopenssl@25.3.0",
+      "name": "pyopenssl",
+      "version": "25.3.0",
+      "purl": "pkg:pypi/pyopenssl@25.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pyopenssl@25.2.0",
+      "name": "pyopenssl",
+      "version": "25.2.0",
+      "purl": "pkg:pypi/pyopenssl@25.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pynacl@1.6.1",
+      "name": "pynacl",
+      "version": "1.6.1",
+      "purl": "pkg:pypi/pynacl@1.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pynacl@1.6.0",
+      "name": "pynacl",
+      "version": "1.6.0",
+      "purl": "pkg:pypi/pynacl@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/python-jose@3.3.0",
+      "name": "python-jose",
+      "version": "3.3.0",
+      "purl": "pkg:pypi/python-jose@3.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/jwcrypto@1.5.5",
+      "name": "jwcrypto",
+      "version": "1.5.5",
+      "purl": "pkg:pypi/jwcrypto@1.5.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/jwcrypto@1.5.4",
+      "name": "jwcrypto",
+      "version": "1.5.4",
+      "purl": "pkg:pypi/jwcrypto@1.5.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/orjson@3.9.9",
+      "name": "orjson",
+      "version": "3.9.9",
+      "purl": "pkg:pypi/orjson@3.9.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/orjson@3.9.8",
+      "name": "orjson",
+      "version": "3.9.8",
+      "purl": "pkg:pypi/orjson@3.9.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/orjson@3.9.7",
+      "name": "orjson",
+      "version": "3.9.7",
+      "purl": "pkg:pypi/orjson@3.9.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/ujson@5.9.0",
+      "name": "ujson",
+      "version": "5.9.0",
+      "purl": "pkg:pypi/ujson@5.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/ujson@5.8.0",
+      "name": "ujson",
+      "version": "5.8.0",
+      "purl": "pkg:pypi/ujson@5.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/ujson@5.7.0",
+      "name": "ujson",
+      "version": "5.7.0",
+      "purl": "pkg:pypi/ujson@5.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/cbor2@5.8.0",
+      "name": "cbor2",
+      "version": "5.8.0",
+      "purl": "pkg:pypi/cbor2@5.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/scipy@1.9.3",
+      "name": "scipy",
+      "version": "1.9.3",
+      "purl": "pkg:pypi/scipy@1.9.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/scipy@1.9.2",
+      "name": "scipy",
+      "version": "1.9.2",
+      "purl": "pkg:pypi/scipy@1.9.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/scipy@1.9.1",
+      "name": "scipy",
+      "version": "1.9.1",
+      "purl": "pkg:pypi/scipy@1.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/lightgbm@4.5.0",
+      "name": "lightgbm",
+      "version": "4.5.0",
+      "purl": "pkg:pypi/lightgbm@4.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/lightgbm@4.4.0",
+      "name": "lightgbm",
+      "version": "4.4.0",
+      "purl": "pkg:pypi/lightgbm@4.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tensorflow@2.9.3",
+      "name": "tensorflow",
+      "version": "2.9.3",
+      "purl": "pkg:pypi/tensorflow@2.9.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tensorflow@2.9.2",
+      "name": "tensorflow",
+      "version": "2.9.2",
+      "purl": "pkg:pypi/tensorflow@2.9.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tensorflow@2.9.1",
+      "name": "tensorflow",
+      "version": "2.9.1",
+      "purl": "pkg:pypi/tensorflow@2.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/keras@3.9.2",
+      "name": "keras",
+      "version": "3.9.2",
+      "purl": "pkg:pypi/keras@3.9.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/keras@3.9.1",
+      "name": "keras",
+      "version": "3.9.1",
+      "purl": "pkg:pypi/keras@3.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/keras@3.9.0",
+      "name": "keras",
+      "version": "3.9.0",
+      "purl": "pkg:pypi/keras@3.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pip@9.0.3",
+      "name": "pip",
+      "version": "9.0.3",
+      "purl": "pkg:pypi/pip@9.0.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pip@9.0.2",
+      "name": "pip",
+      "version": "9.0.2",
+      "purl": "pkg:pypi/pip@9.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pip@9.0.1",
+      "name": "pip",
+      "version": "9.0.1",
+      "purl": "pkg:pypi/pip@9.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/setuptools@9.1",
+      "name": "setuptools",
+      "version": "9.1",
+      "purl": "pkg:pypi/setuptools@9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/setuptools@9.0.1",
+      "name": "setuptools",
+      "version": "9.0.1",
+      "purl": "pkg:pypi/setuptools@9.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/setuptools@9.0",
+      "name": "setuptools",
+      "version": "9.0",
+      "purl": "pkg:pypi/setuptools@9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/wheel@0.9.7",
+      "name": "wheel",
+      "version": "0.9.7",
+      "purl": "pkg:pypi/wheel@0.9.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/wheel@0.9.6",
+      "name": "wheel",
+      "version": "0.9.6",
+      "purl": "pkg:pypi/wheel@0.9.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/wheel@0.9.5",
+      "name": "wheel",
+      "version": "0.9.5",
+      "purl": "pkg:pypi/wheel@0.9.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tqdm@4.9.0",
+      "name": "tqdm",
+      "version": "4.9.0",
+      "purl": "pkg:pypi/tqdm@4.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tqdm@4.8.4",
+      "name": "tqdm",
+      "version": "4.8.4",
+      "purl": "pkg:pypi/tqdm@4.8.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/tqdm@4.8.3",
+      "name": "tqdm",
+      "version": "4.8.3",
+      "purl": "pkg:pypi/tqdm@4.8.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/eventlet@0.9.17",
+      "name": "eventlet",
+      "version": "0.9.17",
+      "purl": "pkg:pypi/eventlet@0.9.17"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/eventlet@0.8.16",
+      "name": "eventlet",
+      "version": "0.8.16",
+      "purl": "pkg:pypi/eventlet@0.8.16"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/eventlet@0.8",
+      "name": "eventlet",
+      "version": "0.8",
+      "purl": "pkg:pypi/eventlet@0.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pymysql@1.1.0rc2",
+      "name": "pymysql",
+      "version": "1.1.0rc2",
+      "purl": "pkg:pypi/pymysql@1.1.0rc2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pillow@9.5.0",
+      "name": "pillow",
+      "version": "9.5.0",
+      "purl": "pkg:pypi/pillow@9.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/pillow@9.4.0",
+      "name": "pillow",
+      "version": "9.4.0",
+      "purl": "pkg:pypi/pillow@9.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/minimist@0.2.1",
+      "name": "minimist",
+      "version": "0.2.1",
+      "purl": "pkg:npm/minimist@0.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/minimist@0.2.2",
+      "name": "minimist",
+      "version": "0.2.2",
+      "purl": "pkg:npm/minimist@0.2.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/minimist@0.2.3",
+      "name": "minimist",
+      "version": "0.2.3",
+      "purl": "pkg:npm/minimist@0.2.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/glob-parent@5.1.1",
+      "name": "glob-parent",
+      "version": "5.1.1",
+      "purl": "pkg:npm/glob-parent@5.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/glob-parent@6.0.0",
+      "name": "glob-parent",
+      "version": "6.0.0",
+      "purl": "pkg:npm/glob-parent@6.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/crypto-js@3.2.0",
+      "name": "crypto-js",
+      "version": "3.2.0",
+      "purl": "pkg:npm/crypto-js@3.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/crypto-js@3.2.1",
+      "name": "crypto-js",
+      "version": "3.2.1",
+      "purl": "pkg:npm/crypto-js@3.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/crypto-js@3.3.0",
+      "name": "crypto-js",
+      "version": "3.3.0",
+      "purl": "pkg:npm/crypto-js@3.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/crypto-js@4.0.0",
+      "name": "crypto-js",
+      "version": "4.0.0",
+      "purl": "pkg:npm/crypto-js@4.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/crypto-js@4.1.0",
+      "name": "crypto-js",
+      "version": "4.1.0",
+      "purl": "pkg:npm/crypto-js@4.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/crypto-js@4.1.1",
+      "name": "crypto-js",
+      "version": "4.1.1",
+      "purl": "pkg:npm/crypto-js@4.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/oauth2-server@3.0.2",
+      "name": "oauth2-server",
+      "version": "3.0.2",
+      "purl": "pkg:npm/oauth2-server@3.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/oauth2-server@3.1.0",
+      "name": "oauth2-server",
+      "version": "3.1.0",
+      "purl": "pkg:npm/oauth2-server@3.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/oauth2-server@3.1.1",
+      "name": "oauth2-server",
+      "version": "3.1.1",
+      "purl": "pkg:npm/oauth2-server@3.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.4",
+      "name": "esbuild",
+      "version": "0.0.4",
+      "purl": "pkg:npm/esbuild@0.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.11",
+      "name": "esbuild",
+      "version": "0.0.11",
+      "purl": "pkg:npm/esbuild@0.0.11"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.12",
+      "name": "esbuild",
+      "version": "0.0.12",
+      "purl": "pkg:npm/esbuild@0.0.12"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.13",
+      "name": "esbuild",
+      "version": "0.0.13",
+      "purl": "pkg:npm/esbuild@0.0.13"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.14",
+      "name": "esbuild",
+      "version": "0.0.14",
+      "purl": "pkg:npm/esbuild@0.0.14"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.15",
+      "name": "esbuild",
+      "version": "0.0.15",
+      "purl": "pkg:npm/esbuild@0.0.15"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.0.16",
+      "name": "esbuild",
+      "version": "0.0.16",
+      "purl": "pkg:npm/esbuild@0.0.16"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.0",
+      "name": "esbuild",
+      "version": "0.1.0",
+      "purl": "pkg:npm/esbuild@0.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.1",
+      "name": "esbuild",
+      "version": "0.1.1",
+      "purl": "pkg:npm/esbuild@0.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.2",
+      "name": "esbuild",
+      "version": "0.1.2",
+      "purl": "pkg:npm/esbuild@0.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.3",
+      "name": "esbuild",
+      "version": "0.1.3",
+      "purl": "pkg:npm/esbuild@0.1.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.4",
+      "name": "esbuild",
+      "version": "0.1.4",
+      "purl": "pkg:npm/esbuild@0.1.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.5",
+      "name": "esbuild",
+      "version": "0.1.5",
+      "purl": "pkg:npm/esbuild@0.1.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.6",
+      "name": "esbuild",
+      "version": "0.1.6",
+      "purl": "pkg:npm/esbuild@0.1.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.7",
+      "name": "esbuild",
+      "version": "0.1.7",
+      "purl": "pkg:npm/esbuild@0.1.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.8",
+      "name": "esbuild",
+      "version": "0.1.8",
+      "purl": "pkg:npm/esbuild@0.1.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.9",
+      "name": "esbuild",
+      "version": "0.1.9",
+      "purl": "pkg:npm/esbuild@0.1.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.10",
+      "name": "esbuild",
+      "version": "0.1.10",
+      "purl": "pkg:npm/esbuild@0.1.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/esbuild@0.1.11",
+      "name": "esbuild",
+      "version": "0.1.11",
+      "purl": "pkg:npm/esbuild@0.1.11"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.1.0",
+      "name": "vite",
+      "version": "0.1.0",
+      "purl": "pkg:npm/vite@0.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.1.1",
+      "name": "vite",
+      "version": "0.1.1",
+      "purl": "pkg:npm/vite@0.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.1.2",
+      "name": "vite",
+      "version": "0.1.2",
+      "purl": "pkg:npm/vite@0.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.2.0",
+      "name": "vite",
+      "version": "0.2.0",
+      "purl": "pkg:npm/vite@0.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.3.0",
+      "name": "vite",
+      "version": "0.3.0",
+      "purl": "pkg:npm/vite@0.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.3.1",
+      "name": "vite",
+      "version": "0.3.1",
+      "purl": "pkg:npm/vite@0.3.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.3.2",
+      "name": "vite",
+      "version": "0.3.2",
+      "purl": "pkg:npm/vite@0.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.4.0",
+      "name": "vite",
+      "version": "0.4.0",
+      "purl": "pkg:npm/vite@0.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.5.0",
+      "name": "vite",
+      "version": "0.5.0",
+      "purl": "pkg:npm/vite@0.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.5.1",
+      "name": "vite",
+      "version": "0.5.1",
+      "purl": "pkg:npm/vite@0.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.5.2",
+      "name": "vite",
+      "version": "0.5.2",
+      "purl": "pkg:npm/vite@0.5.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.5.3",
+      "name": "vite",
+      "version": "0.5.3",
+      "purl": "pkg:npm/vite@0.5.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.6.0",
+      "name": "vite",
+      "version": "0.6.0",
+      "purl": "pkg:npm/vite@0.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.6.1",
+      "name": "vite",
+      "version": "0.6.1",
+      "purl": "pkg:npm/vite@0.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.7.0",
+      "name": "vite",
+      "version": "0.7.0",
+      "purl": "pkg:npm/vite@0.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.8.0",
+      "name": "vite",
+      "version": "0.8.0",
+      "purl": "pkg:npm/vite@0.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.8.1",
+      "name": "vite",
+      "version": "0.8.1",
+      "purl": "pkg:npm/vite@0.8.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.9.0",
+      "name": "vite",
+      "version": "0.9.0",
+      "purl": "pkg:npm/vite@0.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.9.1",
+      "name": "vite",
+      "version": "0.9.1",
+      "purl": "pkg:npm/vite@0.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/vite@0.10.0",
+      "name": "vite",
+      "version": "0.10.0",
+      "purl": "pkg:npm/vite@0.10.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/json5@2.1.2",
+      "name": "json5",
+      "version": "2.1.2",
+      "purl": "pkg:npm/json5@2.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/json5@2.1.3",
+      "name": "json5",
+      "version": "2.1.3",
+      "purl": "pkg:npm/json5@2.1.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/json5@2.2.0",
+      "name": "json5",
+      "version": "2.2.0",
+      "purl": "pkg:npm/json5@2.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/json5@2.2.1",
+      "name": "json5",
+      "version": "2.2.1",
+      "purl": "pkg:npm/json5@2.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.0",
+      "name": "zod",
+      "version": "1.0.0",
+      "purl": "pkg:npm/zod@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.1",
+      "name": "zod",
+      "version": "1.0.1",
+      "purl": "pkg:npm/zod@1.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.2",
+      "name": "zod",
+      "version": "1.0.2",
+      "purl": "pkg:npm/zod@1.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.4",
+      "name": "zod",
+      "version": "1.0.4",
+      "purl": "pkg:npm/zod@1.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.5",
+      "name": "zod",
+      "version": "1.0.5",
+      "purl": "pkg:npm/zod@1.0.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.6",
+      "name": "zod",
+      "version": "1.0.6",
+      "purl": "pkg:npm/zod@1.0.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.7",
+      "name": "zod",
+      "version": "1.0.7",
+      "purl": "pkg:npm/zod@1.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.8",
+      "name": "zod",
+      "version": "1.0.8",
+      "purl": "pkg:npm/zod@1.0.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/zod@1.0.9",
+      "name": "zod",
+      "version": "1.0.9",
+      "purl": "pkg:npm/zod@1.0.9"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:nuget/Microsoft.AspNetCore.Identity@2.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.AspNetCore.Identity@2.1.31",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.AspNetCore@1.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Yarp.ReverseProxy@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Yarp.ReverseProxy@1.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Yarp.ReverseProxy@1.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Yarp.ReverseProxy@1.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Yarp.ReverseProxy@1.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.11.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.11.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.10.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.10.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.10.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.8.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.6.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.2.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Identity@1.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.AccessTokenManagement@3.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.AccessTokenManagement@3.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.AccessTokenManagement@3.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.IdentityServer@7.0.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.IdentityServer@7.0.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.IdentityServer@7.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.IdentityServer@7.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Duende.IdentityServer@7.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@9.0.889",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@9.0.884",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@9.0.881",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@9.0.873",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.1.870",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.843",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.838",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.795",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.744",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.723",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.692",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@8.0.645",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@7.1.542",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@7.1.509",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@7.1.488",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@7.0.473",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@6.0.453",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@6.0.437",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@5.0.404",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/HtmlSanitizer@5.0.372",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@7.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.32.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.30.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.26.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.23.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.20.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.15.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.12.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.11.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@6.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Security.Cryptography.Xml@5.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.12",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.11",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.10",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/LiteDB@5.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@5.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@5.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@4.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@4.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@3.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@3.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@2.1.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@2.1.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@2.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@1.1.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Data.SqlClient@1.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.17.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.15.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.14.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.13.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.12.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.12.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.11.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.11.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.10.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MongoDB.Driver@2.10.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.80",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.50",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@3.21.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.160",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.131",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.101",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Oracle.ManagedDataAccess.Core@2.19.80",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Data.SqlClient@4.8.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Data.SqlClient@4.8.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Data.SqlClient@4.8.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Data.SqlClient@4.8.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Data.SqlClient@4.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Data.SqlClient@4.5.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Apache.NMS.ActiveMQ@2.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Apache.NMS.ActiveMQ@2.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Apache.NMS.ActiveMQ@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Apache.NMS.ActiveMQ@1.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/OpenTelemetry.Instrumentation.Http@1.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@4.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@3.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Steeltoe.Discovery.ClientCore@2.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.12.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.8.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.8.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.5.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Blobs@12.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.10.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.6.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.3.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Azure.Storage.Queues@12.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.23",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Rest.ClientRuntime@2.3.22",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Formats.Asn1@7.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Formats.Asn1@6.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Formats.Asn1@5.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Encodings.Web@5.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Encodings.Web@4.7.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@8.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@8.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@7.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@7.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@6.0.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@6.0.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@6.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@6.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Text.Json@6.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/DotNetZip@1.16.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/DotNetZip@1.15.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/DotNetZip@1.14.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/DotNetZip@1.13.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/DotNetZip@1.13.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/DotNetZip@1.13.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SharpZipLib@1.3.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SharpZipLib@1.3.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SharpZipLib@1.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SkiaSharp@2.88.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SkiaSharp@2.88.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SkiaSharp@2.88.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SkiaSharp@2.88.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.commons/commons-text@1.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.commons/commons-vfs2@2.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.commons/commons-vfs2@2.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.commons/commons-vfs2@2.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.commons/commons-configuration2@2.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.commons/commons-configuration2@2.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.3.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.3.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework/spring-expression@5.3.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-core@5.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-web@5.4.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-crypto@5.4.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.security/spring-security-oauth2-client@5.4.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot@2.4.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@2.4.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@2.4.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/org.hibernate/hibernate-core@4.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.0.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.1.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/requests@2.9.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/requests@2.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/requests@2.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/urllib3@2.6.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/urllib3@2.6.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/aiohttp@3.9.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/h11@0.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/h11@0.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/h11@0.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/h2@4.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/h2@4.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/websockets@9.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/websockets@9.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/flask@3.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/flask@3.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/django@6.0rc1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/django@6.0b1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/django@6.0a1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/fastapi@0.99.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/fastapi@0.99.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/fastapi@0.98.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/starlette@0.9.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/werkzeug@3.1.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/quart@0.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/quart@0.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/quart@0.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/bottle@0.9.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/bottle@0.9.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/bottle@0.9.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tornado@6.5b1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tornado@6.5.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/cryptography@46.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/cryptography@46.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pyopenssl@25.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pyopenssl@25.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pynacl@1.6.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pynacl@1.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/python-jose@3.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/jwcrypto@1.5.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/jwcrypto@1.5.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/orjson@3.9.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/orjson@3.9.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/orjson@3.9.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/ujson@5.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/ujson@5.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/ujson@5.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/cbor2@5.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/scipy@1.9.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/scipy@1.9.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/scipy@1.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/lightgbm@4.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/lightgbm@4.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tensorflow@2.9.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tensorflow@2.9.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tensorflow@2.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/keras@3.9.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/keras@3.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/keras@3.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pip@9.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pip@9.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pip@9.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/setuptools@9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/setuptools@9.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/setuptools@9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/wheel@0.9.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/wheel@0.9.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/wheel@0.9.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tqdm@4.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tqdm@4.8.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/tqdm@4.8.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/eventlet@0.9.17",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/eventlet@0.8.16",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/eventlet@0.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pymysql@1.1.0rc2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pillow@9.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:pypi/pillow@9.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/minimist@0.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/minimist@0.2.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/minimist@0.2.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/glob-parent@5.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/glob-parent@6.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/crypto-js@3.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/crypto-js@3.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/crypto-js@3.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/crypto-js@4.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/crypto-js@4.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/crypto-js@4.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/oauth2-server@3.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/oauth2-server@3.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/oauth2-server@3.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.11",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.12",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.13",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.14",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.15",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.0.16",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.10",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/esbuild@0.1.11",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.3.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.3.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.5.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.5.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.5.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.6.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.8.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vite@0.10.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/json5@2.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/json5@2.1.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/json5@2.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/json5@2.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/zod@1.0.9",
+      "dependsOn": []
+    }
+  ]
+}

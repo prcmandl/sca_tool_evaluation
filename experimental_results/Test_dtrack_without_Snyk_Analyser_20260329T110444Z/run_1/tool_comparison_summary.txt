@@ -1,0 +1,6 @@
+Baseline for significance markers: oss-index
+
+Tool comparison summary
+=======================
+- dtrack: mean_recall=0.9070, mean_overlap=0.7714, total_tp=907.00, total_fp=322.00, total_fn=93.00
+- snyk: mean_recall=0.9040, mean_overlap=0.7070, total_tp=904.00, total_fp=496.00, total_fn=96.00

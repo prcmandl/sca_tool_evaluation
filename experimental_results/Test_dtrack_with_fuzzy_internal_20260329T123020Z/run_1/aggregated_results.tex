@@ -1,0 +1,28 @@
+\begin{table*}[!t]
+\centering
+\small
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Ecosystem & Components & Vulnerabilities & CVEs & TP & FP & FN & Recall & Overlap \\
+\midrule
+\multicolumn{9}{c}{\textbf{snyk}} \\
+\midrule
+maven & 99 & 250 & 42 & 204 & 314 & 46 & 0.82 & 0.39 \\
+npm & 66 & 250 & 19 & 211 & 60 & 39 & 0.84 & 0.78 \\
+nuget & 189 & 250 & 36 & 250 & 3 & 0 & 1.00 & 0.99 \\
+pypi & 76 & 250 & 92 & 239 & 119 & 11 & 0.96 & 0.67 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 904 & 496 & 96 & 0.90 & 0.71 \\
+\midrule
+\multicolumn{9}{c}{\textbf{dtrack}} \\
+\midrule
+maven & 99 & 250 & 42 & 250 & 193 & 0 & 1.00 & 0.56 \\
+npm & 66 & 250 & 19 & 250 & 40 & 0 & 1.00 & 0.86 \\
+nuget & 189 & 250 & 36 & 235 & 0 & 15 & 0.94 & 1.00 \\
+pypi & 76 & 250 & 92 & 172 & 89 & 78 & 0.69 & 0.66 \\
+\midrule
+\textbf{TOTAL} & 430 & 1000 & 189 & 907 & 322 & 93 & 0.91 & 0.77 \\
+\midrule
+\bottomrule
+\end{tabular}
+\end{table*}

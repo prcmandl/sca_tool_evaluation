@@ -1,0 +1,27 @@
+{
+  "tools": [
+    "dtrack",
+    "snyk"
+  ],
+  "repeat_count": 2,
+  "ground_truth_size_per_repeat": 1000,
+  "significance_input": "all_repeats_concatenated",
+  "matrix_shape": [
+    2000,
+    2
+  ],
+  "cochran_q": {
+    "statistic": 0.0972972972972973,
+    "p_value": 0.7550974108110083
+  },
+  "pairwise_mcnemar": [
+    {
+      "tool_a": "dtrack",
+      "tool_b": "snyk",
+      "n10": 188,
+      "n01": 182,
+      "p": 0.7949541743766584,
+      "p_adj": 0.7949541743766584
+    }
+  ]
+}

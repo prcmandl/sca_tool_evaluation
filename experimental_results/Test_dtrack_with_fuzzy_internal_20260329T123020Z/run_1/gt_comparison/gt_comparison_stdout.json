@@ -1,0 +1,17 @@
+{
+  "gt0_path": "/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260329T123020Z/ground_truth_build/run_1/attempt_1/gt0/ground_truth_gt0.csv",
+  "gt1_path": "/Users/petermandl/Documents/sca_tool_evaluation/sca_tool_evaluation/build/experiments/20260329T123020Z/ground_truth_build/run_1/attempt_1/gt1/ground_truth_gt1.csv",
+  "gt0_total_rows": 1000,
+  "gt1_total_rows": 1000,
+  "gt0_unique_findings": 956,
+  "gt1_unique_findings": 956,
+  "shared_unique_findings": 956,
+  "added_rows": 0,
+  "removed_rows": 0,
+  "net_row_delta": 0,
+  "jaccard_unique_findings": 1.0,
+  "added_by_ecosystem": {},
+  "removed_by_ecosystem": {},
+  "top_added_examples": [],
+  "top_removed_examples": []
+}
