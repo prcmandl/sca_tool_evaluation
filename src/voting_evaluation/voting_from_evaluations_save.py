@@ -1,22 +1,11 @@
 #!/usr/bin/env python3
 """
-voting_from_evaluations_with_fp_ids.py
+voting_from_evaluations.py
 
-Erweitertes x/5-Voting auf Basis von fünf Evaluationstexten.
-
-Funktionen:
-1) TP-Voting auf Basis der True-Positive-Einträge
-   - Identität: (ecosystem, component, version, cve_id, osv_id)
-
-2) FP-Vergleich mit Voting auf Basis von False Positives
-   - Voting-Ebene: (ecosystem, component, version)
-   - Pro Tool YES, wenn mindestens ein FP für dieses component-version-Paar vorliegt
-   - IDs-Spalte: aggregierte CVE-/OSV-IDs je component-version-Paar
-   - Gesamtbewertung: anerkannt, wenn Stimmenzahl >= Threshold
-
-Ausgaben:
-- Hauptreport als TXT
-- zusätzliche FP-Liste als TXT
+Realisiert eine x/5-Voting-Strategie auf Basis von fünf Evaluationstexten.
+Als "Treffer" werden genau die Vulnerabilities anerkannt, die in den
+Evaluationsergebnissen der Tools als True Positive (TP_EXACT oder TP_RANGE)
+auftreten und von mindestens x Tools bestätigt werden.
 """
 
 from __future__ import annotations
@@ -30,6 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Sequence, Tuple
 
+
 TOOL_ENV_MAP = {
     "dtrack": "DTRACK_EVAL_FILE",
     "github": "GITHUB_EVAL_FILE",
@@ -37,7 +27,6 @@ TOOL_ENV_MAP = {
     "snyk": "SNYK_EVAL_FILE",
     "trivy": "TRIVY_EVAL_FILE",
 }
-TOOL_ORDER = ["dtrack", "github", "oss-index", "snyk", "trivy"]
 
 
 @dataclass(frozen=True)
@@ -49,13 +38,6 @@ class VulnKey:
     osv_id: str
 
 
-@dataclass(frozen=True)
-class FPKey:
-    ecosystem: str
-    component: str
-    version: str
-
-
 @dataclass
 class ReportData:
     tool: str
@@ -64,12 +46,9 @@ class ReportData:
     gt_size: int
     gt_size_by_ecosystem: Dict[str, int]
     tp_total: int
-    fp_total: int
     recall: float
     overlap: float
     true_positives: set[VulnKey]
-    false_positives: set[VulnKey]
-    false_positive_candidates: set[FPKey]
 
 
 def normalize_cell(value: str) -> str:
@@ -114,9 +93,10 @@ def parse_per_ecosystem_gt_sizes(text: str) -> Dict[str, int]:
     )
     result: Dict[str, int] = {}
     for raw_line in section.splitlines():
-        if "|" not in raw_line:
+        line = raw_line.rstrip()
+        if "|" not in line:
             continue
-        parts = [p.strip() for p in raw_line.split("|")]
+        parts = [p.strip() for p in line.split("|")]
         if len(parts) < 3:
             continue
         eco = parts[0]
@@ -132,17 +112,18 @@ def parse_per_ecosystem_gt_sizes(text: str) -> Dict[str, int]:
     return result
 
 
-def parse_tabular_vuln_section(text: str, section_name: str) -> set[VulnKey]:
+def parse_true_positives(text: str) -> set[VulnKey]:
     m = re.search(
-        rf"{re.escape(section_name)}\s*\(\d+\)\s*\n=+\n.*?\n[-]+\n(.*?)(?:\n\n[A-Z][^\n]*\n[=-]+|\Z)",
+        r"True Positives\s*\(TP\s*=\s*TP_EXACT\s*\+\s*TP_RANGE\)\s*\(\d+\)\s*\n=+\n"
+        r".*?\n[-]+\n(.*?)(?:\n\n[A-Z][^\n]*\n[=-]+|\Z)",
         text,
         re.MULTILINE | re.DOTALL,
     )
     if not m:
-        raise ValueError(f"Abschnitt nicht gefunden: {section_name}")
+        raise ValueError("True-Positive-Abschnitt wurde nicht gefunden.")
     block = m.group(1)
 
-    entries: set[VulnKey] = set()
+    tp_entries: set[VulnKey] = set()
     for raw_line in block.splitlines():
         line = raw_line.rstrip()
         if "|" not in line or re.match(r"^-{5,}$", line.strip()):
@@ -160,7 +141,7 @@ def parse_tabular_vuln_section(text: str, section_name: str) -> set[VulnKey]:
         if eco.lower() == "ecosystem" or not eco or not component or not version:
             continue
 
-        entries.add(
+        tp_entries.add(
             VulnKey(
                 ecosystem=eco,
                 component=component,
@@ -170,30 +151,14 @@ def parse_tabular_vuln_section(text: str, section_name: str) -> set[VulnKey]:
             )
         )
 
-    return entries
-
-
-def parse_true_positives(text: str) -> set[VulnKey]:
-    entries = parse_tabular_vuln_section(text, "True Positives (TP = TP_EXACT + TP_RANGE)")
-    if not entries:
+    if not tp_entries:
         raise ValueError("Keine True-Positive-Einträge gefunden.")
-    return entries
-
-
-def parse_false_positives(text: str) -> set[VulnKey]:
-    entries = parse_tabular_vuln_section(text, "False Positives")
-    if not entries:
-        raise ValueError("Keine False-Positive-Einträge gefunden.")
-    return entries
+    return tp_entries
 
 
 def parse_report(path: Path) -> ReportData:
     text = path.read_text(encoding="utf-8", errors="replace")
     tool, ts = parse_header(text)
-
-    tp_entries = parse_true_positives(text)
-    fp_entries = parse_false_positives(text)
-    fp_candidates = {FPKey(v.ecosystem, v.component, v.version) for v in fp_entries}
 
     return ReportData(
         tool=tool,
@@ -202,12 +167,9 @@ def parse_report(path: Path) -> ReportData:
         gt_size=parse_int(text, "Vulnerabilities in Ground Truth"),
         gt_size_by_ecosystem=parse_per_ecosystem_gt_sizes(text),
         tp_total=parse_int(text, "True Positives (TP_TOTAL)"),
-        fp_total=parse_int(text, "False Positives (FP)"),
         recall=parse_float(text, "Recall @ GT (TP_EXACT+TP_RANGE)"),
         overlap=parse_float(text, "Overlap Rate"),
-        true_positives=tp_entries,
-        false_positives=fp_entries,
-        false_positive_candidates=fp_candidates,
+        true_positives=parse_true_positives(text),
     )
 
 
@@ -236,7 +198,9 @@ def resolve_input_files(args: argparse.Namespace) -> List[Path]:
             seen.add(p)
 
     if len(unique_paths) != 5:
-        raise SystemExit(f"Es werden genau 5 Evaluationsdateien benötigt, gefunden: {len(unique_paths)}.")
+        raise SystemExit(
+            f"Es werden genau 5 Evaluationsdateien benötigt, gefunden: {len(unique_paths)}."
+        )
 
     missing = [str(p) for p in unique_paths if not p.exists()]
     if missing:
@@ -265,11 +229,10 @@ def percent(x: float) -> str:
     return f"{x:.3f}"
 
 
-def yesno(flag: bool) -> str:
-    return "YES" if flag else "NO"
+def build_voting_summary(reports: List[ReportData], threshold: int) -> str:
+    if threshold < 1 or threshold > len(reports):
+        raise SystemExit(f"Ungültiger Threshold: {threshold}. Erlaubt: 1..{len(reports)}")
 
-
-def build_tp_sections(reports: List[ReportData], threshold: int) -> List[str]:
     gt_sizes = {r.gt_size for r in reports}
     if len(gt_sizes) != 1:
         raise SystemExit(f"Inkonsistente Ground-Truth-Größen: {sorted(gt_sizes)}")
@@ -283,10 +246,12 @@ def build_tp_sections(reports: List[ReportData], threshold: int) -> List[str]:
             )
 
     support_counter: Counter[VulnKey] = Counter()
+    tools_by_vuln: Dict[VulnKey, List[str]] = defaultdict(list)
 
     for report in reports:
         for vuln in report.true_positives:
             support_counter[vuln] += 1
+            tools_by_vuln[vuln].append(report.tool)
 
     vote_hist = Counter(support_counter.values())
     accepted = {v for v, c in support_counter.items() if c >= threshold}
@@ -297,9 +262,28 @@ def build_tp_sections(reports: List[ReportData], threshold: int) -> List[str]:
         for eco in sorted(base_eco_sizes)
     }
 
+    timestamp = dt.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
     lines: List[str] = []
-    lines.append("TP-Voting")
+    lines.append("Voting-Auswertung auf Basis der Evaluationsergebnisse")
+    lines.append("=" * 90)
+    lines.append(f"Erstellt am               : {timestamp}")
+    lines.append(f"Voting-Schwelle           : {threshold}/{len(reports)}")
+    lines.append(f"Ground-Truth-Größe        : {gt_size}")
+    lines.append("")
+
+    lines.append("Verarbeitete Dateien")
     lines.append("-" * 90)
+    input_rows = [
+        [r.tool, r.report_timestamp, str(r.path), len(r.true_positives), percent(r.recall), percent(r.overlap)]
+        for r in sorted(reports, key=lambda x: x.tool)
+    ]
+    lines.append(
+        render_table(
+            ["Tool", "Report-Datum", "Datei", "TP-Einträge", "Recall", "Overlap"],
+            input_rows,
+        )
+    )
+    lines.append("")
 
     accepted_count = len(accepted)
     rejected_count = gt_size - accepted_count
@@ -310,11 +294,13 @@ def build_tp_sections(reports: List[ReportData], threshold: int) -> List[str]:
         ["Recall des Votings vs. GT", percent(accepted_count / gt_size if gt_size else 0.0)],
         ["Precision/Overlap des Votings", "1.000 (konstruktiv aus TP-Listen)"],
     ]
+    lines.append("Gesamtkennzahlen des Votings")
+    lines.append("-" * 90)
     lines.append(render_table(["Kennzahl", "Wert"], overall_rows))
     lines.append("")
 
     vote_rows = [[f"{k}/{len(reports)}", vote_hist.get(k, 0)] for k in range(1, len(reports) + 1)]
-    lines.append("Verteilung der Stimmen je TP-Vulnerability")
+    lines.append("Verteilung der Stimmen je Vulnerability")
     lines.append("-" * 90)
     lines.append(render_table(["Stimmen", "Anzahl Vulnerabilities"], vote_rows))
     lines.append("")
@@ -325,154 +311,42 @@ def build_tp_sections(reports: List[ReportData], threshold: int) -> List[str]:
         acc = accepted_by_eco.get(eco, 0)
         rej = rejected_by_eco.get(eco, 0)
         eco_rows.append([eco, gt_eco, acc, rej, percent(acc / gt_eco if gt_eco else 0.0)])
-    lines.append("Anerkannte TP-Treffer pro Ecosystem")
+    lines.append("Anerkannte Treffer pro Ecosystem")
     lines.append("-" * 90)
     lines.append(render_table(["Ecosystem", "GT", "Anerkannt", "Nicht anerkannt", "Recall"], eco_rows))
     lines.append("")
 
-    return lines
-
-
-def build_fp_sections(reports: List[ReportData], threshold: int) -> Tuple[List[str], str]:
-    support_counter: Counter[FPKey] = Counter()
-    tools_by_fp: Dict[FPKey, set[str]] = defaultdict(set)
-    ids_by_fp: Dict[FPKey, set[str]] = defaultdict(set)
-
-    for report in reports:
-        for fp in report.false_positives:
-            fp_key = FPKey(fp.ecosystem, fp.component, fp.version)
-            tools_by_fp[fp_key].add(report.tool)
-            vuln_id = fp.cve_id or fp.osv_id
-            if vuln_id:
-                ids_by_fp[fp_key].add(vuln_id)
-
-        for fp_key in report.false_positive_candidates:
-            support_counter[fp_key] += 1
-
-    vote_hist = Counter(support_counter.values())
-    accepted = {fp for fp, c in support_counter.items() if c >= threshold}
-
-    accepted_by_eco: Dict[str, int] = Counter(fp.ecosystem for fp in accepted)
-    total_by_eco: Dict[str, int] = Counter(fp.ecosystem for fp in support_counter)
-
-    lines: List[str] = []
-    lines.append("FP-Voting")
-    lines.append("-" * 90)
-
-    overall_rows = [
-        ["Eindeutige FP-Kandidaten (Eco+Component+Version)", len(support_counter)],
-        [f"Anerkannte FP-Kandidaten (>= {threshold} Stimmen)", len(accepted)],
-        ["Nicht anerkannt", len(support_counter) - len(accepted)],
-        ["Anteil anerkannter FP-Kandidaten", percent(len(accepted) / len(support_counter) if support_counter else 0.0)],
-        ["Voting-Ebene", "component-version"],
+    near_miss = [
+        (v, support_counter[v], sorted(tools_by_vuln[v]))
+        for v in support_counter
+        if threshold > 1 and support_counter[v] == threshold - 1
     ]
-    lines.append(render_table(["Kennzahl", "Wert"], overall_rows))
-    lines.append("")
-
-    vote_rows = [[f"{k}/{len(reports)}", vote_hist.get(k, 0)] for k in range(1, len(reports) + 1)]
-    lines.append("Verteilung der Stimmen je FP-Kandidat")
-    lines.append("-" * 90)
-    lines.append(render_table(["Stimmen", "Anzahl FP-Kandidaten"], vote_rows))
-    lines.append("")
-
-    eco_rows = []
-    for eco in sorted(total_by_eco):
-        total = total_by_eco.get(eco, 0)
-        acc = accepted_by_eco.get(eco, 0)
-        rej = total - acc
-        eco_rows.append([eco, total, acc, rej, percent(acc / total if total else 0.0)])
-    lines.append("Anerkannte FP-Kandidaten pro Ecosystem")
-    lines.append("-" * 90)
-    lines.append(render_table(["Ecosystem", "FP-Kandidaten", "Anerkannt", "Nicht anerkannt", "Quote"], eco_rows))
-    lines.append("")
-
-    fp_rows = []
-    for fp, votes in sorted(
-        support_counter.items(),
-        key=lambda item: (-item[1], item[0].ecosystem, item[0].component, item[0].version),
-    ):
-        tool_flags = {tool: (tool in tools_by_fp[fp]) for tool in TOOL_ORDER}
-        ids = sorted(ids_by_fp.get(fp, set()))
-        fp_rows.append([
-            fp.ecosystem,
-            fp.component,
-            fp.version,
-            "; ".join(ids) if ids else "-",
-            yesno(tool_flags["dtrack"]),
-            yesno(tool_flags["github"]),
-            yesno(tool_flags["oss-index"]),
-            yesno(tool_flags["snyk"]),
-            yesno(tool_flags["trivy"]),
-            votes,
-            "Anerkannt" if votes >= threshold else "Nicht anerkannt",
-        ])
-
-    fp_headers = [
-        "Eco", "Component", "Version", "IDs",
-        "dtrack", "github", "oss-index", "snyk", "trivy",
-        "Votes", "Gesamtbewertung",
-    ]
-    fp_list_text = []
-    fp_list_text.append("Liste aller FP-Kandidaten (Voting auf Component-Version-Ebene)")
-    fp_list_text.append("=" * 180)
-    fp_list_text.append(f"Erstellt am        : {dt.datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')}")
-    fp_list_text.append(f"Voting-Schwelle    : {threshold}/{len(reports)}")
-    fp_list_text.append("")
-    fp_list_text.append(render_table(fp_headers, fp_rows))
-    fp_list_text.append("")
-    fp_list = "\n".join(fp_list_text)
-
-    return lines, fp_list
-
-
-def build_voting_summary(reports: List[ReportData], threshold: int) -> Tuple[str, str]:
-    if threshold < 1 or threshold > len(reports):
-        raise SystemExit(f"Ungültiger Threshold: {threshold}. Erlaubt: 1..{len(reports)}")
-
-    timestamp = dt.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
-    lines: List[str] = []
-    lines.append("Voting-Auswertung auf Basis der Evaluationsergebnisse")
-    lines.append("=" * 90)
-    lines.append(f"Erstellt am               : {timestamp}")
-    lines.append(f"Voting-Schwelle           : {threshold}/{len(reports)}")
-    lines.append("")
-
-    lines.append("Verarbeitete Dateien")
-    lines.append("-" * 90)
-    input_rows = [
-        [
-            r.tool,
-            r.report_timestamp,
-            str(r.path),
-            len(r.true_positives),
-            len(r.false_positive_candidates),
-            r.fp_total,
-            percent(r.recall),
-            percent(r.overlap),
-        ]
-        for r in sorted(reports, key=lambda x: x.tool)
-    ]
-    lines.append(
-        render_table(
-            ["Tool", "Report-Datum", "Datei", "TP-Einträge", "FP-Kandidaten", "FP-Roh", "Recall", "Overlap"],
-            input_rows,
-        )
-    )
-    lines.append("")
-
-    lines.extend(build_tp_sections(reports, threshold))
-    fp_lines, fp_list_text = build_fp_sections(reports, threshold)
-    lines.extend(fp_lines)
+    near_miss = sorted(near_miss, key=lambda x: (x[0].ecosystem, x[0].component, x[0].version, x[0].cve_id, x[0].osv_id))
+    if near_miss:
+        lines.append(f"Beispiele knapp verfehlter Treffer ({threshold-1}/{len(reports)} Stimmen)")
+        lines.append("-" * 90)
+        sample_rows = []
+        for vuln, votes, tools in near_miss[:20]:
+            sample_rows.append([
+                vuln.ecosystem,
+                vuln.component,
+                vuln.version,
+                vuln.cve_id or "-",
+                vuln.osv_id or "-",
+                votes,
+                ",".join(tools),
+            ])
+        lines.append(render_table(["Eco", "Component", "Version", "CVE", "OSV", "Votes", "Tools"], sample_rows))
+        lines.append("")
 
     lines.append("Hinweise")
     lines.append("-" * 90)
-    lines.append("* TP-Voting basiert auf den True-Positive-Einträgen der Reports.")
-    lines.append("* FP-Voting basiert auf einer Aggregation auf Component-Version-Ebene.")
-    lines.append("* Für FP wird pro Tool YES gesetzt, wenn mindestens ein FP für diese Component-Version vorliegt.")
-    lines.append("* Die IDs-Spalte aggregiert CVE-/OSV-IDs je Component-Version über alle Tools.")
-    lines.append("* Die vollständige FP-Liste wird zusätzlich in eine eigene TXT-Datei geschrieben.")
-
-    return "\n".join(lines) + "\n", fp_list_text
+    lines.append("* Das Voting basiert ausschließlich auf True-Positive-Einträgen der Reports.")
+    lines.append("* Dadurch ist die Voting-Menge per Konstruktion eine Teilmenge der Ground Truth.")
+    lines.append("* False Positives der einzelnen Tools fließen nicht in die Anerkennung ein.")
+    lines.append("* Die Matching-Identität einer Vulnerability wird über "
+                 "(ecosystem, component, version, cve_id, osv_id) bestimmt.")
+    return "\n".join(lines) + "\n"
 
 
 def main() -> None:
@@ -486,16 +360,10 @@ def main() -> None:
     reports = [parse_report(p) for p in files]
     reports.sort(key=lambda r: r.tool)
 
-    report_text, fp_list_text = build_voting_summary(reports, args.threshold)
-
+    report_text = build_voting_summary(reports, args.threshold)
     output_path = Path(args.output).expanduser().resolve()
     output_path.write_text(report_text, encoding="utf-8")
-
-    fp_list_path = output_path.with_name(output_path.stem + "_fp_list.txt")
-    fp_list_path.write_text(fp_list_text, encoding="utf-8")
-
     print(f"Voting-Report geschrieben: {output_path}")
-    print(f"FP-Liste geschrieben    : {fp_list_path}")
 
 
 if __name__ == "__main__":
